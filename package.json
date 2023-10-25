@@ -1,0 +1,65 @@
+{
+  "name": "eirikmo-portfolio",
+  "description": "A portfolio site for Eirik Mo",
+  "type": "module",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estubmo/eirikmo-portfolio.git"
+  },
+  "author": "Eirik Mo <eirk@mowebdev.com> (http://www.mowebdev.com/)",
+  "keywords": [
+    "astro",
+    "threejs",
+    "typescript",
+    "tailwindcss",
+    "gsap",
+    "bun"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "bunx --bun astro dev",
+    "start": "bunx --bun astro start",
+    "build": "bunx --bun astro build",
+    "preview": "astro preview",
+    "lint": "bunx eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
+    "lint:astro": "bunx --bun astro check",
+    "lint:format": "bunx --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^1.1.2",
+    "@astrojs/tailwind": "^5.0.2",
+    "@astrojs/vue": "^3.0.1",
+    "@tresjs/cientos": "^3.5.1",
+    "@tresjs/core": "^3.3.0",
+    "@tresjs/leches": "^0.12.0",
+    "add": "^2.0.6",
+    "astro": "^3.3.0",
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.12.2",
+    "tailwindcss": "^3.0.24",
+    "three": "^0.157.0",
+    "vue": "^3.2.30",
+    "vue3-smooth-scrollbar": "^1.0.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.2.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "@total-typescript/ts-reset": "^0.5.1",
+    "@types/dat.gui": "^0.7.10",
+    "@types/three": "^0.157.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "bun-types": "^1.0.6",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-astro": "^0.29.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-astro": "^0.12.0",
+    "prettier-plugin-tailwindcss": "^0.5.6",
+    "rehype-pretty-code": "^0.10.1",
+    "typescript": "^5.2.2"
+  }
+}

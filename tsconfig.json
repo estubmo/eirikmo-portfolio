@@ -1,0 +1,15 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "jsx": "preserve"
+  },
+  "include": [
+    "astro.config.ts",
+    "reset.d.ts",
+    ".eslintrc.cjs",
+    ".prettierrc.cjs",
+    "tailwind.config.ts",
+    "src/**/*"
+  ]
+}
