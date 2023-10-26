@@ -18,13 +18,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "bunx --bun astro dev",
-    "start": "bunx --bun astro start",
-    "build": "bunx --bun astro build",
+    "dev": "bun --bun astro dev",
+    "start": "bun --bun astro start",
+    "build": "bun --bun astro build",
     "preview": "astro preview",
-    "lint": "bunx eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
-    "lint:astro": "bunx --bun astro check",
-    "lint:format": "bunx --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
+    "lint": "bun eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
+    "lint:astro": "bun --bun astro check",
+    "lint:format": "bun --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.2",

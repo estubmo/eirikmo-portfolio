@@ -4,15 +4,15 @@ import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp3, dampE } from "maath/easing";
 import {
-Color,
-Euler,
-MathUtils,
-MeshBasicMaterial,
-MeshStandardMaterial,
-NoToneMapping,
-PCFSoftShadowMap,
-SRGBColorSpace,
-Vector3,
+  Color,
+  Euler,
+  MathUtils,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  NoToneMapping,
+  PCFSoftShadowMap,
+  SRGBColorSpace,
+  Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
@@ -59,17 +59,14 @@ const deviceScreenRefs = {
 
 const eirikDesktop = await useTexture({
   map: "/textures/eirik/eirik-desktop.jpg",
-  alphaMap: "/textures/eirik/eirik-desktop.jpg",
 });
 
 const eirikTablet = await useTexture({
   map: "/textures/eirik/eirik-tablet.jpg",
-  alphaMap: "/textures/eirik/eirik-tablet.jpg",
 });
 
 const eirikMobile = await useTexture({
   map: "/textures/eirik/eirik-mobile.jpg",
-  alphaMap: "/textures/eirik/eirik-mobile.jpg",
 });
 
 const standardMaterial = new MeshStandardMaterial({
@@ -147,17 +144,20 @@ function getViewPort(): ViewPort {
 
 const eirikDesktopTexture = new MeshBasicMaterial({
   transparent: true,
-  ...eirikDesktop,
+  map: eirikDesktop.map,
+  alphaMap: eirikDesktop.map,
 });
 
 const eirikTabletTexture = new MeshBasicMaterial({
   transparent: true,
-  ...eirikTablet,
+  map: eirikTablet.map,
+  alphaMap: eirikTablet.map,
 });
 
 const eirikMobileTexture = new MeshBasicMaterial({
   transparent: true,
-  ...eirikMobile,
+  map: eirikMobile.map,
+  alphaMap: eirikMobile.map,
 });
 
 onMounted(() => {
@@ -207,7 +207,7 @@ function updateCamera(delta: number) {
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.start.x + Math.sin(cursor.x), currentDevice.second.x, normal),
+          MathUtils.lerp(currentDevice.start.x + Math.sin(cursor.x) / 3, currentDevice.second.x, normal),
           MathUtils.lerp(currentDevice.start.y, currentDevice.second.y, normal),
           MathUtils.lerp(currentDevice.start.z, currentDevice.second.z, normal),
         ],
@@ -230,7 +230,7 @@ function updateCamera(delta: number) {
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.second.x + Math.sin(cursor.x), currentDevice.third.x, normal),
+          MathUtils.lerp(currentDevice.second.x + Math.sin(cursor.x) / 3, currentDevice.third.x, normal),
           MathUtils.lerp(currentDevice.second.y, currentDevice.third.y, normal),
           MathUtils.lerp(currentDevice.second.z, currentDevice.third.z, normal),
         ],
@@ -253,7 +253,7 @@ function updateCamera(delta: number) {
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.third.x + Math.sin(cursor.x), currentDevice.end.x, normal),
+          MathUtils.lerp(currentDevice.third.x + Math.sin(cursor.x) / 3, currentDevice.end.x, normal),
           MathUtils.lerp(currentDevice.third.y, currentDevice.end.y, normal),
           MathUtils.lerp(currentDevice.third.z, currentDevice.end.z, normal),
         ],
