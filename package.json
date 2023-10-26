@@ -24,25 +24,21 @@
     "preview": "astro preview",
     "lint": "bunx eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
     "lint:astro": "bunx --bun astro check",
-    "lint:format": "bunx --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
+    "lint:format": "bunx --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
-    "@astrojs/mdx": "^1.1.2",
     "@astrojs/tailwind": "^5.0.2",
     "@astrojs/vue": "^3.0.1",
     "@tresjs/cientos": "^3.5.1",
     "@tresjs/core": "^3.3.0",
-    "@tresjs/leches": "^0.12.0",
     "@vueuse/core": "^10.5.0",
-    "add": "^2.0.6",
     "astro": "^3.3.0",
     "dat.gui": "^0.7.9",
-    "gsap": "^3.12.2",
     "maath": "^0.10.4",
+    "postprocessing": "^6.33.2",
     "tailwindcss": "^3.0.24",
     "three": "^0.157.0",
-    "vue": "^3.2.30",
-    "vue3-smooth-scrollbar": "^1.0.2"
+    "vue": "^3.2.30"
   },
   "devDependencies": {
     "@astrojs/check": "^0.2.1",
@@ -61,7 +57,6 @@
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
     "prettier-plugin-tailwindcss": "^0.5.6",
-    "rehype-pretty-code": "^0.10.1",
     "typescript": "^5.2.2"
   }
 }
