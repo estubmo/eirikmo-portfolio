@@ -4,22 +4,21 @@ import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp3, dampE } from "maath/easing";
 import {
-  Color,
-  Euler,
-  MathUtils,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  NoToneMapping,
-  PCFSoftShadowMap,
-  SRGBColorSpace,
-  Vector3,
+CineonToneMapping,
+Color,
+Euler,
+MathUtils,
+MeshBasicMaterial,
+MeshStandardMaterial,
+PCFSoftShadowMap,
+SRGBColorSpace,
+Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
 import Desktop from "./Desktop.vue";
 import Keyboard from "./Keyboard.vue";
 import Mobile from "./Mobile.vue";
-import PostProcessing from "./PostProcessing.vue";
 import Tablet from "./Tablet.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
@@ -57,6 +56,10 @@ const deviceScreenRefs = {
   mobile: ref(),
 };
 
+const alpha = await useTexture({
+  map: "/textures/eirik/alpha_best.jpg",
+});
+
 const eirikDesktop = await useTexture({
   map: "/textures/eirik/eirik-desktop.jpg",
 });
@@ -77,11 +80,7 @@ const standardMaterial = new MeshStandardMaterial({
 
 const { width, height } = useWindowSize();
 const { y: scrollY } = useWindowScroll();
-const {
-  x: mouseX,
-  y: mouseY,
-  sourceType,
-} = useMouse({
+const { x: mouseX, y: mouseY } = useMouse({
   type: "screen",
 });
 
@@ -145,19 +144,25 @@ function getViewPort(): ViewPort {
 const eirikDesktopTexture = new MeshBasicMaterial({
   transparent: true,
   map: eirikDesktop.map,
-  alphaMap: eirikDesktop.map,
+  alphaMap: alpha.map,
+  aoMap: eirikDesktop.map,
+  aoMapIntensity: 0.8,
 });
 
 const eirikTabletTexture = new MeshBasicMaterial({
   transparent: true,
   map: eirikTablet.map,
-  alphaMap: eirikTablet.map,
+  alphaMap: alpha.map,
+  aoMap: eirikTablet.map,
+  aoMapIntensity: 0.8,
 });
 
 const eirikMobileTexture = new MeshBasicMaterial({
   transparent: true,
   map: eirikMobile.map,
-  alphaMap: eirikMobile.map,
+  alphaMap: alpha.map,
+  aoMap: eirikMobile.map,
+  aoMapIntensity: 0.8,
 });
 
 onMounted(() => {
@@ -201,13 +206,15 @@ function updateCamera(delta: number) {
 
     cameraRef.value.rotation.set(currentDevice.startAngle.x, currentDevice.startAngle.y, currentDevice.startAngle.z);
   } else {
+    const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3;
+
     // When scrolling, damp the camera position from the start to the mid position
     if (scrollY.value < secondRef.value.offsetTop) {
       const normal = normalize(scrollY.value, 0, secondRef.value.offsetTop);
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.start.x + Math.sin(cursor.x) / 3, currentDevice.second.x, normal),
+          MathUtils.lerp(currentDevice.start.x + cameraPan, currentDevice.second.x, normal),
           MathUtils.lerp(currentDevice.start.y, currentDevice.second.y, normal),
           MathUtils.lerp(currentDevice.start.z, currentDevice.second.z, normal),
         ],
@@ -230,7 +237,7 @@ function updateCamera(delta: number) {
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.second.x + Math.sin(cursor.x) / 3, currentDevice.third.x, normal),
+          MathUtils.lerp(currentDevice.second.x + cameraPan, currentDevice.third.x, normal),
           MathUtils.lerp(currentDevice.second.y, currentDevice.third.y, normal),
           MathUtils.lerp(currentDevice.second.z, currentDevice.third.z, normal),
         ],
@@ -253,7 +260,7 @@ function updateCamera(delta: number) {
       damp3(
         cameraRef.value.position,
         [
-          MathUtils.lerp(currentDevice.third.x + Math.sin(cursor.x) / 3, currentDevice.end.x, normal),
+          MathUtils.lerp(currentDevice.third.x + cameraPan, currentDevice.end.x, normal),
           MathUtils.lerp(currentDevice.third.y, currentDevice.end.y, normal),
           MathUtils.lerp(currentDevice.third.z, currentDevice.end.z, normal),
         ],
@@ -310,11 +317,7 @@ const gl = {
   alpha: false,
   shadowMapType: PCFSoftShadowMap,
   outputColorSpace: SRGBColorSpace,
-  toneMapping: NoToneMapping,
-  powerPreference: "high-performance",
-  antialias: false,
-  stencil: false,
-  depth: false,
+  toneMapping: CineonToneMapping,
 };
 
 const { onLoop } = useRenderLoop();
@@ -330,7 +333,7 @@ const fillerStyles: ComputedRef<StyleValue> = computed(() => {
 });
 
 onLoop(({ elapsed, delta }) => {
-  pointLightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
+  // pointLightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
 
   updateCamera(delta);
 });
@@ -363,28 +366,14 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </section>
       <section class="min-h-screen container flex items-center justify-end" id="second" ref="secondRef">
         <div class="w-full lg:w-1/2">
-          <div class="flex flex-col p-4 max-w-xl bg-black/20">
+          <div class="flex flex-col p-4 max-w-xl bg-black/20 gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
-            <p>
-              As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web
-              solutions for clients. With a focus on JavaScript frameworks, I have gained valuable experience working
-              with NextJS, React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL,
-              PostgreSQL, MongoDB, and SQL. I also have experience with cloud computing platforms such as Azure and AWS,
-              including CI/CD tools such as Jenkins and Github Actions. My expertise extends to CMS platforms like
-              Sanity.io and Strapi, allowing me to provide clients with a wide range of options to meet their specific
-              needs and requirements.
+
+            <p class="font-italic">
+              I am a lifelong learner and enjoy exploring new technologies and approaches to web development. I am also
+              an avid traveler, language learner, and enjoy hiking up sunny mountains in my free time.
             </p>
-            <p>
-              One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
-              to ensure the security and stability of web applications. I believe in the importance of writing clean,
-              efficient, and well-documented code, and am constantly seeking to improve my skills and stay up-to-date
-              with the latest technologies and trends in the web development industry.
-            </p>
-            <p>
-              Outside of work, I am a lifelong learner and enjoy exploring new technologies and approaches to web
-              development. I am also an avid traveler and enjoy hiking up sunny mountains in my free time.
-            </p>
-            <p>
+            <p class="font-italic">
               I am exclusively open to fully remote freelance contracts, and I take pride in being able to effectively
               communicate and collaborate with clients and team members remotely. This allows me to take on projects
               from anywhere in the world and deliver high-quality results. I kindly ask that recruiters respect my
@@ -394,9 +383,22 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="third" ref="thirdRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl bg-black/20 gap-2">
           <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
-          <p class="font-italic">My main focus these days is building my personal project, FotballFeber.</p>
+          <p class="font-italic">
+            As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web solutions
+            for clients. With a focus on JavaScript frameworks, I have gained valuable experience working with NextJS,
+            React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL, PostgreSQL, MongoDB, and
+            SQL. I also have experience with cloud computing platforms such as Azure and AWS, including CI/CD tools such
+            as Jenkins and Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me
+            to provide clients with a wide range of options to meet their specific needs and requirements.
+          </p>
+          <p class="font-italic">
+            One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
+            to ensure the security and stability of web applications. I believe in the importance of writing clean,
+            efficient, and well-documented code, and am constantly seeking to improve my skills and stay up-to-date with
+            the latest technologies and trends in the web development industry.
+          </p>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
@@ -445,22 +447,17 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </div>
     </Transition>
 
-    <TresCanvas
-      class="h-[100vh] -z-30"
-      v-bind="gl"
-      preset="realistic"
-      ref="canvasRef"
-      window-size
-      :disable-render="true"
-    >
-      <PostProcessing />
+    <TresCanvas class="h-[100vh] -z-30" v-bind="gl" preset="realistic" ref="canvasRef" window-size>
+      <!-- :disable-render="true" -->
+
+      <!-- <PostProcessing /> -->
       <!-- Camera -->
       <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" />
 
       <!-- Backdrop -->
       <TresMesh :scale="[120, 60, 60]" :position="[0, -0.1, -40]">
         <Backdrop :floor="1" :segments="20" receive-shadow>
-          <TresMeshStandardMaterial :color="new Color(0xbcbcbc)" :roughness="0.1" :metalness="0" />
+          <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.7" />
         </Backdrop>
       </TresMesh>
 
@@ -554,19 +551,36 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         :color="new Color(0x0000ff)"
         :position="[10, 5, 0]"
       /> -->
-
+      <!--
       <TresPointLight
         ref="pointLightRef"
         :intensity="2"
         :distance="2"
-        :color="new Color(0x0f1a03)"
+        :color="new Color(0x1d3106)"
         :position="[0, 1.5, -0.75]"
+        :cast-shadow="false"
+      /> -->
+      <!--
+      <TresSpotLight
+        :intensity="4"
+        :distance="8"
+        :color="new Color(0x3a600e)"
+        :position="[3, 2.5, 0]"
+        :look-at="deviceScreenRefs.mobile"
+        :cast-shadow="true"
+      /> -->
+      <TresPointLight
+        ref="pointLightRef"
+        :intensity="2"
+        :distance="8"
+        :color="new Color(0xeab308)"
+        :position="[0, 4, -3]"
         :cast-shadow="true"
       />
 
       <TresDirectionalLight :intensity="2" :color="new Color(0x0f1a03)" :position="[2, 5, 2]" :cast-shadow="true" />
 
-      <!-- <TresAmbientLight :intensity="0.1" :color="new Color(0xffffff)" /> -->
+      <!-- <TresAmbientLight :intensity="0.2" :color="new Color(0x1d3106)" /> -->
     </TresCanvas>
   </div>
 </template>
