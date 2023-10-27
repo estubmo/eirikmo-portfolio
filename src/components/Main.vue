@@ -2,21 +2,22 @@
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
-import { damp3, dampE } from "maath/easing";
+import { damp, damp3, dampE } from "maath/easing";
 import {
-CineonToneMapping,
-Color,
-Euler,
-MathUtils,
-MeshBasicMaterial,
-MeshStandardMaterial,
-PCFSoftShadowMap,
-SRGBColorSpace,
-Vector3,
+  CineonToneMapping,
+  Color,
+  Euler,
+  MathUtils,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  PCFSoftShadowMap,
+  SRGBColorSpace,
+  Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
 import Desktop from "./Desktop.vue";
+import FixPixelRatio from "./FixPixelRatio.vue";
 import Keyboard from "./Keyboard.vue";
 import Mobile from "./Mobile.vue";
 import Tablet from "./Tablet.vue";
@@ -44,6 +45,7 @@ const scrollRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef
 const lightIntensity = ref(0);
 const cameraRef = ref();
 const pointLightRef = ref();
+const directionalLightRef = ref();
 
 const param = {
   positionSmoothing: 0.4,
@@ -55,6 +57,10 @@ const deviceScreenRefs = {
   tablet: ref(),
   mobile: ref(),
 };
+
+const desktopOverlayRef = ref();
+const tabletOverlayRef = ref();
+const mobileOverlayRef = ref();
 
 const alpha = await useTexture({
   map: "/textures/eirik/alpha_best.jpg",
@@ -82,9 +88,9 @@ const { width, height } = useWindowSize();
 const { y: scrollY } = useWindowScroll();
 const { x: mouseX, y: mouseY } = useMouse({
   type: "screen",
+  touch: false,
 });
 
-const hover = ref(false);
 const aspectRatio = computed(() => width.value / height.value);
 
 function normalize(val: number, min: number, max: number) {
@@ -189,6 +195,9 @@ function updateViewPort() {
   }
 }
 
+const screenTextureOpacityRef = ref(0);
+const screenOverlayOpacityRef = ref(1);
+
 updateViewPort();
 
 function updateCamera(delta: number) {
@@ -198,15 +207,16 @@ function updateCamera(delta: number) {
   };
 
   const currentDevice = device[currentViewPort.value];
-  updateTexture();
 
+  // Defaults (ScrollY = 0 and has not scrolled yet)
   if (!hasScrolled.value && scrollY.value === 0) {
     // On load set the camera to the start position without damping
     cameraRef.value.position.set(currentDevice.start.x, currentDevice.start.y, currentDevice.start.z);
-
     cameraRef.value.rotation.set(currentDevice.startAngle.x, currentDevice.startAngle.y, currentDevice.startAngle.z);
+
+    // On Scroll
   } else {
-    const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3;
+    const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3; // Pan on everything but mobile
 
     // When scrolling, damp the camera position from the start to the mid position
     if (scrollY.value < secondRef.value.offsetTop) {
@@ -284,22 +294,64 @@ function updateCamera(delta: number) {
   cameraRef.value.updateProjectionMatrix();
 }
 
-function updateTexture() {
-  if (scrollY.value < firstRef.value.offsetTop + firstRef.value.offsetHeight / 2) {
-    lightIntensity.value = 0.01;
-    deviceScreenRefs.desktop.value.material = standardMaterial;
-    deviceScreenRefs.tablet.value.material = standardMaterial;
-    deviceScreenRefs.mobile.value.material = standardMaterial;
-  } else if (scrollY.value < secondRef.value.offsetTop + secondRef.value.offsetHeight / 2) {
-    lightIntensity.value = 0.1;
-    deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
-    deviceScreenRefs.tablet.value.material = eirikTabletTexture;
-    deviceScreenRefs.mobile.value.material = eirikMobileTexture;
-  } else if (scrollY.value < thirdRef.value.offsetTop + thirdRef.value.offsetHeight / 2) {
-    lightIntensity.value = 0.01;
-    deviceScreenRefs.desktop.value.material = standardMaterial;
-    deviceScreenRefs.tablet.value.material = standardMaterial;
-    deviceScreenRefs.mobile.value.material = standardMaterial;
+function updateObjects(delta: number) {
+  if (!hasScrolled.value && scrollY.value === 0) {
+    // Set the lights to the start intensity
+    pointLightRef.value.intensity = 0;
+    directionalLightRef.value.intensity = 0.05;
+
+    // Set screens textures to the start opacity
+    eirikDesktopTexture.opacity = 0;
+    desktopOverlayRef.value.opacity = 1;
+  } else {
+    const normalizedLightInterval = normalize(scrollY.value, 0, thirdRef.value.offsetTop);
+
+    damp(pointLightRef.value, "intensity", normalizedLightInterval, 0.25, delta);
+    damp(directionalLightRef.value, "intensity", normalizedLightInterval / 12 + 0.05, 0.25, delta);
+
+    const secondPart = {
+      height: secondRef.value.offsetHeight,
+      start: secondRef.value.offsetTop - secondRef.value.offsetHeight / 2,
+      firstQuarter: secondRef.value.offsetTop + secondRef.value.offsetHeight / 4,
+      lastQuarter: secondRef.value.offsetTop + (secondRef.value.offsetHeight / 4) * 3,
+      end: secondRef.value.offsetTop + secondRef.value.offsetHeight,
+    };
+
+    if (scrollY.value > secondPart.start && scrollY.value < secondPart.firstQuarter) {
+      const normal = normalize(scrollY.value, secondPart.start, secondPart.firstQuarter);
+      screenTextureOpacityRef.value = Math.min(normal, 1);
+      screenOverlayOpacityRef.value = Math.min(1 - normal * 2, 1);
+    } else if (scrollY.value > secondPart.lastQuarter && scrollY.value < secondPart.end) {
+      const normal = normalize(scrollY.value, secondPart.lastQuarter, secondPart.end);
+      screenTextureOpacityRef.value = 1 - normal;
+      screenOverlayOpacityRef.value = normal;
+    }
+
+    damp(eirikDesktopTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
+    damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
+    damp(eirikMobileTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
+    damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
+    damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
+    damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
+
+    if (currentViewPort.value === "desktop") {
+      // lightIntensity.value = 0.15;
+      damp(lightIntensity, "value", Math.max(screenTextureOpacityRef.value / 20, 0.01), 0.25, delta);
+
+      deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
+      deviceScreenRefs.tablet.value.material = standardMaterial;
+      deviceScreenRefs.mobile.value.material = standardMaterial;
+    } else if (currentViewPort.value === "tablet") {
+      lightIntensity.value = 0.01;
+      deviceScreenRefs.desktop.value.material = standardMaterial;
+      deviceScreenRefs.tablet.value.material = eirikTabletTexture;
+      deviceScreenRefs.mobile.value.material = standardMaterial;
+    } else if (currentViewPort.value === "mobile") {
+      lightIntensity.value = 0.01;
+      deviceScreenRefs.desktop.value.material = standardMaterial;
+      deviceScreenRefs.tablet.value.material = standardMaterial;
+      deviceScreenRefs.mobile.value.material = eirikMobileTexture;
+    }
   }
 }
 
@@ -307,19 +359,19 @@ watch(scrollY, () => {
   if (!hasScrolled.value) {
     hasScrolled.value = scrollY.value > 0;
   }
-  updateTexture();
 });
 watch(aspectRatio, updateViewPort);
 
 const gl = {
-  clearColor: "#221339",
+  clearColor: "#1d3106",
+  physicallyCorrectLights: true,
   shadows: true,
   alpha: false,
+  toneMappingExposure: 3,
   shadowMapType: PCFSoftShadowMap,
   outputColorSpace: SRGBColorSpace,
   toneMapping: CineonToneMapping,
 };
-
 const { onLoop } = useRenderLoop();
 const fillerStyles: ComputedRef<StyleValue> = computed(() => {
   return {
@@ -336,13 +388,14 @@ onLoop(({ elapsed, delta }) => {
   // pointLightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
 
   updateCamera(delta);
+  updateObjects(delta);
 });
 const { progress: prog, hasFinishLoading } = await useProgress();
 </script>
 
 <template>
-  <div class="w-full h-[100vh] relative px-2 text-zinc-200">
-    <div class="flex flex-col fixed top-0 left-0 space-y-0.5 font-light p-2 md:p-4 lg:p-8">
+  <div class="w-full relative px-2 text-zinc-200">
+    <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-2 md:p-4 lg:p-8">
       <a href="#first">*</a>
       <a href="#second">Who Am I </a>
       <a href="#third">Expertise</a>
@@ -354,19 +407,75 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     </div>
     <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-8 lg:p-16">
       <section class="min-h-screen container flex items-center" id="first" ref="firstRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
-          <p class="font-mono">Hello I am</p>
-          <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
-          <p class="font-light">Fullstack Developer</p>
-          <p class="mt-4">
-            Software engineer, passionate about code, design and open source. Over 7 years of industry experience
-            specializing in TypeScript, React & Next.js.
-          </p>
+        <div class="flex flex-col p-4 max-w-xl">
+          <div class="space-y-4">
+            <div class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-10 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+            </div>
+          </div>
+          <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
+            <p class="font-mono text-zinc-400">Hello, I am</p>
+            <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
+            <div class="gap-3 flex">
+              <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+            </div>
+            <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
+            <div class="gap-3 flex">
+              <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="gap-3 flex">
+              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+          </div>
         </div>
       </section>
       <section class="min-h-screen container flex items-center justify-end" id="second" ref="secondRef">
         <div class="w-full lg:w-1/2">
-          <div class="flex flex-col p-4 max-w-xl bg-black/20 gap-2">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
 
             <p class="font-italic">
@@ -383,7 +492,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="third" ref="thirdRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20 gap-2">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
           <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
           <p class="font-italic">
             As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web solutions
@@ -402,7 +511,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl">
           <h2 class="text-4xl font-extrabold mb-4">Projects I am Proud of</h2>
           <p class="font-italic">FotballFeber! 🚀</p>
         </div>
@@ -410,24 +519,24 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     </main>
     <main class="flex flex-col p-4 md:p-8 lg:p-16">
       <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl">
           <h2 class="text-4xl text-light font-extrabold">Work</h2>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl">
           <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
           <p class="font-italic">Contact form goes here</p>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl">
           <h2 class="text-4xl font-extrabold mb-4"></h2>
           <p class="font-italic"></p>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
-        <div class="flex flex-col p-4 max-w-xl bg-black/20">
+        <div class="flex flex-col p-4 max-w-xl">
           <h2 class="text-4xl font-extrabold mb-4"></h2>
           <p class="font-italic"></p>
         </div>
@@ -441,37 +550,26 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     >
       <div
         v-show="!hasFinishLoading"
-        class="fixed bg-black/20 inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
+        class="fixed bg-black inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
       >
         <div class="max-w-xl" :style="fillerStyles"></div>
       </div>
     </Transition>
 
-    <TresCanvas class="h-[100vh] -z-30" v-bind="gl" preset="realistic" ref="canvasRef" window-size>
+    <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size>
       <!-- :disable-render="true" -->
 
-      <!-- <PostProcessing /> -->
       <!-- Camera -->
-      <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" />
+      <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" />
 
       <!-- Backdrop -->
-      <TresMesh :scale="[120, 60, 60]" :position="[0, -0.1, -40]">
+      <TresMesh :scale="[120, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
         <Backdrop :floor="1" :segments="20" receive-shadow>
-          <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.7" />
+          <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
         </Backdrop>
       </TresMesh>
+      <FixPixelRatio />
 
-      <!-- <TresReflector
-        :color="new Color(0x0000ff)"
-        :clipBias="0.3"
-        :textureWidth="1024"
-        :textureHeight="1024"
-        :rotation="[-Math.PI / 2, 0, 0]"
-        :position="[0, 0, 0]"
-      >
-        <TresPlaneGeometry :args="[100, 100]" />
-      </TresReflector> -->
-      <!-- Desktop -->
       <Suspense>
         <Desktop :position="new Vector3(0, 0.2, -1)" />
       </Suspense>
@@ -479,6 +577,18 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       <TresMesh :ref="deviceScreenRefs.desktop" :position="[0, 1.65, -1.232]">
         <TresPlaneGeometry :args="[3.75, 1.89]" />
         <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+      </TresMesh>
+
+      <TresMesh :position="[0, 1.65, -1.231]">
+        <TresPlaneGeometry :args="[3.75, 1.89]" />
+        <TresMeshStandardMaterial
+          ref="desktopOverlayRef"
+          :roughness="0.4"
+          :metalness="0.5"
+          transparent
+          :alpha-test="0"
+          :color="new Color(0xffffff)"
+        />
       </TresMesh>
 
       <!-- Mobile -->
@@ -494,13 +604,16 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         <TresPlaneGeometry :args="[0.278, 0.568]" />
         <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
       </TresMesh>
-      <TresMesh
-        :ref="deviceScreenRefs.mobile"
-        :position="[-0.24, 0.035, -0.31]"
-        :rotation="new Euler(-Math.PI / 2, 0, 0)"
-      >
+      <TresMesh :position="[-0.24, 0.035, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
         <TresPlaneGeometry :args="[0.278, 0.568]" />
-        <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+        <TresMeshStandardMaterial
+          ref="mobileOverlayRef"
+          :metalness="0.5"
+          :roughness="0.4"
+          transparent
+          :alpha-test="0"
+          :color="new Color(0xffffff)"
+        />
       </TresMesh>
 
       <!-- Tablet -->
@@ -508,10 +621,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         <Tablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
       </Suspense>
 
-      <!-- <TresMesh :position="[-2.01, 0.0944, -0.05]" :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)">
-        <TresPlaneGeometry :args="[0.933, 1.28]" />
-        <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
-      </TresMesh> -->
       <TresMesh
         :ref="deviceScreenRefs.tablet"
         :position="[-2.01, 0.0945, -0.05]"
@@ -520,6 +629,17 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         <TresPlaneGeometry :args="[0.933, 1.28]" />
         <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
       </TresMesh>
+      <TresMesh :position="[-2.01, 0.0946, -0.05]" :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)">
+        <TresPlaneGeometry :args="[0.933, 1.28]" />
+        <TresMeshStandardMaterial
+          ref="tabletOverlayRef"
+          :roughness="0.4"
+          :metalness="0.5"
+          :color="new Color(0xffffff)"
+          transparent
+          :alpha-test="0"
+        />
+      </TresMesh>
 
       <!-- Keyboard -->
       <Suspense>
@@ -527,14 +647,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </Suspense>
 
       <!-- Lights -->
-      <!-- <TresRectAreaLight
-        :intensity="0.5"
-        :width="4"
-        :rotation="[Math.PI / 2, Math.PI, 0]"
-        :height="10"
-        :color="new Color(0xff0000)"
-        :position="[-10, 5, 0]"
-      /> -->
       <TresRectAreaLight
         :intensity="lightIntensity"
         :width="3.75"
@@ -543,44 +655,20 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         :color="new Color(0x7dd3fc)"
         :position="[0, 1, -1.2]"
       />
-      <!-- <TresRectAreaLight
-        :intensity="0.5"
-        :width="4"
-        :rotation="[Math.PI / 2, Math.PI, 0]"
-        :height="10"
-        :color="new Color(0x0000ff)"
-        :position="[10, 5, 0]"
-      /> -->
-      <!--
       <TresPointLight
         ref="pointLightRef"
-        :intensity="2"
-        :distance="2"
-        :color="new Color(0x1d3106)"
-        :position="[0, 1.5, -0.75]"
-        :cast-shadow="false"
-      /> -->
-      <!--
-      <TresSpotLight
-        :intensity="4"
-        :distance="8"
-        :color="new Color(0x3a600e)"
-        :position="[3, 2.5, 0]"
-        :look-at="deviceScreenRefs.mobile"
-        :cast-shadow="true"
-      /> -->
-      <TresPointLight
-        ref="pointLightRef"
-        :intensity="2"
-        :distance="8"
-        :color="new Color(0xeab308)"
-        :position="[0, 4, -3]"
+        :distance="12"
+        :color="new Color(0xebc653)"
+        :position="[2.5, 3, -2]"
         :cast-shadow="true"
       />
 
-      <TresDirectionalLight :intensity="2" :color="new Color(0x0f1a03)" :position="[2, 5, 2]" :cast-shadow="true" />
-
-      <!-- <TresAmbientLight :intensity="0.2" :color="new Color(0x1d3106)" /> -->
+      <TresDirectionalLight
+        ref="directionalLightRef"
+        :color="new Color(0x7dd3fc)"
+        :position="[2, 4, 5]"
+        :cast-shadow="true"
+      />
     </TresCanvas>
   </div>
 </template>
