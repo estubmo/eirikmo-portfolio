@@ -20,6 +20,7 @@ import Desktop from "./Desktop.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
 import Keyboard from "./Keyboard.vue";
 import Mobile from "./Mobile.vue";
+import Mouse from "./Mouse.vue";
 import Tablet from "./Tablet.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
@@ -47,10 +48,8 @@ const cameraRef = ref();
 const pointLightRef = ref();
 const directionalLightRef = ref();
 
-const param = {
-  positionSmoothing: 0.4,
-  lookAtSmoothing: 0.35,
-};
+const mousePositionRef = ref(new Vector3(2, 0, 1));
+const mouseRotationRef = ref(new Euler(0, Math.PI, 0));
 
 const deviceScreenRefs = {
   desktop: ref(),
@@ -61,6 +60,11 @@ const deviceScreenRefs = {
 const desktopOverlayRef = ref();
 const tabletOverlayRef = ref();
 const mobileOverlayRef = ref();
+
+const param = {
+  positionSmoothing: 0.4,
+  lookAtSmoothing: 0.35,
+};
 
 const alpha = await useTexture({
   map: "/textures/eirik/alpha_best.jpg",
@@ -293,6 +297,11 @@ function updateCamera(delta: number) {
 
   cameraRef.value.updateProjectionMatrix();
 }
+const mouseParams = {
+  x: 0,
+  z: 0,
+  rotation: Math.PI,
+};
 
 function updateObjects(delta: number) {
   if (!hasScrolled.value && scrollY.value === 0) {
@@ -304,6 +313,15 @@ function updateObjects(delta: number) {
     eirikDesktopTexture.opacity = 0;
     desktopOverlayRef.value.opacity = 1;
   } else {
+    // Mouse Position
+    damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.25, delta);
+    damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.25, delta);
+    mousePositionRef.value = new Vector3(mouseParams.x + 2, 0, mouseParams.z + 0.5);
+
+    // Mouse Rotation
+    damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.25, delta);
+    mouseRotationRef.value = new Euler(0, mouseParams.rotation, 0);
+
     const normalizedLightInterval = normalize(scrollY.value, 0, thirdRef.value.offsetTop);
 
     damp(pointLightRef.value, "intensity", normalizedLightInterval, 0.25, delta);
@@ -321,10 +339,16 @@ function updateObjects(delta: number) {
       const normal = normalize(scrollY.value, secondPart.start, secondPart.firstQuarter);
       screenTextureOpacityRef.value = Math.min(normal, 1);
       screenOverlayOpacityRef.value = Math.min(1 - normal * 2, 1);
+    } else if (scrollY.value > secondPart.firstQuarter && scrollY.value < secondPart.lastQuarter) {
+      screenTextureOpacityRef.value = 1;
+      screenOverlayOpacityRef.value = 0;
     } else if (scrollY.value > secondPart.lastQuarter && scrollY.value < secondPart.end) {
       const normal = normalize(scrollY.value, secondPart.lastQuarter, secondPart.end);
       screenTextureOpacityRef.value = 1 - normal;
       screenOverlayOpacityRef.value = normal;
+    } else {
+      screenTextureOpacityRef.value = 0;
+      screenOverlayOpacityRef.value = 1;
     }
 
     damp(eirikDesktopTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
@@ -479,14 +503,13 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
 
             <p class="font-italic">
-              I am a lifelong learner and enjoy exploring new technologies and approaches to web development. I am also
-              an avid traveler, language learner, and enjoy hiking up sunny mountains in my free time.
+              I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am also
+              an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
             </p>
             <p class="font-italic">
-              I am exclusively open to fully remote freelance contracts, and I take pride in being able to effectively
-              communicate and collaborate with clients and team members remotely. This allows me to take on projects
-              from anywhere in the world and deliver high-quality results. I kindly ask that recruiters respect my
-              preference for remote work and only reach out if the position offered is fully remote.
+              I do all of my work remotely. And I can effectively communicate and collaborate with clients and team
+              members remotely. This allows me to take on projects from anywhere in the world and deliver high-quality
+              results.
             </p>
           </div>
         </div>
@@ -499,8 +522,8 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             for clients. With a focus on JavaScript frameworks, I have gained valuable experience working with NextJS,
             React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL, PostgreSQL, MongoDB, and
             SQL. I also have experience with cloud computing platforms such as Azure and AWS, including CI/CD tools such
-            as Jenkins and Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me
-            to provide clients with a wide range of options to meet their specific needs and requirements.
+            as Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me to provide
+            clients with a wide range of options to meet their specific needs and requirements.
           </p>
           <p class="font-italic">
             One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
@@ -646,6 +669,10 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         <Keyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
       </Suspense>
 
+      <!-- Mouse -->
+      <Suspense>
+        <Mouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
+      </Suspense>
       <!-- Lights -->
       <TresRectAreaLight
         :intensity="lightIntensity"
