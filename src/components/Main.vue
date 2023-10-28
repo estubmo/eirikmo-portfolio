@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { Backdrop, StatsGl, useProgress } from "@tresjs/cientos";
-import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
+import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
-CineonToneMapping,
-Color,
-Euler,
-MathUtils,
-MeshBasicMaterial,
-MeshStandardMaterial,
-PCFSoftShadowMap,
-SRGBColorSpace,
-Vector3,
+  CineonToneMapping,
+  Color,
+  Euler,
+  MathUtils,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  PCFSoftShadowMap,
+  SRGBColorSpace,
+  Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
+import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
 import CustomLamp from "./CustomLamp.vue";
@@ -429,6 +430,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 </script>
 
 <template>
+  <CoolConsoleLog />
   <div class="w-full relative px-2 text-zinc-200">
     <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-2 md:p-4 lg:p-8">
       <a href="#first">*</a>
@@ -585,7 +587,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
             <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
             <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-
           </div>
           <p>Contact form goes here</p>
         </div>
