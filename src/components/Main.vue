@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Backdrop, useProgress } from "@tresjs/cientos";
-import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { Backdrop, StatsGl, useProgress, vLightHelper } from "@tresjs/cientos";
+import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
@@ -16,12 +16,13 @@ import {
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
-import Desktop from "./Desktop.vue";
+import CustomDesktop from "./CustomDesktop.vue";
+import CustomKeyboard from "./CustomKeyboard.vue";
+import CustomLamp from "./CustomLamp.vue";
+import CustomMobile from "./CustomMobile.vue";
+import CustomMouse from "./CustomMouse.vue";
+import CustomTablet from "./CustomTablet.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
-import Keyboard from "./Keyboard.vue";
-import Mobile from "./Mobile.vue";
-import Mouse from "./Mouse.vue";
-import Tablet from "./Tablet.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
@@ -45,7 +46,8 @@ const scrollRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef
 
 const lightIntensity = ref(0);
 const cameraRef = ref();
-const pointLightRef = ref();
+const lightRef = ref();
+const spotLightTargetRef = ref();
 const directionalLightRef = ref();
 
 const mousePositionRef = ref(new Vector3(2, 0, 1));
@@ -295,6 +297,7 @@ function updateCamera(delta: number) {
     }
   }
 
+  // cameraRef.value.lookAt(3, 1, -0.9);
   cameraRef.value.updateProjectionMatrix();
 }
 const mouseParams = {
@@ -306,7 +309,7 @@ const mouseParams = {
 function updateObjects(delta: number) {
   if (!hasScrolled.value && scrollY.value === 0) {
     // Set the lights to the start intensity
-    pointLightRef.value.intensity = 0;
+    lightRef.value.intensity = 0;
     directionalLightRef.value.intensity = 0.05;
 
     // Set screens textures to the start opacity
@@ -324,7 +327,7 @@ function updateObjects(delta: number) {
 
     const normalizedLightInterval = normalize(scrollY.value, 0, thirdRef.value.offsetTop);
 
-    damp(pointLightRef.value, "intensity", normalizedLightInterval, 0.25, delta);
+    damp(lightRef.value, "intensity", normalizedLightInterval * 2, 0.25, delta);
     damp(directionalLightRef.value, "intensity", normalizedLightInterval / 12 + 0.05, 0.25, delta);
 
     const secondPart = {
@@ -359,7 +362,6 @@ function updateObjects(delta: number) {
     damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
 
     if (currentViewPort.value === "desktop") {
-      // lightIntensity.value = 0.15;
       damp(lightIntensity, "value", Math.max(screenTextureOpacityRef.value / 20, 0.01), 0.25, delta);
 
       deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
@@ -400,20 +402,24 @@ const { onLoop } = useRenderLoop();
 const fillerStyles: ComputedRef<StyleValue> = computed(() => {
   return {
     height: "14px",
-    width: `${100 - prog.value + 1}%`,
+    minWidth: "14px",
+    width: `${100 - prog.value}%`,
     backgroundColor: "white",
     transition: "width 500ms ease-in-out",
     borderRadius: "inherit",
     textAlign: "right",
   };
 });
+extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
 
 onLoop(({ elapsed, delta }) => {
-  // pointLightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
+  // lightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
 
+  lightRef.value.target = spotLightTargetRef.value;
   updateCamera(delta);
   updateObjects(delta);
 });
+
 const { progress: prog, hasFinishLoading } = await useProgress();
 </script>
 
@@ -580,7 +586,9 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     </Transition>
 
     <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size>
-      <!-- :disable-render="true" -->
+      <Suspense>
+        <StatsGl />
+      </Suspense>
 
       <!-- Camera -->
       <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" />
@@ -594,7 +602,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       <FixPixelRatio />
 
       <Suspense>
-        <Desktop :position="new Vector3(0, 0.2, -1)" />
+        <CustomDesktop :position="new Vector3(0, 0.2, -1)" />
       </Suspense>
 
       <TresMesh :ref="deviceScreenRefs.desktop" :position="[0, 1.65, -1.232]">
@@ -616,7 +624,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
       <!-- Mobile -->
       <Suspense>
-        <Mobile :position="new Vector3(-0.24, -0.299, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
+        <CustomMobile :position="new Vector3(-0.24, -0.299, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
       </Suspense>
 
       <TresMesh
@@ -641,7 +649,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
       <!-- Tablet -->
       <Suspense>
-        <Tablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
+        <CustomTablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
       </Suspense>
 
       <TresMesh
@@ -666,13 +674,19 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
       <!-- Keyboard -->
       <Suspense>
-        <Keyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
+        <CustomKeyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
       </Suspense>
 
       <!-- Mouse -->
       <Suspense>
-        <Mouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
+        <CustomMouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
       </Suspense>
+
+      <!-- Lamp -->
+      <Suspense>
+        <CustomLamp :position="new Vector3(3.5, 0, -1)" :scale="0.5" :rotation="new Euler(0, Math.PI * 1.25, 0)" />
+      </Suspense>
+
       <!-- Lights -->
       <TresRectAreaLight
         :intensity="lightIntensity"
@@ -682,11 +696,17 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         :color="new Color(0x7dd3fc)"
         :position="[0, 1, -1.2]"
       />
-      <TresPointLight
-        ref="pointLightRef"
+
+      <TresMesh ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
+
+      <TresSpotLight
+        v-light-helper
+        ref="lightRef"
         :distance="12"
         :color="new Color(0xebc653)"
-        :position="[2.5, 3, -2]"
+        :position="[3.15, 2.05, -0.64]"
+        :penumbra="0.5"
+        :angle="Math.PI * 0.5"
         :cast-shadow="true"
       />
 
