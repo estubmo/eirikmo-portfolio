@@ -29,6 +29,7 @@
   "dependencies": {
     "@astrojs/tailwind": "^5.0.2",
     "@astrojs/vue": "^3.0.1",
+    "@fontsource-variable/inter": "^5.0.15",
     "@tresjs/cientos": "^3.5.1",
     "@tresjs/core": "^3.3.0",
     "@vueuse/core": "^10.5.0",

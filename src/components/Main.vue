@@ -46,7 +46,7 @@ const scrollRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef
 
 const lightIntensity = ref(0);
 const cameraRef = ref();
-const lightRef = ref();
+const spotLightRef = ref();
 const spotLightTargetRef = ref();
 const directionalLightRef = ref();
 
@@ -112,30 +112,30 @@ function normalize(val: number, min: number, max: number) {
 
 const device = {
   desktop: {
-    start: new Vector3(0, 1.7, 0.5),
-    second: new Vector3(0, 1.7, 3),
-    third: new Vector3(0, 3, 5),
-    end: new Vector3(0, 5, 8),
+    start: new Vector3(0, 1.6, -0.2),
+    second: new Vector3(0, 1.6, 1.5),
+    third: new Vector3(0, 2, 2.5),
+    end: new Vector3(0, 3, 6),
     startAngle: new Euler(0, 0, 0),
     secondAngle: new Euler(0, 0, 0),
     thirdAngle: new Euler(-Math.PI / 9, 0, 0),
     endAngle: new Euler(-Math.PI / 7, 0, 0),
   },
   tablet: {
-    start: new Vector3(-2, 1, -0.1),
-    second: new Vector3(-2.25, 3, 0),
-    third: new Vector3(-1, 4, 3),
-    end: new Vector3(0, 5, 8),
+    start: new Vector3(-2, 0.7, -0.1),
+    second: new Vector3(-1.75, 1.25, 0),
+    third: new Vector3(-1, 3, 2),
+    end: new Vector3(0, 3, 8),
     startAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     secondAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
     endAngle: new Euler(-Math.PI / 7, 0, 0),
   },
   mobile: {
-    start: new Vector3(-0.25, 0.3, -0.25),
-    second: new Vector3(-0.25, 2, -0.25),
-    third: new Vector3(0, 3, 3),
-    end: new Vector3(0, 5, 8),
+    start: new Vector3(-0.25, 0.2, -0.25),
+    second: new Vector3(-0.25, 1, -0.25),
+    third: new Vector3(0, 3, 2),
+    end: new Vector3(0, 3, 8),
     startAngle: new Euler(-Math.PI / 2, 0, 0),
     secondAngle: new Euler(-Math.PI / 2, 0, 0),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
@@ -223,6 +223,7 @@ function updateCamera(delta: number) {
     // On Scroll
   } else {
     const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3; // Pan on everything but mobile
+    // damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2), 0.25, delta);
 
     // When scrolling, damp the camera position from the start to the mid position
     if (scrollY.value < secondRef.value.offsetTop) {
@@ -242,7 +243,7 @@ function updateCamera(delta: number) {
         cameraRef.value.rotation,
         [
           MathUtils.lerp(currentDevice.startAngle.x, currentDevice.secondAngle.x, normal),
-          MathUtils.lerp(currentDevice.startAngle.y, currentDevice.secondAngle.y, normal),
+          0,
           MathUtils.lerp(currentDevice.startAngle.z, currentDevice.secondAngle.z, normal),
         ],
         param.lookAtSmoothing,
@@ -265,7 +266,7 @@ function updateCamera(delta: number) {
         cameraRef.value.rotation,
         [
           MathUtils.lerp(currentDevice.secondAngle.x, currentDevice.thirdAngle.x, normal),
-          MathUtils.lerp(currentDevice.secondAngle.y, currentDevice.thirdAngle.y, normal),
+          0,
           MathUtils.lerp(currentDevice.secondAngle.z, currentDevice.thirdAngle.z, normal),
         ],
         param.lookAtSmoothing,
@@ -288,7 +289,7 @@ function updateCamera(delta: number) {
         cameraRef.value.rotation,
         [
           MathUtils.lerp(currentDevice.thirdAngle.x, currentDevice.endAngle.x, normal),
-          MathUtils.lerp(currentDevice.thirdAngle.y, currentDevice.endAngle.y, normal),
+          0,
           MathUtils.lerp(currentDevice.thirdAngle.z, currentDevice.endAngle.z, normal),
         ],
         param.lookAtSmoothing,
@@ -309,7 +310,7 @@ const mouseParams = {
 function updateObjects(delta: number) {
   if (!hasScrolled.value && scrollY.value === 0) {
     // Set the lights to the start intensity
-    lightRef.value.intensity = 0;
+    spotLightRef.value.intensity = 0;
     directionalLightRef.value.intensity = 0.05;
 
     // Set screens textures to the start opacity
@@ -327,20 +328,20 @@ function updateObjects(delta: number) {
 
     const normalizedLightInterval = normalize(scrollY.value, 0, thirdRef.value.offsetTop);
 
-    damp(lightRef.value, "intensity", normalizedLightInterval * 2, 0.25, delta);
+    damp(spotLightRef.value, "intensity", normalizedLightInterval, 0.25, delta);
     damp(directionalLightRef.value, "intensity", normalizedLightInterval / 12 + 0.05, 0.25, delta);
 
     const secondPart = {
       height: secondRef.value.offsetHeight,
-      start: secondRef.value.offsetTop - secondRef.value.offsetHeight / 2,
+      start: secondRef.value.offsetTop - secondRef.value.offsetHeight + 200,
       firstQuarter: secondRef.value.offsetTop + secondRef.value.offsetHeight / 4,
       lastQuarter: secondRef.value.offsetTop + (secondRef.value.offsetHeight / 4) * 3,
-      end: secondRef.value.offsetTop + secondRef.value.offsetHeight,
+      end: secondRef.value.offsetTop,
     };
 
     if (scrollY.value > secondPart.start && scrollY.value < secondPart.firstQuarter) {
       const normal = normalize(scrollY.value, secondPart.start, secondPart.firstQuarter);
-      screenTextureOpacityRef.value = Math.min(normal, 1);
+      screenTextureOpacityRef.value = Math.min(normal * 2, 1);
       screenOverlayOpacityRef.value = Math.min(1 - normal * 2, 1);
     } else if (scrollY.value > secondPart.firstQuarter && scrollY.value < secondPart.lastQuarter) {
       screenTextureOpacityRef.value = 1;
@@ -393,7 +394,7 @@ watch(scrollY, () => {
 watch(aspectRatio, updateViewPort);
 
 const gl = {
-  clearColor: "#1d3106",
+  clearColor: "#223d4a",
   physicallyCorrectLights: true,
   shadows: true,
   alpha: false,
@@ -419,7 +420,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 onLoop(({ elapsed, delta }) => {
   // lightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
 
-  lightRef.value.target = spotLightTargetRef.value;
+  spotLightRef.value.target = spotLightTargetRef.value;
   updateCamera(delta);
   updateObjects(delta);
 });
@@ -450,11 +451,11 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             <div class="gap-3 flex">
               <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
               <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
             <div class="gap-3 flex">
-              <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
             </div>
@@ -490,7 +491,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             </div>
             <div class="gap-3 flex">
               <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
             <div class="gap-3 flex">
@@ -499,7 +500,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
               <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
             </div>
             <div class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
@@ -509,14 +510,20 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </section>
       <section class="min-h-screen container flex items-center justify-end" id="second" ref="secondRef">
         <div class="w-full lg:w-1/2">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
+          <div class="flex flex-col max-w-xl gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
-
-            <p class="font-italic">
+            <div class="gap-3 flex">
+              <div class="h-3 w-9 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <p>
               I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am also
               an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
             </p>
-            <p class="font-italic">
+            <p>
               I do all of my work remotely. And I can effectively communicate and collaborate with clients and team
               members remotely. This allows me to take on projects from anywhere in the world and deliver high-quality
               results.
@@ -525,9 +532,14 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="third" ref="thirdRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
+        <div class="flex flex-col max-w-xl gap-2">
           <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
-          <p class="font-italic">
+          <div class="gap-3 flex">
+            <div class="h-3 w-16 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
+            <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+            <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+          </div>
+          <p>
             As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web solutions
             for clients. With a focus on JavaScript frameworks, I have gained valuable experience working with NextJS,
             React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL, PostgreSQL, MongoDB, and
@@ -535,7 +547,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             as Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me to provide
             clients with a wide range of options to meet their specific needs and requirements.
           </p>
-          <p class="font-italic">
+          <p>
             One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
             to ensure the security and stability of web applications. I believe in the importance of writing clean,
             efficient, and well-documented code, and am constantly seeking to improve my skills and stay up-to-date with
@@ -543,35 +555,51 @@ const { progress: prog, hasFinishLoading } = await useProgress();
           </p>
         </div>
       </section>
+    </main>
+    <main class="flex flex-col p-4 md:p-8 lg:p-16 h-1/2">
       <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
-        <div class="flex flex-col p-4 max-w-xl">
-          <h2 class="text-4xl font-extrabold mb-4">Projects I am Proud of</h2>
-          <p class="font-italic">FotballFeber! 🚀</p>
+        <div class="flex flex-col p-4 max-w-xl gap-2">
+          <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
+          <div class="gap-3 flex">
+            <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+            <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+            <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+          </div>
+          <p>FotballFeber</p>
         </div>
       </section>
-    </main>
-    <main class="flex flex-col p-4 md:p-8 lg:p-16">
       <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
-        <div class="flex flex-col p-4 max-w-xl">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
           <h2 class="text-4xl text-light font-extrabold">Work</h2>
+          <div class="gap-3 flex">
+            <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+            <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+          </div>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
-        <div class="flex flex-col p-4 max-w-xl">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
           <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
-          <p class="font-italic">Contact form goes here</p>
+          <div class="gap-3 flex">
+            <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+            <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+
+          </div>
+          <p>Contact form goes here</p>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
-        <div class="flex flex-col p-4 max-w-xl">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
           <h2 class="text-4xl font-extrabold mb-4"></h2>
-          <p class="font-italic"></p>
+          <p></p>
         </div>
       </section>
       <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
-        <div class="flex flex-col p-4 max-w-xl">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
           <h2 class="text-4xl font-extrabold mb-4"></h2>
-          <p class="font-italic"></p>
+          <p></p>
         </div>
       </section>
     </main>
@@ -595,10 +623,10 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </Suspense>
 
       <!-- Camera -->
-      <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" />
+      <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
       <!-- Backdrop -->
-      <TresMesh :scale="[120, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
+      <TresMesh :scale="[200, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
         <Backdrop :floor="1" :segments="20" receive-shadow>
           <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
         </Backdrop>
@@ -692,7 +720,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
           :position="new Vector3(3.5, 0, -1)"
           :scale="0.5"
           :rotation="new Euler(0, Math.PI * 1.25, 0)"
-          :light="lightRef"
+          :light="spotLightRef"
         />
       </Suspense>
 
@@ -709,7 +737,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       <TresMesh ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
 
       <TresSpotLight
-        ref="lightRef"
+        ref="spotLightRef"
         :distance="12"
         :color="new Color(0xebc653)"
         :position="[3.15, 2.05, -0.64]"
