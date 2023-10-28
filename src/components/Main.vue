@@ -24,6 +24,7 @@ import CustomMobile from "./CustomMobile.vue";
 import CustomMouse from "./CustomMouse.vue";
 import CustomTablet from "./CustomTablet.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
+import Socials from "./Socials.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
@@ -70,7 +71,7 @@ const param = {
 };
 
 const alpha = await useTexture({
-  map: "/textures/eirik/alpha_best.jpg",
+  map: "/textures/eirik/alpha.jpg",
 });
 
 const eirikDesktop = await useTexture({
@@ -383,10 +384,6 @@ function updateObjects(delta: number) {
   }
 }
 
-const onClick = () => {
-  console.log("click");
-};
-
 watch(scrollY, () => {
   if (!hasScrolled.value) {
     hasScrolled.value = scrollY.value > 0;
@@ -432,7 +429,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 <template>
   <CoolConsoleLog />
   <div class="w-full relative px-2 text-zinc-200">
-    <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-2 md:p-4 lg:p-8">
+    <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-1.5 md:p-4 lg:p-8 text-right">
       <a href="#first">*</a>
       <a href="#second">Who Am I </a>
       <a href="#third">Expertise</a>
@@ -442,6 +439,14 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       <!-- <a href="#seventh" >seventh</a> -->
       <!-- <a href="#eighth" >eighth</a> -->
     </div>
+    <Socials />
+    <div
+      class="hidden sm:flex whitespace-nowrap fixed rotate-90 origin-bottom-right bottom-0 sm:right-10 lg:right-12 font-light space-x-6"
+    >
+      <a class="text-zinc-200 hover:text-zinc-100" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+      <div class="my-3.5 w-32 lg:w-40 h-[2px] bg-zinc-400"></div>
+    </div>
+    <!-- <div class="flex flex-col whitespace-nowrap fixed bottom-0 right-3 px-2 md:px-4 lg:px-8"></div> -->
     <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-8 lg:p-16">
       <section class="min-h-screen container flex items-center" id="first" ref="firstRef">
         <div class="flex flex-col p-4 max-w-xl">
@@ -618,7 +623,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </div>
     </Transition>
 
-    <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size @click="onClick">
+    <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size>
       <Suspense>
         <StatsGl />
       </Suspense>
