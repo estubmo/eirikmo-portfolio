@@ -1,14 +1,12 @@
-# Learning Three.js
+# Eirik Mo - My Portfolio
 
-A simple repository using [Astro](https://astro.build/), [GSAP](https://gsap.com/), [Tailwind CSS](https://tailwindcss.com/), and [Bun](https://bun.sh/) as a scaffold for learning [Three.js](https://threejs.org/).
-
-This repository will contain a bunch of example scenes created in Three.js.
+A repository for my portfolio using [Astro](https://astro.build/), [Vue](https://vuejs.org/), [Three.js](https://threejs.org/),[TresJS](https://tresjs.org/), [Tailwind CSS](https://tailwindcss.com/), and [Bun](https://bun.sh/).
 
 ## 🚀 Try it
 
 Feel free to clone this repo:
-`gh clone estubmo/learning-threejs`
-`https://github.com/estubmo/learning-threejs.git`
+`gh clone estubmo/eirikmo-portfolio`
+`https://github.com/estubmo/eirikmo-portfolio.git`
 
 ## 🧞 Commands
 
