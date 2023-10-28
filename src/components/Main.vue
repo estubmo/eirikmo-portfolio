@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { Backdrop, StatsGl, useProgress } from "@tresjs/cientos";
-import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
-  CineonToneMapping,
-  Color,
-  Euler,
-  MathUtils,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  PCFSoftShadowMap,
-  SRGBColorSpace,
-  Vector3,
+CineonToneMapping,
+Color,
+Euler,
+MathUtils,
+MeshBasicMaterial,
+MeshStandardMaterial,
+PCFSoftShadowMap,
+SRGBColorSpace,
+Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, ref, watch } from "vue";
@@ -429,6 +429,166 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
 <template>
   <div class="w-full relative px-2 text-zinc-200">
+    <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-2 md:p-4 lg:p-8">
+      <a href="#first">*</a>
+      <a href="#second">Who Am I </a>
+      <a href="#third">Expertise</a>
+      <a href="#fourth">Projects</a>
+      <a href="#fifth">Work</a>
+      <a href="#sixth">Contact</a>
+      <!-- <a href="#seventh" >seventh</a> -->
+      <!-- <a href="#eighth" >eighth</a> -->
+    </div>
+    <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-8 lg:p-16">
+      <section class="min-h-screen container flex items-center" id="first" ref="firstRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <div class="space-y-4">
+            <div class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-10 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+            </div>
+          </div>
+          <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
+            <p class="font-mono text-zinc-400">Hello, I am</p>
+            <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
+            <div class="gap-3 flex">
+              <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+            </div>
+            <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
+            <div class="gap-3 flex">
+              <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="gap-3 flex">
+              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-300 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center justify-end" id="second" ref="secondRef">
+        <div class="w-full lg:w-1/2">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
+
+            <p class="font-italic">
+              I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am also
+              an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
+            </p>
+            <p class="font-italic">
+              I do all of my work remotely. And I can effectively communicate and collaborate with clients and team
+              members remotely. This allows me to take on projects from anywhere in the world and deliver high-quality
+              results.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center" id="third" ref="thirdRef">
+        <div class="flex flex-col p-4 max-w-xl gap-2">
+          <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
+          <p class="font-italic">
+            As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web solutions
+            for clients. With a focus on JavaScript frameworks, I have gained valuable experience working with NextJS,
+            React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL, PostgreSQL, MongoDB, and
+            SQL. I also have experience with cloud computing platforms such as Azure and AWS, including CI/CD tools such
+            as Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me to provide
+            clients with a wide range of options to meet their specific needs and requirements.
+          </p>
+          <p class="font-italic">
+            One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
+            to ensure the security and stability of web applications. I believe in the importance of writing clean,
+            efficient, and well-documented code, and am constantly seeking to improve my skills and stay up-to-date with
+            the latest technologies and trends in the web development industry.
+          </p>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <h2 class="text-4xl font-extrabold mb-4">Projects I am Proud of</h2>
+          <p class="font-italic">FotballFeber! 🚀</p>
+        </div>
+      </section>
+    </main>
+    <main class="flex flex-col p-4 md:p-8 lg:p-16">
+      <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <h2 class="text-4xl text-light font-extrabold">Work</h2>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
+          <p class="font-italic">Contact form goes here</p>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <h2 class="text-4xl font-extrabold mb-4"></h2>
+          <p class="font-italic"></p>
+        </div>
+      </section>
+      <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
+        <div class="flex flex-col p-4 max-w-xl">
+          <h2 class="text-4xl font-extrabold mb-4"></h2>
+          <p class="font-italic"></p>
+        </div>
+      </section>
+    </main>
+
+    <Transition
+      name="fade-overlay"
+      enter-active-class="opacity-1 transition-opacity duration-1000"
+      leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
+    >
+      <div
+        v-show="!hasFinishLoading"
+        class="fixed bg-black inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
+      >
+        <div class="max-w-xl" :style="fillerStyles"></div>
+      </div>
+    </Transition>
+
     <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size @click="onClick">
       <Suspense>
         <StatsGl />
