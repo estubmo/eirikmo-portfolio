@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Backdrop, StatsGl, useProgress } from "@tresjs/cientos";
+import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
@@ -25,6 +25,7 @@ import CustomMouse from "./CustomMouse.vue";
 import CustomTablet from "./CustomTablet.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
 import Socials from "./Socials.vue";
+import Tech from "./Tech.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
@@ -428,187 +429,282 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
 <template>
   <CoolConsoleLog />
-  <div class="w-full relative px-2 text-zinc-200">
-    <div class="flex flex-col fixed top-0 right-0 space-y-0.5 font-light p-1.5 md:p-4 lg:p-8 text-right">
-      <a href="#first">*</a>
-      <a href="#second">Who Am I </a>
-      <a href="#third">Expertise</a>
-      <a href="#fourth">Projects</a>
-      <a href="#fifth">Work</a>
-      <a href="#sixth">Contact</a>
-      <!-- <a href="#seventh" >seventh</a> -->
-      <!-- <a href="#eighth" >eighth</a> -->
-    </div>
-    <Socials />
-    <div
-      class="hidden sm:flex whitespace-nowrap fixed rotate-90 origin-bottom-right bottom-0 sm:right-10 lg:right-12 font-light space-x-6"
-    >
-      <a class="text-zinc-200 hover:text-zinc-100" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
-      <div class="my-3.5 w-32 lg:w-40 h-[2px] bg-zinc-400"></div>
-    </div>
-    <!-- <div class="flex flex-col whitespace-nowrap fixed bottom-0 right-3 px-2 md:px-4 lg:px-8"></div> -->
-    <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-8 lg:p-16">
-      <section class="min-h-screen container flex items-center" id="first" ref="firstRef">
-        <div class="flex flex-col p-4 max-w-xl">
-          <div class="space-y-4">
+  <div class="flex justify-center relative">
+    <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
+      <div
+        class="flex flex-col fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] space-y-0.5 font-light p-3 lg:px-5 text-right gap-4"
+      >
+        <a href="#eirik" class="pl-1.5"><div class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full" /></a>
+        <a
+          class="hover:text-zinc-200 text-zinc-400"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="#me"
+          >Me</a
+        >
+        <a
+          class="hover:text-zinc-200 text-zinc-400"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="#expertise"
+          >Expertise</a
+        >
+        <a
+          class="hover:text-zinc-200 text-zinc-400"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="#projects"
+          >Projects</a
+        >
+        <a
+          class="hover:text-zinc-200 text-zinc-400"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="#work"
+          >Work</a
+        >
+        <a
+          class="hover:text-zinc-200 text-zinc-400"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="#contact"
+          >Contact</a
+        >
+        <!-- <a href="#seventh" >seventh</a> -->
+        <!-- <a href="#eighth" >eighth</a> -->
+      </div>
+      <Socials />
+      <div
+        class="hidden md:flex flex-col fixed bottom-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] space-y-6 font-light px-3 lg:px-5"
+      >
+        <a
+          class="text-zinc-200 hover:text-zinc-100"
+          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+          href="mailto:eirik@mowebdev.com"
+          >eirik@mowebdev.com</a
+        >
+        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
+      </div>
+      <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
+        <section class="min-h-screen container flex items-center" id="eirik" ref="firstRef">
+          <div class="flex flex-col p-4 max-w-xl">
+            <div class="space-y-4">
+              <div class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+                <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-10 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+              </div>
+            </div>
+            <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
+              <p class="font-mono text-zinc-400">Hello, I am</p>
+              <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
+              <div class="gap-3 flex">
+                <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+              </div>
+              <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
+              <div class="gap-3 flex">
+                <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="gap-3 flex">
+                <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              </div>
+              <div class="gap-3 flex">
+                <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center justify-end" id="me" ref="secondRef">
+          <div class="w-full md:w-1/2">
+            <div class="flex flex-col max-w-xl gap-2">
+              <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
+              <div class="gap-3 flex">
+                <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                <div class="h-3 w-10 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+                <div class="h-3 w-2 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              </div>
+              <p class="md:text-lg">
+                I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am
+                also an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
+              </p>
+              <p class="md:text-lg">
+                I'm privileged enough to do all of my work remotely. And I can effectively communicate and collaborate
+                with clients and team members remotely. This allows me to take on projects from anywhere in the world
+                and deliver high-quality results.
+              </p>
+              <p>
+                I also like to contribute to Open Source projects, fixing bugs or adding features when there's something
+                I need that is missing.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center w-full py-40" id="expertise" ref="thirdRef">
+          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full">
+            <div class="md:w-1/2">
+              <div class="flex flex-col max-w-xl gap-2">
+                <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
+                <div class="gap-3 flex">
+                  <div class="h-3 w-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
+                  <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                  <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                </div>
+                <p class="md:text-lg">Are you searching for a practical enthusiast for your project?</p>
+                <p class="md:text-lg">
+                  I speak the languages of both engineering and aesthetics, being perfectly positioned to formulate the
+                  path of a feasible product with customer experience in mind. My preferred work is fullstack
+                  development. I'm using the best tool for the job, be it a reliable framework or the latest web
+                  features.
+                </p>
+                <p class="md:text-lg">
+                  Neither impressive interfaces nor blazing performance are the solution, but the balance between a
+                  maintainable implementation and user-focused functionality.
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2 md:w-1/2">
+              <div class="max-w-xl">
+                <h2 class="text-2xl font-bold mb-4">Tech</h2>
+                <p class="md:text-lg mb-2">These are just some of the technologies I am familiar with.</p>
+                <Tech />
+                <p class="md:text-lg mt-2 italic">
+                  Thank you to those who contributed to any of these technologies, especially the open-source ones. You
+                  allow me, and many others, to do what we love. ❤️
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <main class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
+        <section class="min-h-screen container flex items-center" id="projects" ref="fourthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
+            <div class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <p>FotballFeber</p>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center" id="work" ref="fifthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl text-light font-extrabold">Work</h2>
+            <div class="gap-3 flex">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center" id="contact" ref="sixthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
             <div class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-            </div>
-            <div class="gap-3 flex">
-              <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-            <div class="gap-3 flex">
-              <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-            </div>
-            <div class="gap-3 flex">
-              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-10 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
-            </div>
-          </div>
-          <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
-            <p class="font-mono text-zinc-400">Hello, I am</p>
-            <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
-            <div class="gap-3 flex">
-              <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
-            </div>
-            <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
-            <div class="gap-3 flex">
-              <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div class="gap-3 flex">
-              <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
-              <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-            </div>
-            <div class="gap-3 flex">
-              <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-            <div class="gap-3 flex">
               <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
             </div>
+            <p>Contact form goes here</p>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4"></h2>
+            <p></p>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4"></h2>
+            <p></p>
+          </div>
+        </section>
+      </main>
+      <main class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
+        <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
             <div class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+            <p>FotballFeber</p>
+          </div>
+        </section>
+        <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl text-light font-extrabold">Work</h2>
+            <div class="gap-3 flex">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
           </div>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center justify-end" id="second" ref="secondRef">
-        <div class="w-full lg:w-1/2">
-          <div class="flex flex-col max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
+        </section>
+        <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
             <div class="gap-3 flex">
-              <div class="h-3 w-9 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-              <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
             </div>
-            <p>
-              I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am also
-              an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
-            </p>
-            <p>
-              I do all of my work remotely. And I can effectively communicate and collaborate with clients and team
-              members remotely. This allows me to take on projects from anywhere in the world and deliver high-quality
-              results.
-            </p>
+            <p>Contact form goes here</p>
           </div>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center" id="third" ref="thirdRef">
-        <div class="flex flex-col max-w-xl gap-2">
-          <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
-          <div class="gap-3 flex">
-            <div class="h-3 w-16 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
-            <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-            <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+        </section>
+        <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4"></h2>
+            <p></p>
           </div>
-          <p>
-            As a full-stack web developer, I am passionate about delivering high-quality and user-friendly web solutions
-            for clients. With a focus on JavaScript frameworks, I have gained valuable experience working with NextJS,
-            React, and Angular. I have a strong understanding of .NET, C#, Node, REST, GraphQL, PostgreSQL, MongoDB, and
-            SQL. I also have experience with cloud computing platforms such as Azure and AWS, including CI/CD tools such
-            as Github Actions. My expertise extends to CMS platforms like Sanity.io and Strapi, allowing me to provide
-            clients with a wide range of options to meet their specific needs and requirements.
-          </p>
-          <p>
-            One of my key areas of expertise is TypeScript, where I have extensive experience working with type safety
-            to ensure the security and stability of web applications. I believe in the importance of writing clean,
-            efficient, and well-documented code, and am constantly seeking to improve my skills and stay up-to-date with
-            the latest technologies and trends in the web development industry.
-          </p>
-        </div>
-      </section>
-    </main>
-    <main class="flex flex-col p-4 md:p-8 lg:p-16 h-1/2">
-      <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
-          <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
-          <div class="gap-3 flex">
-            <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-            <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-            <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+        </section>
+        <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 class="text-4xl font-extrabold mb-4"></h2>
+            <p></p>
           </div>
-          <p>FotballFeber</p>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
-          <h2 class="text-4xl text-light font-extrabold">Work</h2>
-          <div class="gap-3 flex">
-            <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-            <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-            <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-          </div>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
-          <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
-          <div class="gap-3 flex">
-            <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-            <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-            <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-          </div>
-          <p>Contact form goes here</p>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
-          <h2 class="text-4xl font-extrabold mb-4"></h2>
-          <p></p>
-        </div>
-      </section>
-      <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
-        <div class="flex flex-col p-4 max-w-xl gap-2">
-          <h2 class="text-4xl font-extrabold mb-4"></h2>
-          <p></p>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </div>
 
     <Transition
       name="fade-overlay"
@@ -624,10 +720,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     </Transition>
 
     <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size>
-      <Suspense>
-        <StatsGl />
-      </Suspense>
-
       <!-- Camera -->
       <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
