@@ -36,6 +36,7 @@ const currentViewPort = ref<ViewPort>("desktop");
 const previousViewPort = ref<ViewPort>("desktop");
 const hasFinishedRotatingCamera = ref(false);
 const hasScrolled = ref(false);
+const docHeight = ref(0);
 
 const firstRef = ref();
 const secondRef = ref();
@@ -180,13 +181,18 @@ const eirikMobileTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
-function updateHeight(height: number) {
-  canvasRef.value.height = height.toString() + "px";
+function updateHeight() {
+  canvasRef.value.height = window.innerHeight;
+  docHeight.value = window.innerHeight;
+  console.log("🚀 ~ file: Main.vue:185 ~ updateHeight ~ window.innerHeight:", window.innerHeight);
 }
-watch(height, () => updateHeight(height.value));
+watch(height, () => updateHeight());
 
 onMounted(() => {
-  canvasRef.value.height = window.innerHeight.toString() + "px";
+  canvasRef.value.height = window.innerHeight;
+  docHeight.value = window.innerHeight;
+
+  console.log("🚀 ~ file: Main.vue:191 ~ onMounted ~ window.innerHeight:", window.innerHeight);
 
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
   if (segment) {
@@ -447,13 +453,13 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             class="hover:text-zinc-200 text-zinc-400"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#me"
-            >Me</a
+            >{{ height }}</a
           >
           <a
             class="hover:text-zinc-200 text-zinc-400"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#expertise"
-            >Expertise</a
+            >{{ docHeight }}</a
           >
           <a
             class="hover:text-zinc-200 text-zinc-400"
