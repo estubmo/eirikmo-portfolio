@@ -180,7 +180,14 @@ const eirikMobileTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
+function updateHeight(height: number) {
+  canvasRef.value.height = height.toString() + "px";
+}
+watch(height, () => updateHeight(height.value));
+
 onMounted(() => {
+  canvasRef.value.height = window.innerHeight.toString() + "px";
+
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
   if (segment) {
     scrollRefs.forEach((ref) => {
@@ -432,44 +439,54 @@ const { progress: prog, hasFinishLoading } = await useProgress();
   <div class="flex justify-center relative">
     <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
       <div
-        class="flex flex-col fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] space-y-0.5 font-light p-3 lg:px-5 text-right gap-4"
+        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between"
       >
-        <a href="#eirik" class="pl-1.5"><div class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full" /></a>
-        <a
-          class="hover:text-zinc-200 text-zinc-400"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="#me"
-          >Me</a
-        >
-        <a
-          class="hover:text-zinc-200 text-zinc-400"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="#expertise"
-          >Expertise</a
-        >
-        <a
-          class="hover:text-zinc-200 text-zinc-400"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="#projects"
-          >Projects</a
-        >
-        <a
-          class="hover:text-zinc-200 text-zinc-400"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="#work"
-          >Work</a
-        >
-        <a
-          class="hover:text-zinc-200 text-zinc-400"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="#contact"
-          >Contact</a
-        >
-        <!-- <a href="#seventh" >seventh</a> -->
-        <!-- <a href="#eighth" >eighth</a> -->
+        <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
+          <a href="#eirik" class="pl-1.5"><div class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full" /></a>
+          <a
+            class="hover:text-zinc-200 text-zinc-400"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#me"
+            >Me</a
+          >
+          <a
+            class="hover:text-zinc-200 text-zinc-400"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#expertise"
+            >Expertise</a
+          >
+          <a
+            class="hover:text-zinc-200 text-zinc-400"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#projects"
+            >Projects</a
+          >
+          <a
+            class="hover:text-zinc-200 text-zinc-400"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#work"
+            >Work</a
+          >
+          <a
+            class="hover:text-zinc-200 text-zinc-400"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#contact"
+            >Contact</a
+          >
+        </div>
+
+        <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
+          <a
+            class="text-zinc-200 hover:text-zinc-100"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="mailto:eirik@mowebdev.com"
+            >eirik@mowebdev.com</a
+          >
+          <div class="mx-3 h-32 lg:h-40 w-[2px] flex-shrink bg-zinc-400"></div>
+        </div>
       </div>
       <Socials />
-      <div
+      <!-- <div
         class="hidden md:flex flex-col fixed bottom-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] space-y-6 font-light px-3 lg:px-5"
       >
         <a
@@ -479,8 +496,8 @@ const { progress: prog, hasFinishLoading } = await useProgress();
           >eirik@mowebdev.com</a
         >
         <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
-      </div>
-      <main ref="scrollContainerRef" class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
+      </div> -->
+      <main ref="scrollContainerRef" class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
         <section class="min-h-screen container flex items-center" id="eirik" ref="firstRef">
           <div class="flex flex-col p-4 max-w-xl">
             <div class="space-y-4">
