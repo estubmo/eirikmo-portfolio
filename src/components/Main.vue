@@ -47,8 +47,6 @@ const seventhRef = ref();
 const eighthRef = ref();
 const scrollRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef, seventhRef, eighthRef];
 
-const vhRef = ref();
-
 const lightIntensity = ref(0);
 const cameraRef = ref();
 const spotLightRef = ref();
@@ -183,9 +181,7 @@ const eirikMobileTexture = new MeshBasicMaterial({
 });
 
 function updateHeight() {
-  console.log("window.innerHeight:", window.innerHeight);
-  console.log("window.outerHeight:", window.outerHeight);
-  console.log("vhRef.value.offsetHeight", vhRef.value.offsetHeight);
+  canvasRef.value.height = firstRef.value.offsetHeight;
 }
 watchDebounced(height, () => updateHeight(), { debounce: 500, maxWait: 1000 });
 
@@ -756,7 +752,7 @@ const styleObject = reactive({
         <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
       </Backdrop>
     </TresMesh>
-    <FixPixelRatio />
+    <FixPixelRatio :height="firstRef" />
 
     <Suspense>
       <CustomDesktop :position="new Vector3(0, 0.2, -1)" />
