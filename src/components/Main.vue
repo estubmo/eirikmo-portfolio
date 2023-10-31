@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
+import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
-CineonToneMapping,
-Color,
-Euler,
-MathUtils,
-MeshBasicMaterial,
-MeshStandardMaterial,
-PCFSoftShadowMap,
-SRGBColorSpace,
-Vector3,
+  CineonToneMapping,
+  Color,
+  Euler,
+  MathUtils,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  PCFSoftShadowMap,
+  SRGBColorSpace,
+  Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
@@ -66,8 +66,8 @@ const tabletOverlayRef = ref();
 const mobileOverlayRef = ref();
 
 const param = {
-  positionSmoothing: 0.4,
-  lookAtSmoothing: 0.35,
+  positionSmoothing: 0.3,
+  lookAtSmoothing: 0.3,
 };
 
 const alpha = await useTexture({
@@ -524,18 +524,24 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             </div>
             <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
               <p class="font-mono text-zinc-400">Hello, I am</p>
-              <h2 class="text-4xl font-extrabold">Eirik Mo</h2>
+              <h2 class="text-4xl lg:text-7xl font-extrabold">Eirik Mo</h2>
               <div class="gap-3 flex">
                 <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
                 <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
                 <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
                 <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
                 <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
+                <div class="hidden lg:block h-3 w-7 bg-zinc-400 rounded-sm" />
+                <div class="hidden lg:block h-3 w-4 bg-zinc-400 rounded-sm" />
+                <div class="hidden lg:block h-3 w-2 bg-zinc-400 rounded-sm" />
+                <div class="hidden lg:block h-3 w-5 bg-zinc-400 rounded-sm" />
+                <div class="hidden lg:block h-3 w-5 bg-zinc-400 rounded-sm" />
               </div>
               <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
               <div class="gap-3 flex">
                 <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
                 <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+                <div class="h-3 w-24 bg-zinc-400 rounded-sm" />
               </div>
             </div>
             <div class="space-y-4">
