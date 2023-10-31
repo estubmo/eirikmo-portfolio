@@ -38,7 +38,7 @@ const handleLightSwitch = () => {
   }
 };
 
-window.addEventListener("onmousedown", handleLightSwitch);
+window.addEventListener("mousedown", handleLightSwitch);
 
 onLoop(({ elapsed }) => {
   pointer.x = (mouseX.value / width.value) * 2 - 1;
