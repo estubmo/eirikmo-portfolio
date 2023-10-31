@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
-  CineonToneMapping,
-  Color,
-  Euler,
-  MathUtils,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  PCFSoftShadowMap,
-  SRGBColorSpace,
-  Vector3,
+CineonToneMapping,
+Color,
+Euler,
+MathUtils,
+MeshBasicMaterial,
+MeshStandardMaterial,
+PCFSoftShadowMap,
+SRGBColorSpace,
+Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
@@ -448,7 +448,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
   <div class="flex justify-center relative">
     <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
       <div
-        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between"
+        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none"
       >
         <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
           <a href="#eirik" class="pl-1.5"><div class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full" /></a>
