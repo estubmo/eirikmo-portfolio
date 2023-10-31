@@ -564,7 +564,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
           </div>
         </section>
         <section class="min-h-screen container flex items-center justify-end" id="me" ref="secondRef">
-          <div class="w-full md:w-1/2">
+          <div class="lg:w-1/2 lg:pl-6">
             <div class="flex flex-col max-w-xl gap-2">
               <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
               <div class="gap-3 flex">
@@ -592,7 +592,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </section>
         <section class="min-h-screen container flex items-center w-full py-40" ref="thirdRef">
           <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full" id="expertise">
-            <div class="md:w-1/2">
+            <div class="lg:w-1/2">
               <div class="flex flex-col max-w-xl gap-2">
                 <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
                 <div class="gap-3 flex">
@@ -613,7 +613,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
                 </p>
               </div>
             </div>
-            <div class="flex flex-col gap-2 md:w-1/2">
+            <div class="flex flex-col gap-2 lg:w-1/2">
               <div class="max-w-xl">
                 <h2 class="text-2xl font-bold mb-4">Tech</h2>
                 <p class="md:text-lg mb-2">These are just some of the technologies I am familiar with.</p>
@@ -695,8 +695,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             </div>
           </div>
         </section>
-        <div class="bg-red-400 min-h-screen h-screen w-full" ref="vhRef"></div>
-        <div class="bg-blue-400 min-h-full w-full" ref="percentRef"></div>
         <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
           <div class="flex flex-col p-4 max-w-xl gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
