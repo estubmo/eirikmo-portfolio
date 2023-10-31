@@ -99,7 +99,7 @@ const { x: mouseX, y: mouseY } = useMouse({
   touch: false,
 });
 
-const aspectRatio = computed(() => width.value / height.value);
+const aspectRatio = computed(() => width.value / firstRef.value.offsetHeight);
 
 function normalize(val: number, min: number, max: number) {
   if (min < 0) {
