@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
-import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
+import { useMouse, useWindowScroll, useWindowSize, watchDebounced } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
   CineonToneMapping,
@@ -34,7 +34,6 @@ const scrollContainerRef = ref();
 
 const currentViewPort = ref<ViewPort>("desktop");
 const previousViewPort = ref<ViewPort>("desktop");
-const hasFinishedRotatingCamera = ref(false);
 const hasScrolled = ref(false);
 const docHeight = ref(0);
 
@@ -186,7 +185,7 @@ function updateHeight() {
   docHeight.value = window.innerHeight;
   console.log("🚀 ~ file: Main.vue:185 ~ updateHeight ~ window.innerHeight:", window.innerHeight);
 }
-watch(height, () => updateHeight());
+watchDebounced(width, () => updateHeight(), { debounce: 500, maxWait: 1000 });
 
 onMounted(() => {
   canvasRef.value.height = window.innerHeight;
@@ -213,7 +212,6 @@ function updateViewPort() {
   if (current !== currentViewPort.value) {
     previousViewPort.value = currentViewPort.value;
     currentViewPort.value = current;
-    hasFinishedRotatingCamera.value = false;
   }
 }
 
@@ -403,7 +401,8 @@ watch(scrollY, () => {
     hasScrolled.value = scrollY.value > 0;
   }
 });
-watch(aspectRatio, updateViewPort);
+
+watchDebounced(aspectRatio, updateViewPort, { debounce: 500, maxWait: 1000 });
 
 const gl = {
   clearColor: "#223d4a",
