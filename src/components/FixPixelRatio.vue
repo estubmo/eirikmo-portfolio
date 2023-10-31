@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRenderLoop, useTresContext } from "@tresjs/core";
+import { useTresContext } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { toRefs, watch } from "vue";
 
@@ -20,10 +20,6 @@ setup();
 watch(width, () => {
   setup();
 });
-
-const { onLoop } = useRenderLoop();
-
-onLoop(() => {});
 </script>
 
 <template></template>

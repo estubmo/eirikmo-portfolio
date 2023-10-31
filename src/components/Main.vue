@@ -35,7 +35,6 @@ const scrollContainerRef = ref();
 const currentViewPort = ref<ViewPort>("desktop");
 const previousViewPort = ref<ViewPort>("desktop");
 const hasScrolled = ref(false);
-const docHeight = ref(0);
 
 const firstRef = ref();
 const secondRef = ref();
@@ -182,7 +181,6 @@ const eirikMobileTexture = new MeshBasicMaterial({
 
 function updateHeight() {
   canvasRef.value.height = firstRef.value.offsetHeight;
-  docHeight.value = firstRef.value.offsetHeight;
 }
 
 watch(height, () => updateHeight());
@@ -207,10 +205,6 @@ function updateViewPort() {
   if (current !== currentViewPort.value) {
     previousViewPort.value = currentViewPort.value;
     currentViewPort.value = current;
-  }
-  if (cameraRef.value) {
-    cameraRef.value.aspect = aspectRatio;
-    cameraRef.value.updateProjectionMatrix();
   }
 }
 
@@ -311,7 +305,7 @@ function updateCamera(delta: number) {
     }
   }
 
-  // cameraRef.value.lookAt(3, 1, -0.9);
+  cameraRef.value.aspect = aspectRatio;
   cameraRef.value.updateProjectionMatrix();
 }
 const mouseParams = {
@@ -420,6 +414,8 @@ const fillerStyles: ComputedRef<StyleValue> = computed(() => {
     height: "14px",
     minWidth: "14px",
     width: `${100 - prog.value}%`,
+    paddingLeft: "2px",
+    paddingRight: "2px",
     backgroundColor: "white",
     transition: "width 500ms ease-in-out",
     borderRadius: "inherit",
@@ -462,13 +458,13 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             class="hover:text-zinc-200 text-zinc-400"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#me"
-            >{{ height }}</a
+            >Me</a
           >
           <a
             class="hover:text-zinc-200 text-zinc-400"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#expertise"
-            >{{ docHeight }}</a
+            >Expertise</a
           >
           <a
             class="hover:text-zinc-200 text-zinc-400"
@@ -501,17 +497,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         </div>
       </div>
       <Socials />
-      <!-- <div
-        class="hidden md:flex flex-col fixed bottom-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] space-y-6 font-light px-3 lg:px-5"
-      >
-        <a
-          class="text-zinc-200 hover:text-zinc-100"
-          style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-          href="mailto:eirik@mowebdev.com"
-          >eirik@mowebdev.com</a
-        >
-        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
-      </div> -->
       <main ref="scrollContainerRef" class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
         <section class="min-h-screen container flex items-center" id="eirik" ref="firstRef">
           <div class="flex flex-col p-4 max-w-xl">
@@ -607,8 +592,8 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             </div>
           </div>
         </section>
-        <section class="min-h-screen container flex items-center w-full py-40" id="expertise" ref="thirdRef">
-          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full">
+        <section class="min-h-screen container flex items-center w-full py-40" ref="thirdRef">
+          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full" id="expertise">
             <div class="md:w-1/2">
               <div class="flex flex-col max-w-xl gap-2">
                 <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
@@ -747,7 +732,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     >
       <div
         v-show="!hasFinishLoading"
-        class="fixed bg-black inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
+        class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
       >
         <div class="max-w-xl" :style="fillerStyles"></div>
       </div>
