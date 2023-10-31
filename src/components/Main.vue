@@ -99,8 +99,6 @@ const { x: mouseX, y: mouseY } = useMouse({
   touch: false,
 });
 
-const aspectRatio = computed(() => width.value / firstRef.value.offsetHeight);
-
 function normalize(val: number, min: number, max: number) {
   if (min < 0) {
     max += 0 - min;
@@ -213,6 +211,8 @@ const screenOverlayOpacityRef = ref(1);
 
 updateViewPort();
 
+watch(width, updateViewPort);
+
 function updateCamera(delta: number) {
   const cursor = {
     x: mouseX.value / width.value - 0.5,
@@ -305,8 +305,7 @@ function updateCamera(delta: number) {
     }
   }
 
-  cameraRef.value.aspect = aspectRatio.value;
-  console.log("🚀 ~ file: Main.vue:309 ~ updateCamera ~ aspectRatio:", aspectRatio.value);
+  cameraRef.value.aspect = width.value / firstRef.value.offsetHeight;
   cameraRef.value.updateProjectionMatrix();
 }
 const mouseParams = {
@@ -395,8 +394,6 @@ watch(scrollY, () => {
     hasScrolled.value = scrollY.value > 0;
   }
 });
-
-watch(aspectRatio, updateViewPort);
 
 const gl = {
   clearColor: "#223d4a",
