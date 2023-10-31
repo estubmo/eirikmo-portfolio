@@ -180,20 +180,24 @@ const eirikMobileTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
-function updateHeight() {
-  canvasRef.value.height = window.innerHeight;
-  docHeight.value = window.innerHeight;
-  console.log("window.visualViewport?.height:", window.visualViewport?.height);
-  console.log("window.innerHeight:", window.innerHeight);
-  console.log("window.outerHeight:", window.outerHeight);
-}
-watchDebounced(width, () => updateHeight(), { debounce: 500, maxWait: 1000 });
+// function updateHeight() {
+//   canvasRef.value.height = window.innerHeight;
+//   console.log("🚀 ~ file: Main.vue:185 ~ updateHeight ~ canvasRef.value.height:", canvasRef.value.height);
+//   docHeight.value = window.innerHeight;
+//   canvasRef.value.height = "100vh";
+//   console.log("🚀 ~ file: Main.vue:188 ~ updateHeight ~ canvasRef.value.height:", canvasRef.value.height);
+//   console.log("window.visualViewport?.height:", window.visualViewport?.height);
+//   console.log("window.innerHeight:", window.innerHeight);
+//   console.log("window.outerHeight:", window.outerHeight);
+// }
+// watchDebounced(width, () => updateHeight(), { debounce: 500, maxWait: 1000 });
 
 onMounted(() => {
-  canvasRef.value.height = window.innerHeight;
+  // canvasRef.value.height = window.innerHeight;
+  canvasRef.value.height = "100vh";
   docHeight.value = window.innerHeight;
 
-  console.log("🚀 ~ file: Main.vue:191 ~ onMounted ~ window.innerHeight:", window.innerHeight);
+  // console.log("🚀 ~ file: Main.vue:191 ~ onMounted ~ window.innerHeight:", window.innerHeight);
 
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
   if (segment) {
