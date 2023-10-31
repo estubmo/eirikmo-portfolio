@@ -15,7 +15,7 @@ import {
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
@@ -423,6 +423,17 @@ const fillerStyles: ComputedRef<StyleValue> = computed(() => {
   };
 });
 
+const canvasStyle = reactive({
+  display: "block",
+  top: "0px",
+  bottom: "0px",
+  left: "0px",
+  right: "0px",
+  position: "fixed",
+  height: "100vh",
+  width: "100%",
+});
+
 extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
 
 onLoop(({ delta }) => {
@@ -739,7 +750,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     </Transition>
   </div>
 
-  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" window-size :style="{ height: 500 }">
+  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" :style="canvasStyle">
     <!-- Camera -->
     <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
