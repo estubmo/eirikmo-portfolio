@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
-import { useMouse, useWindowScroll, useWindowSize, watchDebounced } from "@vueuse/core";
+import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
   CineonToneMapping,
@@ -208,6 +208,10 @@ function updateViewPort() {
     previousViewPort.value = currentViewPort.value;
     currentViewPort.value = current;
   }
+  if (cameraRef.value) {
+    cameraRef.value.aspect = aspectRatio;
+    cameraRef.value.updateProjectionMatrix();
+  }
 }
 
 const screenTextureOpacityRef = ref(0);
@@ -397,7 +401,7 @@ watch(scrollY, () => {
   }
 });
 
-watchDebounced(aspectRatio, updateViewPort, { debounce: 50, maxWait: 100 });
+watch(aspectRatio, updateViewPort);
 
 const gl = {
   clearColor: "#223d4a",

@@ -14,7 +14,6 @@ const { renderer } = useTresContext();
 function setup() {
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.value.setSize(width.value, height.value.offsetHeight);
-  console.log("🚀 ~ file: FixPixelRatio.vue:18 ~ setup ~ height.value.offsetHeight:", height.value.offsetHeight);
 }
 setup();
 
