@@ -305,8 +305,8 @@ function updateCamera(delta: number) {
     }
   }
 
-  cameraRef.value.aspect = aspectRatio;
-  console.log("🚀 ~ file: Main.vue:309 ~ updateCamera ~ aspectRatio:", aspectRatio);
+  cameraRef.value.aspect = aspectRatio.value;
+  console.log("🚀 ~ file: Main.vue:309 ~ updateCamera ~ aspectRatio:", aspectRatio.value);
   cameraRef.value.updateProjectionMatrix();
 }
 const mouseParams = {
