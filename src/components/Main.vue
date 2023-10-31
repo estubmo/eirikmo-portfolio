@@ -183,7 +183,9 @@ const eirikMobileTexture = new MeshBasicMaterial({
 function updateHeight() {
   canvasRef.value.height = window.innerHeight;
   docHeight.value = window.innerHeight;
-  console.log("🚀 ~ file: Main.vue:185 ~ updateHeight ~ window.innerHeight:", window.innerHeight);
+  console.log("window.visualViewport?.height:", window.visualViewport?.height);
+  console.log("window.innerHeight:", window.innerHeight);
+  console.log("window.outerHeight:", window.outerHeight);
 }
 watchDebounced(width, () => updateHeight(), { debounce: 500, maxWait: 1000 });
 
