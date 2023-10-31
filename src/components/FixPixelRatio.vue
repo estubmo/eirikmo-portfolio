@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTresContext } from "@tresjs/core";
+import { useRenderLoop, useTresContext } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { watch } from "vue";
 
@@ -13,6 +13,12 @@ setup();
 
 watch(width, () => {
   setup();
+});
+
+const { onLoop } = useRenderLoop();
+
+onLoop(() => {
+  renderer.value.setSize(width.value, window.innerHeight);
 });
 </script>
 

@@ -15,7 +15,7 @@ import {
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
@@ -46,6 +46,8 @@ const sixthRef = ref();
 const seventhRef = ref();
 const eighthRef = ref();
 const scrollRefs = [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef, seventhRef, eighthRef];
+
+const vhRef = ref();
 
 const lightIntensity = ref(0);
 const cameraRef = ref();
@@ -180,25 +182,14 @@ const eirikMobileTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
-// function updateHeight() {
-//   canvasRef.value.height = window.innerHeight;
-//   console.log("🚀 ~ file: Main.vue:185 ~ updateHeight ~ canvasRef.value.height:", canvasRef.value.height);
-//   docHeight.value = window.innerHeight;
-//   canvasRef.value.height = "100vh";
-//   console.log("🚀 ~ file: Main.vue:188 ~ updateHeight ~ canvasRef.value.height:", canvasRef.value.height);
-//   console.log("window.visualViewport?.height:", window.visualViewport?.height);
-//   console.log("window.innerHeight:", window.innerHeight);
-//   console.log("window.outerHeight:", window.outerHeight);
-// }
-// watchDebounced(width, () => updateHeight(), { debounce: 500, maxWait: 1000 });
+function updateHeight() {
+  console.log("window.innerHeight:", window.innerHeight);
+  console.log("window.outerHeight:", window.outerHeight);
+  console.log("vhRef.value.offsetHeight", vhRef.value.offsetHeight);
+}
+watchDebounced(height, () => updateHeight(), { debounce: 500, maxWait: 1000 });
 
 onMounted(() => {
-  // canvasRef.value.height = window.innerHeight;
-  canvasRef.value.height = "100vh";
-  docHeight.value = window.innerHeight;
-
-  // console.log("🚀 ~ file: Main.vue:191 ~ onMounted ~ window.innerHeight:", window.innerHeight);
-
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
   if (segment) {
     scrollRefs.forEach((ref) => {
@@ -443,6 +434,11 @@ onLoop(({ elapsed, delta }) => {
 });
 
 const { progress: prog, hasFinishLoading } = await useProgress();
+
+const styleObject = reactive({
+  position: "absolute",
+  height: "500px",
+});
 </script>
 
 <template>
@@ -708,6 +704,8 @@ const { progress: prog, hasFinishLoading } = await useProgress();
             </div>
           </div>
         </section>
+        <div class="bg-red-400 min-h-screen h-screen w-full" ref="vhRef"></div>
+        <div class="bg-blue-400 min-h-full w-full" ref="percentRef"></div>
         <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
           <div class="flex flex-col p-4 max-w-xl gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
@@ -746,138 +744,138 @@ const { progress: prog, hasFinishLoading } = await useProgress();
         <div class="max-w-xl" :style="fillerStyles"></div>
       </div>
     </Transition>
-
-    <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" window-size>
-      <!-- Camera -->
-      <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
-
-      <!-- Backdrop -->
-      <TresMesh :scale="[200, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
-        <Backdrop :floor="1" :segments="20" receive-shadow>
-          <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
-        </Backdrop>
-      </TresMesh>
-      <FixPixelRatio />
-
-      <Suspense>
-        <CustomDesktop :position="new Vector3(0, 0.2, -1)" />
-      </Suspense>
-
-      <TresMesh :ref="deviceScreenRefs.desktop" :position="[0, 1.65, -1.232]">
-        <TresPlaneGeometry :args="[3.75, 1.89]" />
-        <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
-      </TresMesh>
-
-      <TresMesh :position="[0, 1.65, -1.231]">
-        <TresPlaneGeometry :args="[3.75, 1.89]" />
-        <TresMeshStandardMaterial
-          ref="desktopOverlayRef"
-          :roughness="0.4"
-          :metalness="0.5"
-          transparent
-          :alpha-test="0"
-          :color="new Color(0xffffff)"
-        />
-      </TresMesh>
-
-      <!-- Mobile -->
-      <Suspense>
-        <CustomMobile :position="new Vector3(-0.24, -0.299, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
-      </Suspense>
-
-      <TresMesh
-        :ref="deviceScreenRefs.mobile"
-        :position="[-0.24, 0.034, -0.31]"
-        :rotation="new Euler(-Math.PI / 2, 0, 0)"
-      >
-        <TresPlaneGeometry :args="[0.278, 0.568]" />
-        <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
-      </TresMesh>
-      <TresMesh :position="[-0.24, 0.035, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
-        <TresPlaneGeometry :args="[0.278, 0.568]" />
-        <TresMeshStandardMaterial
-          ref="mobileOverlayRef"
-          :metalness="0.5"
-          :roughness="0.4"
-          transparent
-          :alpha-test="0"
-          :color="new Color(0xffffff)"
-        />
-      </TresMesh>
-
-      <!-- Tablet -->
-      <Suspense>
-        <CustomTablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
-      </Suspense>
-
-      <TresMesh
-        :ref="deviceScreenRefs.tablet"
-        :position="[-2.01, 0.0945, -0.05]"
-        :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
-      >
-        <TresPlaneGeometry :args="[0.933, 1.28]" />
-        <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
-      </TresMesh>
-      <TresMesh :position="[-2.01, 0.0946, -0.05]" :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)">
-        <TresPlaneGeometry :args="[0.933, 1.28]" />
-        <TresMeshStandardMaterial
-          ref="tabletOverlayRef"
-          :roughness="0.4"
-          :metalness="0.5"
-          :color="new Color(0xffffff)"
-          transparent
-          :alpha-test="0"
-        />
-      </TresMesh>
-
-      <!-- Keyboard -->
-      <Suspense>
-        <CustomKeyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
-      </Suspense>
-
-      <!-- Mouse -->
-      <Suspense>
-        <CustomMouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
-      </Suspense>
-
-      <!-- Lamp -->
-      <Suspense>
-        <CustomLamp
-          :position="new Vector3(3.5, 0, -1)"
-          :scale="0.5"
-          :rotation="new Euler(0, Math.PI * 1.25, 0)"
-          :light="spotLightRef"
-        />
-      </Suspense>
-
-      <!-- Lights -->
-      <TresRectAreaLight
-        :intensity="lightIntensity"
-        :width="3.75"
-        :rotation="[0, Math.PI, 0]"
-        :height="1.89"
-        :color="new Color(0x7dd3fc)"
-        :position="[0, 1, -1.2]"
-      />
-
-      <TresMesh ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
-
-      <TresSpotLight
-        ref="spotLightRef"
-        :distance="12"
-        :color="new Color(0xebc653)"
-        :position="[3.15, 2.05, -0.64]"
-        :penumbra="0.5"
-        :angle="Math.PI * 0.5"
-        :cast-shadow="true"
-      />
-
-      <TresDirectionalLight
-        ref="directionalLightRef"
-        :color="new Color(0x7dd3fc)"
-        :position="[2, 4, 5]"
-        :cast-shadow="true"
-      />
-    </TresCanvas>
   </div>
+
+  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" window-size>
+    <!-- Camera -->
+    <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
+
+    <!-- Backdrop -->
+    <TresMesh :scale="[200, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
+      <Backdrop :floor="1" :segments="20" receive-shadow>
+        <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
+      </Backdrop>
+    </TresMesh>
+    <FixPixelRatio />
+
+    <Suspense>
+      <CustomDesktop :position="new Vector3(0, 0.2, -1)" />
+    </Suspense>
+
+    <TresMesh :ref="deviceScreenRefs.desktop" :position="[0, 1.65, -1.232]">
+      <TresPlaneGeometry :args="[3.75, 1.89]" />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+    </TresMesh>
+
+    <TresMesh :position="[0, 1.65, -1.231]">
+      <TresPlaneGeometry :args="[3.75, 1.89]" />
+      <TresMeshStandardMaterial
+        ref="desktopOverlayRef"
+        :roughness="0.4"
+        :metalness="0.5"
+        transparent
+        :alpha-test="0"
+        :color="new Color(0xffffff)"
+      />
+    </TresMesh>
+
+    <!-- Mobile -->
+    <Suspense>
+      <CustomMobile :position="new Vector3(-0.24, -0.299, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
+    </Suspense>
+
+    <TresMesh
+      :ref="deviceScreenRefs.mobile"
+      :position="[-0.24, 0.034, -0.31]"
+      :rotation="new Euler(-Math.PI / 2, 0, 0)"
+    >
+      <TresPlaneGeometry :args="[0.278, 0.568]" />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
+    </TresMesh>
+    <TresMesh :position="[-0.24, 0.035, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
+      <TresPlaneGeometry :args="[0.278, 0.568]" />
+      <TresMeshStandardMaterial
+        ref="mobileOverlayRef"
+        :metalness="0.5"
+        :roughness="0.4"
+        transparent
+        :alpha-test="0"
+        :color="new Color(0xffffff)"
+      />
+    </TresMesh>
+
+    <!-- Tablet -->
+    <Suspense>
+      <CustomTablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
+    </Suspense>
+
+    <TresMesh
+      :ref="deviceScreenRefs.tablet"
+      :position="[-2.01, 0.0945, -0.05]"
+      :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
+    >
+      <TresPlaneGeometry :args="[0.933, 1.28]" />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+    </TresMesh>
+    <TresMesh :position="[-2.01, 0.0946, -0.05]" :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)">
+      <TresPlaneGeometry :args="[0.933, 1.28]" />
+      <TresMeshStandardMaterial
+        ref="tabletOverlayRef"
+        :roughness="0.4"
+        :metalness="0.5"
+        :color="new Color(0xffffff)"
+        transparent
+        :alpha-test="0"
+      />
+    </TresMesh>
+
+    <!-- Keyboard -->
+    <Suspense>
+      <CustomKeyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
+    </Suspense>
+
+    <!-- Mouse -->
+    <Suspense>
+      <CustomMouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
+    </Suspense>
+
+    <!-- Lamp -->
+    <Suspense>
+      <CustomLamp
+        :position="new Vector3(3.5, 0, -1)"
+        :scale="0.5"
+        :rotation="new Euler(0, Math.PI * 1.25, 0)"
+        :light="spotLightRef"
+      />
+    </Suspense>
+
+    <!-- Lights -->
+    <TresRectAreaLight
+      :intensity="lightIntensity"
+      :width="3.75"
+      :rotation="[0, Math.PI, 0]"
+      :height="1.89"
+      :color="new Color(0x7dd3fc)"
+      :position="[0, 1, -1.2]"
+    />
+
+    <TresMesh ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
+
+    <TresSpotLight
+      ref="spotLightRef"
+      :distance="12"
+      :color="new Color(0xebc653)"
+      :position="[3.15, 2.05, -0.64]"
+      :penumbra="0.5"
+      :angle="Math.PI * 0.5"
+      :cast-shadow="true"
+    />
+
+    <TresDirectionalLight
+      ref="directionalLightRef"
+      :color="new Color(0x7dd3fc)"
+      :position="[2, 4, 5]"
+      :cast-shadow="true"
+    />
+  </TresCanvas>
 </template>
