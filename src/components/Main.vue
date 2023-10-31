@@ -15,7 +15,7 @@ import {
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
@@ -182,8 +182,10 @@ const eirikMobileTexture = new MeshBasicMaterial({
 
 function updateHeight() {
   canvasRef.value.height = firstRef.value.offsetHeight;
+  docHeight.value = firstRef.value.offsetHeight;
 }
-watchDebounced(height, () => updateHeight(), { debounce: 500, maxWait: 1000 });
+
+watch(height, () => updateHeight());
 
 onMounted(() => {
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
@@ -395,7 +397,7 @@ watch(scrollY, () => {
   }
 });
 
-watchDebounced(aspectRatio, updateViewPort, { debounce: 500, maxWait: 1000 });
+watchDebounced(aspectRatio, updateViewPort, { debounce: 50, maxWait: 100 });
 
 const gl = {
   clearColor: "#223d4a",
@@ -408,6 +410,7 @@ const gl = {
   toneMapping: CineonToneMapping,
 };
 const { onLoop } = useRenderLoop();
+
 const fillerStyles: ComputedRef<StyleValue> = computed(() => {
   return {
     height: "14px",
@@ -419,22 +422,16 @@ const fillerStyles: ComputedRef<StyleValue> = computed(() => {
     textAlign: "right",
   };
 });
+
 extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
 
-onLoop(({ elapsed, delta }) => {
-  // lightRef.value.intensity = Math.abs(Math.cos(elapsed * 0.33) / 2);
-
+onLoop(({ delta }) => {
   spotLightRef.value.target = spotLightTargetRef.value;
   updateCamera(delta);
   updateObjects(delta);
 });
 
 const { progress: prog, hasFinishLoading } = await useProgress();
-
-const styleObject = reactive({
-  position: "absolute",
-  height: "500px",
-});
 </script>
 
 <template>
@@ -742,7 +739,7 @@ const styleObject = reactive({
     </Transition>
   </div>
 
-  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" window-size>
+  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" window-size :style="{ height: 500 }">
     <!-- Camera -->
     <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
