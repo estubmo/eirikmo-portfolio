@@ -11,6 +11,6 @@
     ".prettierrc.cjs",
     "tailwind.config.ts",
     "src/**/*",
-    "postcss.config.js"
+    "postcss.config.cjs"
   ]
 }

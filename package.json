@@ -16,15 +16,16 @@
     "gsap",
     "bun"
   ],
+  "packageManager": "pnpm@8.10.0",
   "license": "MIT",
   "scripts": {
-    "dev": "bun --bun astro dev",
-    "start": "bun --bun astro start",
-    "build": "bun --bun astro build",
+    "dev": "astro dev",
+    "start": "astro start",
+    "build": "astro build",
     "preview": "astro preview",
     "lint": "bun eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
-    "lint:astro": "bun --bun astro check",
-    "lint:format": "bun --bun prettier --write \"**/*.{js,jsx,ts,tsx,md,vue,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,vue,astro}\""
+    "lint:astro": "astro check",
+    "lint:format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,vue,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,vue,astro}\""
   },
   "packageManager": "bun@1.0.7",
   "dependencies": {
