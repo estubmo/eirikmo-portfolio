@@ -10,6 +10,7 @@
     ".eslintrc.cjs",
     ".prettierrc.cjs",
     "tailwind.config.ts",
-    "src/**/*"
+    "src/**/*",
+    "postcss.config.js"
   ]
 }
