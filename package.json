@@ -24,7 +24,7 @@
     "preview": "astro preview",
     "lint": "bun eslint \"src/**/*.{js,jsx,ts,tsx,md,astro}\"",
     "lint:astro": "bun --bun astro check",
-    "lint:format": "bun --bun prettier --write  \"**/*.{js,jsx,ts,tsx,md,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
+    "lint:format": "bun --bun prettier --write \"**/*.{js,jsx,ts,tsx,md,vue,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,vue,astro}\""
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.2",
