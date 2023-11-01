@@ -1,4 +1,5 @@
 import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel/serverless";
 import vue from "@astrojs/vue";
 import { templateCompilerOptions } from "@tresjs/core";
 import { defineConfig } from "astro/config";
@@ -11,4 +12,6 @@ export default defineConfig({
       ...templateCompilerOptions,
     }),
   ],
+  output: "server",
+  adapter: vercel(),
 });

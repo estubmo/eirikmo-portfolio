@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.2",
+    "@astrojs/vercel": "^5.1.0",
     "@astrojs/vue": "^3.0.1",
     "@fontsource-variable/inter": "^5.0.15",
     "@tresjs/cientos": "^3.5.1",
