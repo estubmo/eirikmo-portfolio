@@ -34,7 +34,7 @@
     "@tresjs/core": "^3.4.1",
     "@tresjs/leches": "^0.12.0",
     "@vueuse/core": "^10.5.0",
-    "astro": "^3.3.0",
+    "astro": "^3.4.2",
     "dat.gui": "^0.7.9",
     "maath": "^0.10.4",
     "postprocessing": "^6.33.2",
