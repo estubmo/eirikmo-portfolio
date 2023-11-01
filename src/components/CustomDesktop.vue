@@ -11,10 +11,13 @@ const { position } = toRefs(props);
 const path = "/models/desktop.glb";
 
 const { scene } = await useGLTF(path, { draco: true });
+scene.traverse((node: any) => {
+  if (node.isMesh) node.castShadow = true;
+});
 </script>
 
 <template>
-  <TresGroup :position="position">
-    <primitive :object="scene" />
+  <TresGroup :position="position" cast-shadow>
+    <primitive :object="scene" cast-shadow />
   </TresGroup>
 </template>

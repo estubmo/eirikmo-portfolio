@@ -57,13 +57,16 @@ onLoop(({ elapsed }) => {
     }
   }
 });
+scene.traverse((node: any) => {
+  if (node.isMesh) node.castShadow = true;
+});
 </script>
 
 <template>
   <TresGroup :position="position" :rotation="rotation" :scale="scale">
     <primitive :object="scene" />
-    <TresMesh ref="lightSwitch" :visible="false" :position="new Vector3(0.55, 0.15, 0)">
-      <TresBoxGeometry :args="[0.3, 0.3, 0.3]" />
+    <TresMesh ref="lightSwitch" :visible="false" :position="new Vector3(0.55, 0.3, 0)">
+      <TresBoxGeometry :args="[0.35, 0.35, 0.35]" />
     </TresMesh>
   </TresGroup>
 </template>

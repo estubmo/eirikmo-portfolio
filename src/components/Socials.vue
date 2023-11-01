@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:-translate-x-[958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400"
+    class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:-translate-x-[958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
   >
     <a href="https://github.com/estubmo/" target="_blank" class="hover:text-zinc-200">
       <svg

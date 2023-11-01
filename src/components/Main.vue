@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { useControls } from "@tresjs/leches";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampE } from "maath/easing";
 import {
@@ -10,7 +11,6 @@ import {
   MathUtils,
   MeshBasicMaterial,
   MeshStandardMaterial,
-  PCFSoftShadowMap,
   SRGBColorSpace,
   Vector3,
 } from "three";
@@ -20,12 +20,16 @@ import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
 import CustomLamp from "./CustomLamp.vue";
+import CustomLeche from "./CustomLeche.vue";
 import CustomMobile from "./CustomMobile.vue";
 import CustomMouse from "./CustomMouse.vue";
+import CustomStatsGl from "./CustomStatsGl.vue";
 import CustomTablet from "./CustomTablet.vue";
+import Expertise from "./Expertise.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
+import Header from "./Header.vue";
+import Me from "./Me.vue";
 import Socials from "./Socials.vue";
-import Tech from "./Tech.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
@@ -52,7 +56,7 @@ const spotLightRef = ref();
 const spotLightTargetRef = ref();
 const directionalLightRef = ref();
 
-const mousePositionRef = ref(new Vector3(2, 0, 1));
+const mousePositionRef = ref(new Vector3(2, -0.08, 1));
 const mouseRotationRef = ref(new Euler(0, Math.PI, 0));
 
 const deviceScreenRefs = {
@@ -86,10 +90,17 @@ const eirikMobile = await useTexture({
   map: "/textures/eirik/eirik-mobile.jpg",
 });
 
+const fotballfeber = await useTexture({
+  map: "/textures/projects/ff-repeat.jpg",
+});
+
 const standardMaterial = new MeshStandardMaterial({
   color: new Color(0xffffff),
   roughness: 0.4,
   metalness: 0.5,
+});
+const { value: position } = useControls({
+  position: new Vector3(2, 4, 5),
 });
 
 const { width, height } = useWindowSize();
@@ -115,7 +126,7 @@ const device = {
     start: new Vector3(0, 1.6, -0.2),
     second: new Vector3(0, 1.6, 1.5),
     third: new Vector3(0, 2, 2.5),
-    end: new Vector3(0, 3, 6),
+    end: new Vector3(0, 3, 5),
     startAngle: new Euler(0, 0, 0),
     secondAngle: new Euler(0, 0, 0),
     thirdAngle: new Euler(-Math.PI / 9, 0, 0),
@@ -125,7 +136,7 @@ const device = {
     start: new Vector3(-2, 0.7, -0.1),
     second: new Vector3(-1.75, 1.25, 0),
     third: new Vector3(-1, 3, 2),
-    end: new Vector3(0, 3, 8),
+    end: new Vector3(0, 3, 5),
     startAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     secondAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
@@ -135,7 +146,7 @@ const device = {
     start: new Vector3(-0.25, 0.2, -0.25),
     second: new Vector3(-0.25, 1, -0.25),
     third: new Vector3(0, 3, 2),
-    end: new Vector3(0, 3, 8),
+    end: new Vector3(0, 3, 5),
     startAngle: new Euler(-Math.PI / 2, 0, 0),
     secondAngle: new Euler(-Math.PI / 2, 0, 0),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
@@ -175,6 +186,13 @@ const eirikMobileTexture = new MeshBasicMaterial({
   alphaMap: alpha.map,
   aoMap: eirikMobile.map,
   aoMapIntensity: 0.8,
+});
+
+const fotballfeberTexture = new MeshBasicMaterial({
+  transparent: true,
+  map: fotballfeber.map,
+  aoMap: fotballfeber.map,
+  aoMapIntensity: 1,
 });
 
 function updateHeight() {
@@ -314,6 +332,8 @@ const mouseParams = {
   rotation: Math.PI,
 };
 
+let tempLightIntensity = 0;
+
 function updateObjects(delta: number) {
   if (!hasScrolled.value && scrollY.value === 0) {
     // Set the lights to the start intensity
@@ -327,7 +347,7 @@ function updateObjects(delta: number) {
     // Mouse Position
     damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.25, delta);
     damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.25, delta);
-    mousePositionRef.value = new Vector3(mouseParams.x + 2, 0, mouseParams.z + 0.5);
+    mousePositionRef.value = new Vector3(mouseParams.x + 2, mousePositionRef.value.y, mouseParams.z + 0.5);
 
     // Mouse Rotation
     damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.25, delta);
@@ -340,27 +360,55 @@ function updateObjects(delta: number) {
 
     const secondPart = {
       height: secondRef.value.offsetHeight,
-      start: secondRef.value.offsetTop - secondRef.value.offsetHeight + 200,
-      firstQuarter: secondRef.value.offsetTop + secondRef.value.offsetHeight / 4,
-      lastQuarter: secondRef.value.offsetTop + (secondRef.value.offsetHeight / 4) * 3,
-      end: secondRef.value.offsetTop,
+      start: secondRef.value.offsetTop - firstRef.value.offsetHeight / 2,
+      end: secondRef.value.offsetTop + secondRef.value.offsetHeight,
     };
 
-    if (scrollY.value > secondPart.start && scrollY.value < secondPart.firstQuarter) {
-      const normal = normalize(scrollY.value, secondPart.start, secondPart.firstQuarter);
-      screenTextureOpacityRef.value = Math.min(normal * 2, 1);
-      screenOverlayOpacityRef.value = Math.min(1 - normal * 2, 1);
-    } else if (scrollY.value > secondPart.firstQuarter && scrollY.value < secondPart.lastQuarter) {
+    const projectFotballFeber = {
+      start: fourthRef.value.offsetTop - firstRef.value.offsetHeight / 2,
+      end: fourthRef.value.offsetTop + fourthRef.value.offsetHeight,
+    };
+
+    if (scrollY.value < secondPart.start) {
+      screenTextureOpacityRef.value = 0;
+      screenOverlayOpacityRef.value = 1;
+    } else if (scrollY.value > secondPart.start && scrollY.value < secondPart.end) {
       screenTextureOpacityRef.value = 1;
       screenOverlayOpacityRef.value = 0;
-    } else if (scrollY.value > secondPart.lastQuarter && scrollY.value < secondPart.end) {
-      const normal = normalize(scrollY.value, secondPart.lastQuarter, secondPart.end);
-      screenTextureOpacityRef.value = 1 - normal;
-      screenOverlayOpacityRef.value = normal;
-    } else {
+      if (currentViewPort.value === "desktop") {
+        tempLightIntensity = 0.05;
+        deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
+        deviceScreenRefs.tablet.value.material = standardMaterial;
+        deviceScreenRefs.mobile.value.material = standardMaterial;
+      } else if (currentViewPort.value === "tablet") {
+        tempLightIntensity = 0.01;
+        deviceScreenRefs.desktop.value.material = standardMaterial;
+        deviceScreenRefs.tablet.value.material = eirikTabletTexture;
+        deviceScreenRefs.mobile.value.material = standardMaterial;
+      } else if (currentViewPort.value === "mobile") {
+        tempLightIntensity = 0.01;
+        deviceScreenRefs.desktop.value.material = standardMaterial;
+        deviceScreenRefs.tablet.value.material = standardMaterial;
+        deviceScreenRefs.mobile.value.material = eirikMobileTexture;
+      }
+    } else if (scrollY.value > secondPart.end && scrollY.value < projectFotballFeber.start) {
+      tempLightIntensity = 0.01;
+      screenTextureOpacityRef.value = 0;
+      screenOverlayOpacityRef.value = 1;
+    } else if (scrollY.value > projectFotballFeber.start && scrollY.value < projectFotballFeber.end) {
+      tempLightIntensity = 0.05;
+      screenTextureOpacityRef.value = 1;
+      screenOverlayOpacityRef.value = 0.25;
+      deviceScreenRefs.desktop.value.material = fotballfeberTexture;
+      deviceScreenRefs.tablet.value.material = fotballfeberTexture;
+      deviceScreenRefs.mobile.value.material = fotballfeberTexture;
+    } else if (scrollY.value > projectFotballFeber.end) {
+      tempLightIntensity = 0.01;
       screenTextureOpacityRef.value = 0;
       screenOverlayOpacityRef.value = 1;
     }
+
+    damp(lightIntensity, "value", tempLightIntensity, 0.25, delta);
 
     damp(eirikDesktopTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
     damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
@@ -368,25 +416,9 @@ function updateObjects(delta: number) {
     damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
     damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
     damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
-
-    if (currentViewPort.value === "desktop") {
-      damp(lightIntensity, "value", Math.max(screenTextureOpacityRef.value / 20, 0.01), 0.25, delta);
-
-      deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
-      deviceScreenRefs.tablet.value.material = standardMaterial;
-      deviceScreenRefs.mobile.value.material = standardMaterial;
-    } else if (currentViewPort.value === "tablet") {
-      lightIntensity.value = 0.01;
-      deviceScreenRefs.desktop.value.material = standardMaterial;
-      deviceScreenRefs.tablet.value.material = eirikTabletTexture;
-      deviceScreenRefs.mobile.value.material = standardMaterial;
-    } else if (currentViewPort.value === "mobile") {
-      lightIntensity.value = 0.01;
-      deviceScreenRefs.desktop.value.material = standardMaterial;
-      deviceScreenRefs.tablet.value.material = standardMaterial;
-      deviceScreenRefs.mobile.value.material = eirikMobileTexture;
-    }
   }
+  // deviceScreenRefs.desktop.value.material.needsUpdate = true;
+  // cameraRef.value.position.y = 0;
 }
 
 watch(scrollY, () => {
@@ -401,10 +433,10 @@ const gl = {
   shadows: true,
   alpha: false,
   toneMappingExposure: 3,
-  shadowMapType: PCFSoftShadowMap,
   outputColorSpace: SRGBColorSpace,
   toneMapping: CineonToneMapping,
 };
+
 const { onLoop } = useRenderLoop();
 
 const fillerStyles: ComputedRef<StyleValue> = computed(() => {
@@ -435,7 +467,9 @@ const canvasStyle = reactive({
 extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
 
 onLoop(({ delta }) => {
-  spotLightRef.value.target = spotLightTargetRef.value;
+  if (spotLightRef.value && spotLightTargetRef.value) {
+    spotLightRef.value.target = spotLightTargetRef.value;
+  }
   updateCamera(delta);
   updateObjects(delta);
 });
@@ -448,7 +482,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
   <div class="flex justify-center relative">
     <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
       <div
-        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none"
+        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
       >
         <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
           <a href="#eirik" class="pl-1.5"><div class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full" /></a>
@@ -497,152 +531,160 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       <Socials />
       <main ref="scrollContainerRef" class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
         <section class="min-h-screen container flex items-center" id="eirik" ref="firstRef">
-          <div class="flex flex-col p-4 max-w-xl">
-            <div class="space-y-4">
-              <div class="gap-3 flex">
-                <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-8 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-                <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-40 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-                <div class="h-3 w-20 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                <div class="h-3 w-4 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-10 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
-              </div>
-            </div>
-            <div class="pl-4 md:pl-8 lg:pl-16 py-6 space-y-4">
-              <p class="font-mono text-zinc-400">Hello, I am</p>
-              <h2 class="text-4xl lg:text-7xl font-extrabold">Eirik Mo</h2>
-              <div class="gap-3 flex">
-                <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-6 bg-zinc-400 rounded-sm" />
-                <div class="hidden lg:block h-3 w-7 bg-zinc-400 rounded-sm" />
-                <div class="hidden lg:block h-3 w-4 bg-zinc-400 rounded-sm" />
-                <div class="hidden lg:block h-3 w-2 bg-zinc-400 rounded-sm" />
-                <div class="hidden lg:block h-3 w-5 bg-zinc-400 rounded-sm" />
-                <div class="hidden lg:block h-3 w-5 bg-zinc-400 rounded-sm" />
-              </div>
-              <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
-              <div class="gap-3 flex">
-                <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-24 bg-zinc-400 rounded-sm" />
-              </div>
-            </div>
-            <div class="space-y-4">
-              <div class="gap-3 flex">
-                <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
-                <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-40 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-                <div class="h-3 w-20 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                <div class="h-3 w-14 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-                <div class="h-3 w-12 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-              </div>
-              <div class="gap-3 flex">
-                <div class="h-3 w-6 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-                <div class="h-3 w-8 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-              </div>
-            </div>
-          </div>
+          <Header />
         </section>
         <section class="min-h-screen container flex items-center justify-end" id="me" ref="secondRef">
-          <div class="lg:w-1/2 lg:pl-6">
-            <div class="flex flex-col max-w-xl gap-2">
-              <h2 class="text-4xl font-extrabold mb-4">Who I am</h2>
-              <div class="gap-3 flex">
-                <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-                <div class="h-3 w-10 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-                <div class="h-3 w-2 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-              </div>
-              <p class="md:text-lg">
-                I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am
-                also an avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
-              </p>
-              <p class="md:text-lg">
-                I'm privileged enough to do all of my work remotely. And I can effectively communicate and collaborate
-                with clients and team members remotely. This allows me to take on projects from anywhere in the world
-                and deliver high-quality results.
-              </p>
-              <p>
-                I also like to contribute to Open Source projects, fixing bugs or adding features when there's something
-                I need that is missing.
-              </p>
-            </div>
-          </div>
+          <Me />
         </section>
         <section class="min-h-screen container flex items-center w-full py-40" ref="thirdRef">
-          <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full" id="expertise">
-            <div class="lg:w-1/2">
-              <div class="flex flex-col max-w-xl gap-2">
-                <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
-                <div class="gap-3 flex">
-                  <div class="h-3 w-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
-                  <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-                  <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-                </div>
-                <p class="md:text-lg">Are you searching for a practical enthusiast for your project?</p>
-                <p class="md:text-lg">
-                  I speak the languages of both engineering and aesthetics, being perfectly positioned to formulate the
-                  path of a feasible product with customer experience in mind. My preferred work is fullstack
-                  development. I'm using the best tool for the job, be it a reliable framework or the latest web
-                  features.
-                </p>
-                <p class="md:text-lg">
-                  Neither impressive interfaces nor blazing performance are the solution, but the balance between a
-                  maintainable implementation and user-focused functionality.
-                </p>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2 lg:w-1/2">
-              <div class="max-w-xl">
-                <h2 class="text-2xl font-bold mb-4">Tech</h2>
-                <p class="md:text-lg mb-2">These are just some of the technologies I am familiar with.</p>
-                <Tech />
-                <p class="md:text-lg mt-2 italic">
-                  Thank you to those who contributed to any of these technologies, especially the open-source ones. You
-                  allow me, and many others, to do what we love. ❤️
-                </p>
-              </div>
-            </div>
-          </div>
+          <Expertise />
         </section>
       </main>
-      <main class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
-        <section class="min-h-screen container flex items-center" id="projects" ref="fourthRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
+      <main class="flex flex-col pl-4 pr-8 md:p-12 lg:p-16 items-center">
+        <section class="min-h-screen container flex items-center" id="projects">
+          <div class="flex flex-col gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
             <div class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
               <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
-            <p>FotballFeber</p>
+
+            <div
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+              ref="fourthRef"
+            >
+              <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
+                <div class="drop-shadow col-span-2 my-4">
+                  <h1 class="md:text-3xl text-4xl font-bold drop-shadow">FotballFeber</h1>
+                  <h2 class="text-xl md:text-2xl font-light italic text-sky-200 drop-shadow break-words wrap">
+                    Where Norwegian Football Fans Unite
+                  </h2>
+                  <h3 class="text-xl font-bold italic text-[#15FF93] drop-shadow">Work in progress</h3>
+                </div>
+                <div class="col-span-1 justify-self-center my-4">
+                  <img
+                    src="/images/projects/fotballfeber/logo.png"
+                    alt="FotballFeber Logo"
+                    class="w-16 sm:w-24 md:w-32"
+                  />
+                </div>
+                <p class="drop-shadow my-4 col-span-3 md:col-span-2">
+                  FotballFeber is a vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
+                  engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical
+                  strategies, explore player development, analyze statistics, delve into fan culture, and dive into the
+                  rich history of Norwegian football.
+                </p>
+                <div
+                  class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-2"
+                >
+                  <img
+                    src="/images/projects/fotballfeber/screenshot.jpg"
+                    alt="FotballFeber Login Screen"
+                    class="md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating drop-shadow-lg shadow-xl z-20"
+                  />
+                </div>
+
+                <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">The Vision</h3>
+                  <p class="drop-shadow">
+                    Inspired by the absence of a unified platform for Norwegian football aficionados, I embarked on a
+                    mission to bring this community to life. My goal was to create a space where supporters from all
+                    Norwegian football clubs could come together and share their passion for the sport.
+                  </p>
+
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">The Technical Journey</h3>
+                  <p class="drop-shadow">
+                    Building FotballFeber from the ground up was a fascinating journey. I chose Next.js, React, and
+                    TailwindCSS as the core technologies. Everything was meticulously organized in a monorepo using
+                    Turborepo, and the website is seamlessly hosted on Vercel. For state management and data fetching, I
+                    adopted Jotai and Tanstack Query. The UI is adorned with shadcn/ui, Radix UI, and Lucide icons,
+                    ensuring a sleek and user-friendly experience. Wireframing involved low-fidelity designs created in
+                    Excalidraw and high-fidelity wireframes crafted in Figma. Flowcharts and diagrams were illustrated
+                    using Excalidraw.
+                  </p>
+
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">News Aggregation Magic</h3>
+                  <p class="drop-shadow">
+                    To keep the platform abuzz with the latest Norwegian football updates, I developed a method to
+                    source articles from various Norwegian football news sites, leveraging their public APIs. This
+                    involves a Python script for monitoring updates on the news sites. The articles go through a
+                    meticulous processing pipeline with the aid of Upstash Redis, a NodeJS server, and an additional
+                    Redis database. An exposed GUI, powered by Fastify, keeps things transparent, and it's all hosted on
+                    Railway. The articles find their permanent home in a MySQL database hosted on Planetscale, and they
+                    are rapidly indexed in a high-performance Meilisearch instance on Fly.io. This setup ensures
+                    seamless search and filtering for users, offering an exceptional browsing experience.
+                  </p>
+                </div>
+                <div
+                  class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-1 md:order-last"
+                >
+                  <img
+                    src="/images/projects/fotballfeber/screenshot2.jpg"
+                    alt="FotballFeber Login Screen"
+                    class="md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating drop-shadow-lg shadow-xl z-20"
+                  />
+                </div>
+                <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">The Road Ahead</h3>
+
+                  <p class="drop-shadow">
+                    FotballFeber is an ever-evolving project with a comprehensive roadmap. The current focus is on
+                    finalizing the onboarding process and introducing a crucial discussion forum. The next milestone is
+                    implementing a subscription and payment service, marking the official launch for public use.
+                  </p>
+
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">Beyond Passion</h3>
+                  <p class="drop-shadow">
+                    The commitment to this project extends beyond my love for Norwegian football and online communities.
+                    It has become a priceless learning experience in entrepreneurship. As a web developer, I've never
+                    learned at such a rapid pace as I have during this project. Building something from scratch demands
+                    a deep understanding of the objectives, which can only be achieved through a pragmatic approach.
+                    I've encountered my fair share of challenges and setbacks, but each one has been a valuable lesson.
+                  </p>
+
+                  <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">Evolution as a Developer</h3>
+                  <p class="drop-shadow">
+                    My journey began as a full-stack web developer, but it has evolved to encompass backend development
+                    and proficiency in various types of databases. I've expanded my software engineering skills by
+                    delving into software architecture, microservices, message queues, and load balancers. The role of a
+                    DevOps expert emerged as I managed CI/CD, containerization, orchestration, performance monitoring,
+                    issue alerting, and analytical insights.
+                  </p>
+                  <p class="drop-shadow">
+                    This project has not only created a community but has also been a transformative experience in
+                    personal and professional growth. FotballFeber is the embodiment of my passion for Norwegian
+                    football and the ever-evolving world of web development.
+                  </p>
+
+                  <div class="w-fit mt-4">
+                    <a
+                      href="https://www.fotballfeber.com/"
+                      target="_blank"
+                      class="text-[#15FF93] font-medium border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+                    >
+                      <span> Go to FotballFeber </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-external-link"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" x2="21" y1="14" y2="3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section class="min-h-screen container flex items-center" id="work" ref="fifthRef">
@@ -656,52 +698,6 @@ const { progress: prog, hasFinishLoading } = await useProgress();
           </div>
         </section>
         <section class="min-h-screen container flex items-center" id="contact" ref="sixthRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
-            <div class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-            </div>
-            <p>Contact form goes here</p>
-          </div>
-        </section>
-        <section class="min-h-screen container flex items-center" id="seventh" ref="seventhRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4"></h2>
-            <p></p>
-          </div>
-        </section>
-        <section class="min-h-screen container flex items-center" id="eighth" ref="eighthRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4"></h2>
-            <p></p>
-          </div>
-        </section>
-      </main>
-      <main class="flex flex-col p-4 md:p-12 lg:p-16 items-center">
-        <section class="min-h-screen container flex items-center" id="fourth" ref="fourthRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
-            <div class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-            <p>FotballFeber</p>
-          </div>
-        </section>
-        <section class="min-h-screen container flex items-center" id="fifth" ref="fifthRef">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl text-light font-extrabold">Work</h2>
-            <div class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-          </div>
-        </section>
-        <section class="min-h-screen container flex items-center" id="sixth" ref="sixthRef">
           <div class="flex flex-col p-4 max-w-xl gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Contact</h2>
             <div class="gap-3 flex">
@@ -740,29 +736,32 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       </div>
     </Transition>
   </div>
+  <CustomLeche />
 
   <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" :style="canvasStyle">
+    <CustomStatsGl />
     <!-- Camera -->
     <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
     <!-- Backdrop -->
-    <TresMesh :scale="[200, 60, 60]" :position="[0, -0.1, -40]" :receive-shadow="true">
-      <Backdrop :floor="1" :segments="20" receive-shadow>
+    <TresMesh cast-shadow receive-shadow :scale="[200, 60, 60]" :position="[0, -0.1, -40]">
+      <Backdrop :floor="1" :segments="20" cast-shadow receive-shadow>
         <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
       </Backdrop>
     </TresMesh>
+
     <FixPixelRatio :height="firstRef" />
 
     <Suspense>
-      <CustomDesktop :position="new Vector3(0, 0.2, -1)" />
+      <CustomDesktop :position="new Vector3(0, 0.15, -1)" />
     </Suspense>
 
-    <TresMesh :ref="deviceScreenRefs.desktop" :position="[0, 1.65, -1.232]">
+    <TresMesh cast-shadow receive-shadow :ref="deviceScreenRefs.desktop" :position="[0, 1.6, -1.232]">
       <TresPlaneGeometry :args="[3.75, 1.89]" />
       <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
     </TresMesh>
 
-    <TresMesh :position="[0, 1.65, -1.231]">
+    <TresMesh cast-shadow receive-shadow :position="[0, 1.6, -1.231]">
       <TresPlaneGeometry :args="[3.75, 1.89]" />
       <TresMeshStandardMaterial
         ref="desktopOverlayRef"
@@ -776,18 +775,18 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
     <!-- Mobile -->
     <Suspense>
-      <CustomMobile :position="new Vector3(-0.24, -0.299, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
+      <CustomMobile :position="new Vector3(-0.24, -0.315, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
     </Suspense>
 
     <TresMesh
       :ref="deviceScreenRefs.mobile"
-      :position="[-0.24, 0.034, -0.31]"
+      :position="[-0.24, 0.018, -0.31]"
       :rotation="new Euler(-Math.PI / 2, 0, 0)"
     >
       <TresPlaneGeometry :args="[0.278, 0.568]" />
       <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
     </TresMesh>
-    <TresMesh :position="[-0.24, 0.035, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
+    <TresMesh cast-shadow receive-shadow :position="[-0.24, 0.019, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
       <TresPlaneGeometry :args="[0.278, 0.568]" />
       <TresMeshStandardMaterial
         ref="mobileOverlayRef"
@@ -801,18 +800,23 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
     <!-- Tablet -->
     <Suspense>
-      <CustomTablet :position="new Vector3(-2, 0, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
+      <CustomTablet :position="new Vector3(-2, -0.03, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
     </Suspense>
 
     <TresMesh
       :ref="deviceScreenRefs.tablet"
-      :position="[-2.01, 0.0945, -0.05]"
+      :position="[-2.01, 0.0915, -0.05]"
       :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
     >
       <TresPlaneGeometry :args="[0.933, 1.28]" />
       <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
     </TresMesh>
-    <TresMesh :position="[-2.01, 0.0946, -0.05]" :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)">
+    <TresMesh
+      cast-shadow
+      receive-shadow
+      :position="[-2.01, 0.0916, -0.05]"
+      :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
+    >
       <TresPlaneGeometry :args="[0.933, 1.28]" />
       <TresMeshStandardMaterial
         ref="tabletOverlayRef"
@@ -826,7 +830,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
 
     <!-- Keyboard -->
     <Suspense>
-      <CustomKeyboard :position="new Vector3(0, 0.1, 0.5)" scale="0.5" />
+      <CustomKeyboard :position="new Vector3(0, 0.025, 0.5)" scale="0.5" />
     </Suspense>
 
     <!-- Mouse -->
@@ -837,7 +841,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
     <!-- Lamp -->
     <Suspense>
       <CustomLamp
-        :position="new Vector3(3.5, 0, -1)"
+        :position="new Vector3(3.5, -0.04, -1)"
         :scale="0.5"
         :rotation="new Euler(0, Math.PI * 1.25, 0)"
         :light="spotLightRef"
@@ -854,7 +858,7 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       :position="[0, 1, -1.2]"
     />
 
-    <TresMesh ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
+    <TresMesh cast-shadow receive-shadow ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
 
     <TresSpotLight
       ref="spotLightRef"
@@ -862,15 +866,31 @@ const { progress: prog, hasFinishLoading } = await useProgress();
       :color="new Color(0xebc653)"
       :position="[3.15, 2.05, -0.64]"
       :penumbra="0.5"
-      :angle="Math.PI * 0.5"
-      :cast-shadow="true"
+      :shadow-mapSize-width="2048"
+      :shadow-mapSize-height="2048"
+      cast-shadow
+      :shadow-radius="1"
     />
 
     <TresDirectionalLight
       ref="directionalLightRef"
       :color="new Color(0x7dd3fc)"
-      :position="[2, 4, 5]"
-      :cast-shadow="true"
+      :position-x="position.x"
+      :position-y="position.y"
+      :position-z="position.z"
     />
   </TresCanvas>
 </template>
+
+<style>
+.floating {
+  image-rendering: high-quality;
+  transform: perspective(1500px) rotateY(-25deg) rotateX(0) rotateZ(5deg) scale(0.75);
+  border-radius: 0.25rem;
+  transition: transform 1s ease 0s;
+
+  &:hover {
+    transform: perspective(3000px) rotateY(-5deg) rotateX(0) rotateZ(0deg) scale(0.75);
+  }
+}
+</style>
