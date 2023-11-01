@@ -28,6 +28,25 @@ import CustomTablet from "./CustomTablet.vue";
 import Expertise from "./Expertise.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
 import Header from "./Header.vue";
+import DockerIcon from "./icons/DockerIcon.vue";
+import DrizzleIcon from "./icons/DrizzleIcon.vue";
+import FlyIoIcon from "./icons/FlyIoIcon.vue";
+import GitHubIcon from "./icons/GitHubIcon.vue";
+import NextJsIcon from "./icons/NextJsIcon.vue";
+import NodeJsIcon from "./icons/NodeJsIcon.vue";
+import PlanetscaleIcon from "./icons/PlanetscaleIcon.vue";
+import PlaywrightIcon from "./icons/PlaywrightIcon.vue";
+import ReactIcon from "./icons/ReactIcon.vue";
+import RedisIcon from "./icons/RedisIcon.vue";
+import SqlIcon from "./icons/SqlIcon.vue";
+import TailwindIcon from "./icons/TailwindIcon.vue";
+import TanstackIcon from "./icons/TanstackIcon.vue";
+import TrpcIcon from "./icons/TrpcIcon.vue";
+import TurbopackIcon from "./icons/TurbopackIcon.vue";
+import TurborepoIcon from "./icons/TurborepoIcon.vue";
+import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
+import VercelIcon from "./icons/VercelIcon.vue";
+import VitestIcon from "./icons/VitestIcon.vue";
 import Me from "./Me.vue";
 import Socials from "./Socials.vue";
 
@@ -681,6 +700,28 @@ const { progress: prog, hasFinishLoading } = await useProgress();
                         <line x1="10" x2="21" y1="14" y2="3" />
                       </svg>
                     </a>
+                  </div>
+
+                  <div class="flex gap-4 my-2 px-4 py-2 bg-slate-800/80 rounded-2xl flex-wrap">
+                    <TypeScriptIcon :height="32" :width="32" />
+                    <NextJsIcon :height="32" :width="32" />
+                    <ReactIcon :height="32" :width="32" />
+                    <TailwindIcon :height="32" :width="32" />
+                    <DrizzleIcon :height="32" :width="32" />
+                    <SqlIcon :height="32" :width="32" />
+                    <PlanetscaleIcon :height="32" :width="32" />
+                    <TurborepoIcon :height="32" :width="32" />
+                    <TurbopackIcon :height="32" :width="32" />
+                    <RedisIcon :height="32" :width="32" />
+                    <NodeJsIcon :height="32" :width="32" />
+                    <TanstackIcon :height="32" :width="32" />
+                    <TrpcIcon :height="32" :width="32" />
+                    <DockerIcon :height="32" :width="32" />
+                    <VitestIcon :height="32" :width="32" />
+                    <PlaywrightIcon :height="32" :width="32" />
+                    <VercelIcon :height="32" :width="32" />
+                    <FlyIoIcon :height="32" :width="32" />
+                    <GitHubIcon :height="32" :width="32" />
                   </div>
                 </div>
               </div>
