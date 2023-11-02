@@ -3,10 +3,10 @@ import Tech from "./Tech.vue";
 </script>
 
 <template>
-  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full" id="expertise">
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full">
     <div class="lg:w-1/2">
       <div class="flex flex-col max-w-xl gap-2">
-        <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
+        <a href="#expertise"><h2 class="text-4xl font-extrabold mb-4">Expertise</h2></a>
         <div class="gap-3 flex">
           <div class="h-3 w-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
           <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />

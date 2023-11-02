@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AngularIcon from "./icons/AngularIcon.vue";
 import AstroIcon from "./icons/AstroIcon.vue";
+import AzureIcon from "./icons/AzureIcon.vue";
 import BiomeIcon from "./icons/BiomeIcon.vue";
 import BitbucketIcon from "./icons/BitbucketIcon.vue";
 import BunIcon from "./icons/BunIcon.vue";
@@ -8,6 +9,7 @@ import CSharpIcon from "./icons/CSharpIcon.vue";
 import CssIcon from "./icons/CssIcon.vue";
 import CypressIcon from "./icons/CypressIcon.vue";
 import DockerIcon from "./icons/DockerIcon.vue";
+import DotNetIcon from "./icons/DotNetIcon.vue";
 import DrizzleIcon from "./icons/DrizzleIcon.vue";
 import EslintIcon from "./icons/EslintIcon.vue";
 import ExcalidrawIcon from "./icons/ExcalidrawIcon.vue";
@@ -24,6 +26,7 @@ import MongoDbIcon from "./icons/MongoDbIcon.vue";
 import NextJsIcon from "./icons/NextJsIcon.vue";
 import NodeJsIcon from "./icons/NodeJsIcon.vue";
 import NpmIcon from "./icons/NpmIcon.vue";
+import NxIcon from "./icons/NxIcon.vue";
 import PlanetscaleIcon from "./icons/PlanetscaleIcon.vue";
 import PlaywrightIcon from "./icons/PlaywrightIcon.vue";
 import PnpmIcon from "./icons/PnpmIcon.vue";
@@ -32,6 +35,7 @@ import PrettierIcon from "./icons/PrettierIcon.vue";
 import PrismaIcon from "./icons/PrismaIcon.vue";
 import ReactIcon from "./icons/ReactIcon.vue";
 import RedisIcon from "./icons/RedisIcon.vue";
+import ReduxToolkitIcon from "./icons/ReduxToolkitIcon.vue";
 import SanityIcon from "./icons/SanityIcon.vue";
 import SqlIcon from "./icons/SqlIcon.vue";
 import StrapiIcon from "./icons/StrapiIcon.vue";
@@ -176,21 +180,21 @@ import TechItem from "./TechItem.vue";
         <TechItem>NodeJS<NodeJsIcon :height="16" :width="16" /></TechItem>
         <TechItem>PNPM<PnpmIcon :height="16" :width="16" /></TechItem>
         <TechItem>NPM<NpmIcon :height="16" :width="16" /></TechItem>
+        <TechItem>Turbopack<TurbopackIcon :height="16" :width="16" /></TechItem>
         <TechItem>Turborepo<TurborepoIcon :height="16" :width="16" /></TechItem>
-        <TechItem
-          >Turbopack
-          <TurbopackIcon :height="16" :width="16" />
-        </TechItem>
+        <TechItem>Nx<NxIcon :height="16" :width="16" /></TechItem>
         <TechItem>Prettier<PrettierIcon :height="16" :width="16" /></TechItem>
-        <TechItem> eslint<EslintIcon :height="16" :width="16" /></TechItem>
+        <TechItem>eslint<EslintIcon :height="16" :width="16" /></TechItem>
         <TechItem>Biome<BiomeIcon :height="16" :width="16" /></TechItem>
-        <TechItem> git<GitIcon :height="16" :width="16" /></TechItem>
+        <TechItem>git<GitIcon :height="16" :width="16" /></TechItem>
       </ul>
     </div>
     <div>
       <span class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Vercel<VercelIcon :height="16" :width="16" /></TechItem>
+        <TechItem>.Net<DotNetIcon :height="16" :width="16" /></TechItem>
+        <TechItem>Azure<AzureIcon :height="16" :width="16" /></TechItem>
         <TechItem>GitHub<GitHubIcon :height="16" :width="16" /></TechItem>
         <TechItem>Bitbucket<BitbucketIcon :height="16" :width="16" /></TechItem>
         <TechItem>Fly.io<FlyIoIcon :height="16" :width="16" /></TechItem>
@@ -204,6 +208,7 @@ import TechItem from "./TechItem.vue";
         <TechItem>Three.js<ThreeJsIcon :height="16" :width="16" /></TechItem>
         <TechItem>TanStack Query<TanstackIcon :height="16" :width="16" /></TechItem>
         <TechItem>tRPC<TrpcIcon :height="16" :width="16" /></TechItem>
+        <TechItem>Redux Toolkit<ReduxToolkitIcon :height="16" :width="16" /></TechItem>
       </ul>
     </div>
     <div>

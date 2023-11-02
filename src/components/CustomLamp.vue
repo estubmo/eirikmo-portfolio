@@ -32,13 +32,16 @@ const path = "/models/lamp.glb";
 const { onLoop } = useRenderLoop();
 const { scene } = await useGLTF(path, { draco: true });
 
-const handleLightSwitch = () => {
+const handleLightSwitch = (e: Event) => {
   if (isIntersecting.value) {
+    e.stopPropagation();
+    e.preventDefault();
     light.value.visible = light.value.visible ? false : true;
   }
 };
 
 window.addEventListener("mousedown", handleLightSwitch);
+window.addEventListener("touchstart", handleLightSwitch);
 
 onLoop(({ elapsed }) => {
   pointer.x = (mouseX.value / width.value) * 2 - 1;
