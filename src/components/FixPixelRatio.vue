@@ -8,16 +8,17 @@ const props = defineProps<{
 }>();
 const { height } = toRefs(props);
 
-const { width } = useWindowSize();
+const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const { renderer } = useTresContext();
 function setup() {
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.value.setSize(width.value, height.value.offsetHeight);
+  renderer.value.setSize(windowWidth.value, height.value.offsetHeight);
 }
 setup();
 
-watch(width, setup);
+watch(windowWidth, setup);
+watch(windowHeight, setup);
 </script>
 
 <template></template>
