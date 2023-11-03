@@ -45,17 +45,17 @@ const canvasRef = ref<HTMLCanvasElement>();
 const currentViewPort = ref<ViewPort>("desktop");
 const hasScrolled = ref(false);
 
-const topRef = ref<HTMLDivElement>();
-const meRef = ref<HTMLDivElement>();
-const expertiseRef = ref<HTMLDivElement>();
-const projectsRef = ref<HTMLDivElement>();
-const workRef = ref<HTMLDivElement>();
-const contactRef = ref<HTMLDivElement>();
+const topRef = ref<HTMLElement>();
+const meRef = ref<HTMLElement>();
+const expertiseRef = ref<HTMLElement>();
+const projectsRef = ref<HTMLElement>();
+const workRef = ref<HTMLElement>();
+const contactRef = ref<HTMLElement>();
 
-const fotballFeberRef = ref<HTMLDivElement>();
-const cheffeloRef = ref<HTMLDivElement>();
-const adtubeRef = ref<HTMLDivElement>();
-const webtopRef = ref<HTMLDivElement>();
+const fotballFeberRef = ref<HTMLElement>();
+const cheffeloRef = ref<HTMLElement>();
+const adtubeRef = ref<HTMLElement>();
+const webtopRef = ref<HTMLElement>();
 
 const scrollRefs = [topRef, meRef, expertiseRef, projectsRef, workRef, contactRef];
 const currentSegmentRef = ref<string>("top");

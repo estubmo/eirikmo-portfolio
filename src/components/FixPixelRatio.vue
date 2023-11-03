@@ -3,7 +3,7 @@ import { useTresContext } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
 import { watch } from "vue";
 
-const { height } = defineProps({ height: { type: HTMLDivElement, default: null } });
+const { height } = defineProps({ height: { type: HTMLElement, default: null } });
 
 const { width: windowWidth, height: windowHeight } = useWindowSize();
 
