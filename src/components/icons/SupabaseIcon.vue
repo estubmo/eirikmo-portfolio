@@ -17,21 +17,21 @@ const { height, width } = defineProps({
   >
     <defs>
       <linearGradient
+        id="supabase-linearGradient-1"
         x1="20.8617445%"
         y1="20.6868812%"
         x2="63.4256086%"
         y2="44.0710077%"
-        id="supabase-linearGradient-1"
       >
         <stop stop-color="#249361" offset="0%"></stop>
         <stop stop-color="#3ECF8E" offset="100%"></stop>
       </linearGradient>
       <linearGradient
+        id="supabase-linearGradient-2"
         x1="1.99116498%"
         y1="-13.1584008%"
         x2="21.4025077%"
         y2="34.708062%"
-        id="supabase-linearGradient-2"
       >
         <stop stop-color="#000000" offset="0%"></stop>
         <stop stop-color="#000000" stop-opacity="0" offset="100%"></stop>

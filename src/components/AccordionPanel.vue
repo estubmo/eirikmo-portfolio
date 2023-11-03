@@ -17,13 +17,13 @@ const togglePanel = (event) => {
 <template>
   <div class="panel">
     <Transition appear>
-      <div class="content" v-if="showPanel">
+      <div v-if="showPanel" class="content">
         <slot></slot>
       </div>
     </Transition>
     <button
-      @click.prevent="togglePanel"
       class="text-[#15FF93] font-medium border-[#15FF93] border rounded-md px-4 py-2"
+      @click.prevent="togglePanel"
     >
       {{ showPanel ? titleClose : title }}
     </button>

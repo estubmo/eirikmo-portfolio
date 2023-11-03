@@ -16,7 +16,9 @@ const { position, rotation, scale } = toRefs(props);
 const path = "/models/mouse.glb";
 
 const { scene } = await useGLTF(path, { draco: true });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (node.isMesh) node.castShadow = true;
 });
 </script>
@@ -24,9 +26,5 @@ scene.traverse((node: any) => {
 <template>
   <TresGroup :position="position" :rotation="rotation" :scale="scale">
     <primitive :object="scene" />
-    <!-- <TresMesh :rotation="[-Math.PI / 2, 0, 0]" :position="[0, 0.01, 0]">
-      <TresPlaneGeometry :args="[0.08, 0.15]" />
-      <TresMeshBasicMaterial :color="new Color(0x000000)" :transparent="true" :alphaMap="simpleShadow.alphaMap" />
-    </TresMesh> -->
   </TresGroup>
 </template>

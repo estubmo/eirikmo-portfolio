@@ -13,7 +13,7 @@ window.addEventListener("keydown", function (event) {
 </script>
 
 <template>
-  <TresLeches class="!fixed" v-if="showDebug" />
+  <TresLeches v-if="showDebug" class="!fixed" />
 </template>
 
 <style scoped>

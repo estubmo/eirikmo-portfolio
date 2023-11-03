@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { useTresContext } from "@tresjs/core";
 import { useWindowSize } from "@vueuse/core";
-import { toRefs, watch } from "vue";
+import { watch } from "vue";
 
-const props = defineProps<{
-  height: any;
-}>();
-const { height } = toRefs(props);
+const { height } = defineProps({ height: { type: HTMLDivElement, default: null } });
 
 const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const { renderer } = useTresContext();
 function setup() {
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.value.setSize(windowWidth.value, height.value.offsetHeight);
+  renderer.value.setSize(windowWidth.value, height.offsetHeight);
 }
 setup();
 
@@ -21,4 +18,4 @@ watch(windowWidth, setup);
 watch(windowHeight, setup);
 </script>
 
-<template></template>
+<template>{}</template>

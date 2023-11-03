@@ -1,5 +1,5 @@
 <script setup>
-import Tech from "./Tech.vue";
+import TechContainer from "./TechContainer.vue";
 </script>
 
 <template>
@@ -28,7 +28,7 @@ import Tech from "./Tech.vue";
       <div class="max-w-xl">
         <h2 class="text-2xl font-bold mb-4">Tech</h2>
         <p class="md:text-lg mb-2">These are just some of the technologies I am familiar with.</p>
-        <Tech />
+        <TechContainer />
         <p class="mt-2">
           <span class="italic">
             Thank you to those who contributed to any of these technologies, especially the open-source ones. You allow
@@ -36,6 +36,12 @@ import Tech from "./Tech.vue";
           </span>
           ❤️
         </p>
+
+        <div class="gap-3 flex w-full lg:justify-end mt-4">
+          <div class="h-3 w-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />
+          <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+          <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+        </div>
       </div>
     </div>
   </div>

@@ -90,24 +90,47 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div class="flex flex-wrap gap-2 mt-4">
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TypeScriptIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <NodeJsIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <ReactIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <GraphlQlIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <MongoDbIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <BitbucketIcon :height="32" :width="32" />
-        </div>
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TypeScriptIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
+        </a>
+
+        <a href="https://nodejs.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <NodeJsIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Node.js</div>
+        </a>
+
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <ReactIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
+        </a>
+
+        <a href="https://graphql.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <GraphlQlIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GraphQL</div>
+        </a>
+
+        <a href="https://www.mongodb.com//" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <MongoDbIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">MongoDB</div>
+        </a>
+
+        <a href="https://bitbucket.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <BitbucketIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Bitbucket</div>
+        </a>
       </div>
     </div>
   </div>

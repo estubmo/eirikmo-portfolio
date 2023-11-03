@@ -2,13 +2,14 @@
 /** @type {import("eslint").Linter.Config} */
 
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: "vue-eslint-parser",
   root: true,
   plugins: ["@typescript-eslint", "astro"],
   extends: [
     "eslint:recommended",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
+    "plugin:vue/vue3-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:jsx-a11y/recommended",
@@ -16,9 +17,11 @@ module.exports = {
     "prettier",
   ],
   parserOptions: {
+    parser: "@typescript-eslint/parser",
     sourceType: "module",
     ecmaVersion: "latest",
     project: ["./tsconfig.json"],
+    extraFileExtensions: [".vue"],
   },
   rules: {
     "tailwindcss/classnames-order": "off", // Enforced by Prettier

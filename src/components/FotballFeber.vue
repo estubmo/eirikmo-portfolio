@@ -123,9 +123,9 @@ import VitestIcon from "./icons/VitestIcon.vue";
         <a
           href="https://www.fotballfeber.com/"
           target="_blank"
-          class="text-[#15FF93] font-medium border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+          class="text-green-400 font-medium flex-nowrap border-green-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-green-400 to-green-500 hover:text-black transition-all duration-200 ease-in-out items-center"
         >
-          <span>Go to FotballFeber </span>
+          <span>FotballFeber</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -146,63 +146,138 @@ import VitestIcon from "./icons/VitestIcon.vue";
       </div>
 
       <div class="flex flex-wrap gap-2 mt-4">
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TypeScriptIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <NextJsIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <ReactIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TailwindIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <DrizzleIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <SqlIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <PlanetscaleIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TurborepoIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TurbopackIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <RedisIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <NodeJsIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TanstackIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TrpcIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <DockerIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <VitestIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <PlaywrightIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <VercelIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <FlyIoIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <GitHubIcon :height="32" :width="32" />
-        </div>
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TypeScriptIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
+        </a>
+
+        <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <NextJsIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
+        </a>
+
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <ReactIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
+        </a>
+
+        <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TailwindIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
+        </a>
+
+        <a href="https://orm.drizzle.team/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <DrizzleIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Drizzle ORM</div>
+        </a>
+
+        <a href="https://www.mysql.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <SqlIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">MySQL</div>
+        </a>
+
+        <a href="https://planetscale.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <PlanetscaleIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Planetscale</div>
+        </a>
+
+        <a href="https://turbo.build/repo" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TurborepoIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Turborepo</div>
+        </a>
+
+        <a href="https://turbo.build/pack" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TurbopackIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Turbopack</div>
+        </a>
+
+        <a href="https://redis.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <RedisIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Redis</div>
+        </a>
+
+        <a href="https://nodejs.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <NodeJsIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Node.js</div>
+        </a>
+
+        <a href="https://tanstack.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TanstackIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tanstack</div>
+        </a>
+
+        <a href="https://trpc.io/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TrpcIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">tRPC</div>
+        </a>
+
+        <a href="https://www.docker.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <DockerIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Docker</div>
+        </a>
+
+        <a href="https://vitest.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <VitestIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vitest</div>
+        </a>
+
+        <a href="https://playwright.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <PlaywrightIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Playwright</div>
+        </a>
+
+        <a href="https://vercel.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <VercelIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vercel</div>
+        </a>
+
+        <a href="https://fly.io/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <FlyIoIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Fly.io</div>
+        </a>
+
+        <a href="https://github.com/" target="_blank" class="flex flex-col items-center">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <GitHubIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GitHub</div>
+        </a>
       </div>
     </div>
   </div>

@@ -11,7 +11,9 @@ const { position } = toRefs(props);
 const path = "/models/keyboard.glb";
 
 const { scene } = await useGLTF(path, { draco: true });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (node.isMesh) node.castShadow = true;
 });
 </script>

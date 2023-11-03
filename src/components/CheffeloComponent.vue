@@ -6,6 +6,7 @@ import NextJsIcon from "./icons/NextJsIcon.vue";
 import NxIcon from "./icons/NxIcon.vue";
 import ReactIcon from "./icons/ReactIcon.vue";
 import ReduxToolkitIcon from "./icons/ReduxToolkitIcon.vue";
+import TailwindIcon from "./icons/TailwindIcon.vue";
 import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 </script>
 <template>
@@ -87,9 +88,9 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         <a
           href="https://www.godtlevert.no/"
           target="_blank"
-          class="text-[#15FF93] font-medium flex-nowrap border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+          class="text-amber-400 font-medium flex-nowrap border-amber-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-amber-400 to-amber-500 hover:text-black transition-all duration-200 ease-in-out items-center"
         >
-          <span>Go to Godtlevert</span>
+          <span>Godtlevert</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -110,9 +111,9 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         <a
           href="https://www.retnemt.dk/"
           target="_blank"
-          class="text-[#15FF93] font-medium flex-nowrap border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+          class="text-orange-400 font-medium flex-nowrap border-orange-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-orange-400 to-orange-500 hover:text-black transition-all duration-200 ease-in-out items-center"
         >
-          <span>Go to RetNemt</span>
+          <span>RetNemt</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -134,9 +135,9 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         <a
           href="https://www.adamsmatkasse.no/"
           target="_blank"
-          class="text-[#15FF93] font-medium flex-nowrap border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+          class="text-blue-400 font-medium flex-nowrap border-blue-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-blue-400 to-blue-500 hover:text-black transition-all duration-200 ease-in-out items-center"
         >
-          <span>Go to Adams Matkasse</span>
+          <span>Adams Matkasse</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -158,9 +159,9 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         <a
           href="https://www.linasmatkasse.no/"
           target="_blank"
-          class="text-[#15FF93] font-medium flex-nowrap border-[#15FF93] border rounded-md px-4 py-2 space-x-4 flex hover:bg-[#15FF93] hover:text-black transition-all duration-200 ease-in-out items-center"
+          class="text-red-400 font-medium flex-nowrap border-red-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-red-400 to-red-500 hover:text-black transition-all duration-200 ease-in-out items-center"
         >
-          <span>Go to Linas Matkasse</span>
+          <span>Linas Matkasse</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -181,30 +182,68 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
 
       <div class="flex flex-wrap gap-2 mt-4">
-        <div class="p-2 bg-gray-800 rounded-md">
-          <TypeScriptIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <NextJsIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <ReactIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <GraphlQlIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <ReduxToolkitIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <NxIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <AzureIcon :height="32" :width="32" />
-        </div>
-        <div class="p-2 bg-gray-800 rounded-md">
-          <GitHubIcon :height="32" :width="32" />
-        </div>
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TypeScriptIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
+        </a>
+
+        <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <NextJsIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
+        </a>
+
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <ReactIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
+        </a>
+
+        <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <TailwindIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
+        </a>
+
+        <a href="https://graphql.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <GraphlQlIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GraphQL</div>
+        </a>
+
+        <a href="https://redux-toolkit.js.org/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <ReduxToolkitIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Redux Toolkit</div>
+        </a>
+
+        <a href="https://nx.dev/" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <NxIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Nx</div>
+        </a>
+
+        <a href="https://azure.microsoft.com/en-us" target="_blank" class="group flex flex-col items-center w-16">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <AzureIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Azure</div>
+        </a>
+
+        <a href="https://github.com/" target="_blank" class="flex flex-col items-center">
+          <div class="p-3 bg-gray-800 rounded-full">
+            <GitHubIcon :height="32" :width="32" />
+          </div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GitHub</div>
+        </a>
       </div>
     </div>
   </div>

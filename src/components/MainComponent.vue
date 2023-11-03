@@ -1,80 +1,83 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
-import { useControls } from "@tresjs/leches";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
   CineonToneMapping,
   Color,
+  DirectionalLight,
   Euler,
   MathUtils,
+  Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
+  PerspectiveCamera,
+  SpotLight,
   SRGBColorSpace,
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import Adtube from "./Adtube.vue";
-import Cheffelo from "./Cheffelo.vue";
+import AdtubeComponent from "./AdtubeComponent.vue";
+import CheffeloComponent from "./CheffeloComponent.vue";
 import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
 import CustomLamp from "./CustomLamp.vue";
-import CustomLeche from "./CustomLeche.vue";
+// import CustomLeche from "./CustomLeche.vue";
 import CustomMobile from "./CustomMobile.vue";
 import CustomMouse from "./CustomMouse.vue";
 import CustomStatsGl from "./CustomStatsGl.vue";
 import CustomTablet from "./CustomTablet.vue";
-import Expertise from "./Expertise.vue";
+import ExpertiseComponent from "./ExpertiseComponent.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
 import FotballFeber from "./FotballFeber.vue";
-import Header from "./Header.vue";
-import Me from "./Me.vue";
-import Socials from "./Socials.vue";
-import Webtop from "./Webtop.vue";
+import HeaderComponent from "./HeaderComponent.vue";
+import MeComponent from "./MeComponent.vue";
+import SocialsComponent from "./SocialsComponent.vue";
+import WebtopComponent from "./WebtopComponent.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
-const canvasRef = ref();
+const canvasRef = ref<HTMLCanvasElement>();
 
 const currentViewPort = ref<ViewPort>("desktop");
 const hasScrolled = ref(false);
 
-const topRef = ref();
-const meRef = ref();
-const expertiseRef = ref();
-const projectsRef = ref();
-const workRef = ref();
-const contactRef = ref();
+const topRef = ref<HTMLDivElement>();
+const meRef = ref<HTMLDivElement>();
+const expertiseRef = ref<HTMLDivElement>();
+const projectsRef = ref<HTMLDivElement>();
+const workRef = ref<HTMLDivElement>();
+const contactRef = ref<HTMLDivElement>();
 
-const fotballFeberRef = ref();
-const cheffeloRef = ref();
-const adtubeRef = ref();
-const webtopRef = ref();
+const fotballFeberRef = ref<HTMLDivElement>();
+const cheffeloRef = ref<HTMLDivElement>();
+const adtubeRef = ref<HTMLDivElement>();
+const webtopRef = ref<HTMLDivElement>();
 
 const scrollRefs = [topRef, meRef, expertiseRef, projectsRef, workRef, contactRef];
-const currentSegmentRef = ref("top");
+const currentSegmentRef = ref<string>("top");
 
 const rectAreaLightIntensity = ref(0);
-const cameraRef = ref();
-const spotLightRef = ref();
-const spotLightTargetRef = ref();
-const directionalLightRef = ref();
+const cameraRef = ref<PerspectiveCamera>();
+const spotLightRef = ref<SpotLight>();
+const spotLightTargetRef = ref<Mesh>();
+const directionalLightRef = ref<DirectionalLight>();
 
 const mousePositionRef = ref(new Vector3(2, -0.08, 1));
 const mouseRotationRef = ref(new Euler(0, Math.PI, 0));
 
 const deviceScreenRefs = {
-  desktop: ref(),
-  tablet: ref(),
-  mobile: ref(),
+  desktop: ref<Mesh>(),
+  tablet: ref<Mesh>(),
+  mobile: ref<Mesh>(),
 };
 
-const desktopOverlayRef = ref();
-const tabletOverlayRef = ref();
-const mobileOverlayRef = ref();
+const desktopOverlayRef = ref<MeshStandardMaterial>();
+const tabletOverlayRef = ref<MeshStandardMaterial>();
+const mobileOverlayRef = ref<MeshStandardMaterial>();
 
 const screenTextureOpacityRef = ref(0);
 const screenOverlayOpacityRef = ref(1);
@@ -110,14 +113,6 @@ const standardMaterial = new MeshStandardMaterial({
   color: new Color(0xffffff),
   roughness: 0.4,
   metalness: 0.5,
-});
-
-const { value: position } = useControls({
-  position: new Vector3(2, 4, 5),
-});
-
-const { value: dlColor } = useControls({
-  dlColor: "#7dd3fc",
 });
 
 const { width, height } = useWindowSize();
@@ -251,6 +246,7 @@ const fotballfeberTexture = new MeshBasicMaterial({
 });
 
 function updateHeight() {
+  if (!canvasRef.value || topRef.value === undefined) return;
   canvasRef.value.height = topRef.value.offsetHeight;
 }
 
@@ -260,11 +256,11 @@ onMounted(() => {
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
   if (segment) {
     scrollRefs.forEach((ref) => {
-      if (ref.value.id === segment) {
+      if (ref.value?.id === segment) {
         currentSegmentRef.value = segment;
         if (hasFinishLoading) {
           setTimeout(() => {
-            ref.value.scrollIntoView({ behavior: "smooth" });
+            ref.value?.scrollIntoView({ behavior: "smooth" });
           }, 1000);
         }
       }
@@ -290,7 +286,7 @@ function updateCamera(delta: number) {
   };
 
   const currentDevice = device[currentViewPort.value];
-
+  if (!cameraRef.value || !expertiseRef.value || !meRef.value || !projectsRef.value || !topRef.value) return;
   // Defaults (ScrollY = 0 and has not scrolled yet)
   if (!hasScrolled.value && scrollY.value === 0) {
     // On load set the camera to the start position without damping
@@ -415,6 +411,24 @@ const lightParams: {
 };
 
 function updateObjects(delta: number) {
+  if (
+    !spotLightRef.value ||
+    !directionalLightRef.value ||
+    !desktopOverlayRef.value ||
+    !meRef.value ||
+    !topRef.value ||
+    !expertiseRef.value ||
+    !fotballFeberRef.value ||
+    !cheffeloRef.value ||
+    !adtubeRef.value ||
+    !webtopRef.value ||
+    !deviceScreenRefs.desktop.value ||
+    !deviceScreenRefs.tablet.value ||
+    !deviceScreenRefs.mobile.value ||
+    !tabletOverlayRef.value ||
+    !mobileOverlayRef.value
+  )
+    return;
   if (!hasScrolled.value && scrollY.value === 0) {
     // Default light values
     spotLightRef.value.intensity = 0;
@@ -570,11 +584,12 @@ watch(scrollY, () => {
   }
 
   const currentScrollItemId = scrollRefs.find((ref) => {
+    if (!ref.value || !topRef.value) return;
     return (
       scrollY.value > ref.value.offsetTop - topRef.value.offsetHeight / 2 &&
       scrollY.value < ref.value.offsetTop + ref.value.offsetHeight - topRef.value.offsetHeight / 2
     );
-  })?.value.id as Segments;
+  })?.value?.id as Segments;
   if (currentScrollItemId) {
     currentSegmentRef.value = currentScrollItemId;
   }
@@ -588,10 +603,12 @@ onLoop(({ delta }) => {
   updateObjects(delta);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
 </script>
 
 <template>
+  <!-- eslint-disable vue/attribute-hyphenation -->
   <CoolConsoleLog />
   <div class="flex justify-center relative">
     <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
@@ -648,45 +665,52 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             href="mailto:eirik@mowebdev.com"
             >eirik@mowebdev.com</a
           >
-          <div class="mx-3 h-32 lg:h-40 w-[2px] flex-shrink bg-zinc-400"></div>
+          <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
         </div>
       </div>
-      <Socials />
+      <SocialsComponent />
       <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
-        <section class="min-h-screen container flex items-center" id="top" ref="topRef">
-          <Header />
+        <section id="top" ref="topRef" class="min-h-screen container flex items-center">
+          <HeaderComponent />
         </section>
-        <section class="min-h-screen container flex items-center justify-end scroll-mt-12" id="me" ref="meRef">
-          <Me />
+        <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
+          <MeComponent />
         </section>
         <div class="min-h-[50vh] w-full" />
-        <section class="min-h-screen container flex items-center w-full scroll-mt-12" id="expertise" ref="expertiseRef">
-          <Expertise />
+        <section
+          id="expertise"
+          ref="expertiseRef"
+          class="min-h-screen container flex items-center w-full scroll-mt-12 my-12"
+        >
+          <ExpertiseComponent />
         </section>
 
-        <div class="min-h-[50vh] w-full" />
-
-        <section class="min-h-screen container flex items-center scroll-mt-12" ref="projectsRef" id="projects">
+        <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
           <div class="flex flex-col gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
             <div class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
 
             <div
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
               ref="fotballFeberRef"
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
             >
               <FotballFeber />
+            </div>
+            <div class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
           </div>
         </section>
 
         <div class="min-h-[50vh] w-full" />
 
-        <section class="min-h-screen container flex items-center scroll-mt-12" id="work" ref="workRef">
+        <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
           <div class="flex flex-col gap-2">
             <h2 class="text-4xl font-extrabold mb-4">Work</h2>
             <div class="gap-3 flex">
@@ -696,30 +720,39 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             </div>
 
             <div
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
               ref="cheffeloRef"
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
             >
-              <Cheffelo />
+              <CheffeloComponent />
             </div>
 
-            <div class="min-h-[25vh] w-full" />
+            <div class="gap-3 flex mt-4">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
 
             <div
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
               ref="adtubeRef"
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
             >
-              <Adtube />
+              <AdtubeComponent />
             </div>
 
-            <div class="min-h-[25vh] w-full" />
+            <div class="gap-3 flex mt-4">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
 
             <div
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
               ref="webtopRef"
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
             >
-              <Webtop />
+              <WebtopComponent />
             </div>
-            <div class="gap-3 flex">
+
+            <div class="gap-3 flex mt-4">
               <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
@@ -727,11 +760,9 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
           </div>
         </section>
 
-        <div class="min-h-[50vh] w-full" />
-
-        <section class="min-h-screen container flex items-center scroll-mt-12" id="contact" ref="contactRef">
+        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
           <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 class="text-4xl font-extrabold mb-4" ref="target">Contact</h2>
+            <h2 ref="target" class="text-4xl font-extrabold mb-4">Contact</h2>
             <div class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
@@ -783,9 +814,9 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       </div>
     </Transition>
   </div>
-  <CustomLeche />
+  <!-- <CustomLeche />   -->
 
-  <TresCanvas class="-z-30" v-bind="gl" ref="canvasRef" id="canvas" :style="canvasStyle">
+  <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
     <CustomStatsGl />
     <!-- Camera -->
     <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
@@ -803,7 +834,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       <CustomDesktop :position="new Vector3(0, 0.15, -1)" />
     </Suspense>
 
-    <TresMesh cast-shadow receive-shadow :ref="deviceScreenRefs.desktop" :position="[0, 1.6, -1.232]">
+    <TresMesh :ref="deviceScreenRefs.desktop" cast-shadow receive-shadow :position="[0, 1.6, -1.232]">
       <TresPlaneGeometry :args="[3.75, 1.89]" />
       <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
     </TresMesh>
@@ -905,7 +936,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :position="[0, 1, -1.2]"
     />
 
-    <TresMesh cast-shadow receive-shadow ref="spotLightTargetRef" :position="[2.8, 0, -0.34]" />
+    <TresMesh ref="spotLightTargetRef" cast-shadow receive-shadow :position="[2.8, 0, -0.34]" />
 
     <TresSpotLight
       ref="spotLightRef"
@@ -918,13 +949,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :shadow-radius="1"
     />
 
-    <TresDirectionalLight
-      ref="directionalLightRef"
-      :color="dlColor"
-      :position-x="position.x"
-      :position-y="position.y"
-      :position-z="position.z"
-    />
+    <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
   </TresCanvas>
 </template>
 
