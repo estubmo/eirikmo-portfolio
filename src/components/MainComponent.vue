@@ -618,39 +618,39 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
         <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
           <a href="#top" class="pl-1.5"
             ><div
-              class="h-3 w-3 bg-zinc-400 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
+              class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
               :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
           /></a>
           <a
-            class="hover:text-zinc-200 transition-colors ease-in-out text-zinc-400"
+            class="hover:text-zinc-200 transition-colors ease-in-out"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#me"
             :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
             >Me</a
           >
           <a
-            class="hover:text-zinc-200 transition-colors ease-in-out text-zinc-400"
+            class="hover:text-zinc-200 transition-colors ease-in-out"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#expertise"
             :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
             >Expertise</a
           >
           <a
-            class="hover:text-zinc-200 transition-colors ease-in-out text-zinc-400"
+            class="hover:text-zinc-200 transition-colors ease-in-out"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#projects"
             :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
             >Projects</a
           >
           <a
-            class="hover:text-zinc-200 transition-colors ease-in-out text-zinc-400"
+            class="hover:text-zinc-200 transition-colors ease-in-out"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#work"
             :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
             >Work</a
           >
           <a
-            class="hover:text-zinc-200 transition-colors ease-in-out text-zinc-400"
+            class="hover:text-zinc-200 transition-colors ease-in-out"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#contact"
             :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
