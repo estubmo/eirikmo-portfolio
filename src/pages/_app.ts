@@ -14,8 +14,8 @@ export default (app: App) => {
           x: 0,
           opacity: 1,
           transition: {
-            delay: 300,
-            duration: 300,
+            delay: 200,
+            duration: 200,
             type: "keyframes",
             ease: "easeIn",
           },
@@ -30,8 +30,38 @@ export default (app: App) => {
           x: 0,
           opacity: 1,
           transition: {
-            delay: 300,
-            duration: 300,
+            delay: 200,
+            duration: 200,
+            type: "keyframes",
+            ease: "easeIn",
+          },
+        },
+      },
+      "pop-visible-once-custom": {
+        initial: {
+          scale: 0,
+          opacity: 0,
+        },
+        visibleOnce: {
+          scale: 1,
+          opacity: 1,
+          transition: {
+            delay: 200,
+            duration: 200,
+            type: "keyframes",
+            ease: "easeIn",
+          },
+        },
+      },
+      "fade-visible-once-custom": {
+        initial: {
+          opacity: 0,
+        },
+        visibleOnce: {
+          opacity: 1,
+          transition: {
+            delay: 200,
+            duration: 200,
             type: "keyframes",
             ease: "easeIn",
           },

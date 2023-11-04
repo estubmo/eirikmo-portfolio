@@ -9,21 +9,21 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left class="md:text-3xl text-xl font-bold">Adtube Solutions</h1>
-      <h2 v-motion-slide-visible-once-left class="text-xl font-light italic text-sky-200 break-words wrap">
+      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-xl font-bold">Adtube Solutions</h1>
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
         May 2020 - Apr 2021 · 1 yr
       </h2>
-      <h2 v-motion-slide-visible-once-left class="text-xl font-light text-zinc-200 break-words wrap">
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap">
         Full Stack Engineer
       </h2>
-      <h3 v-motion-slide-visible-once-left class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>
     </div>
-    <div v-motion-slide-visible-once-right class="col-span-1 justify-self-center md:self-end my-4">
+    <div v-motion-slide-visible-once-right-custom class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/adtube/logo.png" alt="Adtube Logo" class="select-none w-full max-w-[160px]" />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h3>
-      <p v-motion-slide-visible-once-left c>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h3>
+      <p v-motion-slide-visible-once-left-custom c>
         Adtube Solutions is a forward-thinking technology company specializing in the development of innovative and
         efficient solutions for advertising products across various digital channels, including social media, online
         newspapers, and websites. The company's primary focus is on providing programmatic advertising solutions that
@@ -43,13 +43,15 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
+        My Role and Responsibilities
+      </h3>
       <div class="space-y-2">
-        <p v-motion-slide-visible-once-left c>
+        <p v-motion-slide-visible-once-left-custom c>
           During my time at Adtube Solutions as a remotely contracted Full Stack Engineer, I held a multifaceted role
           that extended beyond conventional development tasks. Here's a breakdown of my responsibilities:
         </p>
-        <ul v-motion-slide-visible-once-left class="space-y-2">
+        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
             <strong>Full-Stack Development:</strong> I had the privilege of contributing to both the frontend and
             backend aspects of projects. This role involved developing complete modules from their conceptualization and
@@ -69,13 +71,13 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
-        <p v-motion-slide-visible-once-left c>
+        <p v-motion-slide-visible-once-left-custom c>
           Adtube Solutions relied on a well-rounded and cutting-edge technology stack to power its innovative
           advertising solutions. The primary technologies employed were:
         </p>
-        <ul v-motion-slide-visible-once-left class="space-y-2">
+        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
             <strong>MongoDB:</strong> For data storage and management, MongoDB was the database of choice. Its
             flexibility and scalability made it ideal for handling diverse data requirements.
@@ -98,7 +100,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div class="flex flex-wrap gap-2 mt-4">
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.typescriptlang.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -110,7 +112,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://nodejs.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -122,7 +124,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://react.dev/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -134,7 +136,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://graphql.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -146,7 +148,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.mongodb.com//"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -158,7 +160,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://bitbucket.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"

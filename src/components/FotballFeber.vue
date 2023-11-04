@@ -143,7 +143,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         world of web development.
       </p>
 
-      <div v-motion-pop-visible-once class="w-fit mt-4">
+      <div v-motion-pop-visible-once-custom class="w-fit mt-4">
         <a
           href="https://www.fotballfeber.com/"
           target="_blank"
@@ -171,7 +171,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
 
       <div class="flex flex-wrap gap-2 mt-4">
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.typescriptlang.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -183,7 +183,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://nextjs.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -195,7 +195,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://react.dev/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -207,7 +207,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://tailwindcss.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -219,7 +219,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://orm.drizzle.team/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -231,7 +231,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.mysql.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -243,7 +243,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://planetscale.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -255,7 +255,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://turbo.build/repo"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -267,7 +267,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://turbo.build/pack"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -279,7 +279,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://redis.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -291,7 +291,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://nodejs.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -303,7 +303,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://tanstack.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -315,7 +315,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://trpc.io/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -327,7 +327,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.docker.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -339,7 +339,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://vitest.dev/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -351,7 +351,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://playwright.dev/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -363,7 +363,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://vercel.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -375,7 +375,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://fly.io/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -386,7 +386,12 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Fly.io</div>
         </a>
 
-        <a v-motion-pop-visible-once href="https://github.com/" target="_blank" class="flex flex-col items-center">
+        <a
+          v-motion-pop-visible-once-custom
+          href="https://github.com/"
+          target="_blank"
+          class="flex flex-col items-center"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <GitHubIcon :height="32" :width="32" />
           </div>

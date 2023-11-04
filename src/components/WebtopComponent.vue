@@ -9,30 +9,32 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left class="md:text-3xl text-xl font-bold">Webtop Solutions</h1>
-      <h2 v-motion-slide-visible-once-left class="text-xl font-light italic text-sky-200 break-words wrap">
+      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-xl font-bold">Webtop Solutions</h1>
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
         Jul 2016 - Dec 2018 · 2 yrs 6 mos
       </h2>
-      <h2 v-motion-slide-visible-once-left class="text-xl font-light text-zinc-200 break-words wrap">
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap">
         System Developer
       </h2>
-      <h3 v-motion-slide-visible-once-left class="text-xl font-bold italic text-[#15FF93]">
+      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">
         Full-time Employment · Trondheim, Norway
       </h3>
     </div>
-    <div v-motion-slide-visible-once-right class="col-span-1 justify-self-center md:self-end my-4">
+    <div v-motion-slide-visible-once-right-custom class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">About Webtop Solutions AS</h3>
-      <p v-motion-slide-visible-once-left>
-        Webtop Solutions AS is a company specializing in the development of Customer Relationship Management (CRM)
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
+        About Webtop Solutions AS
+      </h3>
+      <p v-motion-slide-visible-once-left-custom>
+        Webtop Solutions is AS a company specializing in the development of Customer Relationship Management (CRM)
         systems tailored for the real estate industry. The company's solutions are designed to streamline and optimize
         business processes within this sector.
       </p>
     </div>
     <div
-      v-motion-slide-visible-once-right
+      v-motion-slide-visible-once-right-custom
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-2"
     >
       <img
@@ -43,14 +45,16 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
+        My Role and Responsibilities
+      </h3>
       <div class="space-y-2">
-        <p v-motion-slide-visible-once-left>
+        <p v-motion-slide-visible-once-left-custom>
           As a full-time System Developer at Webtop Solutions AS, I had the opportunity to contribute to various aspects
           of the CRM system development process. My role was diverse and encompassed responsibilities that spanned the
-          entire software development lifecycle. Here's a breakdown of my key responsibilities:
+          entire software development lifecycle. Here's a breakdown of key my responsibilities:
         </p>
-        <ul v-motion-slide-visible-once-left class="space-y-2">
+        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
             <strong>Full-Stack Development:</strong> My role demanded expertise in both frontend and backend
             development. I was responsible for developing modules that spanned from backend to frontend, covering
@@ -72,13 +76,13 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
-        <p v-motion-slide-visible-once-left>
+        <p v-motion-slide-visible-once-left-custom>
           Webtop Solutions AS employed a robust and versatile technology stack to power their CRM system development.
           The core technologies included:
         </p>
-        <ul v-motion-slide-visible-once-left class="space-y-2">
+        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
             <strong>SQL:</strong> The choice of SQL as the database management system facilitated the storage and
             retrieval of structured data. This was critical for managing the vast amounts of real estate-related
@@ -103,7 +107,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div class="w-fit mt-4">
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.webtop.no/"
           target="_blank"
           class="text-red-400 font-medium flex-nowrap border-red-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-red-400 to-red-500 hover:text-black transition-all duration-200 ease-in-out items-center"
@@ -130,7 +134,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 
       <div class="flex flex-wrap gap-2 mt-4">
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.typescriptlang.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -141,7 +145,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://learn.microsoft.com/en-us/dotnet/csharp/"
           target="_blank"
           class="group flex flex-col items-center"
@@ -152,7 +156,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">C#</div>
         </a>
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://angularjs.org/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -164,7 +168,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://www.mysql.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -176,7 +180,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://dotnet.microsoft.com/en-us/"
           target="_blank"
           class="group flex flex-col items-center w-16"
@@ -188,7 +192,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
-          v-motion-pop-visible-once
+          v-motion-pop-visible-once-custom
           href="https://github.com/"
           target="_blank"
           class="group flex flex-col items-center w-16"

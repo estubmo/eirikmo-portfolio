@@ -23,7 +23,7 @@
         that is missing.
       </p>
 
-      <div v-motion-pop-visible-once class="w-fit mt-4">
+      <div v-motion-pop-visible-once-custom class="w-fit mt-4">
         <a
           href="/cv.pdf"
           target="_blank"
