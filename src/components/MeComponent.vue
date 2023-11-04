@@ -18,7 +18,7 @@
         clients and team members remotely. This allows me to take on projects from anywhere in the world and deliver
         high-quality results.
       </p>
-      <p>
+      <p class="md:text-lg">
         I also like to contribute to Open Source projects, fixing bugs or adding features when there's something I need
         that is missing.
       </p>
