@@ -10,6 +10,7 @@ export default defineConfig({
     tailwind(),
     vue({
       ...templateCompilerOptions,
+      appEntrypoint: "/src/pages/_app",
     }),
   ],
   output: "server",

@@ -56,7 +56,7 @@ import TechItem from "./TechItem.vue";
 
 <template>
   <div class="md:text-lg space-y-4">
-    <span class="whitespace-nowrap font-bold text-gray-200">Essentials</span>
+    <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Essentials</span>
     <div>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>
@@ -74,7 +74,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Languages</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Languages</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem
           >TypeScript
@@ -87,7 +87,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Frameworks</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Frameworks</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem
           >Next.js
@@ -120,7 +120,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Databases</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Databases</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>SQL<SqlIcon :height="16" :width="16" /></TechItem>
         <TechItem
@@ -155,14 +155,16 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Content Management Systems</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200"
+        >Content Management Systems</span
+      >
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Sanity<SanityIcon :height="16" :width="16" /></TechItem>
         <TechItem>Strapi<StrapiIcon :height="16" :width="16" /></TechItem>
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Testing</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Testing</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Vitest<VitestIcon :height="16" :width="16" /></TechItem>
         <TechItem
@@ -174,7 +176,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Tooling</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Tooling</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Bun<BunIcon :height="16" :width="16" /></TechItem>
         <TechItem>NodeJS<NodeJsIcon :height="16" :width="16" /></TechItem>
@@ -190,7 +192,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Vercel<VercelIcon :height="16" :width="16" /></TechItem>
         <TechItem>.Net<DotNetIcon :height="16" :width="16" /></TechItem>
@@ -201,7 +203,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Other</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Other</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>GraphQL<GraphlQlIcon :height="16" :width="16" /></TechItem>
         <TechItem>Docker<DockerIcon :height="16" :width="16" /></TechItem>
@@ -212,7 +214,7 @@ import TechItem from "./TechItem.vue";
       </ul>
     </div>
     <div>
-      <span class="whitespace-nowrap font-bold text-gray-200">Design</span>
+      <span v-motion-fade-visible-once class="whitespace-nowrap font-bold text-gray-200">Design</span>
       <ul class="flex flex-wrap gap-2 mt-2">
         <TechItem>Figma<FigmaIcon :height="16" :width="16" /></TechItem>
         <TechItem>Excalidraw<ExcalidrawIcon :height="16" :width="16" /></TechItem>

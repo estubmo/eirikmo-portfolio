@@ -11,44 +11,49 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 </script>
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
-    <div class="drop-shadow col-span-2 my-4">
-      <h1 class="md:text-3xl text-xl font-bold drop-shadow">Cheffelo</h1>
-      <h2 class="text-sm font-light italic text-zinc-300 drop-shadow break-words wrap">
+    <div class="col-span-2 my-4">
+      <h1 v-motion-slide-visible-once-left class="md:text-3xl text-xl font-bold">Cheffelo</h1>
+      <h2 v-motion-slide-visible-once-left class="text-sm font-light italic text-zinc-300 break-words wrap">
         Previously known as GodtlevertGruppen AS
       </h2>
-      <h2 class="text-xl font-light italic text-sky-200 drop-shadow break-words wrap">
+      <h2 v-motion-slide-visible-once-left class="text-xl font-light italic text-sky-200 break-words wrap">
         May 2021 - Aug 2022 · 1 yr 4 mos
       </h2>
-      <h2 class="text-xl font-light text-zinc-200 drop-shadow break-words wrap">Frontend Web Developer</h2>
-      <h3 class="text-xl font-bold italic text-[#15FF93] drop-shadow">Contract · Remote</h3>
+      <h2 v-motion-slide-visible-once-left class="text-xl font-light text-zinc-200 break-words wrap">
+        Frontend Web Developer
+      </h2>
+      <h3 v-motion-slide-visible-once-left class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>
     </div>
-    <div class="col-span-1 justify-self-center md:self-end my-4">
+    <div v-motion-slide-visible-once-right class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/cheffelo/cheffelo_logo.svg" alt="Cheffelo Logo" class="select-none w-full" />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">About Cheffelo</h3>
-      <p class="drop-shadow">
+      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">About Cheffelo</h3>
+      <p v-motion-slide-visible-once-left>
         Cheffelo is a leading supplier of meal kits in the Nordic region and a leader in Scandinavian food tech. The
         company is the parent organization of several well-established brands, including Godtlevert, Adams Matkasse,
         Linas Matkasse, and RetNemt. These brands are synonymous with quality, convenience, and customer satisfaction.
       </p>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-2">
+    <div
+      v-motion-slide-visible-once-right
+      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-2"
+    >
       <img
         src="/images/work/cheffelo/godtlevert.jpg"
         alt="Godtlevert Dashboard"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating drop-shadow-lg shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20"
       />
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">My Contribution</h3>
-      <p class="drop-shadow">
+      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">My Contribution</h3>
+      <p v-motion-slide-visible-once-left>
         During my tenure as a Frontend Web Developer at Cheffelo, I had the privilege of being a key contributor to the
         development of the RetNemt frontend. My responsibilities extended beyond RetNemt as I later became an integral
         part of projects for all the brands under the Cheffelo umbrella.
       </p>
-      <p class="drop-shadow">
+      <p v-motion-slide-visible-once-left>
         Within this role, I played a pivotal part in shaping the digital presence of these renowned brands. This
         encompassed the creation of web applications and user interfaces that not only met high industry standards but
         also contributed to enhancing the overall user experience. I was also responsible for the development of new
@@ -57,8 +62,8 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </p>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl drop-shadow font-bold mt-4">The Tech Stack</h3>
-      <div class="drop-shadow space-y-4">
+      <h3 v-motion-slide-visible-once-left class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
+      <div v-motion-slide-visible-once-left class="space-y-4">
         The development stack for these projects was a blend of cutting-edge technologies:
 
         <ul class="space-y-2">
@@ -76,16 +81,20 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </ul>
       </div>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible">
+    <div
+      v-motion-slide-visible-once-right
+      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible"
+    >
       <img
         src="/images/work/cheffelo/retnemt.jpg"
         alt="Retnemt Menu Item"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating drop-shadow-lg shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20"
       />
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div class="w-fit mt-4 flex gap-2 flex-wrap">
         <a
+          v-motion-pop-visible-once
           href="https://www.godtlevert.no/"
           target="_blank"
           class="text-amber-400 font-medium flex-nowrap border-amber-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-amber-400 to-amber-500 hover:text-black transition-all duration-200 ease-in-out items-center"
@@ -109,6 +118,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           </svg>
         </a>
         <a
+          v-motion-pop-visible-once
           href="https://www.retnemt.dk/"
           target="_blank"
           class="text-orange-400 font-medium flex-nowrap border-orange-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-orange-400 to-orange-500 hover:text-black transition-all duration-200 ease-in-out items-center"
@@ -133,6 +143,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
+          v-motion-pop-visible-once
           href="https://www.adamsmatkasse.no/"
           target="_blank"
           class="text-blue-400 font-medium flex-nowrap border-blue-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-blue-400 to-blue-500 hover:text-black transition-all duration-200 ease-in-out items-center"
@@ -157,6 +168,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
 
         <a
+          v-motion-pop-visible-once
           href="https://www.linasmatkasse.no/"
           target="_blank"
           class="text-red-400 font-medium flex-nowrap border-red-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-red-400 to-red-500 hover:text-black transition-all duration-200 ease-in-out items-center"
@@ -182,63 +194,103 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
 
       <div class="flex flex-wrap gap-2 mt-4">
-        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://www.typescriptlang.org/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
 
-        <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://nextjs.org/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <NextJsIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
         </a>
 
-        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://react.dev/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <ReactIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
         </a>
 
-        <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://tailwindcss.com/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <TailwindIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
         </a>
 
-        <a href="https://graphql.org/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://graphql.org/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <GraphlQlIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GraphQL</div>
         </a>
 
-        <a href="https://redux-toolkit.js.org/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://redux-toolkit.js.org/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <ReduxToolkitIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Redux Toolkit</div>
         </a>
 
-        <a href="https://nx.dev/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://nx.dev/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <NxIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Nx</div>
         </a>
 
-        <a href="https://azure.microsoft.com/en-us" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          v-motion-pop-visible-once
+          href="https://azure.microsoft.com/en-us"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
             <AzureIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Azure</div>
         </a>
 
-        <a href="https://github.com/" target="_blank" class="flex flex-col items-center">
+        <a v-motion-pop-visible-once href="https://github.com/" target="_blank" class="flex flex-col items-center">
           <div class="p-3 bg-gray-800 rounded-full">
             <GitHubIcon :height="32" :width="32" />
           </div>

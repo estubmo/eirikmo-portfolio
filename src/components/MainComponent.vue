@@ -702,12 +702,12 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       <SocialsComponent />
       <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
         <section id="top" ref="topRef" class="min-h-screen container flex items-center">
-          <HeaderComponent />
+          <HeaderComponent :hasFinishLoading="hasFinishLoading" />
         </section>
         <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
           <MeComponent />
         </section>
-        <div class="min-h-[50vh] w-full" />
+
         <section
           id="expertise"
           ref="expertiseRef"
@@ -718,8 +718,8 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
         <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
           <div class="flex flex-col gap-2">
-            <h2 class="text-4xl font-extrabold mb-4">Projects</h2>
-            <div class="gap-3 flex">
+            <h2 v-motion-slide-visible-once-left class="text-4xl font-extrabold mb-4">Projects</h2>
+            <div v-motion-slide-visible-once-left class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
@@ -727,11 +727,12 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
             <div
               ref="fotballFeberRef"
+              v-motion-fade-visible-once
               class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
             >
-              <FotballFeber />
+              <FotballFeber :target="fotballFeberRef" />
             </div>
-            <div class="gap-3 flex">
+            <div v-motion-slide-visible-once-left class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
@@ -739,12 +740,10 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
           </div>
         </section>
 
-        <div class="min-h-[50vh] w-full" />
-
         <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
           <div class="flex flex-col gap-2">
-            <h2 class="text-4xl font-extrabold mb-4">Work</h2>
-            <div class="gap-3 flex">
+            <h2 v-motion-slide-visible-once-left class="text-4xl font-extrabold mb-4">Work</h2>
+            <div v-motion-slide-visible-once-left class="gap-3 flex">
               <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
@@ -757,7 +756,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <CheffeloComponent />
             </div>
 
-            <div class="gap-3 flex mt-4">
+            <div v-motion-slide-visible-once-left class="gap-3 flex mt-4">
               <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
@@ -770,7 +769,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <AdtubeComponent />
             </div>
 
-            <div class="gap-3 flex mt-4">
+            <div v-motion-slide-visible-once-left class="gap-3 flex mt-4">
               <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
@@ -783,7 +782,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <WebtopComponent />
             </div>
 
-            <div class="gap-3 flex mt-4">
+            <div v-motion-slide-visible-once-left class="gap-3 flex mt-4">
               <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
@@ -791,15 +790,15 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
           </div>
         </section>
 
-        <section id="footer" class="min-h-screen container flex items-center scroll-mt-12">
+        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
           <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 ref="target" class="text-4xl font-extrabold mb-4">Contact</h2>
-            <div class="gap-3 flex">
+            <h2 ref="target" v-motion-slide-visible-once-left class="text-4xl font-extrabold mb-4">Contact</h2>
+            <div v-motion-slide-visible-once-left class="gap-3 flex">
               <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
               <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
               <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
             </div>
-            <div class="flex">
+            <div v-motion-slide-visible-once-left class="flex">
               <h3 class="text-4xl">Let’s Work Together</h3>
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -818,22 +817,18 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
                 />
               </svg>
             </div>
-            <p class="text-lg">I am currently open for interesting remote projects</p>
-            <div>
+            <p v-motion-slide-visible-once-left class="text-lg">I am currently open for interesting remote projects</p>
+            <div v-motion-slide-visible-once-left>
               <p>Call me:</p>
               <a class="hover:underline" href="tel:+4797602278">+47 976 02 278</a>
             </div>
-            <div>
+            <div v-motion-slide-visible-once-left>
               <p>Email me:</p>
               <a class="hover:underline" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
             </div>
           </div>
         </section>
-        <section
-          id="contact"
-          ref="contactRef"
-          class="my-20 container flex justify-center items-center scroll-mt-12 text-center"
-        >
+        <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
           <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-400">
             <div class="flex justify-center gap-3 items-center">
               <a
@@ -1057,7 +1052,6 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
 <style>
 .floating {
-  image-rendering: high-quality;
   transform: perspective(1500px) rotateY(-25deg) rotateX(0) rotateZ(5deg) scale(0.75);
   border-radius: 0.25rem;
   transition: transform 1s ease 0s;
