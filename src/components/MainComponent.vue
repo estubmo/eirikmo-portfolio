@@ -128,14 +128,6 @@ const eirikDesktop = await useTexture({
   map: "/textures/eirik/eirik-desktop.jpg",
 });
 
-const eirikTablet = await useTexture({
-  map: "/textures/eirik/eirik-tablet.jpg",
-});
-
-const eirikMobile = await useTexture({
-  map: "/textures/eirik/eirik-mobile.jpg",
-});
-
 const fotballfeber = await useTexture({
   map: "/textures/projects/ff-repeat.jpg",
 });
@@ -245,7 +237,7 @@ function getViewPort(): ViewPort {
   } else return "desktop";
 }
 
-const eirikDesktopTexture = new MeshBasicMaterial({
+const eirikDesktopMaterial = new MeshBasicMaterial({
   transparent: true,
   map: eirikDesktop.map,
   alphaMap: alpha.map,
@@ -253,26 +245,53 @@ const eirikDesktopTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
+const eirikTextureTablet = eirikDesktop.map.clone();
+eirikTextureTablet.repeat.set(0.4, 1);
+
 const eirikTabletTexture = new MeshBasicMaterial({
   transparent: true,
-  map: eirikTablet.map,
+  map: eirikTextureTablet,
   alphaMap: alpha.map,
-  aoMap: eirikTablet.map,
+  aoMap: eirikTextureTablet,
   aoMapIntensity: 0.8,
 });
+
+const eirikTextureMobile = eirikDesktop.map.clone();
+eirikTextureMobile.repeat.set(0.15, 0.6);
+eirikTextureMobile.offset.set(0.15, 0.2);
 
 const eirikMobileTexture = new MeshBasicMaterial({
   transparent: true,
-  map: eirikMobile.map,
+  map: eirikTextureMobile,
   alphaMap: alpha.map,
-  aoMap: eirikMobile.map,
+  aoMap: eirikTextureMobile,
   aoMapIntensity: 0.8,
 });
 
-const fotballfeberTexture = new MeshBasicMaterial({
+const fotballfeberMaterialDesktop = new MeshBasicMaterial({
   transparent: true,
   map: fotballfeber.map,
   aoMap: fotballfeber.map,
+  aoMapIntensity: 1,
+});
+
+const fotballfeberTextureTablet = fotballfeber.map.clone();
+fotballfeberTextureTablet.repeat.set(0.25, 0.5);
+const fotballfeberMaterialTablet = new MeshBasicMaterial({
+  transparent: true,
+  map: fotballfeberTextureTablet,
+  aoMap: fotballfeberTextureTablet,
+  aoMapIntensity: 1,
+});
+
+const fotballfeberTextureMobile = fotballfeber.map.clone();
+fotballfeberTextureMobile.repeat.set(0.13, 0.45);
+fotballfeberTextureMobile.offset.set(0.131, 0.4);
+
+const fotballfeberMaterialMobile = new MeshBasicMaterial({
+  transparent: true,
+  map: fotballfeberTextureMobile,
+  aoMap: fotballfeberTextureMobile,
   aoMapIntensity: 1,
 });
 
@@ -468,7 +487,7 @@ function updateObjects(delta: number) {
     directionalLightRef.value.color = new Color(0x7dd3fc);
 
     // Default screen texture opacity
-    eirikDesktopTexture.opacity = 0;
+    eirikDesktopMaterial.opacity = 0;
     desktopOverlayRef.value.opacity = 1;
   } else {
     // Mouse Position
@@ -519,7 +538,7 @@ function updateObjects(delta: number) {
 
       if (currentViewPort.value === "desktop") {
         lightParams.rectArea.intensity = 0.05;
-        deviceScreenRefs.desktop.value.material = eirikDesktopTexture;
+        deviceScreenRefs.desktop.value.material = eirikDesktopMaterial;
         deviceScreenRefs.tablet.value.material = standardMaterial;
         deviceScreenRefs.mobile.value.material = standardMaterial;
       } else if (currentViewPort.value === "tablet") {
@@ -547,9 +566,9 @@ function updateObjects(delta: number) {
 
       screenTextureOpacityRef.value = 1;
       screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = fotballfeberTexture;
-      deviceScreenRefs.tablet.value.material = fotballfeberTexture;
-      deviceScreenRefs.mobile.value.material = fotballfeberTexture;
+      deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop;
+      deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet;
+      deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile;
     } else if (scrollY.value > workCheffelo.start && scrollY.value < workCheffelo.end) {
       lightParams.spot.color = 0xe56962;
       lightParams.rectArea.intensity = 0.05;
@@ -600,7 +619,7 @@ function updateObjects(delta: number) {
     dampC(spotLightRef.value.color, new Color(lightParams.spot.color), 0.5, delta);
     damp(rectAreaLightIntensity, "value", lightParams.rectArea.intensity, 0.25, delta);
 
-    damp(eirikDesktopTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
+    damp(eirikDesktopMaterial, "opacity", screenTextureOpacityRef.value, 0.25, delta);
     damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
     damp(eirikMobileTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
     damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
