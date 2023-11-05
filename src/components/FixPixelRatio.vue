@@ -5,7 +5,7 @@ import { watch } from "vue";
 
 const { height } = defineProps({ height: { type: HTMLElement, default: null } });
 
-const { width: windowWidth, height: windowHeight } = useWindowSize();
+const { width: windowWidth } = useWindowSize();
 
 const { renderer } = useTresContext();
 function setup() {
@@ -15,7 +15,6 @@ function setup() {
 setup();
 
 watch(windowWidth, setup);
-watch(windowHeight, setup);
 </script>
 
 <template>{}</template>
