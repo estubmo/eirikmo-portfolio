@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
-  CineonToneMapping,
-  Color,
-  DirectionalLight,
-  Euler,
-  MathUtils,
-  Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  PerspectiveCamera,
-  RepeatWrapping,
-  SpotLight,
-  SRGBColorSpace,
-  Vector3,
+CineonToneMapping,
+Color,
+DirectionalLight,
+Euler,
+MathUtils,
+Mesh,
+MeshBasicMaterial,
+MeshStandardMaterial,
+PerspectiveCamera,
+RepeatWrapping,
+SRGBColorSpace,
+SpotLight,
+Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
@@ -131,6 +131,18 @@ const eirikTexture = await useTexture({
 
 const fotballfeberTexture = await useTexture({
   map: "/textures/projects/ff-repeat.jpg",
+});
+
+const adtubeTexture = await useTexture({
+  map: "/textures/work/adtube/adtube-repeat.jpg",
+});
+
+const cheffeloTexture = await useTexture({
+  map: "/textures/work/cheffelo/cheffelo-repeat.jpg",
+});
+
+const webtopTexture = await useTexture({
+  map: "/textures/work/webtop/webtop-repeat.jpg",
 });
 
 const standardMaterial = new MeshStandardMaterial({
@@ -300,6 +312,108 @@ const fotballfeberMaterialMobile = new MeshBasicMaterial({
   transparent: true,
   map: fotballfeberTextureMobile,
   aoMap: fotballfeberTextureMobile,
+  aoMapIntensity: 1,
+});
+
+const adtubeTextureDesktop = adtubeTexture.map.clone();
+adtubeTextureDesktop.repeat.set(6, 3.375);
+adtubeTextureDesktop.offset.set(0, 0.1);
+adtubeTextureDesktop.wrapS = RepeatWrapping;
+adtubeTextureDesktop.wrapT = RepeatWrapping;
+
+const adtubeMaterialDesktop = new MeshBasicMaterial({
+  transparent: true,
+  map: adtubeTextureDesktop,
+  aoMap: adtubeTextureDesktop,
+  aoMapIntensity: 1,
+});
+
+const adtubeTextureTablet = adtubeTexture.map.clone();
+adtubeTextureTablet.repeat.set(1, 1.2);
+adtubeTextureTablet.offset.set(0, -0.1);
+const adtubeMaterialTablet = new MeshBasicMaterial({
+  transparent: true,
+  map: adtubeTextureTablet,
+  aoMap: adtubeTextureTablet,
+  aoMapIntensity: 1,
+});
+
+const adtubeTextureMobile = adtubeTexture.map.clone();
+adtubeTextureMobile.repeat.set(0.5, 0.7);
+adtubeTextureMobile.offset.set(0, 0.4);
+
+const adtubeMaterialMobile = new MeshBasicMaterial({
+  transparent: true,
+  map: adtubeTextureMobile,
+  aoMap: adtubeTextureMobile,
+  aoMapIntensity: 1,
+});
+
+const cheffeloTextureDesktop = cheffeloTexture.map.clone();
+cheffeloTextureDesktop.repeat.set(6, 3.375);
+cheffeloTextureDesktop.offset.set(0, 0.1);
+cheffeloTextureDesktop.wrapS = RepeatWrapping;
+cheffeloTextureDesktop.wrapT = RepeatWrapping;
+
+const cheffeloMaterialDesktop = new MeshBasicMaterial({
+  transparent: true,
+  map: cheffeloTextureDesktop,
+  aoMap: cheffeloTextureDesktop,
+  aoMapIntensity: 1,
+});
+
+const cheffeloTextureTablet = cheffeloTexture.map.clone();
+cheffeloTextureTablet.repeat.set(1, 1.2);
+cheffeloTextureTablet.offset.set(0, -0.1);
+const cheffeloMaterialTablet = new MeshBasicMaterial({
+  transparent: true,
+  map: cheffeloTextureTablet,
+  aoMap: cheffeloTextureTablet,
+  aoMapIntensity: 1,
+});
+
+const cheffeloTextureMobile = cheffeloTexture.map.clone();
+cheffeloTextureMobile.repeat.set(0.5, 0.7);
+cheffeloTextureMobile.offset.set(0, 0.4);
+
+const cheffeloMaterialMobile = new MeshBasicMaterial({
+  transparent: true,
+  map: cheffeloTextureMobile,
+  aoMap: cheffeloTextureMobile,
+  aoMapIntensity: 1,
+});
+
+const webtopTextureDesktop = webtopTexture.map.clone();
+webtopTextureDesktop.repeat.set(6, 3.375);
+webtopTextureDesktop.offset.set(0, 0.1);
+webtopTextureDesktop.wrapS = RepeatWrapping;
+webtopTextureDesktop.wrapT = RepeatWrapping;
+
+const webtopMaterialDesktop = new MeshBasicMaterial({
+  transparent: true,
+  map: webtopTextureDesktop,
+  aoMap: webtopTextureDesktop,
+  aoMapIntensity: 1,
+});
+
+const webtopTextureTablet = webtopTexture.map.clone();
+webtopTextureTablet.repeat.set(1, 1.2);
+webtopTextureTablet.offset.set(0, -0.1);
+const webtopMaterialTablet = new MeshBasicMaterial({
+  transparent: true,
+  map: webtopTextureTablet,
+  aoMap: webtopTextureTablet,
+  aoMapIntensity: 1,
+});
+
+const webtopTextureMobile = webtopTexture.map.clone();
+webtopTextureMobile.repeat.set(0.5, 0.7);
+webtopTextureMobile.offset.set(0, 0.4);
+
+const webtopMaterialMobile = new MeshBasicMaterial({
+  transparent: true,
+  map: webtopTextureMobile,
+  aoMap: webtopTextureMobile,
   aoMapIntensity: 1,
 });
 
@@ -583,27 +697,27 @@ function updateObjects(delta: number) {
 
       screenTextureOpacityRef.value = 1;
       screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = standardMaterial;
-      deviceScreenRefs.tablet.value.material = standardMaterial;
-      deviceScreenRefs.mobile.value.material = standardMaterial;
+      deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop;
+      deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet;
+      deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile;
     } else if (scrollY.value > workAdtube.start && scrollY.value < workAdtube.end) {
       lightParams.spot.color = 0x40c0c2;
       lightParams.rectArea.intensity = 0.05;
 
       screenTextureOpacityRef.value = 1;
       screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = standardMaterial;
-      deviceScreenRefs.tablet.value.material = standardMaterial;
-      deviceScreenRefs.mobile.value.material = standardMaterial;
+      deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop;
+      deviceScreenRefs.tablet.value.material = adtubeMaterialTablet;
+      deviceScreenRefs.mobile.value.material = adtubeMaterialMobile;
     } else if (scrollY.value > workWebtop.start && scrollY.value < workWebtop.end) {
       lightParams.spot.color = 0xff0000;
       lightParams.rectArea.intensity = 0.05;
 
       screenTextureOpacityRef.value = 1;
       screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = standardMaterial;
-      deviceScreenRefs.tablet.value.material = standardMaterial;
-      deviceScreenRefs.mobile.value.material = standardMaterial;
+      deviceScreenRefs.desktop.value.material = webtopMaterialDesktop;
+      deviceScreenRefs.tablet.value.material = webtopMaterialTablet;
+      deviceScreenRefs.mobile.value.material = webtopMaterialMobile;
     } else if (scrollY.value > workWebtop.end) {
       lightParams.directional.color = 0x7dd3fc;
       lightParams.rectArea.intensity = 0.01;
