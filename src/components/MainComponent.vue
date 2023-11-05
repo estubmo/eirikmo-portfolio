@@ -13,6 +13,7 @@ import {
   MeshBasicMaterial,
   MeshStandardMaterial,
   PerspectiveCamera,
+  RepeatWrapping,
   SpotLight,
   SRGBColorSpace,
   Vector3,
@@ -128,7 +129,7 @@ const eirikDesktop = await useTexture({
   map: "/textures/eirik/eirik-desktop.jpg",
 });
 
-const fotballfeber = await useTexture({
+const fotballfeberTexture = await useTexture({
   map: "/textures/projects/ff-repeat.jpg",
 });
 
@@ -268,15 +269,22 @@ const eirikMobileTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
+const fotballfeberTextureDesktop = fotballfeberTexture.map.clone();
+fotballfeberTextureDesktop.repeat.set(6, 3.375);
+fotballfeberTextureDesktop.offset.set(0, 0.1);
+fotballfeberTextureDesktop.wrapS = RepeatWrapping;
+fotballfeberTextureDesktop.wrapT = RepeatWrapping;
+
 const fotballfeberMaterialDesktop = new MeshBasicMaterial({
   transparent: true,
-  map: fotballfeber.map,
-  aoMap: fotballfeber.map,
+  map: fotballfeberTextureDesktop,
+  aoMap: fotballfeberTextureDesktop,
   aoMapIntensity: 1,
 });
 
-const fotballfeberTextureTablet = fotballfeber.map.clone();
-fotballfeberTextureTablet.repeat.set(0.25, 0.5);
+const fotballfeberTextureTablet = fotballfeberTexture.map.clone();
+fotballfeberTextureTablet.repeat.set(1, 1.2);
+fotballfeberTextureTablet.offset.set(0, -0.1);
 const fotballfeberMaterialTablet = new MeshBasicMaterial({
   transparent: true,
   map: fotballfeberTextureTablet,
@@ -284,9 +292,9 @@ const fotballfeberMaterialTablet = new MeshBasicMaterial({
   aoMapIntensity: 1,
 });
 
-const fotballfeberTextureMobile = fotballfeber.map.clone();
-fotballfeberTextureMobile.repeat.set(0.13, 0.45);
-fotballfeberTextureMobile.offset.set(0.131, 0.4);
+const fotballfeberTextureMobile = fotballfeberTexture.map.clone();
+fotballfeberTextureMobile.repeat.set(0.5, 0.7);
+fotballfeberTextureMobile.offset.set(0, 0.4);
 
 const fotballfeberMaterialMobile = new MeshBasicMaterial({
   transparent: true,
