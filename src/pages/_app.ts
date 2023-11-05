@@ -15,7 +15,7 @@ export default (app: App) => {
           opacity: 1,
           transition: {
             delay: 200,
-            duration: 200,
+            duration: 300,
             type: "keyframes",
             ease: "easeIn",
           },
@@ -31,7 +31,7 @@ export default (app: App) => {
           opacity: 1,
           transition: {
             delay: 200,
-            duration: 200,
+            duration: 300,
             type: "keyframes",
             ease: "easeIn",
           },
@@ -47,7 +47,7 @@ export default (app: App) => {
           opacity: 1,
           transition: {
             delay: 200,
-            duration: 200,
+            duration: 300,
             type: "keyframes",
             ease: "easeIn",
           },
@@ -61,7 +61,7 @@ export default (app: App) => {
           opacity: 1,
           transition: {
             delay: 200,
-            duration: 200,
+            duration: 300,
             type: "keyframes",
             ease: "easeIn",
           },
