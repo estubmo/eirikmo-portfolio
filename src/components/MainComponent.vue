@@ -125,7 +125,7 @@ const alpha = await useTexture({
   map: "/textures/eirik/alpha.jpg",
 });
 
-const eirikDesktop = await useTexture({
+const eirikTexture = await useTexture({
   map: "/textures/eirik/eirik-desktop.jpg",
 });
 
@@ -240,13 +240,13 @@ function getViewPort(): ViewPort {
 
 const eirikDesktopMaterial = new MeshBasicMaterial({
   transparent: true,
-  map: eirikDesktop.map,
+  map: eirikTexture.map,
   alphaMap: alpha.map,
-  aoMap: eirikDesktop.map,
+  aoMap: eirikTexture.map,
   aoMapIntensity: 0.8,
 });
 
-const eirikTextureTablet = eirikDesktop.map.clone();
+const eirikTextureTablet = eirikTexture.map.clone();
 eirikTextureTablet.repeat.set(0.4, 1);
 
 const eirikTabletTexture = new MeshBasicMaterial({
@@ -257,7 +257,7 @@ const eirikTabletTexture = new MeshBasicMaterial({
   aoMapIntensity: 0.8,
 });
 
-const eirikTextureMobile = eirikDesktop.map.clone();
+const eirikTextureMobile = eirikTexture.map.clone();
 eirikTextureMobile.repeat.set(0.15, 0.6);
 eirikTextureMobile.offset.set(0.15, 0.2);
 
