@@ -12,7 +12,7 @@ function setup() {
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.value.setSize(windowWidth.value, height.offsetHeight);
 }
-setTimeout(setup, 1000);
+setup();
 
 watch(windowWidth, setup);
 watch(windowHeight, setup);
