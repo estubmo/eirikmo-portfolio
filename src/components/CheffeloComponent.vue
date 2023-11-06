@@ -12,14 +12,14 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-xl font-bold">Cheffelo</h1>
+      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">Cheffelo</h1>
       <h2 v-motion-slide-visible-once-left-custom class="text-sm font-light italic text-zinc-300 break-words wrap">
         Previously known as GodtlevertGruppen AS
       </h2>
-      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-sky-200 break-words wrap">
         May 2021 - Aug 2022 · 1 yr 4 mos
       </h2>
-      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap">
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
         Frontend Web Developer
       </h2>
       <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>

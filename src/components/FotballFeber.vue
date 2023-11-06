@@ -40,8 +40,8 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
         Where Norwegian Football Fans Unite
       </h2>
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg font-bold mt-2 text-zinc-200">
-        Bootstrapped Solo Enerepeneur Endevour
+      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+        Founder and Sole Developer
       </h3>
       <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
     </div>
@@ -53,9 +53,10 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       />
     </div>
     <p v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2">
-      FotballFeber is a vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can engage in
-      discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies, explore player
-      development, analyze statistics, delve into fan culture, and dive into the rich history of Norwegian football.
+      FotballFeber is a upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
+      engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies, explore
+      player development, analyze statistics, delve into fan culture, and dive into the rich history of Norwegian
+      football.
     </p>
     <div
       v-motion-slide-visible-once-right-custom

@@ -839,7 +839,12 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
           <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
         </div>
       </div>
-      <SocialsComponent />
+      <div
+        class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:translate-x-[-958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
+      >
+        <SocialsComponent />
+        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
+      </div>
       <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
         <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
           <HeaderComponent :hasFinishLoading="hasFinishLoading" />
@@ -960,21 +965,27 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
                 />
               </svg>
             </div>
-            <p v-motion-slide-visible-once-left-custom class="text - lg">
+            <p v-motion-slide-visible-once-left-custom class="text-lg">
               I am currently open for interesting remote projects
             </p>
             <div v-motion-slide-visible-once-left-custom>
               <p>Call me:</p>
-              <a class="hover:underline" href="tel:+4797602278">+47 976 02 278</a>
+              <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
             </div>
             <div v-motion-slide-visible-once-left-custom>
               <p>Email me:</p>
-              <a class="hover:underline" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+              <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+            </div>
+            <div v-motion-slide-visible-once-left-custom class="md:hidden block">
+              <p>Follow me:</p>
+              <div class="flex space-x-6 font-light text-zinc-400 mt-2">
+                <SocialsComponent />
+              </div>
             </div>
           </div>
         </section>
         <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
-          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-400">
+          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
             <div class="flex justify-center gap-3 items-center">
               <a
                 href="https://github.com/estubmo/eirikmo-portfolio"
@@ -1037,6 +1048,16 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             </p>
             <p>
               Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
+            </p>
+            <p>
+              Inspired by, among others,
+              <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
+                >Guillaume Gouessan</a
+              >
+              and
+              <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
+                >Brittany Chiang</a
+              >.
             </p>
           </div>
         </section>
