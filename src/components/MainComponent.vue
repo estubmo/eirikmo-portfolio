@@ -840,8 +840,8 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
         </div>
       </div>
       <SocialsComponent />
-      <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
-        <section id="top" ref="topRef" class="min-h-screen container flex items-center">
+      <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center min-h-screen">
+        <section id="top" ref="topRef" class="min-h-[100%] container flex items-center">
           <HeaderComponent :hasFinishLoading="hasFinishLoading" />
         </section>
         <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">

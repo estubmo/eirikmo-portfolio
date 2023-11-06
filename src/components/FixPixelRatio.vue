@@ -5,16 +5,17 @@ import { watch } from "vue";
 
 const { height } = defineProps({ height: { type: HTMLElement, default: null } });
 
-const { width: windowWidth } = useWindowSize();
+const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const { renderer } = useTresContext();
 function setup() {
   renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.value.setSize(windowWidth.value, height.offsetHeight);
 }
-setup();
+setTimeout(setup, 1000);
 
 watch(windowWidth, setup);
+watch(windowHeight, setup);
 </script>
 
 <template>{}</template>
