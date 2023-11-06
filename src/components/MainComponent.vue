@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
+import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
-CineonToneMapping,
-Color,
-DirectionalLight,
-Euler,
-MathUtils,
-Mesh,
-MeshBasicMaterial,
-MeshStandardMaterial,
-PerspectiveCamera,
-RepeatWrapping,
-SRGBColorSpace,
-SpotLight,
-Vector3,
+  CineonToneMapping,
+  Color,
+  DirectionalLight,
+  Euler,
+  MathUtils,
+  Mesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  PerspectiveCamera,
+  RepeatWrapping,
+  SpotLight,
+  SRGBColorSpace,
+  Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
@@ -26,7 +26,6 @@ import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
 import CustomLamp from "./CustomLamp.vue";
-// import CustomLeche from "./CustomLeche.vue";
 import CustomMobile from "./CustomMobile.vue";
 import CustomMouse from "./CustomMouse.vue";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -126,7 +125,7 @@ const alpha = await useTexture({
 });
 
 const eirikTexture = await useTexture({
-  map: "/textures/eirik/eirik-desktop.jpg",
+  map: "/textures/eirik/eirik.jpg",
 });
 
 const fotballfeberTexture = await useTexture({
@@ -1057,7 +1056,6 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       </div>
     </Transition>
   </div>
-  <!-- <CustomLeche />   -->
 
   <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
     <CustomStatsGl />
@@ -1186,6 +1184,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :distance="12"
       :position="[3.15, 2.05, -0.64]"
       :penumbra="0.5"
+      :decay="1"
       :shadow-mapSize-width="2048"
       :shadow-mapSize-height="2048"
       cast-shadow

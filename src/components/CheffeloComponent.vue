@@ -36,7 +36,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </p>
     </div>
     <div
-      v-motion-slide-visible-once-right
+      v-motion-slide-visible-once-right-custom
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible row-span-2"
     >
       <img
@@ -82,7 +82,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div
-      v-motion-slide-visible-once-right
+      v-motion-slide-visible-once-right-custom
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible"
     >
       <img
