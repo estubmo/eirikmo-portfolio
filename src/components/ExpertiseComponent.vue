@@ -15,16 +15,18 @@ import TechContainer from "./TechContainer.vue";
           <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
         </div>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
-          Are you searching for a practical enthusiast for your project?
+          Are you in need of a pragmatic enthusiast to drive your project forward?
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
-          I speak the languages of both engineering and aesthetics, being perfectly positioned to formulate the path of
-          a feasible product with customer experience in mind. My preferred work is fullstack development. I'm using the
-          best tool for the job, be it a reliable framework or the latest web features.
+          Fluent in the languages of engineering and aesthetics, I'm uniquely equipped to chart a course for a practical
+          product that prioritizes the customer's experience. My forte is full-stack development, and I'm committed to
+          choosing the most fitting tools for each project, whether it's a robust framework or the latest web
+          innovations.
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
-          Neither impressive interfaces nor blazing performance are the solution, but the balance between a maintainable
-          implementation and user-focused functionality.
+          I understand that the key lies not only in impressive interfaces and blazing performance but also in striking
+          a harmonious balance between a sustainable implementation and user-centric functionality. Let's collaborate to
+          bring your project to life."
         </p>
       </div>
     </div>
