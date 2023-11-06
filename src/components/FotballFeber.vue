@@ -169,229 +169,134 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-4">
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.typescriptlang.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4">
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://nextjs.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <NextJsIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://react.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <ReactIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://tailwindcss.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TailwindIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://orm.drizzle.team/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://orm.drizzle.team/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <DrizzleIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Drizzle ORM</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.mysql.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://www.mysql.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <SqlIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">MySQL</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://planetscale.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://planetscale.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <PlanetscaleIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Planetscale</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://turbo.build/repo"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://turbo.build/repo" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TurborepoIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Turborepo</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://turbo.build/pack"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://turbo.build/pack" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TurbopackIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Turbopack</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://redis.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://redis.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <RedisIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Redis</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://nodejs.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://nodejs.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <NodeJsIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Node.js</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://tanstack.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://tanstack.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TanstackIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tanstack</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://trpc.io/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://trpc.io/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TrpcIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">tRPC</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.docker.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://www.docker.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <DockerIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Docker</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://vitest.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://vitest.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <VitestIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vitest</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://playwright.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://playwright.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <PlaywrightIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Playwright</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://vercel.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://vercel.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <VercelIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vercel</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://fly.io/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://fly.io/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <FlyIoIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Fly.io</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://github.com/"
-          target="_blank"
-          class="flex flex-col items-center"
-        >
+        <a href="https://github.com/" target="_blank" class="flex flex-col items-center">
           <div class="p-3 bg-gray-800 rounded-full">
             <GitHubIcon :height="32" :width="32" />
           </div>

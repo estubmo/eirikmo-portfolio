@@ -193,109 +193,64 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-4">
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.typescriptlang.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4">
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://nextjs.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <NextJsIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://react.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <ReactIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://tailwindcss.com/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TailwindIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://graphql.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://graphql.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <GraphlQlIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GraphQL</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://redux-toolkit.js.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://redux-toolkit.js.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <ReduxToolkitIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Redux Toolkit</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://nx.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://nx.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <NxIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Nx</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://azure.microsoft.com/en-us"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://azure.microsoft.com/en-us" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <AzureIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Azure</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://github.com/"
-          target="_blank"
-          class="flex flex-col items-center"
-        >
+        <a href="https://github.com/" target="_blank" class="flex flex-col items-center">
           <div class="p-3 bg-gray-800 rounded-full">
             <GitHubIcon :height="32" :width="32" />
           </div>

@@ -98,73 +98,43 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <div class="flex flex-wrap gap-2 mt-4">
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.typescriptlang.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4">
+        <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://nodejs.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://nodejs.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <NodeJsIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Node.js</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://react.dev/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <ReactIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://graphql.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://graphql.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <GraphlQlIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GraphQL</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://www.mongodb.com//"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://www.mongodb.com//" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <MongoDbIcon :height="32" :width="32" />
           </div>
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">MongoDB</div>
         </a>
 
-        <a
-          v-motion-pop-visible-once-custom
-          href="https://bitbucket.org/"
-          target="_blank"
-          class="group flex flex-col items-center w-16"
-        >
+        <a href="https://bitbucket.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <BitbucketIcon :height="32" :width="32" />
           </div>
