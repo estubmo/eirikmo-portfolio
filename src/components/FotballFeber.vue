@@ -53,7 +53,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       />
     </div>
     <p v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2">
-      FotballFeber is a upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
+      FotballFeber is an upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
       engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies, explore
       player development, analyze statistics, delve into fan culture, and dive into the rich history of Norwegian
       football.
