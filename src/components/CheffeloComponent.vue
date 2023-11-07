@@ -20,7 +20,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         May 2021 - Aug 2022 · 1 yr 4 mos
       </h2>
       <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
-        Frontend Web Developer
+        Front-end Web Developer
       </h2>
       <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>
     </div>
@@ -49,8 +49,8 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">My Contribution</h3>
       <p v-motion-slide-visible-once-left-custom>
-        During my tenure as a Frontend Web Developer at Cheffelo, I had the privilege of being a key contributor to the
-        development of the RetNemt frontend. My responsibilities extended beyond RetNemt as I later became an integral
+        During my tenure as a Front-end Web Developer at Cheffelo, I had the privilege of being a key contributor to the
+        development of the RetNemt front end. My responsibilities extended beyond RetNemt as I later became an integral
         part of projects for all the brands under the Cheffelo umbrella.
       </p>
       <p v-motion-slide-visible-once-left-custom>
@@ -75,7 +75,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
             efficient updates.
           </li>
           <li>
-            <strong>Nx Monorepo:</strong> Organizing the projects within an Nx Monorepo structure, which simplifies code
+            <strong>Nx Monorepo:</strong> Organizing the projects within a Nx Monorepo structure, which simplifies code
             sharing and collaboration.
           </li>
         </ul>

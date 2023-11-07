@@ -25,8 +25,8 @@ import TechContainer from "./TechContainer.vue";
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
           I understand that the key lies not only in impressive interfaces and blazing performance but also in striking
-          a harmonious balance between a sustainable implementation and user-centric functionality. Let's collaborate to
-          bring your project to life."
+          a harmonious balance between sustainable implementation and user-centric functionality. Let's collaborate to
+          bring your project to life.
         </p>
       </div>
     </div>

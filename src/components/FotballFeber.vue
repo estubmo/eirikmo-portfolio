@@ -120,7 +120,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
 
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h3>
       <p v-motion-slide-visible-once-left-custom>
-        The commitment to this project extends beyond my love for Norwegian football and online communities. It has
+        My commitment to this project extends beyond my love for Norwegian football and online communities. It has
         become a priceless learning experience in entrepreneurship. As a web developer, I've never learned at such a
         rapid pace as I have during this project. Building something from scratch demands a deep understanding of the
         objectives, which can only be achieved through a pragmatic approach. I've encountered my fair share of
@@ -131,11 +131,11 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         Evolution as a Developer
       </h3>
       <p v-motion-slide-visible-once-left-custom>
-        I began this project as a regular full-stack web developer. Throughout this project I've learned how to build
-        fully functional systems, from beginning to end. I have improved my understandig of backends, my proficiency in
-        the different types of databases and which to choose when. I've expanded my software engineering skills by
+        I began this project as a regular full-stack web developer. Throughout this project, I've learned how to build
+        fully functional systems, from beginning to end. I have improved my understanding of backends, my proficiency in
+        the different types of databases, and which to choose when. I've expanded my software engineering skills by
         delving into software architecture, microservices, message queues, and load balancers. I've had to master DevOps
-        as to manage CI/CD, containerization, orchestration, performance monitoring, issue alerting, and analytical
+        to manage CI/CD, containerization, orchestration, performance monitoring, issue alerting, and analytical
         insights. It's been great fun.
       </p>
       <p v-motion-slide-visible-once-left-custom>

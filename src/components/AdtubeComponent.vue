@@ -53,7 +53,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </p>
         <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
-            <strong>Full-Stack Development:</strong> I had the privilege of contributing to both the frontend and
+            <strong>Full-Stack Development:</strong> I had the privilege of contributing to both the front end and
             backend aspects of projects. This role involved developing complete modules from their conceptualization and
             design phases to the actual implementation and deployment.
           </li>
@@ -91,7 +91,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
             data retrieval and manipulation. It enhanced flexibility and responsiveness in data exchanges.
           </li>
           <li>
-            <strong>React:</strong>The frontend of the platform was constructed using React, a popular library for
+            <strong>React:</strong>The front end of the platform was constructed using React, a popular library for
             building dynamic and user-friendly user interfaces. It ensured a responsive and engaging user experience.
           </li>
         </ul>

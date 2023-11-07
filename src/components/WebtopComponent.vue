@@ -56,8 +56,8 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </p>
         <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
           <li>
-            <strong>Full-Stack Development:</strong> My role demanded expertise in both frontend and backend
-            development. I was responsible for developing modules that spanned from backend to frontend, covering
+            <strong>Full-Stack Development:</strong> My role demanded expertise in both front end and backend
+            development. I was responsible for developing modules that spanned from backend to front end, covering
             aspects such as database design, backend logic, API design, and user interface (UI) design. This end-to-end
             involvement allowed for a holistic approach to system development.
           </li>
@@ -97,7 +97,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
             seamless communication between various components of the CRM system, allowing for efficient data exchange.
           </li>
           <li>
-            <strong>AngularJS:</strong>The frontend of the system was constructed using AngularJS. This choice enabled
+            <strong>AngularJS:</strong>The front end of the system was constructed using AngularJS. This choice enabled
             the development of dynamic and responsive user interfaces that met the high standards of the real estate
             industry.
           </li>

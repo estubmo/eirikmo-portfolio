@@ -966,7 +966,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               </svg>
             </div>
             <p v-motion-slide-visible-once-left-custom class="text-lg">
-              I am currently open for interesting remote projects
+              I am currently open to interesting remote projects
             </p>
             <div v-motion-slide-visible-once-left-custom>
               <p>Call me:</p>

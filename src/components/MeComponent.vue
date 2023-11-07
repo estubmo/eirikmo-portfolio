@@ -10,13 +10,13 @@
         <div v-motion-slide-visible-once-right-custom class="h-3 w-3 bg-zinc-400 rounded-full" />
       </div>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-        I am a lifelong learner who enjoy exploring new technologies and approaches to web development. I am also an
-        avid traveler, language learner, and I enjoy hiking up sunny mountains in my free time.
+        I am a lifelong learner who enjoys exploring new technologies and approaches to web development. I am also an
+        avid traveler and language learner, and I enjoy hiking up sunny mountains in my free time.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-        I'm privileged enough to do all of my work remotely. And I can effectively communicate and collaborate with
-        clients and team members remotely. This allows me to take on projects from anywhere in the world and deliver
-        high-quality results.
+        Furthermore, I'm privileged enough to do all of my work remotely. I can effectively communicate and collaborate
+        with clients and team members remotely. This allows me to take on projects from anywhere in the world and
+        deliver high-quality results.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         I also like to contribute to Open Source projects, fixing bugs or adding features when there's something I need
