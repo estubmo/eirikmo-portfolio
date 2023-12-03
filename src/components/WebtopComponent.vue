@@ -54,7 +54,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           of the CRM system development process. My role was diverse and encompassed responsibilities that spanned the
           entire software development lifecycle. Here's a breakdown of key my responsibilities:
         </p>
-        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
+        <ul v-motion-slide-visible-once-left-custom class="space-y-2">
           <li>
             <strong>Full-Stack Development:</strong> My role demanded expertise in both front end and backend
             development. I was responsible for developing modules that spanned from backend to front end, covering
@@ -82,7 +82,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           Webtop Solutions AS employed a robust and versatile technology stack to power their CRM system development.
           The core technologies included:
         </p>
-        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
+        <ul v-motion-slide-visible-once-left-custom class="space-y-2">
           <li>
             <strong>SQL:</strong> The choice of SQL as the database management system facilitated the storage and
             retrieval of structured data. This was critical for managing the vast amounts of real estate-related

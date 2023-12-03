@@ -51,7 +51,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           During my time at Adtube Solutions as a remotely contracted Full Stack Engineer, I held a multifaceted role
           that extended beyond conventional development tasks. Here's a breakdown of my responsibilities:
         </p>
-        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
+        <ul v-motion-slide-visible-once-left-custom class="space-y-2">
           <li>
             <strong>Full-Stack Development:</strong> I had the privilege of contributing to both the front end and
             backend aspects of projects. This role involved developing complete modules from their conceptualization and
@@ -77,7 +77,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
           Adtube Solutions relied on a well-rounded and cutting-edge technology stack to power its innovative
           advertising solutions. The primary technologies employed were:
         </p>
-        <ul v-motion-slide-visible-once-left-custom class="space - y - 2">
+        <ul v-motion-slide-visible-once-left-custom class="space-y-2">
           <li>
             <strong>MongoDB:</strong> For data storage and management, MongoDB was the database of choice. Its
             flexibility and scalability made it ideal for handling diverse data requirements.

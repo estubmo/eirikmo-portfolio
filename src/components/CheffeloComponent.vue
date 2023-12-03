@@ -47,7 +47,9 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">My Contribution</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
+        My Role and Responsibilities
+      </h3>
       <p v-motion-slide-visible-once-left-custom>
         During my tenure as a Front-end Web Developer at Cheffelo, I had the privilege of being a key contributor to the
         development of the RetNemt front end. My responsibilities extended beyond RetNemt as I later became an integral
@@ -60,6 +62,21 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         features and the maintenance of existing ones. This included the implementation of new designs, the optimization
         of existing code, and the resolution of bugs and issues.
       </p>
+    </div>
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">Main Contributions</h3>
+      <ul v-motion-slide-visible-once-left-custom class="pl-4 list-disc">
+        <li>
+          Ported legacy front-end RetNemt to a modern stack. Built from scratch with Next.js, React, Redux Toolkit,
+          TypeScript and Tailwind CSS.
+        </li>
+        <li>Transitioned four front-ends from multiple repositories to a single Nx monorepo.</li>
+        <li>
+          Developed over 20 reusable and responsive interface components in React with Typescript, such as a food
+          delivery calendar, various meal cards, and multiple components related to account settings and navigation.
+        </li>
+        <li>Worked closely with the design department to improve UX by collaborating in Figma.</li>
+      </ul>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>

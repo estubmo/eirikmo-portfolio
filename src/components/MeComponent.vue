@@ -11,7 +11,7 @@
       </div>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         I am a lifelong learner who enjoys exploring new technologies and approaches to web development. I am also an
-        avid traveler and language learner, and I enjoy hiking up sunny mountains in my free time.
+        avid traveler and language learner, and I enjoy lifting weights and hiking up sunny mountains in my free time.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         Furthermore, I'm privileged enough to do all of my work remotely. I can effectively communicate and collaborate
