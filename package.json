@@ -34,6 +34,7 @@
     "@fontsource-variable/inter": "^5.0.15",
     "@tresjs/cientos": "^3.5.1",
     "@tresjs/core": "^3.4.1",
+    "@vercel/analytics": "^1.1.1",
     "@vueuse/core": "^10.5.0",
     "@vueuse/motion": "^2.0.0",
     "astro": "^3.4.2",
