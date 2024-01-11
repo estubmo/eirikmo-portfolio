@@ -11,6 +11,11 @@ export default defineConfig({
     vue({
       ...templateCompilerOptions,
       appEntrypoint: "/src/pages/_app",
+      template: {
+        transformAssetUrls: {
+          includeAbsolute: false,
+        },
+      },
     }),
   ],
   output: "server",
