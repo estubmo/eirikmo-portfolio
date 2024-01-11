@@ -11,7 +11,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 </script>
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
-    <div class="col-span-2 my-4">
+    <div class="col-span-2 my-4 pointer-events-auto">
       <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">Cheffelo</h1>
       <h2 v-motion-slide-visible-once-left-custom class="text-sm font-light italic text-zinc-300 break-words wrap">
         Previously known as GodtlevertGruppen AS
@@ -42,11 +42,11 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       <img
         src="/images/work/cheffelo/godtlevert.jpg"
         alt="Godtlevert Dashboard"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20 pointer-events-auto"
       />
     </div>
 
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
         My Role and Responsibilities
       </h3>
@@ -63,7 +63,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         of existing code, and the resolution of bugs and issues.
       </p>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">Main Contributions</h3>
       <ul v-motion-slide-visible-once-left-custom class="pl-4 list-disc">
         <li>
@@ -78,7 +78,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         <li>Worked closely with the design department to improve UX by collaborating in Figma.</li>
       </ul>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div v-motion-slide-visible-once-left-custom class="space-y-4">
         The development stack for these projects was a blend of cutting-edge technologies:
@@ -105,10 +105,10 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       <img
         src="/images/work/cheffelo/retnemt.jpg"
         alt="Retnemt Menu Item"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20 pointer-events-auto"
       />
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <div class="w-fit mt-4 flex gap-2 flex-wrap">
         <a
           v-motion-pop-visible-once-custom
@@ -210,7 +210,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
       </div>
 
-      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4">
+      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4 pointer-events-auto">
         <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />

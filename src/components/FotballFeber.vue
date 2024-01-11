@@ -36,23 +36,33 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">FotballFeber</h1>
-      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
+      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold pointer-events-auto">
+        FotballFeber
+      </h1>
+      <h2
+        v-motion-slide-visible-once-left-custom
+        class="text-xl font-light italic text-sky-200 break-words wrap pointer-events-auto"
+      >
         Where Norwegian Football Fans Unite
       </h2>
-      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+      <h3
+        v-motion-slide-visible-once-left-custom
+        class="text-xl font-light text-zinc-200 break-words wrap mt-2 pointer-events-auto"
+      >
         Founder and Sole Developer
       </h3>
-      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
+      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93] pointer-events-auto">
+        Work in progress
+      </h3>
     </div>
     <div v-motion-slide-visible-once-right-custom class="col-span-1 justify-self-center md:self-end my-4">
       <img
         src="/images/projects/fotballfeber/logo.png"
         alt="FotballFeber Logo"
-        class="select-none w-16 sm:w-24 md:w-32"
+        class="select-none w-16 sm:w-24 md:w-32 pointer-events-auto"
       />
     </div>
-    <p v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2">
+    <p v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2 pointer-events-auto">
       FotballFeber is an upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
       engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies, explore
       player development, analyze statistics, delve into fan culture, and dive into the rich history of Norwegian
@@ -65,11 +75,11 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       <img
         src="/images/projects/fotballfeber/screenshot.jpg"
         alt="FotballFeber Login Screen"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20 pointer-events-auto"
       />
     </div>
 
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Vision</h3>
       <p v-motion-slide-visible-once-left-custom>
         Inspired by the absence of a unified platform for Norwegian football aficionados, I embarked on a mission to
@@ -87,7 +97,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         Flowcharts and diagrams were illustrated using Excalidraw.
       </p>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
       <p v-motion-slide-visible-once-left-custom>
         To keep the platform abuzz with the latest Norwegian football updates, I developed a method to source articles
@@ -106,10 +116,10 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       <img
         src="/images/projects/fotballfeber/screenshot2.jpg"
         alt="FotballFeber Login Screen"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20 pointer-events-auto"
       />
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h3>
 
       <p v-motion-slide-visible-once-left-custom>

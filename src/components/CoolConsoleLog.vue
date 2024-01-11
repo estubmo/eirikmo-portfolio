@@ -11,10 +11,10 @@ const randomGradient = function () {
 };
 
 const font = "font-size: 12px; ";
-const getGradient = function (n: any) {
+const getGradient = function (n: string[]) {
   return "linear-gradient(90deg, ".concat(n[0], " 0%, ").concat(n[1], " 100%)");
 };
-const getLineStyle = function (n: any) {
+const getLineStyle = function (n: string[]) {
   return "background: ".concat(getGradient(n), "; border-radius: 0.125rem;");
 };
 
@@ -40,4 +40,5 @@ console.log(
 );
 </script>
 
+<!-- eslint-disable-next-line vue/valid-template-root -->
 <template></template>

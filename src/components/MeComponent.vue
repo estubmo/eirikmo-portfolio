@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:w-1/2 lg:pl-6">
+  <div class="lg:w-1/2 lg:pl-6 pointer-events-auto">
     <div class="flex flex-col max-w-xl gap-2">
       <h2 v-motion-slide-visible-once-right-custom class="text-4xl font-extrabold mb-4">Who I am</h2>
       <div v-motion-slide-visible-once-right-custom class="gap-3 flex">

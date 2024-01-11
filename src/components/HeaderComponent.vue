@@ -11,7 +11,7 @@ const { hasFinishLoading } = toRefs(props);
 <template>
   <Transition class="transition-opacity duration-[5000ms]" enter-from-class="opacity-0" enter-to-class="opacity-1">
     <div v-show="hasFinishLoading" class="min-h-screen container flex items-center">
-      <div class="flex flex-col p-4 max-w-xl">
+      <div class="flex flex-col p-4 max-w-xl pointer-events-auto">
         <div class="space-y-4">
           <div class="gap-3 flex">
             <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
