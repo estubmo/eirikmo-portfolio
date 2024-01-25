@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
@@ -14,8 +14,8 @@ import {
   MeshStandardMaterial,
   PerspectiveCamera,
   RepeatWrapping,
-  SpotLight,
   SRGBColorSpace,
+  SpotLight,
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
@@ -36,6 +36,7 @@ import FotballFeber from "./FotballFeber.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import MeComponent from "./MeComponent.vue";
 import SocialsComponent from "./SocialsComponent.vue";
+import SvanhildStub from "./SvanhildStub.vue";
 import WebtopComponent from "./WebtopComponent.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
@@ -53,6 +54,7 @@ const workRef = ref<HTMLElement>();
 const contactRef = ref<HTMLElement>();
 
 const fotballFeberRef = ref<HTMLElement>();
+const svanhildStubRef = ref<HTMLElement>();
 const cheffeloRef = ref<HTMLElement>();
 const adtubeRef = ref<HTMLElement>();
 const webtopRef = ref<HTMLElement>();
@@ -129,6 +131,10 @@ const eirikTexture = await useTexture({
 });
 
 const fotballfeberTexture = await useTexture({
+  map: "/textures/projects/ff-repeat.jpg",
+});
+
+const svanhildStubTexture = await useTexture({
   map: "/textures/projects/ff-repeat.jpg",
 });
 
@@ -314,6 +320,40 @@ const fotballfeberMaterialMobile = new MeshBasicMaterial({
   aoMapIntensity: 1,
 });
 
+const svanhildStubTextureDesktop = svanhildStubTexture.map.clone();
+svanhildStubTextureDesktop.repeat.set(6, 3.375);
+svanhildStubTextureDesktop.offset.set(0, 0.1);
+svanhildStubTextureDesktop.wrapS = RepeatWrapping;
+svanhildStubTextureDesktop.wrapT = RepeatWrapping;
+
+const svanhildStubMaterialDesktop = new MeshBasicMaterial({
+  transparent: true,
+  map: svanhildStubTextureDesktop,
+  aoMap: svanhildStubTextureDesktop,
+  aoMapIntensity: 1,
+});
+
+const svanhildStubTextureTablet = svanhildStubTexture.map.clone();
+svanhildStubTextureTablet.repeat.set(1, 1.2);
+svanhildStubTextureTablet.offset.set(0, -0.1);
+const svanhildStubMaterialTablet = new MeshBasicMaterial({
+  transparent: true,
+  map: svanhildStubTextureTablet,
+  aoMap: svanhildStubTextureTablet,
+  aoMapIntensity: 1,
+});
+
+const svanhildStubTextureMobile = svanhildStubTexture.map.clone();
+svanhildStubTextureMobile.repeat.set(0.5, 0.7);
+svanhildStubTextureMobile.offset.set(0, 0.4);
+
+const svanhildStubMaterialMobile = new MeshBasicMaterial({
+  transparent: true,
+  map: svanhildStubTextureMobile,
+  aoMap: svanhildStubTextureMobile,
+  aoMapIntensity: 1,
+});
+
 const adtubeTextureDesktop = adtubeTexture.map.clone();
 adtubeTextureDesktop.repeat.set(6, 3.375);
 adtubeTextureDesktop.offset.set(0, 0.1);
@@ -467,7 +507,6 @@ function updateCamera(delta: number) {
     // On Scroll
   } else {
     const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3; // Pan on everything but mobile
-
     if (scrollY.value < meRef.value.offsetTop) {
       const normal = normalize(scrollY.value, 0, meRef.value.offsetTop);
       damp3(
@@ -590,6 +629,7 @@ function updateObjects(delta: number) {
     !topRef.value ||
     !expertiseRef.value ||
     !fotballFeberRef.value ||
+    !svanhildStubRef.value ||
     !cheffeloRef.value ||
     !adtubeRef.value ||
     !webtopRef.value ||
@@ -632,6 +672,11 @@ function updateObjects(delta: number) {
       end: fotballFeberRef.value.offsetTop + fotballFeberRef.value.offsetHeight,
     };
 
+    const projectSvanhildStub = {
+      start: svanhildStubRef.value.offsetTop - topRef.value.offsetHeight / 2,
+      end: svanhildStubRef.value.offsetTop + svanhildStubRef.value.offsetHeight,
+    };
+
     const workCheffelo = {
       start: cheffeloRef.value.offsetTop - topRef.value.offsetHeight / 2,
       end: cheffeloRef.value.offsetTop + cheffeloRef.value.offsetHeight,
@@ -646,12 +691,13 @@ function updateObjects(delta: number) {
       start: webtopRef.value.offsetTop - topRef.value.offsetHeight / 2,
       end: webtopRef.value.offsetTop + webtopRef.value.offsetHeight,
     };
+    const scrollDistance = scrollY.value + (height.value / 2)
 
     // Scroll events
-    if (scrollY.value < secondPart.start) {
+    if (scrollDistance < secondPart.start) {
       screenTextureOpacityRef.value = 0;
       screenOverlayOpacityRef.value = 1;
-    } else if (scrollY.value > secondPart.start && scrollY.value < secondPart.end) {
+    } else if (scrollDistance > secondPart.start && scrollDistance < secondPart.end) {
       lightParams.directional.color = 0x7dd3fc;
 
       screenTextureOpacityRef.value = 1;
@@ -673,7 +719,7 @@ function updateObjects(delta: number) {
         deviceScreenRefs.tablet.value.material = standardMaterial;
         deviceScreenRefs.mobile.value.material = eirikMobileTexture;
       }
-    } else if (scrollY.value > secondPart.end && scrollY.value < projectFotballFeber.start) {
+    } else if (scrollDistance > secondPart.end && scrollDistance < projectFotballFeber.start) {
       lightParams.directional.color = 0x7dd3fc;
       lightParams.rectArea.intensity = 0.01;
       lightParams.directional.intensity = null;
@@ -681,7 +727,7 @@ function updateObjects(delta: number) {
 
       screenTextureOpacityRef.value = 0;
       screenOverlayOpacityRef.value = 1;
-    } else if (scrollY.value > projectFotballFeber.start && scrollY.value < projectFotballFeber.end) {
+    } else if (scrollDistance > projectFotballFeber.start && scrollDistance < projectFotballFeber.end) {
       lightParams.spot.color = 0x09fbeb;
       lightParams.rectArea.intensity = 0.05;
 
@@ -690,7 +736,16 @@ function updateObjects(delta: number) {
       deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop;
       deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet;
       deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile;
-    } else if (scrollY.value > workCheffelo.start && scrollY.value < workCheffelo.end) {
+    } else if (scrollDistance > projectSvanhildStub.start && scrollDistance < projectSvanhildStub.end) {
+      lightParams.spot.color = 0xd4c76c;
+      lightParams.rectArea.intensity = 0.05;
+
+      screenTextureOpacityRef.value = 1;
+      screenOverlayOpacityRef.value = 0.5;
+      deviceScreenRefs.desktop.value.material = svanhildStubMaterialDesktop;
+      deviceScreenRefs.tablet.value.material = svanhildStubMaterialTablet;
+      deviceScreenRefs.mobile.value.material = svanhildStubMaterialMobile;
+    } else if (scrollDistance > workCheffelo.start && scrollDistance < workCheffelo.end) {
       lightParams.spot.color = 0xe56962;
       lightParams.rectArea.intensity = 0.05;
 
@@ -699,7 +754,7 @@ function updateObjects(delta: number) {
       deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop;
       deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet;
       deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile;
-    } else if (scrollY.value > workAdtube.start && scrollY.value < workAdtube.end) {
+    } else if (scrollDistance > workAdtube.start && scrollDistance < workAdtube.end) {
       lightParams.spot.color = 0x40c0c2;
       lightParams.rectArea.intensity = 0.05;
 
@@ -708,7 +763,7 @@ function updateObjects(delta: number) {
       deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop;
       deviceScreenRefs.tablet.value.material = adtubeMaterialTablet;
       deviceScreenRefs.mobile.value.material = adtubeMaterialMobile;
-    } else if (scrollY.value > workWebtop.start && scrollY.value < workWebtop.end) {
+    } else if (scrollDistance > workWebtop.start && scrollDistance < workWebtop.end) {
       lightParams.spot.color = 0xff0000;
       lightParams.rectArea.intensity = 0.05;
 
@@ -717,7 +772,7 @@ function updateObjects(delta: number) {
       deviceScreenRefs.desktop.value.material = webtopMaterialDesktop;
       deviceScreenRefs.tablet.value.material = webtopMaterialTablet;
       deviceScreenRefs.mobile.value.material = webtopMaterialMobile;
-    } else if (scrollY.value > workWebtop.end) {
+    } else if (scrollDistance > workWebtop.end) {
       lightParams.directional.color = 0x7dd3fc;
       lightParams.rectArea.intensity = 0.01;
       lightParams.directional.intensity = null;
@@ -728,7 +783,7 @@ function updateObjects(delta: number) {
     }
 
     // Damping values
-    const normalizedLightInterval = normalize(scrollY.value, 0, expertiseRef.value.offsetTop);
+    const normalizedLightInterval = normalize(scrollDistance, 0, expertiseRef.value.offsetTop);
 
     damp(spotLightRef.value, "intensity", normalizedLightInterval * 2, 0.25, delta);
     const directionalLightIntesity = lightParams.directional.intensity
@@ -782,15 +837,40 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
   <!-- eslint-disable vue/attribute-hyphenation -->
   <CoolConsoleLog />
 
-  <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" :style="canvasStyle">
+  <TresCanvas
+    v-bind="gl"
+    id="canvas"
+    ref="canvasRef"
+    :style="canvasStyle"
+  >
     <CustomStatsGl />
     <!-- Camera -->
-    <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
+    <TresPerspectiveCamera
+      ref="cameraRef"
+      :position="[0, 1, 0]"
+      :near="0.1"
+      :far="80"
+      :fov="70"
+    />
 
     <!-- Backdrop -->
-    <TresMesh cast-shadow receive-shadow :scale="[200, 60, 60]" :position="[0, -0.1, -40]">
-      <Backdrop :floor="1" :segments="20" cast-shadow receive-shadow>
-        <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
+    <TresMesh
+      cast-shadow
+      receive-shadow
+      :scale="[200, 60, 60]"
+      :position="[0, -0.1, -40]"
+    >
+      <Backdrop
+        :floor="1"
+        :segments="20"
+        cast-shadow
+        receive-shadow
+      >
+        <TresMeshStandardMaterial
+          :color="new Color(0xffffff)"
+          :roughness="0.3"
+          :metalness="0.3"
+        />
       </Backdrop>
     </TresMesh>
 
@@ -800,11 +880,24 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       <CustomDesktop :position="new Vector3(0, 0.15, -1)" />
     </Suspense>
 
-    <TresMesh :ref="deviceScreenRefs.desktop" cast-shadow receive-shadow :position="[0, 1.6, -1.232]">
+    <TresMesh
+      :ref="deviceScreenRefs.desktop"
+      cast-shadow
+      receive-shadow
+      :position="[0, 1.6, -1.232]"
+    >
       <TresPlaneGeometry :args="[3.75, 1.89]" />
-      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+      <TresMeshStandardMaterial
+        :roughness="0.4"
+        :metalness="0.5"
+        :color="new Color(0x888888)"
+      />
     </TresMesh>
-    <TresMesh cast-shadow receive-shadow :position="[0, 1.6, -1.231]">
+    <TresMesh
+      cast-shadow
+      receive-shadow
+      :position="[0, 1.6, -1.231]"
+    >
       <TresPlaneGeometry :args="[3.75, 1.89]" />
       <TresMeshStandardMaterial
         ref="desktopOverlayRef"
@@ -818,7 +911,10 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
     <!-- Mobile -->
     <Suspense>
-      <CustomMobile :position="new Vector3(-0.24, -0.315, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
+      <CustomMobile
+        :position="new Vector3(-0.24, -0.315, 0)"
+        :rotation="new Euler(-Math.PI / 4, 0, 0)"
+      />
     </Suspense>
 
     <TresMesh
@@ -827,9 +923,18 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :rotation="new Euler(-Math.PI / 2, 0, 0)"
     >
       <TresPlaneGeometry :args="[0.278, 0.568]" />
-      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
+      <TresMeshStandardMaterial
+        :roughness="0.4"
+        :metalness="0.5"
+        :color="new Color(0xaaaaaa)"
+      />
     </TresMesh>
-    <TresMesh cast-shadow receive-shadow :position="[-0.24, 0.019, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
+    <TresMesh
+      cast-shadow
+      receive-shadow
+      :position="[-0.24, 0.019, -0.31]"
+      :rotation="new Euler(-Math.PI / 2, 0, 0)"
+    >
       <TresPlaneGeometry :args="[0.278, 0.568]" />
       <TresMeshStandardMaterial
         ref="mobileOverlayRef"
@@ -843,7 +948,11 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
     <!-- Tablet -->
     <Suspense>
-      <CustomTablet :position="new Vector3(-2, -0.03, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
+      <CustomTablet
+        :position="new Vector3(-2, -0.03, 0)"
+        :rotation="new Euler(0, 0.1, 0)"
+        :scale="8"
+      />
     </Suspense>
 
     <TresMesh
@@ -852,7 +961,11 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
     >
       <TresPlaneGeometry :args="[0.933, 1.28]" />
-      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
+      <TresMeshStandardMaterial
+        :roughness="0.4"
+        :metalness="0.5"
+        :color="new Color(0x888888)"
+      />
     </TresMesh>
     <TresMesh
       cast-shadow
@@ -873,12 +986,19 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
     <!-- Keyboard -->
     <Suspense>
-      <CustomKeyboard :position="new Vector3(0, 0.025, 0.5)" scale="0.5" />
+      <CustomKeyboard
+        :position="new Vector3(0, 0.025, 0.5)"
+        scale="0.5"
+      />
     </Suspense>
 
     <!-- Mouse -->
     <Suspense>
-      <CustomMouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
+      <CustomMouse
+        :position="mousePositionRef"
+        :scale="4"
+        :rotation="mouseRotationRef"
+      />
     </Suspense>
 
     <!-- Lamp -->
@@ -901,7 +1021,12 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :position="[0, 1, -1.2]"
     />
 
-    <TresMesh ref="spotLightTargetRef" cast-shadow receive-shadow :position="[2.8, 0, -0.34]" />
+    <TresMesh
+      ref="spotLightTargetRef"
+      cast-shadow
+      receive-shadow
+      :position="[2.8, 0, -0.34]"
+    />
 
     <TresSpotLight
       ref="spotLightRef"
@@ -915,7 +1040,10 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
       :shadow-radius="1"
     />
 
-    <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
+    <TresDirectionalLight
+      ref="directionalLightRef"
+      :position="[2, 4, 5]"
+    />
   </TresCanvas>
 
   <div class="flex justify-center relative pointer-events-none">
@@ -924,7 +1052,10 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
         class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
       >
         <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
-          <a href="#top" class="pl-1.5 pointer-events-auto">
+          <a
+            href="#top"
+            class="pl-1.5 pointer-events-auto"
+          >
             <div
               class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
               :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
@@ -935,36 +1066,31 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#me"
             :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Me</a
-          >
+          >Me</a>
           <a
             class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#expertise"
             :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Expertise</a
-          >
+          >Expertise</a>
           <a
             class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#projects"
             :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Projects</a
-          >
+          >Projects</a>
           <a
             class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#work"
             :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Work</a
-          >
+          >Work</a>
           <a
             class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="#contact"
             :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Contact</a
-          >
+          >Contact</a>
         </div>
 
         <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
@@ -972,8 +1098,7 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             class="text-zinc-200 hover:text-zinc-100 pointer-events-auto"
             style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
             href="mailto:eirik@mowebdev.com"
-            >eirik@mowebdev.com</a
-          >
+          >eirik@mowebdev.com</a>
           <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
         </div>
       </div>
@@ -984,10 +1109,18 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
         <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
       </div>
       <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
-        <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
+        <section
+          id="top"
+          ref="topRef"
+          class="min-h-[100lvh] h-[100lvh] container flex items-center"
+        >
           <HeaderComponent :hasFinishLoading="hasFinishLoading" />
         </section>
-        <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
+        <section
+          id="me"
+          ref="meRef"
+          class="min-h-screen container flex items-center justify-end scroll-mt-12"
+        >
           <MeComponent />
         </section>
 
@@ -999,14 +1132,28 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
           <ExpertiseComponent />
         </section>
 
-        <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
+        <section
+          id="projects"
+          ref="projectsRef"
+          class="min-h-screen container flex items-center scroll-mt-12 my-12"
+        >
           <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4 pointer-events-auto">
+            <h2
+              v-motion-slide-visible-once-left-custom
+              class="text-4xl font-extrabold mb-4 pointer-events-auto"
+            >
               Projects
             </h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex"
+            >
+              <div
+                class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm"
+              />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
 
@@ -1017,23 +1164,66 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             >
               <FotballFeber :target="fotballFeberRef" />
             </div>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex"
+            >
+              <div
+                class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm"
+              />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+
+            <div
+              ref="svanhildStubRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <SvanhildStub :target="svanhildStubRef" />
+            </div>
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex"
+            >
+              <div
+                class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm"
+              />
               <div class="h-3 w-3 bg-zinc-400 rounded-full" />
             </div>
           </div>
         </section>
 
-        <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
+        <section
+          id="work"
+          ref="workRef"
+          class="min-h-screen container flex items-center scroll-mt-12"
+        >
           <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4 pointer-events-auto">
+            <h2
+              v-motion-slide-visible-once-left-custom
+              class="text-4xl font-extrabold mb-4 pointer-events-auto"
+            >
               Work
             </h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex"
+            >
+              <div
+                class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
+              />
             </div>
 
             <div
@@ -1044,10 +1234,19 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <CheffeloComponent />
             </div>
 
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex mt-4"
+            >
+              <div
+                class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
+              />
             </div>
 
             <div
@@ -1058,10 +1257,19 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <AdtubeComponent />
             </div>
 
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex mt-4"
+            >
+              <div
+                class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
+              />
             </div>
 
             <div
@@ -1072,25 +1280,60 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
               <WebtopComponent />
             </div>
 
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex mt-4"
+            >
+              <div
+                class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
+              />
             </div>
           </div>
         </section>
 
-        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
+        <section
+          id="contact"
+          ref="contactRef"
+          class="min-h-screen container flex items-center scroll-mt-12"
+        >
           <div class="flex flex-col p-4 max-w-xl gap-2 pointer-events-auto">
-            <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+            <h2
+              ref="target"
+              v-motion-slide-visible-once-left-custom
+              class="text-4xl font-extrabold mb-4"
+            >Contact</h2>
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="gap-3 flex"
+            >
+              <div
+                class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
+              />
+              <div
+                class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
+              />
             </div>
-            <div v-motion-slide-visible-once-left-custom class="flex">
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="flex"
+            >
               <h3 class="text-4xl">Let’s Work Together</h3>
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M14 14L34 34"
                   stroke="#F9FAFB"
@@ -1107,18 +1350,30 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
                 />
               </svg>
             </div>
-            <p v-motion-slide-visible-once-left-custom class="text-lg">
+            <p
+              v-motion-slide-visible-once-left-custom
+              class="text-lg"
+            >
               I am currently open to interesting remote projects
             </p>
             <div v-motion-slide-visible-once-left-custom>
               <p>Call me:</p>
-              <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
+              <a
+                class="hover:underline font-mono"
+                href="tel:+4797602278"
+              >+47 976 02 278</a>
             </div>
             <div v-motion-slide-visible-once-left-custom>
               <p>Email me:</p>
-              <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+              <a
+                class="hover:underline font-mono"
+                href="mailto:eirik@mowebdev.com"
+              >eirik@mowebdev.com</a>
             </div>
-            <div v-motion-slide-visible-once-left-custom class="md:hidden block">
+            <div
+              v-motion-slide-visible-once-left-custom
+              class="md:hidden block"
+            >
               <p>Follow me:</p>
               <div class="flex space-x-6 font-light text-zinc-400 mt-2">
                 <SocialsComponent />
@@ -1126,8 +1381,13 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             </div>
           </div>
         </section>
-        <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
-          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300 pointer-events-auto">
+        <section
+          id="footer"
+          class="my-20 container flex justify-center items-center scroll-mt-12 text-center"
+        >
+          <div
+            class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300 pointer-events-auto"
+          >
             <div class="flex justify-center gap-3 items-center">
               <a
                 href="https://github.com/estubmo/eirikmo-portfolio"
@@ -1169,9 +1429,21 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
                   stroke-linejoin="round"
                   class="lucide lucide-git-fork"
                 >
-                  <circle cx="12" cy="18" r="3" />
-                  <circle cx="6" cy="6" r="3" />
-                  <circle cx="18" cy="6" r="3" />
+                  <circle
+                    cx="12"
+                    cy="18"
+                    r="3"
+                  />
+                  <circle
+                    cx="6"
+                    cy="6"
+                    r="3"
+                  />
+                  <circle
+                    cx="18"
+                    cy="6"
+                    r="3"
+                  />
                   <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
                   <path d="M12 12v3" />
                 </svg>
@@ -1180,26 +1452,50 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
             </div>
             <p>
               Designed and developed by
-              <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
+              <a
+                class="hover:text-zinc-200 underline"
+                href="https://github.com/estubmo"
+                target="_blank"
+              >Eirik Mo</a>
             </p>
 
             <p>
-              Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
-              <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
-              <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
+              Powered by <a
+                class="hover:text-zinc-200 underline"
+                href="https://vuejs.org/"
+                target="_blank"
+              >Astro</a>,
+              <a
+                class="hover:text-zinc-200 underline"
+                href="https://astro.build/"
+                target="_blank"
+              >Vue.js</a> and
+              <a
+                class="hover:text-zinc-200 underline"
+                href="https://threejs.org/"
+                target="_blank"
+              >Three.js</a>
             </p>
             <p>
-              Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
+              Hosted on <a
+                class="hover:text-zinc-200 underline"
+                href="https://vercel.com/"
+                target="_blank"
+              >Vercel</a>
             </p>
             <p>
               Inspired by, among others,
-              <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
-                >Guillaume Gouessan</a
-              >
+              <a
+                class="hover:text-zinc-200 underline"
+                href="https://guillaumegouessan.com/"
+                target="_blank"
+              >Guillaume Gouessan</a>
               and
-              <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
-                >Brittany Chiang</a
-              >.
+              <a
+                class="hover:text-zinc-200 underline"
+                href="https://brittanychiang.com/"
+                target="_blank"
+              >Brittany Chiang</a>.
             </p>
           </div>
         </section>
@@ -1215,7 +1511,10 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
         v-show="!hasFinishLoading"
         class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
       >
-        <div class="max-w-xl" :style="fillerStyles"></div>
+        <div
+          class="max-w-xl"
+          :style="fillerStyles"
+        ></div>
       </div>
     </Transition>
   </div>
