@@ -22,6 +22,7 @@ import HtmlIcon from "./icons/HtmlIcon.vue";
 import HtmxIcon from "./icons/HtmxIcon.vue";
 import JavaScriptIcon from "./icons/JavaScriptIcon.vue";
 import JestIcon from "./icons/JestIcon.vue";
+import MedusaIcon from "./icons/MedusaIcon.vue";
 import MongoDbIcon from "./icons/MongoDbIcon.vue";
 import NextJsIcon from "./icons/NextJsIcon.vue";
 import NodeJsIcon from "./icons/NodeJsIcon.vue";
@@ -122,7 +123,10 @@ import TechItem from "./TechItem.vue";
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Databases</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>SQL<SqlIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >SQL
+          <SqlIcon :height="16" :width="16" />
+        </TechItem>
         <TechItem
           >Redis
           <RedisIcon :height="16" :width="16" />
@@ -151,7 +155,10 @@ import TechItem from "./TechItem.vue";
           >Supabase
           <SupabaseIcon :height="16" :width="16" />
         </TechItem>
-        <TechItem>Turso<TursoIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Turso
+          <TursoIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
@@ -159,65 +166,159 @@ import TechItem from "./TechItem.vue";
         >Content Management Systems</span
       >
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>Sanity<SanityIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Strapi<StrapiIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Sanity
+          <SanityIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Strapi
+          <StrapiIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Testing</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>Vitest<VitestIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Vitest
+          <VitestIcon :height="16" :width="16" />
+        </TechItem>
         <TechItem
           >Playwright
           <PlaywrightIcon :height="16" :width="16" />
         </TechItem>
-        <TechItem>Jest<JestIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Cypress<CypressIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Jest
+          <JestIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Cypress
+          <CypressIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Tooling</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>Bun<BunIcon :height="16" :width="16" /></TechItem>
-        <TechItem>NodeJS<NodeJsIcon :height="16" :width="16" /></TechItem>
-        <TechItem>PNPM<PnpmIcon :height="16" :width="16" /></TechItem>
-        <TechItem>NPM<NpmIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Turbopack<TurbopackIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Turborepo<TurborepoIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Nx<NxIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Prettier<PrettierIcon :height="16" :width="16" /></TechItem>
-        <TechItem>eslint<EslintIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Biome<BiomeIcon :height="16" :width="16" /></TechItem>
-        <TechItem>git<GitIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Bun
+          <BunIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >NodeJS
+          <NodeJsIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >PNPM
+          <PnpmIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >NPM
+          <NpmIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Turbopack
+          <TurbopackIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Turborepo
+          <TurborepoIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Nx
+          <NxIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Prettier
+          <PrettierIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >eslint
+          <EslintIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Biome
+          <BiomeIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >git
+          <GitIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>Vercel<VercelIcon :height="16" :width="16" /></TechItem>
-        <TechItem>.Net<DotNetIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Azure<AzureIcon :height="16" :width="16" /></TechItem>
-        <TechItem>GitHub<GitHubIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Bitbucket<BitbucketIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Fly.io<FlyIoIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Vercel
+          <VercelIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >.Net
+          <DotNetIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Azure
+          <AzureIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >GitHub
+          <GitHubIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Bitbucket
+          <BitbucketIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Fly.io
+          <FlyIoIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Other</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>GraphQL<GraphlQlIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Docker<DockerIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Three.js<ThreeJsIcon :height="16" :width="16" /></TechItem>
-        <TechItem>TanStack Query<TanstackIcon :height="16" :width="16" /></TechItem>
-        <TechItem>tRPC<TrpcIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Redux Toolkit<ReduxToolkitIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Docker
+          <DockerIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >GraphQL
+          <GraphlQlIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Medusa.js
+          <MedusaIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Three.js
+          <ThreeJsIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >TanStack Query
+          <TanstackIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >tRPC
+          <TrpcIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Redux Toolkit
+          <ReduxToolkitIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
     <div>
       <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Design</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>Figma<FigmaIcon :height="16" :width="16" /></TechItem>
-        <TechItem>Excalidraw<ExcalidrawIcon :height="16" :width="16" /></TechItem>
+        <TechItem
+          >Figma
+          <FigmaIcon :height="16" :width="16" />
+        </TechItem>
+        <TechItem
+          >Excalidraw
+          <ExcalidrawIcon :height="16" :width="16" />
+        </TechItem>
       </ul>
     </div>
   </div>

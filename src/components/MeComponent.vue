@@ -14,6 +14,10 @@
         avid traveler and language learner, and I enjoy lifting weights and hiking up sunny mountains in my free time.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
+        I'm a proficient Fullstack Developer and DevOps Engineer, who knows how to build and deploy scalable web
+        applications. I have experience with a wide range of technologies.
+      </p>
+      <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         Furthermore, I'm privileged enough to do all of my work remotely. I can effectively communicate and collaborate
         with clients and team members remotely. This allows me to take on projects from anywhere in the world and
         deliver high-quality results.

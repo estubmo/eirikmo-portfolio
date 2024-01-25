@@ -19,9 +19,9 @@ import TechContainer from "./TechContainer.vue";
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
           Fluent in the languages of engineering and aesthetics, I'm uniquely equipped to chart a course for a practical
-          product that prioritizes the customer's experience. My forte is full-stack development, and I'm committed to
-          choosing the most fitting tools for each project, whether it's a robust framework or the latest web
-          innovations.
+          product that prioritizes the customer's experience. My forte is full-stack development and devops engineernig,
+          and I'm committed to choosing the most fitting tools for each project, whether it's a robust framework or the
+          latest web innovations.
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
           I understand that the key lies not only in impressive interfaces and blazing performance but also in striking
