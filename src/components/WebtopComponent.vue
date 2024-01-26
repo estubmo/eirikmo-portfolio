@@ -8,7 +8,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
 </script>
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
-    <div class="col-span-2 my-4 pointer-events-auto">
+    <div class="col-span-2 my-4">
       <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">Webtop Solutions</h1>
       <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-sky-200 break-words wrap">
         Jul 2016 - Dec 2018 · 2 yrs 6 mos
@@ -40,11 +40,11 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
       <img
         src="/images/work/webtop/webtop.png"
         alt="Webtop Marketing"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating -lg z-20 pointer-events-auto"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating -lg z-20"
       />
     </div>
 
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
         My Role and Responsibilities
       </h3>
@@ -75,7 +75,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </ul>
       </div>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
         <p v-motion-slide-visible-once-left-custom>
@@ -104,7 +104,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </ul>
       </div>
     </div>
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div v-motion-fade-visible-once-custom class="w-fit mt-4">
         <a
           href="https://www.webtop.no/"
@@ -131,7 +131,7 @@ import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-4 pointer-events-auto">
+      <div class="flex flex-wrap gap-2 mt-4">
         <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />

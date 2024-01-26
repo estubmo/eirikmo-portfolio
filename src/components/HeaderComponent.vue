@@ -11,7 +11,7 @@ const { hasFinishLoading } = toRefs(props);
 <template>
   <Transition class="transition-opacity duration-[5000ms]" enter-from-class="opacity-0" enter-to-class="opacity-1">
     <div v-show="hasFinishLoading" class="min-h-screen container flex items-center">
-      <div class="flex flex-col p-4 max-w-xl pointer-events-auto">
+      <div class="flex flex-col p-4 max-w-xl">
         <div class="space-y-4">
           <div class="gap-3 flex">
             <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
@@ -40,24 +40,27 @@ const { hasFinishLoading } = toRefs(props);
           <p class="font-mono text-zinc-400">Hello, I am</p>
           <h2 class="text-4xl lg:text-7xl font-extrabold">Eirik Mo</h2>
           <div class="gap-3 flex">
-            <div class="h-3 w-7 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-2 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-11 bg-zinc-400 rounded-sm" />
+            <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+            <div class="h-3 w-5 bg-zinc-400 rounded-sm" />
+            <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
+            <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
             <div class="hidden lg:block h-3 w-7 bg-zinc-400 rounded-sm" />
             <div class="hidden lg:block h-3 w-4 bg-zinc-400 rounded-sm" />
             <div class="hidden lg:block h-3 w-7 bg-zinc-400 rounded-sm" />
             <div class="hidden lg:block h-3 w-5 bg-zinc-400 rounded-sm" />
           </div>
-          <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer & DevOps Engineer /></p>
+          <p class="font-mono text-zinc-200 font-light text-xl">
+            &lt; Fullstack Developer <br className="md:hidden" />
+            <span className="ml-6 md:ml-0">& DevOps Engineer /></span>
+          </p>
           <div class="gap-3 flex">
             <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
             <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
             <div class="h-3 w-24 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-4 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-24 bg-zinc-400 rounded-sm" />
-            <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
+            <div class="h-3 w-4 bg-zinc-400 rounded-sm hidden md:block" />
+            <div class="h-3 w-8 bg-zinc-400 rounded-sm hidden md:block" />
+            <div class="h-3 w-24 bg-zinc-400 rounded-sm hidden md:block" />
+            <div class="h-3 w-10 bg-zinc-400 rounded-sm hidden md:block" />
           </div>
         </div>
         <div class="space-y-4">

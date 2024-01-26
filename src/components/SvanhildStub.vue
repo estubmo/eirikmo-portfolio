@@ -28,20 +28,12 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold pointer-events-auto">
-        Svanhild Stub
-      </h1>
-      <h2
-        v-motion-slide-visible-once-left-custom
-        class="text-xl font-light italic text-sky-200 break-words wrap pointer-events-auto"
-      >
+      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">Svanhild Stub</h1>
+      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
         E-commerce Store & Gallery
       </h2>
       <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-sky-200 break-words wrap">Jan 2024</h2>
-      <h3
-        v-motion-slide-visible-once-left-custom
-        class="text-xl font-light text-zinc-200 break-words wrap mt-2 pointer-events-auto"
-      >
+      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
         Developer and System Administrator
       </h3>
     </div>
@@ -49,10 +41,10 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       <img
         src="/images/projects/svanhildstub/logo.png"
         alt="SvanhildStub Logo"
-        class="select-none w-16 sm:w-24 md:w-32 pointer-events-auto"
+        class="select-none w-16 sm:w-24 md:w-32"
       />
     </div>
-    <div v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2 pointer-events-auto">
+    <div v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2">
       <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">About Svanhild Stub</h3>
       <p v-motion-slide-visible-once-left-custom>
         The Svanhild Stub website is an e-commerce store and gallery for the Norwegian artist Svanhild Stub. The website
@@ -87,17 +79,17 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       <img
         src="/images/projects/svanhildstub/screenshot001.webp"
         alt="SvanhildStub Home Page"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20 pointer-events-auto"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20"
       />
 
       <img
         src="/images/projects/svanhildstub/screenshot002.webp"
         alt="SvanhildStub Store"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20 pointer-events-auto"
+        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20"
       />
     </div>
 
-    <div class="flex flex-col col-span-3 md:col-span-2 gap-2 pointer-events-auto">
+    <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <div v-motion-pop-visible-once-custom class="w-fit mt-4">
         <a
           href="https://www.svanhildstub.com/"

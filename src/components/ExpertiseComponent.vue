@@ -5,7 +5,7 @@ import TechContainer from "./TechContainer.vue";
 <template>
   <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full">
     <div class="lg:w-1/2">
-      <div class="flex flex-col max-w-xl gap-2 pointer-events-auto">
+      <div class="flex flex-col max-w-xl gap-2">
         <a v-motion-slide-visible-once-left-custom href="#expertise">
           <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
         </a>
@@ -30,7 +30,7 @@ import TechContainer from "./TechContainer.vue";
         </p>
       </div>
     </div>
-    <div class="flex flex-col gap-2 lg:w-1/2 pointer-events-auto">
+    <div class="flex flex-col gap-2 lg:w-1/2">
       <div class="max-w-xl">
         <h2 v-motion-slide-visible-once-right-custom class="text-2xl font-bold mb-4">Tech</h2>
         <p v-motion-slide-visible-once-right-custom class="md:text-lg mb-2">

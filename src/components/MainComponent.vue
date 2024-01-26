@@ -837,7 +837,318 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
   <!-- eslint-disable vue/attribute-hyphenation -->
   <CoolConsoleLog />
 
-  <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" :style="canvasStyle">
+  <div class="flex justify-center relative">
+    <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
+      <div
+        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
+      >
+        <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
+          <a href="#top" class="pl-1.5">
+            <div
+              class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
+              :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
+            />
+          </a>
+          <a
+            class="hover:text-zinc-200 transition-colors ease-in-out"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#me"
+            :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
+            >Me</a
+          >
+          <a
+            class="hover:text-zinc-200 transition-colors ease-in-out"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#expertise"
+            :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
+            >Expertise</a
+          >
+          <a
+            class="hover:text-zinc-200 transition-colors ease-in-out"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#projects"
+            :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
+            >Projects</a
+          >
+          <a
+            class="hover:text-zinc-200 transition-colors ease-in-out"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#work"
+            :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
+            >Work</a
+          >
+          <a
+            class="hover:text-zinc-200 transition-colors ease-in-out"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="#contact"
+            :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
+            >Contact</a
+          >
+        </div>
+
+        <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
+          <a
+            class="text-zinc-200 hover:text-zinc-100"
+            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+            href="mailto:eirik@mowebdev.com"
+            >eirik@mowebdev.com</a
+          >
+          <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
+        </div>
+      </div>
+      <div
+        class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:translate-x-[-958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
+      >
+        <SocialsComponent />
+        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
+      </div>
+      <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
+        <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
+          <HeaderComponent :hasFinishLoading="hasFinishLoading" />
+        </section>
+        <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
+          <MeComponent />
+        </section>
+
+        <section
+          id="expertise"
+          ref="expertiseRef"
+          class="min-h-screen container flex items-center w-full scroll-mt-12 my-12"
+        >
+          <ExpertiseComponent />
+        </section>
+
+        <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
+          <div class="flex flex-col gap-2">
+            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Projects</h2>
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+
+            <div
+              ref="fotballFeberRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <FotballFeber :target="fotballFeberRef" />
+            </div>
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+
+            <div
+              ref="svanhildStubRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <SvanhildStub :target="svanhildStubRef" />
+            </div>
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+            </div>
+          </div>
+        </section>
+
+        <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
+          <div class="flex flex-col gap-2">
+            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Work</h2>
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+
+            <div
+              ref="cheffeloRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <CheffeloComponent />
+            </div>
+
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+
+            <div
+              ref="adtubeRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <AdtubeComponent />
+            </div>
+
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+
+            <div
+              ref="webtopRef"
+              v-motion-fade-visible-once-custom
+              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            >
+              <WebtopComponent />
+            </div>
+
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
+              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
+          <div class="flex flex-col p-4 max-w-xl gap-2">
+            <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
+            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+            </div>
+            <div v-motion-slide-visible-once-left-custom class="flex">
+              <h3 class="text-4xl">Let’s Work Together</h3>
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 14L34 34"
+                  stroke="#F9FAFB"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M34 14V34H14"
+                  stroke="#F9FAFB"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <p v-motion-slide-visible-once-left-custom class="text-lg">
+              I am currently open to interesting remote projects
+            </p>
+            <div v-motion-slide-visible-once-left-custom>
+              <p>Call me:</p>
+              <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
+            </div>
+            <div v-motion-slide-visible-once-left-custom>
+              <p>Email me:</p>
+              <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+            </div>
+            <div v-motion-slide-visible-once-left-custom class="md:hidden block">
+              <p>Follow me:</p>
+              <div class="flex space-x-6 font-light text-zinc-400 mt-2">
+                <SocialsComponent />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
+          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
+            <div class="flex justify-center gap-3 items-center">
+              <a
+                href="https://github.com/estubmo/eirikmo-portfolio"
+                target="_blank"
+                class="flex gap-2 items-center hover:text-zinc-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-star"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                {{ githubInfo.stars }}
+              </a>
+              <a
+                href="https://github.com/estubmo/eirikmo-portfolio"
+                target="_blank"
+                class="flex gap-2 items-center hover:text-zinc-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-git-fork"
+                >
+                  <circle cx="12" cy="18" r="3" />
+                  <circle cx="6" cy="6" r="3" />
+                  <circle cx="18" cy="6" r="3" />
+                  <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
+                  <path d="M12 12v3" />
+                </svg>
+                {{ githubInfo.forks }}
+              </a>
+            </div>
+            <p>
+              Designed and developed by
+              <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
+            </p>
+
+            <p>
+              Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
+              <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
+              <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
+            </p>
+            <p>
+              Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
+            </p>
+            <p>
+              Inspired by, among others,
+              <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
+                >Guillaume Gouessan</a
+              >
+              and
+              <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
+                >Brittany Chiang</a
+              >.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <Transition
+      name="fade-overlay"
+      enter-active-class="opacity-1 transition-opacity duration-1000"
+      leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
+    >
+      <div
+        v-show="!hasFinishLoading"
+        class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
+      >
+        <div class="max-w-xl" :style="fillerStyles"></div>
+      </div>
+    </Transition>
+  </div>
+
+  <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
     <CustomStatsGl />
     <!-- Camera -->
     <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
@@ -972,321 +1283,6 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
 
     <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
   </TresCanvas>
-
-  <div class="flex justify-center relative pointer-events-none">
-    <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
-      <div
-        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
-      >
-        <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
-          <a href="#top" class="pl-1.5 pointer-events-auto">
-            <div
-              class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
-              :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
-            />
-          </a>
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#me"
-            :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Me</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#expertise"
-            :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Expertise</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#projects"
-            :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Projects</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#work"
-            :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Work</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#contact"
-            :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Contact</a
-          >
-        </div>
-
-        <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
-          <a
-            class="text-zinc-200 hover:text-zinc-100 pointer-events-auto"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="mailto:eirik@mowebdev.com"
-            >eirik@mowebdev.com</a
-          >
-          <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
-        </div>
-      </div>
-      <div
-        class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:translate-x-[-958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
-      >
-        <SocialsComponent />
-        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
-      </div>
-      <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
-        <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
-          <HeaderComponent :hasFinishLoading="hasFinishLoading" />
-        </section>
-        <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
-          <MeComponent />
-        </section>
-
-        <section
-          id="expertise"
-          ref="expertiseRef"
-          class="min-h-screen container flex items-center w-full scroll-mt-12 my-12"
-        >
-          <ExpertiseComponent />
-        </section>
-
-        <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
-          <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4 pointer-events-auto">
-              Projects
-            </h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-
-            <div
-              ref="fotballFeberRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <FotballFeber :target="fotballFeberRef" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-
-            <div
-              ref="svanhildStubRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <SvanhildStub :target="svanhildStubRef" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-          </div>
-        </section>
-
-        <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
-          <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4 pointer-events-auto">
-              Work
-            </h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="cheffeloRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <CheffeloComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="adtubeRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <AdtubeComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="webtopRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <WebtopComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
-          <div class="flex flex-col p-4 max-w-xl gap-2 pointer-events-auto">
-            <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="flex">
-              <h3 class="text-4xl">Let’s Work Together</h3>
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14 14L34 34"
-                  stroke="#F9FAFB"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M34 14V34H14"
-                  stroke="#F9FAFB"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <p v-motion-slide-visible-once-left-custom class="text-lg">
-              I am currently open to interesting remote projects
-            </p>
-            <div v-motion-slide-visible-once-left-custom>
-              <p>Call me:</p>
-              <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
-            </div>
-            <div v-motion-slide-visible-once-left-custom>
-              <p>Email me:</p>
-              <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="md:hidden block">
-              <p>Follow me:</p>
-              <div class="flex space-x-6 font-light text-zinc-400 mt-2">
-                <SocialsComponent />
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
-          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300 pointer-events-auto">
-            <div class="flex justify-center gap-3 items-center">
-              <a
-                href="https://github.com/estubmo/eirikmo-portfolio"
-                target="_blank"
-                class="flex gap-2 items-center hover:text-zinc-200"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-star"
-                >
-                  <polygon
-                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                  />
-                </svg>
-                {{ githubInfo.stars }}
-              </a>
-              <a
-                href="https://github.com/estubmo/eirikmo-portfolio"
-                target="_blank"
-                class="flex gap-2 items-center hover:text-zinc-200"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-git-fork"
-                >
-                  <circle cx="12" cy="18" r="3" />
-                  <circle cx="6" cy="6" r="3" />
-                  <circle cx="18" cy="6" r="3" />
-                  <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
-                  <path d="M12 12v3" />
-                </svg>
-                {{ githubInfo.forks }}
-              </a>
-            </div>
-            <p>
-              Designed and developed by
-              <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
-            </p>
-
-            <p>
-              Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
-              <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
-              <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
-            </p>
-            <p>
-              Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
-            </p>
-            <p>
-              Inspired by, among others,
-              <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
-                >Guillaume Gouessan</a
-              >
-              and
-              <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
-                >Brittany Chiang</a
-              >.
-            </p>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <Transition
-      name="fade-overlay"
-      enter-active-class="opacity-1 transition-opacity duration-1000"
-      leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
-    >
-      <div
-        v-show="!hasFinishLoading"
-        class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
-      >
-        <div class="max-w-xl" :style="fillerStyles"></div>
-      </div>
-    </Transition>
-  </div>
 </template>
 
 <style>
