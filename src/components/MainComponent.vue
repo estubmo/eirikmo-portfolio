@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
-import { useMouse, useWindowScroll, useWindowSize } from "@vueuse/core";
+import { useMouse, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
   CineonToneMapping,
@@ -20,8 +20,6 @@ import {
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import AdtubeComponent from "./AdtubeComponent.vue";
-import CheffeloComponent from "./CheffeloComponent.vue";
 import CoolConsoleLog from "./CoolConsoleLog.vue";
 import CustomDesktop from "./CustomDesktop.vue";
 import CustomKeyboard from "./CustomKeyboard.vue";
@@ -32,12 +30,20 @@ import CustomStatsGl from "./CustomStatsGl.vue";
 import CustomTablet from "./CustomTablet.vue";
 import ExpertiseComponent from "./ExpertiseComponent.vue";
 import FixPixelRatio from "./FixPixelRatio.vue";
-import FotballFeber from "./FotballFeber.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import MeComponent from "./MeComponent.vue";
+import MyModal from "./MyModal.vue";
+import FotballFeberCard from "./projects/FotballFeberCard.vue";
+import FotballFeberContent from "./projects/FotballFeberContent.vue";
+import SvanhildStubCard from "./projects/SvanhildStubCard.vue";
+import SvanhildStubContent from "./projects/SvanhildStubContent.vue";
 import SocialsComponent from "./SocialsComponent.vue";
-import SvanhildStub from "./SvanhildStub.vue";
-import WebtopComponent from "./WebtopComponent.vue";
+import AdtubeCard from "./work/AdtubeCard.vue";
+import AdtubeContent from "./work/AdtubeContent.vue";
+import CheffeloCard from "./work/CheffeloCard.vue";
+import CheffeloContent from "./work/CheffeloContent.vue";
+import WebtopCard from "./work/WebtopCard.vue";
+import WebtopContent from "./work/WebtopContent.vue";
 
 type ViewPort = "desktop" | "tablet" | "mobile";
 
@@ -46,6 +52,7 @@ const canvasRef = ref<HTMLCanvasElement>();
 const currentViewPort = ref<ViewPort>("desktop");
 const hasScrolled = ref(false);
 
+// Scroll Refs
 const topRef = ref<HTMLElement>();
 const meRef = ref<HTMLElement>();
 const expertiseRef = ref<HTMLElement>();
@@ -58,6 +65,31 @@ const svanhildStubRef = ref<HTMLElement>();
 const cheffeloRef = ref<HTMLElement>();
 const adtubeRef = ref<HTMLElement>();
 const webtopRef = ref<HTMLElement>();
+
+const divRef = ref<HTMLElement>();
+const simpleBarRef = ref();
+
+const isExperienceModalOpenRef = ref({
+  fotballfeber: false,
+  svanhildstub: false,
+  cheffelo: false,
+  adtube: false,
+  webtop: false,
+});
+
+const isModalOpenRef = ref(false);
+
+const hoverTargetRef = ref<"fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop" | "">("");
+
+watch(
+  isExperienceModalOpenRef,
+  (isExperienceModalOpen) => {
+    isModalOpenRef.value = Object.values(isExperienceModalOpen).some((x) => x);
+  },
+  {
+    deep: true,
+  },
+);
 
 const githubInfo = ref<{
   stars: number;
@@ -90,7 +122,19 @@ fetch("https://api.github.com/repos/estubmo/eirikmo-portfolio")
   })
   .catch((e) => console.error(e));
 
-const scrollRefs = [topRef, meRef, expertiseRef, projectsRef, workRef, contactRef];
+const scrollRefs = [
+  topRef,
+  meRef,
+  expertiseRef,
+  projectsRef,
+  workRef,
+  contactRef,
+  fotballFeberRef,
+  svanhildStubRef,
+  cheffeloRef,
+  adtubeRef,
+  webtopRef,
+];
 const currentSegmentRef = ref<string>("top");
 
 const rectAreaLightIntensity = ref(0);
@@ -115,7 +159,8 @@ const mobileOverlayRef = ref<MeshStandardMaterial>();
 const screenTextureOpacityRef = ref(0);
 const screenOverlayOpacityRef = ref(1);
 
-type Segments = "top" | "me" | "expertise" | "projects" | "work" | "contact";
+type PageSegment = "top" | "me" | "expertise" | "projects" | "work" | "contact";
+type ModalSegment = "fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop";
 
 const param = {
   positionSmoothing: 0.3,
@@ -135,7 +180,7 @@ const fotballfeberTexture = await useTexture({
 });
 
 const svanhildStubTexture = await useTexture({
-  map: "/textures/projects/ff-repeat.jpg",
+  map: "/textures/projects/ss-repeat.jpg",
 });
 
 const adtubeTexture = await useTexture({
@@ -157,7 +202,7 @@ const standardMaterial = new MeshStandardMaterial({
 });
 
 const { width, height } = useWindowSize();
-const { y: scrollY } = useWindowScroll();
+
 const { x: mouseX, y: mouseY } = useMouse({
   type: "client",
   touch: false,
@@ -215,32 +260,38 @@ function normalize(val: number, min: number, max: number) {
 const device = {
   desktop: {
     start: new Vector3(0, 1.6, -0.2),
+    zoom: new Vector3(-2, 8, 2),
     second: new Vector3(0, 1.6, 1.5),
     third: new Vector3(0, 2, 2.5),
     end: new Vector3(0, 3, 8),
     startAngle: new Euler(0, 0, 0),
     secondAngle: new Euler(0, 0, 0),
     thirdAngle: new Euler(-Math.PI / 9, 0, 0),
+    zoomAngle: new Euler(-Math.PI / 2, 0, 0),
     endAngle: new Euler(-Math.PI / 7, 0, 0),
   },
   tablet: {
     start: new Vector3(-2, 0.7, -0.1),
+    zoom: new Vector3(-2, 12, 2),
     second: new Vector3(-1.75, 1.25, 0),
     third: new Vector3(-1, 3, 2),
     end: new Vector3(0, 3, 8),
     startAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     secondAngle: new Euler(-Math.PI / 2, 0, Math.PI / 40),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
+    zoomAngle: new Euler(-Math.PI / 2, 0, 0),
     endAngle: new Euler(-Math.PI / 7, 0, 0),
   },
   mobile: {
     start: new Vector3(-0.25, 0.2, -0.25),
+    zoom: new Vector3(-1, 16, 3),
     second: new Vector3(-0.25, 1, -0.25),
     third: new Vector3(0, 3, 2),
     end: new Vector3(0, 3, 8),
     startAngle: new Euler(-Math.PI / 2, 0, 0),
     secondAngle: new Euler(-Math.PI / 2, 0, 0),
     thirdAngle: new Euler(-Math.PI / 5, 0, 0),
+    zoomAngle: new Euler(-Math.PI / 2, 0, 0),
     endAngle: new Euler(-Math.PI / 7, 0, 0),
   },
 } as const;
@@ -463,8 +514,23 @@ function updateHeight() {
 
 watch(height, () => updateHeight());
 
+const openModalBySegment = (segment: ModalSegment) => {
+  if (segment === "fotballfeber") {
+    isExperienceModalOpenRef.value.fotballfeber = true;
+  } else if (segment === "svanhildstub") {
+    isExperienceModalOpenRef.value.svanhildstub = true;
+  } else if (segment === "cheffelo") {
+    isExperienceModalOpenRef.value.cheffelo = true;
+  } else if (segment === "adtube") {
+    isExperienceModalOpenRef.value.adtube = true;
+  } else if (segment === "webtop") {
+    isExperienceModalOpenRef.value.webtop = true;
+  }
+};
+
 onMounted(() => {
   const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
+
   if (segment) {
     scrollRefs.forEach((ref) => {
       if (ref.value?.id === segment) {
@@ -472,12 +538,38 @@ onMounted(() => {
         if (hasFinishLoading) {
           setTimeout(() => {
             ref.value?.scrollIntoView({ behavior: "smooth" });
+            openModalBySegment(segment as ModalSegment);
           }, 1000);
         }
       }
     });
   }
 });
+
+window.onhashchange = function () {
+  if (isModalOpenRef.value) {
+    isModalOpenRef.value = false;
+    isExperienceModalOpenRef.value = {
+      fotballfeber: false,
+      svanhildstub: false,
+      cheffelo: false,
+      adtube: false,
+      webtop: false,
+    };
+  }
+
+  if (!isModalOpenRef.value) {
+    const segment = new URL(window.location.href).hash.replace("#/", "").replace("#", "");
+    scrollRefs.forEach((ref) => {
+      if (ref.value?.id === segment) {
+        currentSegmentRef.value = segment;
+        ref.value?.scrollIntoView({ behavior: "smooth" });
+
+        openModalBySegment(segment as ModalSegment);
+      }
+    });
+  }
+};
 
 function updateViewPort() {
   const current = getViewPort();
@@ -498,8 +590,10 @@ function updateCamera(delta: number) {
 
   const currentDevice = device[currentViewPort.value];
   if (!cameraRef.value || !expertiseRef.value || !meRef.value || !projectsRef.value || !topRef.value) return;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const scrollY: number = simpleBarRef?.value?.scrollElement?.scrollTop || 0;
   // Defaults (ScrollY = 0 and has not scrolled yet)
-  if (!hasScrolled.value && scrollY.value === 0) {
+  if (!hasScrolled.value && scrollY === 0) {
     // On load set the camera to the start position without damping
     cameraRef.value.position.set(currentDevice.start.x, currentDevice.start.y, currentDevice.start.z);
     cameraRef.value.rotation.set(currentDevice.startAngle.x, currentDevice.startAngle.y, currentDevice.startAngle.z);
@@ -507,8 +601,26 @@ function updateCamera(delta: number) {
     // On Scroll
   } else {
     const cameraPan = currentViewPort.value === "mobile" ? 0 : Math.sin(cursor.x) / 3; // Pan on everything but mobile
-    if (scrollY.value < meRef.value.offsetTop) {
-      const normal = normalize(scrollY.value, 0, meRef.value.offsetTop);
+
+    if (isModalOpenRef.value) {
+      damp3(
+        cameraRef.value.position,
+        [currentDevice.zoom.x, currentDevice.zoom.y, currentDevice.zoom.z],
+        param.positionSmoothing,
+        delta,
+      );
+
+      dampE(
+        cameraRef.value.rotation,
+        [currentDevice.zoomAngle.x, currentDevice.zoomAngle.y, currentDevice.zoomAngle.z],
+        param.lookAtSmoothing,
+        delta,
+      );
+      return;
+    }
+
+    if (scrollY < meRef.value.offsetTop) {
+      const normal = normalize(scrollY, 0, meRef.value.offsetTop);
       damp3(
         cameraRef.value.position,
         [
@@ -530,8 +642,8 @@ function updateCamera(delta: number) {
         param.lookAtSmoothing,
         delta,
       );
-    } else if (scrollY.value < expertiseRef.value.offsetTop) {
-      const normal = normalize(scrollY.value, meRef.value.offsetTop, expertiseRef.value.offsetTop);
+    } else if (scrollY < expertiseRef.value.offsetTop) {
+      const normal = normalize(scrollY, meRef.value.offsetTop, expertiseRef.value.offsetTop);
       damp3(
         cameraRef.value.position,
         [
@@ -554,7 +666,7 @@ function updateCamera(delta: number) {
         delta,
       );
     } else {
-      const normal = normalize(scrollY.value, expertiseRef.value.offsetTop, projectsRef.value.offsetTop);
+      const normal = normalize(scrollY, expertiseRef.value.offsetTop, projectsRef.value.offsetTop);
       damp3(
         cameraRef.value.position,
         [
@@ -620,6 +732,67 @@ const lightParams: {
   },
 };
 
+const setDefaultParams = () => {
+  lightParams.directional.color = 0x7dd3fc;
+  lightParams.rectArea.intensity = 0.01;
+  lightParams.directional.intensity = null;
+  lightParams.spot.color = 0xebc653;
+
+  screenTextureOpacityRef.value = 0;
+  screenOverlayOpacityRef.value = 1;
+};
+
+const setFotballFeberParams = () => {
+  lightParams.spot.color = 0x09fbeb;
+
+  screenTextureOpacityRef.value = 1;
+  screenOverlayOpacityRef.value = 0.5;
+  if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+  deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop;
+  deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet;
+  deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile;
+};
+
+const setSvanhildStubParams = () => {
+  lightParams.spot.color = 0xd4c76c;
+  screenTextureOpacityRef.value = 1;
+  screenOverlayOpacityRef.value = 0.5;
+  if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+  deviceScreenRefs.desktop.value.material = svanhildStubMaterialDesktop;
+  deviceScreenRefs.tablet.value.material = svanhildStubMaterialTablet;
+  deviceScreenRefs.mobile.value.material = svanhildStubMaterialMobile;
+};
+
+const setCheffeloParams = () => {
+  lightParams.spot.color = 0xe56962;
+  screenTextureOpacityRef.value = 1;
+  screenOverlayOpacityRef.value = 0.5;
+  if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+  deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop;
+  deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet;
+  deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile;
+};
+
+const setAdtubeParams = () => {
+  lightParams.spot.color = 0x40c0c2;
+  screenTextureOpacityRef.value = 1;
+  screenOverlayOpacityRef.value = 0.5;
+  if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+  deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop;
+  deviceScreenRefs.tablet.value.material = adtubeMaterialTablet;
+  deviceScreenRefs.mobile.value.material = adtubeMaterialMobile;
+};
+
+const setWebtopParams = () => {
+  lightParams.spot.color = 0xff0000;
+  screenTextureOpacityRef.value = 1;
+  screenOverlayOpacityRef.value = 0.5;
+  if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+  deviceScreenRefs.desktop.value.material = webtopMaterialDesktop;
+  deviceScreenRefs.tablet.value.material = webtopMaterialTablet;
+  deviceScreenRefs.mobile.value.material = webtopMaterialMobile;
+};
+
 function updateObjects(delta: number) {
   if (
     !spotLightRef.value ||
@@ -640,7 +813,22 @@ function updateObjects(delta: number) {
     !mobileOverlayRef.value
   )
     return;
-  if (!hasScrolled.value && scrollY.value === 0) {
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const scrollY: number = simpleBarRef?.value?.scrollElement?.scrollTop || 0;
+  hasScrolled.value = scrollY > 0;
+  const currentScrollItemId = scrollRefs.find((ref) => {
+    if (!ref.value || !topRef.value) return;
+    return (
+      scrollY > ref.value.offsetTop - topRef.value.offsetHeight / 2 &&
+      scrollY < ref.value.offsetTop + ref.value.offsetHeight - topRef.value.offsetHeight / 2
+    );
+  })?.value?.id as PageSegment & ModalSegment;
+  if (currentScrollItemId) {
+    currentSegmentRef.value = currentScrollItemId;
+  }
+
+  if (!hasScrolled.value && scrollY === 0) {
     // Default light values
     spotLightRef.value.intensity = 0;
     spotLightRef.value.color = new Color(0xebc653);
@@ -652,12 +840,12 @@ function updateObjects(delta: number) {
     desktopOverlayRef.value.opacity = 1;
   } else {
     // Mouse Position
-    damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.25, delta);
-    damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.25, delta);
+    damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.1, delta);
+    damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.1, delta);
     mousePositionRef.value = new Vector3(mouseParams.x + 2, mousePositionRef.value.y, mouseParams.z + 0.5);
 
     // Mouse Rotation
-    damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.25, delta);
+    damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.1, delta);
     mouseRotationRef.value = new Euler(0, mouseParams.rotation, 0);
 
     // Sections
@@ -669,29 +857,30 @@ function updateObjects(delta: number) {
 
     const projectFotballFeber = {
       start: fotballFeberRef.value.offsetTop - topRef.value.offsetHeight / 2,
-      end: fotballFeberRef.value.offsetTop + fotballFeberRef.value.offsetHeight,
+      end: fotballFeberRef.value.offsetTop + fotballFeberRef.value.offsetHeight / 2,
     };
 
     const projectSvanhildStub = {
       start: svanhildStubRef.value.offsetTop - topRef.value.offsetHeight / 2,
-      end: svanhildStubRef.value.offsetTop + svanhildStubRef.value.offsetHeight,
+      end: svanhildStubRef.value.offsetTop + svanhildStubRef.value.offsetHeight / 2,
     };
 
     const workCheffelo = {
       start: cheffeloRef.value.offsetTop - topRef.value.offsetHeight / 2,
-      end: cheffeloRef.value.offsetTop + cheffeloRef.value.offsetHeight,
+      end: cheffeloRef.value.offsetTop + cheffeloRef.value.offsetHeight / 2,
     };
 
     const workAdtube = {
       start: adtubeRef.value.offsetTop - topRef.value.offsetHeight / 2,
-      end: adtubeRef.value.offsetTop + adtubeRef.value.offsetHeight,
+      end: adtubeRef.value.offsetTop + adtubeRef.value.offsetHeight / 2,
     };
 
     const workWebtop = {
       start: webtopRef.value.offsetTop - topRef.value.offsetHeight / 2,
-      end: webtopRef.value.offsetTop + webtopRef.value.offsetHeight,
+      end: webtopRef.value.offsetTop + webtopRef.value.offsetHeight / 2,
     };
-    const scrollDistance = scrollY.value + height.value / 2;
+
+    const scrollDistance = scrollY;
 
     // Scroll events
     if (scrollDistance < secondPart.start) {
@@ -719,107 +908,77 @@ function updateObjects(delta: number) {
         deviceScreenRefs.tablet.value.material = standardMaterial;
         deviceScreenRefs.mobile.value.material = eirikMobileTexture;
       }
-    } else if (scrollDistance > secondPart.end && scrollDistance < projectFotballFeber.start) {
-      lightParams.directional.color = 0x7dd3fc;
-      lightParams.rectArea.intensity = 0.01;
-      lightParams.directional.intensity = null;
-      lightParams.spot.color = 0xebc653;
+    } else {
+      // Hover and modal events
 
-      screenTextureOpacityRef.value = 0;
-      screenOverlayOpacityRef.value = 1;
-    } else if (scrollDistance > projectFotballFeber.start && scrollDistance < projectFotballFeber.end) {
-      lightParams.spot.color = 0x09fbeb;
-      lightParams.rectArea.intensity = 0.05;
-
-      screenTextureOpacityRef.value = 1;
-      screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop;
-      deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet;
-      deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile;
-    } else if (scrollDistance > projectSvanhildStub.start && scrollDistance < projectSvanhildStub.end) {
-      lightParams.spot.color = 0xd4c76c;
-      lightParams.rectArea.intensity = 0.05;
-
-      screenTextureOpacityRef.value = 1;
-      screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = svanhildStubMaterialDesktop;
-      deviceScreenRefs.tablet.value.material = svanhildStubMaterialTablet;
-      deviceScreenRefs.mobile.value.material = svanhildStubMaterialMobile;
-    } else if (scrollDistance > workCheffelo.start && scrollDistance < workCheffelo.end) {
-      lightParams.spot.color = 0xe56962;
-      lightParams.rectArea.intensity = 0.05;
-
-      screenTextureOpacityRef.value = 1;
-      screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop;
-      deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet;
-      deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile;
-    } else if (scrollDistance > workAdtube.start && scrollDistance < workAdtube.end) {
-      lightParams.spot.color = 0x40c0c2;
-      lightParams.rectArea.intensity = 0.05;
-
-      screenTextureOpacityRef.value = 1;
-      screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop;
-      deviceScreenRefs.tablet.value.material = adtubeMaterialTablet;
-      deviceScreenRefs.mobile.value.material = adtubeMaterialMobile;
-    } else if (scrollDistance > workWebtop.start && scrollDistance < workWebtop.end) {
-      lightParams.spot.color = 0xff0000;
-      lightParams.rectArea.intensity = 0.05;
-
-      screenTextureOpacityRef.value = 1;
-      screenOverlayOpacityRef.value = 0.5;
-      deviceScreenRefs.desktop.value.material = webtopMaterialDesktop;
-      deviceScreenRefs.tablet.value.material = webtopMaterialTablet;
-      deviceScreenRefs.mobile.value.material = webtopMaterialMobile;
-    } else if (scrollDistance > workWebtop.end) {
-      lightParams.directional.color = 0x7dd3fc;
-      lightParams.rectArea.intensity = 0.01;
-      lightParams.directional.intensity = null;
-      lightParams.spot.color = 0xebc653;
-
-      screenTextureOpacityRef.value = 0;
-      screenOverlayOpacityRef.value = 1;
+      if (hoverTargetRef.value === "" && !isModalOpenRef.value && currentViewPort.value === "desktop") {
+        setDefaultParams();
+      } else if (hoverTargetRef.value === "fotballfeber" || isExperienceModalOpenRef.value.fotballfeber) {
+        setFotballFeberParams();
+      } else if (hoverTargetRef.value === "svanhildstub" || isExperienceModalOpenRef.value.svanhildstub) {
+        setSvanhildStubParams();
+      } else if (hoverTargetRef.value === "cheffelo" || isExperienceModalOpenRef.value.cheffelo) {
+        setCheffeloParams();
+      } else if (hoverTargetRef.value === "adtube" || isExperienceModalOpenRef.value.adtube) {
+        setAdtubeParams();
+      } else if (hoverTargetRef.value === "webtop" || isExperienceModalOpenRef.value.webtop) {
+        setWebtopParams();
+      } else if (
+        currentViewPort.value !== "desktop" &&
+        scrollDistance > projectFotballFeber.start &&
+        scrollDistance < projectFotballFeber.end
+      ) {
+        setFotballFeberParams();
+      } else if (
+        currentViewPort.value !== "desktop" &&
+        scrollDistance > projectSvanhildStub.start &&
+        scrollDistance < projectSvanhildStub.end
+      ) {
+        setSvanhildStubParams();
+      } else if (
+        currentViewPort.value !== "desktop" &&
+        scrollDistance > workCheffelo.start &&
+        scrollDistance < workCheffelo.end
+      ) {
+        setCheffeloParams();
+      } else if (
+        currentViewPort.value !== "desktop" &&
+        scrollDistance > workAdtube.start &&
+        scrollDistance < workAdtube.end
+      ) {
+        setAdtubeParams();
+      } else if (
+        currentViewPort.value !== "desktop" &&
+        scrollDistance > workWebtop.start &&
+        scrollDistance < workWebtop.end
+      ) {
+        setWebtopParams();
+      } else {
+        setDefaultParams();
+      }
     }
 
     // Damping values
     const normalizedLightInterval = normalize(scrollDistance, 0, expertiseRef.value.offsetTop);
 
-    damp(spotLightRef.value, "intensity", normalizedLightInterval * 2, 0.25, delta);
+    damp(spotLightRef.value, "intensity", normalizedLightInterval * 2, 0.2, delta);
     const directionalLightIntesity = lightParams.directional.intensity
       ? lightParams.directional.intensity
       : normalizedLightInterval / 12 + 0.05;
-    damp(directionalLightRef.value, "intensity", directionalLightIntesity, 0.25, delta);
+    damp(directionalLightRef.value, "intensity", directionalLightIntesity, 0.2, delta);
 
     dampC(directionalLightRef.value.color, new Color(lightParams.directional.color), 0.5, delta);
     dampC(spotLightRef.value.color, new Color(lightParams.spot.color), 0.5, delta);
-    damp(rectAreaLightIntensity, "value", lightParams.rectArea.intensity, 0.25, delta);
+    damp(rectAreaLightIntensity, "value", lightParams.rectArea.intensity, 0.2, delta);
 
-    damp(eirikDesktopMaterial, "opacity", screenTextureOpacityRef.value, 0.25, delta);
-    damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
-    damp(eirikMobileTexture, "opacity", screenTextureOpacityRef.value, 0.25, delta);
-    damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
-    damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
-    damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.25, delta);
+    damp(eirikDesktopMaterial, "opacity", screenTextureOpacityRef.value, 0.2, delta);
+    damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.2, delta);
+    damp(eirikMobileTexture, "opacity", screenTextureOpacityRef.value, 0.2, delta);
+    damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
+    damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
+    damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
   }
 }
-
-watch(scrollY, () => {
-  if (!hasScrolled.value) {
-    hasScrolled.value = scrollY.value > 0;
-  }
-
-  const currentScrollItemId = scrollRefs.find((ref) => {
-    if (!ref.value || !topRef.value) return;
-    return (
-      scrollY.value > ref.value.offsetTop - topRef.value.offsetHeight / 2 &&
-      scrollY.value < ref.value.offsetTop + ref.value.offsetHeight - topRef.value.offsetHeight / 2
-    );
-  })?.value?.id as Segments;
-  if (currentScrollItemId) {
-    currentSegmentRef.value = currentScrollItemId;
-  }
-});
 
 onLoop(({ delta }) => {
   if (spotLightRef.value && spotLightTargetRef.value) {
@@ -831,322 +990,383 @@ onLoop(({ delta }) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, CustomTablet });
+
+const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop" | "") => {
+  switch (experience) {
+    case "fotballfeber":
+      isExperienceModalOpenRef.value.fotballfeber = !isExperienceModalOpenRef.value.fotballfeber;
+      if (isExperienceModalOpenRef.value.fotballfeber) window.history.pushState({}, "", "/#fotballfeber");
+      else window.history.pushState({}, "", "/");
+      break;
+    case "svanhildstub":
+      isExperienceModalOpenRef.value.svanhildstub = !isExperienceModalOpenRef.value.svanhildstub;
+      if (isExperienceModalOpenRef.value.svanhildstub) window.history.pushState({}, "", "/#svanhildstub");
+      else window.history.pushState({}, "", "/");
+      break;
+    case "cheffelo":
+      isExperienceModalOpenRef.value.cheffelo = !isExperienceModalOpenRef.value.cheffelo;
+      if (isExperienceModalOpenRef.value.cheffelo) window.history.pushState({}, "", "/#cheffelo");
+      else window.history.pushState({}, "", "/");
+      break;
+    case "adtube":
+      isExperienceModalOpenRef.value.adtube = !isExperienceModalOpenRef.value.adtube;
+      if (isExperienceModalOpenRef.value.adtube) window.history.pushState({}, "", "/#adtube");
+      else window.history.pushState({}, "", "/");
+      break;
+    case "webtop":
+      isExperienceModalOpenRef.value.webtop = !isExperienceModalOpenRef.value.webtop;
+      if (isExperienceModalOpenRef.value.webtop) window.history.pushState({}, "", "/#webtop");
+      else window.history.pushState({}, "", "/");
+      break;
+    default:
+      break;
+  }
+
+  document.body.style.overflow = isExperienceModalOpenRef.value.fotballfeber ? "hidden" : "auto";
+};
 </script>
 
 <template>
   <!-- eslint-disable vue/attribute-hyphenation -->
   <CoolConsoleLog />
 
-  <div class="flex justify-center relative">
-    <div class="w-full relative px-2 text-zinc-200 max-w-screen-3xl">
-      <div
-        class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
-      >
-        <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
-          <a href="#top" class="pl-1.5">
-            <div
-              class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
-              :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
-            />
-          </a>
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#me"
-            :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Me</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#expertise"
-            :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Expertise</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#projects"
-            :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Projects</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#work"
-            :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Work</a
-          >
-          <a
-            class="hover:text-zinc-200 transition-colors ease-in-out"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="#contact"
-            :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Contact</a
-          >
-        </div>
-
-        <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
-          <a
-            class="text-zinc-200 hover:text-zinc-100"
-            style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
-            href="mailto:eirik@mowebdev.com"
-            >eirik@mowebdev.com</a
-          >
-          <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
-        </div>
-      </div>
-      <div
-        class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:translate-x-[-958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
-      >
-        <SocialsComponent />
-        <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
-      </div>
-      <main class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 items-center">
-        <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
-          <HeaderComponent :hasFinishLoading="hasFinishLoading" />
-        </section>
-        <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
-          <MeComponent />
-        </section>
-
-        <section
-          id="expertise"
-          ref="expertiseRef"
-          class="min-h-screen container flex items-center w-full scroll-mt-12 my-12"
+  <VueSimplebar ref="simpleBarRef" class="h-screen">
+    <div ref="divRef" class="flex justify-center">
+      <div class="w-full px-2 text-zinc-200 max-w-screen-3xl">
+        <div
+          class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
         >
-          <ExpertiseComponent />
-        </section>
-
-        <section id="projects" ref="projectsRef" class="min-h-screen container flex items-center scroll-mt-12 my-12">
-          <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Projects</h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-
-            <div
-              ref="fotballFeberRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+          <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
+            <a href="#top" class="pl-1.5">
+              <div
+                class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out"
+                :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
+              />
+            </a>
+            <a
+              class="hover:text-zinc-200 transition-colors ease-in-out"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="#me"
+              :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
+              >Me</a
             >
-              <FotballFeber :target="fotballFeberRef" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
-
-            <div
-              ref="svanhildStubRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+            <a
+              class="hover:text-zinc-200 transition-colors ease-in-out"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="#expertise"
+              :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
+              >Expertise</a
             >
-              <SvanhildStub :target="svanhildStubRef" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-              <div class="h-3 w-3 bg-zinc-400 rounded-full" />
-            </div>
+            <a
+              class="hover:text-zinc-200 transition-colors ease-in-out"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="#projects"
+              :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
+              >Projects</a
+            >
+            <a
+              class="hover:text-zinc-200 transition-colors ease-in-out"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="#work"
+              :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
+              >Work</a
+            >
+            <a
+              class="hover:text-zinc-200 transition-colors ease-in-out"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="#contact"
+              :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
+              >Contact</a
+            >
           </div>
-        </section>
 
-        <section id="work" ref="workRef" class="min-h-screen container flex items-center scroll-mt-12">
-          <div class="flex flex-col gap-2">
-            <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Work</h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="cheffeloRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
+          <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
+            <a
+              class="text-zinc-200 hover:text-zinc-100"
+              style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
+              href="mailto:eirik@mowebdev.com"
+              >eirik@mowebdev.com</a
             >
-              <CheffeloComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="adtubeRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <AdtubeComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
-
-            <div
-              ref="webtopRef"
-              v-motion-fade-visible-once-custom
-              class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 md:mt-8 md:mb-4 md:bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#223d4a]/80 via-[#223d4a]/10 to-transparent"
-            >
-              <WebtopComponent />
-            </div>
-
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
-              <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
-            </div>
+            <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
           </div>
-        </section>
+        </div>
+        <div
+          class="hidden md:flex flex-col fixed bottom-0 left-0 3xl:left-1/2 3xl:translate-x-[-958px] space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
+        >
+          <SocialsComponent />
+          <div class="mx-3 h-32 lg:h-40 w-[2px] bg-zinc-400"></div>
+        </div>
+        <main
+          class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 overflow-x-hidden items-center transition-opacity ease-in-out duration-500"
+          :class="{ 'opacity-0': isModalOpenRef, 'opacity-100': !isModalOpenRef }"
+        >
+          <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
+            <HeaderComponent :hasFinishLoading="hasFinishLoading" />
+          </section>
+          <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
+            <MeComponent />
+          </section>
 
-        <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
-          <div class="flex flex-col p-4 max-w-xl gap-2">
-            <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
-            <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
-              <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
-              <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
-              <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="flex">
-              <h3 class="text-4xl">Let’s Work Together</h3>
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M14 14L34 34"
-                  stroke="#F9FAFB"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M34 14V34H14"
-                  stroke="#F9FAFB"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <p v-motion-slide-visible-once-left-custom class="text-lg">
-              I am currently open to interesting remote projects
-            </p>
-            <div v-motion-slide-visible-once-left-custom>
-              <p>Call me:</p>
-              <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
-            </div>
-            <div v-motion-slide-visible-once-left-custom>
-              <p>Email me:</p>
-              <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
-            </div>
-            <div v-motion-slide-visible-once-left-custom class="md:hidden block">
-              <p>Follow me:</p>
-              <div class="flex space-x-6 font-light text-zinc-400 mt-2">
-                <SocialsComponent />
+          <section
+            id="expertise"
+            ref="expertiseRef"
+            class="min-h-screen container flex flex-col w-full scroll-mt-12 my-12 gap-8 lg:gap-12"
+          >
+            <ExpertiseComponent />
+          </section>
+
+          <section id="projects" ref="projectsRef" class="min-h-[50vh] container flex items-center scroll-mt-12 my-12">
+            <div class="flex flex-col w-full">
+              <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Projects</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
+              </div>
+
+              <div
+                class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 pt-10 md:mt-8 md:mb-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full gap-x-8 gap-y-14"
+              >
+                <div id="fotballfeber" ref="fotballFeberRef" class="flex h-full scroll-mt-12">
+                  <FotballFeberCard
+                    v-motion-fade-visible-once-custom
+                    :onClick="() => toggleExperienceModal('fotballfeber')"
+                    :onMouseOver="() => (hoverTargetRef = 'fotballfeber')"
+                    :onMouseLeave="() => (hoverTargetRef = '')"
+                  />
+                </div>
+                <div id="svanhildstub" ref="svanhildStubRef" class="flex h-full scroll-mt-12">
+                  <SvanhildStubCard
+                    v-motion-fade-visible-once-custom
+                    :onClick="() => toggleExperienceModal('svanhildstub')"
+                    :onMouseOver="() => (hoverTargetRef = 'svanhildstub')"
+                    :onMouseLeave="() => (hoverTargetRef = '')"
+                  />
+                </div>
+              </div>
+
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
+                <div class="h-3 w-3 bg-zinc-400 rounded-full" />
               </div>
             </div>
-          </div>
-        </section>
-        <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
-          <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
-            <div class="flex justify-center gap-3 items-center">
-              <a
-                href="https://github.com/estubmo/eirikmo-portfolio"
-                target="_blank"
-                class="flex gap-2 items-center hover:text-zinc-200"
+          </section>
+
+          <section id="work" ref="workRef" class="min-h-[50vh] container flex items-center scroll-mt-12">
+            <div class="flex flex-col w-full">
+              <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Work</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              </div>
+              <div
+                class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 pt-10 md:mt-8 md:mb-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full gap-x-8 gap-y-14"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-star"
-                >
-                  <polygon
-                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                <div id="cheffelo" ref="cheffeloRef" class="flex h-full scroll-mt-12">
+                  <CheffeloCard
+                    v-motion-fade-visible-once-custom
+                    :onClick="() => toggleExperienceModal('cheffelo')"
+                    :onMouseOver="() => (hoverTargetRef = 'cheffelo')"
+                    :onMouseLeave="() => (hoverTargetRef = '')"
+                  />
+                </div>
+                <div id="adtube" ref="adtubeRef" class="flex h-full scroll-mt-12">
+                  <AdtubeCard
+                    v-motion-fade-visible-once-custom
+                    :onClick="() => toggleExperienceModal('adtube')"
+                    :onMouseOver="() => (hoverTargetRef = 'adtube')"
+                    :onMouseLeave="() => (hoverTargetRef = '')"
+                  />
+                </div>
+                <div id="webtop" ref="webtopRef" class="flex h-full scroll-mt-12">
+                  <WebtopCard
+                    v-motion-fade-visible-once-custom
+                    :onClick="() => toggleExperienceModal('webtop')"
+                    :onMouseOver="() => (hoverTargetRef = 'webtop')"
+                    :onMouseLeave="() => (hoverTargetRef = '')"
+                  />
+                </div>
+              </div>
+
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
+                <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
+              </div>
+            </div>
+          </section>
+
+          <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
+            <div class="flex flex-col p-4 max-w-xl gap-2">
+              <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+              </div>
+              <div v-motion-slide-visible-once-left-custom class="flex">
+                <h3 class="text-4xl">Let’s Work Together</h3>
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14 14L34 34"
+                    stroke="#F9FAFB"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M34 14V34H14"
+                    stroke="#F9FAFB"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                   />
                 </svg>
-                {{ githubInfo.stars }}
-              </a>
-              <a
-                href="https://github.com/estubmo/eirikmo-portfolio"
-                target="_blank"
-                class="flex gap-2 items-center hover:text-zinc-200"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-git-fork"
-                >
-                  <circle cx="12" cy="18" r="3" />
-                  <circle cx="6" cy="6" r="3" />
-                  <circle cx="18" cy="6" r="3" />
-                  <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
-                  <path d="M12 12v3" />
-                </svg>
-                {{ githubInfo.forks }}
-              </a>
+              </div>
+              <p v-motion-slide-visible-once-left-custom class="text-lg">
+                I am currently open to interesting remote projects
+              </p>
+              <div v-motion-slide-visible-once-left-custom>
+                <p>Call me:</p>
+                <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
+              </div>
+              <div v-motion-slide-visible-once-left-custom>
+                <p>Email me:</p>
+                <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
+              </div>
+              <div v-motion-slide-visible-once-left-custom class="md:hidden block">
+                <p>Follow me:</p>
+                <div class="flex space-x-6 font-light text-zinc-400 mt-2">
+                  <SocialsComponent />
+                </div>
+              </div>
             </div>
-            <p>
-              Designed and developed by
-              <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
-            </p>
+          </section>
+          <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
+            <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
+              <div class="flex justify-center gap-3 items-center">
+                <a
+                  href="https://github.com/estubmo/eirikmo-portfolio"
+                  target="_blank"
+                  class="flex gap-2 items-center hover:text-zinc-200"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-star"
+                  >
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                    />
+                  </svg>
+                  {{ githubInfo.stars }}
+                </a>
+                <a
+                  href="https://github.com/estubmo/eirikmo-portfolio"
+                  target="_blank"
+                  class="flex gap-2 items-center hover:text-zinc-200"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-git-fork"
+                  >
+                    <circle cx="12" cy="18" r="3" />
+                    <circle cx="6" cy="6" r="3" />
+                    <circle cx="18" cy="6" r="3" />
+                    <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
+                    <path d="M12 12v3" />
+                  </svg>
+                  {{ githubInfo.forks }}
+                </a>
+              </div>
+              <p>
+                Designed and developed by
+                <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
+              </p>
 
-            <p>
-              Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
-              <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
-              <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
-            </p>
-            <p>
-              Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
-            </p>
-            <p>
-              Inspired by, among others,
-              <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
-                >Guillaume Gouessan</a
-              >
-              and
-              <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
-                >Brittany Chiang</a
-              >.
-            </p>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <Transition
-      name="fade-overlay"
-      enter-active-class="opacity-1 transition-opacity duration-1000"
-      leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
-    >
-      <div
-        v-show="!hasFinishLoading"
-        class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
-      >
-        <div class="max-w-xl" :style="fillerStyles"></div>
+              <p>
+                Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
+                <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
+                <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
+              </p>
+              <p>
+                Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
+              </p>
+              <p>
+                Inspired by, among others,
+                <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
+                  >Guillaume Gouessan</a
+                >
+                and
+                <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
+                  >Brittany Chiang</a
+                >.
+              </p>
+            </div>
+          </section>
+        </main>
       </div>
-    </Transition>
-  </div>
+
+      <Transition
+        name="fade-overlay"
+        enter-active-class="opacity-1 transition-opacity duration-1000"
+        leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
+      >
+        <div
+          v-show="!hasFinishLoading"
+          class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
+        >
+          <div class="max-w-xl" :style="fillerStyles"></div>
+        </div>
+      </Transition>
+    </div>
+  </VueSimplebar>
+
+  <MyModal
+    :show="hasFinishLoading && isExperienceModalOpenRef.fotballfeber"
+    :close="() => toggleExperienceModal('fotballfeber')"
+  >
+    <FotballFeberContent />
+  </MyModal>
+
+  <MyModal
+    :show="hasFinishLoading && isExperienceModalOpenRef.svanhildstub"
+    :close="() => toggleExperienceModal('svanhildstub')"
+  >
+    <SvanhildStubContent />
+  </MyModal>
+
+  <MyModal
+    :show="hasFinishLoading && isExperienceModalOpenRef.cheffelo"
+    :close="() => toggleExperienceModal('cheffelo')"
+  >
+    <CheffeloContent />
+  </MyModal>
+
+  <MyModal :show="hasFinishLoading && isExperienceModalOpenRef.adtube" :close="() => toggleExperienceModal('adtube')">
+    <AdtubeContent />
+  </MyModal>
+
+  <MyModal :show="hasFinishLoading && isExperienceModalOpenRef.webtop" :close="() => toggleExperienceModal('webtop')">
+    <WebtopContent />
+  </MyModal>
 
   <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
     <CustomStatsGl />
@@ -1284,15 +1504,3 @@ extend({ CustomDesktop, CustomKeyboard, CustomLamp, CustomMobile, CustomMouse, C
     <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
   </TresCanvas>
 </template>
-
-<style>
-.floating {
-  transform: perspective(1500px) rotateY(-25deg) rotateX(0) rotateZ(5deg) scale(0.75);
-  border-radius: 0.25rem;
-  transition: transform 1s ease 0s;
-
-  &:hover {
-    transform: perspective(3000px) rotateY(-5deg) rotateX(0) rotateZ(0deg) scale(0.75);
-  }
-}
-</style>

@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .floating {
+    transform: perspective(1500px) rotateY(-25deg) rotateX(0) rotateZ(5deg) scale(0.75);
+    border-radius: 0.25rem;
+    transition: transform 1s ease 0s;
+  }
+
+
+  .floating-hover {
+    transform: perspective(3000px) rotateY(-5deg) rotateX(0) rotateZ(0deg) scale(0.75);
+  }
+
+
+
+}
+
+[data-simplebar]:not(.simplebar-dragging) .simplebar-content-wrapper {
+  scroll-behavior: smooth;
+}

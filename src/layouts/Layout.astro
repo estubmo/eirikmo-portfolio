@@ -1,4 +1,8 @@
 ---
+import "simplebar-vue/dist/simplebar.min.css";
+import "vue-final-modal/style.css";
+import "../styles/global.css";
+
 interface Props {
   title: string;
 }
@@ -7,10 +11,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class="overflow-x-hidden scroll-smooth bg-[#00040C] font-sans selection:bg-red-400/80 selection:text-zinc-900"
->
+<html lang="en" class="scroll-smooth bg-[#00040C] font-sans selection:bg-red-400/80 selection:text-zinc-900">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Eirik Mo - Full Stack Developer" />
@@ -23,7 +24,7 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="overflow-x-hidden">
+  <body class="relative">
     <slot />
   </body>
 </html>

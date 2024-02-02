@@ -7,13 +7,18 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   integrations: [
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     vue({
       ...templateCompilerOptions,
       appEntrypoint: "/src/pages/_app",
       template: {
         transformAssetUrls: {
           includeAbsolute: false,
+        },
+        compilerOptions: {
+          isCustomElement: (tag) => (tag.startsWith("Tres") && tag !== "TresCanvas") || tag === "primitive",
         },
       },
     }),

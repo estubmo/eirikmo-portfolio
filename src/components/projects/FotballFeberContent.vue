@@ -1,87 +1,68 @@
 <script setup lang="ts">
-import { useIntersectionObserver } from "@vueuse/core";
-import { ref, toRefs } from "vue";
-import DockerIcon from "./icons/DockerIcon.vue";
-import DrizzleIcon from "./icons/DrizzleIcon.vue";
-import FlyIoIcon from "./icons/FlyIoIcon.vue";
-import GitHubIcon from "./icons/GitHubIcon.vue";
-import NextJsIcon from "./icons/NextJsIcon.vue";
-import NodeJsIcon from "./icons/NodeJsIcon.vue";
-import PlanetscaleIcon from "./icons/PlanetscaleIcon.vue";
-import PlaywrightIcon from "./icons/PlaywrightIcon.vue";
-import ReactIcon from "./icons/ReactIcon.vue";
-import RedisIcon from "./icons/RedisIcon.vue";
-import SqlIcon from "./icons/SqlIcon.vue";
-import TailwindIcon from "./icons/TailwindIcon.vue";
-import TanstackIcon from "./icons/TanstackIcon.vue";
-import TrpcIcon from "./icons/TrpcIcon.vue";
-import TurbopackIcon from "./icons/TurbopackIcon.vue";
-import TurborepoIcon from "./icons/TurborepoIcon.vue";
-import TypeScriptIcon from "./icons/TypeScriptIcon.vue";
-import VercelIcon from "./icons/VercelIcon.vue";
-import VitestIcon from "./icons/VitestIcon.vue";
-
-const props = defineProps<{
-  target?: HTMLElement;
-}>();
-
-const { target } = toRefs(props);
-const targetIsVisible = ref(false);
-
-useIntersectionObserver(target, ([{ isIntersecting }]) => {
-  if (!targetIsVisible.value) targetIsVisible.value = isIntersecting;
-});
+import DockerIcon from "../icons/DockerIcon.vue";
+import DrizzleIcon from "../icons/DrizzleIcon.vue";
+import FlyIoIcon from "../icons/FlyIoIcon.vue";
+import GitHubIcon from "../icons/GitHubIcon.vue";
+import NextJsIcon from "../icons/NextJsIcon.vue";
+import NodeJsIcon from "../icons/NodeJsIcon.vue";
+import PlanetscaleIcon from "../icons/PlanetscaleIcon.vue";
+import PlaywrightIcon from "../icons/PlaywrightIcon.vue";
+import ReactIcon from "../icons/ReactIcon.vue";
+import RedisIcon from "../icons/RedisIcon.vue";
+import SqlIcon from "../icons/SqlIcon.vue";
+import TailwindIcon from "../icons/TailwindIcon.vue";
+import TanstackIcon from "../icons/TanstackIcon.vue";
+import TrpcIcon from "../icons/TrpcIcon.vue";
+import TurbopackIcon from "../icons/TurbopackIcon.vue";
+import TurborepoIcon from "../icons/TurborepoIcon.vue";
+import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
+import VercelIcon from "../icons/VercelIcon.vue";
+import VitestIcon from "../icons/VitestIcon.vue";
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12">
+  <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 container my-12">
     <div class="col-span-2 my-4">
-      <h1 v-motion-slide-visible-once-left-custom class="md:text-3xl text-4xl font-bold">FotballFeber</h1>
-      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light italic text-sky-200 break-words wrap">
-        Where Norwegian Football Fans Unite
-      </h2>
-      <h2 v-motion-slide-visible-once-left-custom class="text-xl font-light text-sky-200 break-words wrap">
-        Jan 2023 - Current
-      </h2>
-      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-light text-zinc-200 break-words wrap mt-2">
-        Founder and Sole Developer
-      </h3>
-      <h3 v-motion-slide-visible-once-left-custom class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
+      <h1 class="md:text-3xl text-4xl font-bold">FotballFeber</h1>
+      <h2 class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
+      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Where Norwegian Football Fans Unite</h2>
+      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
+      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Founder, System Architect and Developer</h3>
+      <h3 class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
     </div>
-    <div v-motion-slide-visible-once-right-custom class="col-span-1 justify-self-center md:self-end my-4">
+    <div class="col-span-1 justify-self-center md:self-end my-4">
       <img
         src="/images/projects/fotballfeber/logo.png"
         alt="FotballFeber Logo"
         class="select-none w-16 sm:w-24 md:w-32"
       />
     </div>
-    <p v-motion-slide-visible-once-left-custom class="my-4 col-span-3 md:col-span-2">
+    <p class="my-4 col-span-3 md:col-span-2">
       FotballFeber is an upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans can
       engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies, explore
       player development, analyze statistics, delve into fan culture, and dive into the rich history of Norwegian
       football.
     </p>
     <div
-      v-motion-slide-visible-once-right-custom
-      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2"
+      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
     >
       <img
         src="/images/projects/fotballfeber/screenshot.jpg"
         alt="FotballFeber Login Screen"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] floating shadow-xl z-20"
+        class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Vision</h3>
-      <p v-motion-slide-visible-once-left-custom>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Vision</h3>
+      <p>
         Inspired by the absence of a unified platform for Norwegian football aficionados, I embarked on a mission to
         bring this community to life. My goal was to create a space where supporters from all Norwegian football clubs
         could come together and share their passion for the sport.
       </p>
 
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Technical Journey</h3>
-      <p v-motion-slide-visible-once-left-custom>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Technical Journey</h3>
+      <p>
         Building FotballFeber from the ground up was a fascinating journey. I chose Next.js, React, and TailwindCSS as
         the core technologies. Everything was meticulously organized in a monorepo using Turborepo, and the website is
         seamlessly hosted on Vercel. For state management and data fetching, I adopted Jotai and Tanstack Query. The UI
@@ -91,8 +72,8 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       </p>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
-      <p v-motion-slide-visible-once-left-custom>
+      <h3 class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
+      <p>
         To keep the platform abuzz with the latest Norwegian football updates, I developed a method to source articles
         from various Norwegian football news sites, leveraging their public APIs. This involves a Python script for
         monitoring updates on the news sites. The articles go through a meticulous processing pipeline with the aid of
@@ -103,26 +84,25 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
       </p>
     </div>
     <div
-      v-motion-slide-visible-once-right-custom
-      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2"
+      class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
     >
       <img
         src="/images/projects/fotballfeber/screenshot2.jpg"
         alt="FotballFeber News Aggregate"
-        class="select-none md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] floating shadow-xl z-20"
+        class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h3>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h3>
 
-      <p v-motion-slide-visible-once-left-custom>
+      <p>
         FotballFeber is an ever-evolving project with a comprehensive roadmap. The current focus is on finalizing the
         onboarding process and introducing a crucial discussion forum. The next milestone is implementing a subscription
         and payment service, marking the official launch for public use.
       </p>
 
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h3>
-      <p v-motion-slide-visible-once-left-custom>
+      <h3 class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h3>
+      <p>
         My commitment to this project extends beyond my love for Norwegian football and online communities. It has
         become a priceless learning experience in entrepreneurship. As a web developer, I've never learned at such a
         rapid pace as I have during this project. Building something from scratch demands a deep understanding of the
@@ -130,10 +110,8 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         challenges and setbacks, but each one has been a valuable lesson.
       </p>
 
-      <h3 v-motion-slide-visible-once-left-custom class="text-lg md:text-xl font-bold mt-4">
-        Evolution as a Developer
-      </h3>
-      <p v-motion-slide-visible-once-left-custom>
+      <h3 class="text-lg md:text-xl font-bold mt-4">Evolution as a Developer</h3>
+      <p>
         I began this project as a regular full-stack web developer. Throughout this project, I've learned how to build
         fully functional systems, from beginning to end. I have improved my understanding of backends, my proficiency in
         the different types of databases, and which to choose when. I've expanded my software engineering skills by
@@ -141,13 +119,13 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         to manage CI/CD, containerization, orchestration, performance monitoring, issue alerting, and analytical
         insights. It's been great fun.
       </p>
-      <p v-motion-slide-visible-once-left-custom>
+      <p>
         This project has not only created a community but has also been a transformative experience in personal and
         professional growth. FotballFeber is the embodiment of my passion for Norwegian football and the ever-evolving
         world of web development.
       </p>
 
-      <div v-motion-pop-visible-once-custom class="w-fit mt-4">
+      <div class="w-fit mt-4">
         <a
           href="https://www.fotballfeber.com/"
           target="_blank"
@@ -173,7 +151,7 @@ useIntersectionObserver(target, ([{ isIntersecting }]) => {
         </a>
       </div>
 
-      <div v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-4">
+      <div class="flex flex-wrap gap-2 mt-4">
         <a href="https://www.typescriptlang.org/" target="_blank" class="group flex flex-col items-center w-16">
           <div class="p-3 bg-gray-800 rounded-full">
             <TypeScriptIcon :height="32" :width="32" />

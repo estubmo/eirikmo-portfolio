@@ -1,7 +1,12 @@
 import { MotionPlugin } from "@vueuse/motion";
+import simplebar from "simplebar-vue";
 import type { App } from "vue";
+import { createVfm } from "vue-final-modal";
 
 export default (app: App) => {
+  const vfm = createVfm();
+  app.use(vfm);
+  app.component("VueSimplebar", simplebar);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   app.use(MotionPlugin, {
     directives: {

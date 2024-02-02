@@ -56,9 +56,9 @@ import TechItem from "./TechItem.vue";
 </script>
 
 <template>
-  <div class="md:text-lg space-y-4">
-    <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Essentials</span>
+  <div class="md:text-lg space-y-4 grid md:grid-cols-2">
     <div>
+      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Essentials</span>
       <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
         <TechItem>
           JavaScript

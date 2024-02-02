@@ -11,6 +11,9 @@ export default {
       screens: {
         "3xl": "1920px",
       },
+      transitionProperty: {
+        "box-shadow": "box-shadow",
+      },
     },
   },
   plugins: [],

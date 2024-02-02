@@ -16,7 +16,7 @@
     "gsap",
     "bun"
   ],
-  "packageManager": "pnpm@8.10.2",
+  "packageManager": "pnpm@8.15.1",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
@@ -40,9 +40,11 @@
     "astro": "^4.1.2",
     "eslint-plugin-vue": "^9.20.0",
     "maath": "^0.10.7",
+    "simplebar-vue": "^2.3.3",
     "tailwindcss": "^3.4.1",
     "three": "^0.160.0",
-    "vue": "^3.4.9"
+    "vue": "^3.4.9",
+    "vue-final-modal": "^4.5.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.4.1",
