@@ -56,268 +56,485 @@ import TechItem from "./TechItem.vue";
 </script>
 
 <template>
-  <div class="md:text-lg space-y-4 grid md:grid-cols-2">
+  <div class="md:text-lg gap-4 grid md:grid-cols-2">
     <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Essentials</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem>
-          JavaScript
-          <JavaScriptIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >HTML
-          <HtmlIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >CSS
-          <CssIcon :height="16" :width="16" />
-        </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Languages</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >TypeScript
-          <TypeScriptIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >C#
-          <CSharpIcon :height="16" :width="16" />
-        </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Frameworks</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Next.js
-          <NextJsIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >React
-          <ReactIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Astro
-          <AstroIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Angular
-          <AngularIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Vue
-          <VueIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >HTMX
-          <HtmxIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Tailwind CSS
-          <TailwindIcon :height="16" :width="16" />
-        </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Databases</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >SQL
-          <SqlIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Redis
-          <RedisIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >PostgreSQL
-          <PostgreSqlIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >MongoDB
-          <MongoDbIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Prisma
-          <PrismaIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Drizzle ORM
-          <DrizzleIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Planetscale
-          <PlanetscaleIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Supabase
-          <SupabaseIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Turso
-          <TursoIcon :height="16" :width="16" />
-        </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200"
-        >Content Management Systems</span
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Essentials</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
       >
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Sanity
-          <SanityIcon :height="16" :width="16" />
+        <TechItem>
+          <JavaScriptIcon
+            :height="16"
+            :width="16"
+          />
+          JavaScript
         </TechItem>
-        <TechItem
-          >Strapi
-          <StrapiIcon :height="16" :width="16" />
+        <TechItem>
+          <HtmlIcon
+            :height="16"
+            :width="16"
+          />
+          HTML
         </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Testing</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Vitest
-          <VitestIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Playwright
-          <PlaywrightIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Jest
-          <JestIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Cypress
-          <CypressIcon :height="16" :width="16" />
+        <TechItem>
+          <CssIcon
+            :height="16"
+            :width="16"
+          />
+          CSS
         </TechItem>
       </ul>
     </div>
     <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Tooling</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Bun
-          <BunIcon :height="16" :width="16" />
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Languages</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <TypeScriptIcon
+            :height="16"
+            :width="16"
+          />
+          TypeScript
         </TechItem>
-        <TechItem
-          >NodeJS
-          <NodeJsIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >PNPM
-          <PnpmIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >NPM
-          <NpmIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Turbopack
-          <TurbopackIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Turborepo
-          <TurborepoIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Nx
-          <NxIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Prettier
-          <PrettierIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >eslint
-          <EslintIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Biome
-          <BiomeIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >git
-          <GitIcon :height="16" :width="16" />
+        <TechItem>
+          <CSharpIcon
+            :height="16"
+            :width="16"
+          />
+          C#
         </TechItem>
       </ul>
     </div>
     <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Vercel
-          <VercelIcon :height="16" :width="16" />
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Frameworks</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <NextJsIcon
+            :height="16"
+            :width="16"
+          />
+          Next.js
         </TechItem>
-        <TechItem
-          >.Net
-          <DotNetIcon :height="16" :width="16" />
+        <TechItem>
+          <ReactIcon
+            :height="16"
+            :width="16"
+          />
+          React
         </TechItem>
-        <TechItem
-          >Azure
-          <AzureIcon :height="16" :width="16" />
+        <TechItem>
+          <AstroIcon
+            :height="16"
+            :width="16"
+          />
+          Astro
         </TechItem>
-        <TechItem
-          >GitHub
-          <GitHubIcon :height="16" :width="16" />
+        <TechItem>
+          <AngularIcon
+            :height="16"
+            :width="16"
+          />
+          Angular
         </TechItem>
-        <TechItem
-          >Bitbucket
-          <BitbucketIcon :height="16" :width="16" />
+        <TechItem>
+          <VueIcon
+            :height="16"
+            :width="16"
+          />
+          Vue
         </TechItem>
-        <TechItem
-          >Fly.io
-          <FlyIoIcon :height="16" :width="16" />
+        <TechItem>
+          <HtmxIcon
+            :height="16"
+            :width="16"
+          />
+          HTMX
         </TechItem>
-      </ul>
-    </div>
-    <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Other</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Docker
-          <DockerIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >GraphQL
-          <GraphlQlIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Medusa.js
-          <MedusaIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Three.js
-          <ThreeJsIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >TanStack Query
-          <TanstackIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >tRPC
-          <TrpcIcon :height="16" :width="16" />
-        </TechItem>
-        <TechItem
-          >Redux Toolkit
-          <ReduxToolkitIcon :height="16" :width="16" />
+        <TechItem>
+          <TailwindIcon
+            :height="16"
+            :width="16"
+          />
+          Tailwind CSS
         </TechItem>
       </ul>
     </div>
     <div>
-      <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Design</span>
-      <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
-        <TechItem
-          >Figma
-          <FigmaIcon :height="16" :width="16" />
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Databases</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <SqlIcon
+            :height="16"
+            :width="16"
+          />
+          SQL
         </TechItem>
-        <TechItem
-          >Excalidraw
-          <ExcalidrawIcon :height="16" :width="16" />
+        <TechItem>
+          <RedisIcon
+            :height="16"
+            :width="16"
+          />
+          Redis
+        </TechItem>
+        <TechItem>
+          <PostgreSqlIcon
+            :height="16"
+            :width="16"
+          />
+          PostgreSQL
+        </TechItem>
+        <TechItem>
+          <MongoDbIcon
+            :height="16"
+            :width="16"
+          />
+          MongoDB
+        </TechItem>
+        <TechItem>
+          <PrismaIcon
+            :height="16"
+            :width="16"
+          />
+          Prisma
+        </TechItem>
+        <TechItem>
+          <DrizzleIcon
+            :height="16"
+            :width="16"
+          />
+          Drizzle ORM
+        </TechItem>
+        <TechItem>
+          <PlanetscaleIcon
+            :height="16"
+            :width="16"
+          />
+          Planetscale
+        </TechItem>
+        <TechItem>
+          <SupabaseIcon
+            :height="16"
+            :width="16"
+          />
+          Supabase
+        </TechItem>
+        <TechItem>
+          <TursoIcon
+            :height="16"
+            :width="16"
+          />
+          Turso
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Content Management Systems</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <SanityIcon
+            :height="16"
+            :width="16"
+          />
+          Sanity
+        </TechItem>
+        <TechItem>
+          <StrapiIcon
+            :height="16"
+            :width="16"
+          />
+          Strapi
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Testing</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <VitestIcon
+            :height="16"
+            :width="16"
+          />
+          Vitest
+        </TechItem>
+        <TechItem>
+          <PlaywrightIcon
+            :height="16"
+            :width="16"
+          />
+          Playwright
+        </TechItem>
+        <TechItem>
+          <JestIcon
+            :height="16"
+            :width="16"
+          />
+          Jest
+        </TechItem>
+        <TechItem>
+          <CypressIcon
+            :height="16"
+            :width="16"
+          />
+          Cypress
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Tooling</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <BunIcon
+            :height="16"
+            :width="16"
+          />
+          Bun
+        </TechItem>
+        <TechItem>
+          <NodeJsIcon
+            :height="16"
+            :width="16"
+          />
+          NodeJS
+        </TechItem>
+        <TechItem>
+          <PnpmIcon
+            :height="16"
+            :width="16"
+          />
+          PNPM
+        </TechItem>
+        <TechItem>
+          <NpmIcon
+            :height="16"
+            :width="16"
+          />
+          NPM
+        </TechItem>
+        <TechItem>
+          <TurbopackIcon
+            :height="16"
+            :width="16"
+          />
+          Turbopack
+        </TechItem>
+        <TechItem>
+          <TurborepoIcon
+            :height="16"
+            :width="16"
+          />
+          Turborepo
+        </TechItem>
+        <TechItem>
+          <NxIcon
+            :height="16"
+            :width="16"
+          />
+          Nx
+        </TechItem>
+        <TechItem>
+          <PrettierIcon
+            :height="16"
+            :width="16"
+          />
+          Prettier
+        </TechItem>
+        <TechItem>
+          <EslintIcon
+            :height="16"
+            :width="16"
+          />
+          eslint
+        </TechItem>
+        <TechItem>
+          <BiomeIcon
+            :height="16"
+            :width="16"
+          />
+          Biome
+        </TechItem>
+        <TechItem>
+          <GitIcon
+            :height="16"
+            :width="16"
+          />
+          git
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Platforms</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <VercelIcon
+            :height="16"
+            :width="16"
+          />
+          Vercel
+        </TechItem>
+        <TechItem>
+          <DotNetIcon
+            :height="16"
+            :width="16"
+          />
+          .Net
+        </TechItem>
+        <TechItem>
+          <AzureIcon
+            :height="16"
+            :width="16"
+          />
+          Azure
+        </TechItem>
+        <TechItem>
+          <GitHubIcon
+            :height="16"
+            :width="16"
+          />
+          GitHub
+        </TechItem>
+        <TechItem>
+          <BitbucketIcon
+            :height="16"
+            :width="16"
+          />
+          Bitbucket
+        </TechItem>
+        <TechItem>
+          <FlyIoIcon
+            :height="16"
+            :width="16"
+          />
+          Fly.io
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Other</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <DockerIcon
+            :height="16"
+            :width="16"
+          />
+          Docker
+        </TechItem>
+        <TechItem>
+          <GraphlQlIcon
+            :height="16"
+            :width="16"
+          />
+          GraphQL
+        </TechItem>
+        <TechItem>
+          <MedusaIcon
+            :height="16"
+            :width="16"
+          />
+          Medusa.js
+        </TechItem>
+        <TechItem>
+          <ThreeJsIcon
+            :height="16"
+            :width="16"
+          />
+          Three.js
+        </TechItem>
+        <TechItem>
+          <TanstackIcon
+            :height="16"
+            :width="16"
+          />
+          TanStack Query
+        </TechItem>
+        <TechItem>
+          <TrpcIcon
+            :height="16"
+            :width="16"
+          />
+          tRPC
+        </TechItem>
+        <TechItem>
+          <ReduxToolkitIcon
+            :height="16"
+            :width="16"
+          />
+          Redux Toolkit
+        </TechItem>
+      </ul>
+    </div>
+    <div>
+      <span
+        v-motion-fade-visible-once-custom
+        class="whitespace-nowrap font-bold text-gray-200"
+      >Design</span>
+      <ul
+        v-motion-fade-visible-once-custom
+        class="flex flex-wrap gap-2 mt-2"
+      >
+        <TechItem>
+          <FigmaIcon
+            :height="16"
+            :width="16"
+          />
+          Figma
+        </TechItem>
+        <TechItem>
+          <ExcalidrawIcon
+            :height="16"
+            :width="16"
+          />
+          Excalidraw
         </TechItem>
       </ul>
     </div>
