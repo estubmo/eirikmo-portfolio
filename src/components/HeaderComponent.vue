@@ -45,7 +45,7 @@ const { hasFinishLoading } = toRefs(props);
             <div class="h-3 w-3 bg-zinc-400 rounded-sm" />
             <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
           </div>
-          &lt; Fullstack Developer />
+          <p class="font-mono text-zinc-200 font-light text-xl">&lt; Fullstack Developer /></p>
           <div class="gap-3 flex">
             <div class="h-3 w-20 bg-zinc-400 rounded-sm" />
             <div class="h-3 w-8 bg-zinc-400 rounded-sm" />
