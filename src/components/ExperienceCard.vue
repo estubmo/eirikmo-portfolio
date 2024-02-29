@@ -39,10 +39,7 @@ const handleTouchEnd = () => {
     </div>
 
     <div class="relative h-full w-full overflow-hidden rounded-lg">
-      <div
-        v-if="workInProgress"
-        class="absolute right-0 top-0 h-16 w-16"
-      >
+      <div v-if="workInProgress" class="absolute right-0 top-0 h-16 w-16">
         <div
           class="absolute rotate-45 bg-green-600 text-sm text-center text-gray-200 font-semibold py-1 right-[-35px] top-[32px] w-[170px]"
         >
@@ -59,9 +56,7 @@ const handleTouchEnd = () => {
               <slot />
             </div>
 
-            <div
-              class="absolute -bottom-9 sm:-bottom-11 -right-4 sm:-right-8 flex"
-            >
+            <div class="absolute -bottom-9 sm:-bottom-11 -right-4 sm:-right-8 flex">
               <div
                 ref="openModalRef"
                 class="font-semibold group-hover/card:bg-gray-200 focus:bg-gray-200 group-hover/card:text-gray-800 focus:text-gray-800 drop-shadow w-10 h-10 transition-all duration-300 rounded-full bg-[#062C3F] justify-center items-center flex group-hover/card:-rotate-90 focus:-rotate-90"
@@ -90,5 +85,6 @@ const handleTouchEnd = () => {
           </div>
         </div>
       </div>
+    </div>
   </div>
-</div></template>
+</template>

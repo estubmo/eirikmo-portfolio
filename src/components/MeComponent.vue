@@ -14,7 +14,7 @@
         avid traveler and language learner, and I enjoy lifting weights and hiking up sunny mountains in my free time.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-        I'm a proficient Fullstack Developer and DevOps Engineer, who knows how to build and deploy scalable web
+        I'm a proficient Full-Stack Developer and DevOps Engineer, who knows how to build and deploy scalable web
         applications. I have experience with a wide range of technologies.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">

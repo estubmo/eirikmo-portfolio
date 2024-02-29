@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Backdrop, useProgress } from "@tresjs/cientos";
-import { TresCanvas, extend, useRenderLoop, useTexture } from "@tresjs/core";
+import { extend, TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowSize } from "@vueuse/core";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
@@ -14,8 +14,8 @@ import {
   MeshStandardMaterial,
   PerspectiveCamera,
   RepeatWrapping,
-  SRGBColorSpace,
   SpotLight,
+  SRGBColorSpace,
   Vector3,
 } from "three";
 import type { ComputedRef, StyleValue } from "vue";
@@ -33,11 +33,11 @@ import FixPixelRatio from "./FixPixelRatio.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import MeComponent from "./MeComponent.vue";
 import MyModal from "./MyModal.vue";
-import SocialsComponent from "./SocialsComponent.vue";
 import FotballFeberCard from "./projects/FotballFeberCard.vue";
 import FotballFeberContent from "./projects/FotballFeberContent.vue";
 import SvanhildStubCard from "./projects/SvanhildStubCard.vue";
 import SvanhildStubContent from "./projects/SvanhildStubContent.vue";
+import SocialsComponent from "./SocialsComponent.vue";
 import AdtubeCard from "./work/AdtubeCard.vue";
 import AdtubeContent from "./work/AdtubeContent.vue";
 import CheffeloCard from "./work/CheffeloCard.vue";
@@ -1030,23 +1030,14 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
   <!-- eslint-disable vue/attribute-hyphenation -->
   <CoolConsoleLog />
 
-  <VueSimplebar
-    ref="simpleBarRef"
-    class="h-screen"
-  >
-    <div
-      ref="divRef"
-      class="flex justify-center"
-    >
+  <VueSimplebar ref="simpleBarRef" class="h-screen">
+    <div ref="divRef" class="flex justify-center">
       <div class="w-full px-2 text-zinc-200 max-w-screen-3xl">
         <div
           class="fixed top-0 right-0 3xl:right-1/2 3xl:translate-x-[958px] font-light h-screen flex flex-col justify-between select-none z-50"
         >
           <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5">
-            <a
-              href="#top"
-              class="pl-1.5"
-            >
+            <a href="#top" class="pl-1.5">
               <div
                 class="h-3 w-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out drop-shadow"
                 :class="[currentSegmentRef === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
@@ -1057,31 +1048,36 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="#me"
               :class="[currentSegmentRef === 'me' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Me</a>
+              >Me</a
+            >
             <a
               class="hover:text-zinc-200 transition-colors ease-in-out drop-shadow"
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="#expertise"
               :class="[currentSegmentRef === 'expertise' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Expertise</a>
+              >Expertise</a
+            >
             <a
               class="hover:text-zinc-200 transition-colors ease-in-out drop-shadow"
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="#projects"
               :class="[currentSegmentRef === 'projects' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Projects</a>
+              >Projects</a
+            >
             <a
               class="hover:text-zinc-200 transition-colors ease-in-out drop-shadow"
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="#work"
               :class="[currentSegmentRef === 'work' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Work</a>
+              >Work</a
+            >
             <a
               class="hover:text-zinc-200 transition-colors ease-in-out drop-shadow-"
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="#contact"
               :class="[currentSegmentRef === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
-            >Contact</a>
+              >Contact</a
+            >
           </div>
 
           <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5">
@@ -1089,7 +1085,8 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
               class="text-zinc-200 hover:text-zinc-100"
               style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl"
               href="mailto:eirik@mowebdev.com"
-            >eirik@mowebdev.com</a>
+              >eirik@mowebdev.com</a
+            >
             <div class="mx-3 h-32 lg:h-40 w-[2px] shrink bg-zinc-400"></div>
           </div>
         </div>
@@ -1103,18 +1100,10 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
           class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 overflow-x-hidden items-center transition-opacity ease-in-out duration-500"
           :class="{ 'opacity-0': isModalOpenRef, 'opacity-100': !isModalOpenRef }"
         >
-          <section
-            id="top"
-            ref="topRef"
-            class="min-h-[100lvh] h-[100lvh] container flex items-center"
-          >
+          <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
             <HeaderComponent :hasFinishLoading="hasFinishLoading" />
           </section>
-          <section
-            id="me"
-            ref="meRef"
-            class="min-h-screen container flex items-center justify-end scroll-mt-12"
-          >
+          <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
             <MeComponent />
           </section>
 
@@ -1126,37 +1115,19 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
             <ExpertiseComponent />
           </section>
 
-          <section
-            id="projects"
-            ref="projectsRef"
-            class="min-h-[50vh] container flex items-center scroll-mt-12 my-12"
-          >
+          <section id="projects" ref="projectsRef" class="min-h-[50vh] container flex items-center scroll-mt-12 my-12">
             <div class="flex flex-col w-full">
-              <h2
-                v-motion-slide-visible-once-left-custom
-                class="text-4xl font-extrabold mb-4"
-              >Projects</h2>
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="gap-3 flex"
-              >
-                <div
-                  class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm"
-                />
+              <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Projects</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
                 <div class="h-3 w-3 bg-zinc-400 rounded-full" />
               </div>
 
               <div
                 class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 pt-10 md:mt-8 md:mb-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full gap-x-8 gap-y-14"
               >
-                <div
-                  id="fotballfeber"
-                  ref="fotballFeberRef"
-                  class="flex h-full scroll-mt-12"
-                >
+                <div id="fotballfeber" ref="fotballFeberRef" class="flex h-full scroll-mt-12">
                   <FotballFeberCard
                     v-motion-fade-visible-once-custom
                     :onClick="() => toggleExperienceModal('fotballfeber')"
@@ -1164,11 +1135,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                     :onMouseLeave="() => (hoverTargetRef = '')"
                   />
                 </div>
-                <div
-                  id="svanhildstub"
-                  ref="svanhildStubRef"
-                  class="flex h-full scroll-mt-12"
-                >
+                <div id="svanhildstub" ref="svanhildStubRef" class="flex h-full scroll-mt-12">
                   <SvanhildStubCard
                     v-motion-fade-visible-once-custom
                     :onClick="() => toggleExperienceModal('svanhildstub')"
@@ -1178,53 +1145,26 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                 </div>
               </div>
 
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="gap-3 flex"
-              >
-                <div
-                  class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm"
-                />
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-11 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
                 <div class="h-3 w-3 bg-zinc-400 rounded-full" />
               </div>
             </div>
           </section>
 
-          <section
-            id="work"
-            ref="workRef"
-            class="min-h-[50vh] container flex items-center scroll-mt-12"
-          >
+          <section id="work" ref="workRef" class="min-h-[50vh] container flex items-center scroll-mt-12">
             <div class="flex flex-col w-full">
-              <h2
-                v-motion-slide-visible-once-left-custom
-                class="text-4xl font-extrabold mb-4"
-              >Work</h2>
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="gap-3 flex"
-              >
-                <div
-                  class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
-                />
+              <h2 v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Work</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
               </div>
               <div
                 class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 pt-10 md:mt-8 md:mb-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full gap-x-8 gap-y-14"
               >
-                <div
-                  id="cheffelo"
-                  ref="cheffeloRef"
-                  class="flex h-full scroll-mt-12"
-                >
+                <div id="cheffelo" ref="cheffeloRef" class="flex h-full scroll-mt-12">
                   <CheffeloCard
                     v-motion-fade-visible-once-custom
                     :onClick="() => toggleExperienceModal('cheffelo')"
@@ -1232,11 +1172,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                     :onMouseLeave="() => (hoverTargetRef = '')"
                   />
                 </div>
-                <div
-                  id="adtube"
-                  ref="adtubeRef"
-                  class="flex h-full scroll-mt-12"
-                >
+                <div id="adtube" ref="adtubeRef" class="flex h-full scroll-mt-12">
                   <AdtubeCard
                     v-motion-fade-visible-once-custom
                     :onClick="() => toggleExperienceModal('adtube')"
@@ -1244,11 +1180,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                     :onMouseLeave="() => (hoverTargetRef = '')"
                   />
                 </div>
-                <div
-                  id="webtop"
-                  ref="webtopRef"
-                  class="flex h-full scroll-mt-12"
-                >
+                <div id="webtop" ref="webtopRef" class="flex h-full scroll-mt-12">
                   <WebtopCard
                     v-motion-fade-visible-once-custom
                     :onClick="() => toggleExperienceModal('webtop')"
@@ -1258,60 +1190,25 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                 </div>
               </div>
 
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="gap-3 flex mt-4"
-              >
-                <div
-                  class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm"
-                />
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex mt-4">
+                <div class="h-3 w-6 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-4 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
               </div>
             </div>
           </section>
 
-          <section
-            id="contact"
-            ref="contactRef"
-            class="min-h-screen container flex items-center scroll-mt-12"
-          >
+          <section id="contact" ref="contactRef" class="min-h-screen container flex items-center scroll-mt-12">
             <div class="flex flex-col p-4 max-w-xl gap-2">
-              <h2
-                ref="target"
-                v-motion-slide-visible-once-left-custom
-                class="text-4xl font-extrabold mb-4"
-              >Contact</h2>
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="gap-3 flex"
-              >
-                <div
-                  class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm"
-                />
-                <div
-                  class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm"
-                />
+              <h2 ref="target" v-motion-slide-visible-once-left-custom class="text-4xl font-extrabold mb-4">Contact</h2>
+              <div v-motion-slide-visible-once-left-custom class="gap-3 flex">
+                <div class="h-3 w-16 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
+                <div class="h-3 w-8 bg-gradient-to-r from-purple-300 to-purple-400 rounded-sm" />
+                <div class="h-3 w-10 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
               </div>
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="flex"
-              >
+              <div v-motion-slide-visible-once-left-custom class="flex">
                 <h3 class="text-4xl">Let’s Work Together</h3>
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M14 14L34 34"
                     stroke="#F9FAFB"
@@ -1328,30 +1225,18 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                   />
                 </svg>
               </div>
-              <p
-                v-motion-slide-visible-once-left-custom
-                class="text-lg"
-              >
+              <p v-motion-slide-visible-once-left-custom class="text-lg">
                 I am currently open to interesting remote projects
               </p>
               <div v-motion-slide-visible-once-left-custom>
                 <p>Call me:</p>
-                <a
-                  class="hover:underline font-mono"
-                  href="tel:+4797602278"
-                >+47 976 02 278</a>
+                <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
               </div>
               <div v-motion-slide-visible-once-left-custom>
                 <p>Email me:</p>
-                <a
-                  class="hover:underline font-mono"
-                  href="mailto:eirik@mowebdev.com"
-                >eirik@mowebdev.com</a>
+                <a class="hover:underline font-mono" href="mailto:eirik@mowebdev.com">eirik@mowebdev.com</a>
               </div>
-              <div
-                v-motion-slide-visible-once-left-custom
-                class="md:hidden block"
-              >
+              <div v-motion-slide-visible-once-left-custom class="md:hidden block">
                 <p>Follow me:</p>
                 <div class="flex space-x-6 font-light text-zinc-400 mt-2">
                   <SocialsComponent />
@@ -1359,13 +1244,8 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
               </div>
             </div>
           </section>
-          <section
-            id="footer"
-            class="my-20 container flex justify-center items-center scroll-mt-12 text-center"
-          >
-            <div
-              class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300"
-            >
+          <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
+            <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
               <div class="flex justify-center gap-3 items-center">
                 <a
                   href="https://github.com/estubmo/eirikmo-portfolio"
@@ -1407,21 +1287,9 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
                     stroke-linejoin="round"
                     class="lucide lucide-git-fork"
                   >
-                    <circle
-                      cx="12"
-                      cy="18"
-                      r="3"
-                    />
-                    <circle
-                      cx="6"
-                      cy="6"
-                      r="3"
-                    />
-                    <circle
-                      cx="18"
-                      cy="6"
-                      r="3"
-                    />
+                    <circle cx="12" cy="18" r="3" />
+                    <circle cx="6" cy="6" r="3" />
+                    <circle cx="18" cy="6" r="3" />
                     <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
                     <path d="M12 12v3" />
                   </svg>
@@ -1430,50 +1298,26 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
               </div>
               <p>
                 Designed and developed by
-                <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://github.com/estubmo"
-                  target="_blank"
-                >Eirik Mo</a>
+                <a class="hover:text-zinc-200 underline" href="https://github.com/estubmo" target="_blank">Eirik Mo</a>
               </p>
 
               <p>
-                Powered by <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://vuejs.org/"
-                  target="_blank"
-                >Astro</a>,
-                <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://astro.build/"
-                  target="_blank"
-                >Vue.js</a> and
-                <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://threejs.org/"
-                  target="_blank"
-                >Three.js</a>
+                Powered by <a class="hover:text-zinc-200 underline" href="https://vuejs.org/" target="_blank">Astro</a>,
+                <a class="hover:text-zinc-200 underline" href="https://astro.build/" target="_blank">Vue.js</a> and
+                <a class="hover:text-zinc-200 underline" href="https://threejs.org/" target="_blank">Three.js</a>
               </p>
               <p>
-                Hosted on <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://vercel.com/"
-                  target="_blank"
-                >Vercel</a>
+                Hosted on <a class="hover:text-zinc-200 underline" href="https://vercel.com/" target="_blank">Vercel</a>
               </p>
               <p>
                 Inspired by, among others,
-                <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://guillaumegouessan.com/"
-                  target="_blank"
-                >Guillaume Gouessan</a>
+                <a class="hover:text-zinc-200 underline" href="https://guillaumegouessan.com/" target="_blank"
+                  >Guillaume Gouessan</a
+                >
                 and
-                <a
-                  class="hover:text-zinc-200 underline"
-                  href="https://brittanychiang.com/"
-                  target="_blank"
-                >Brittany Chiang</a>.
+                <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank"
+                  >Brittany Chiang</a
+                >.
               </p>
             </div>
           </section>
@@ -1489,10 +1333,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
           v-show="!hasFinishLoading"
           class="fixed bg-[#00040C] inset-0 w-full text-center flex flex-col justify-center items-center h-full z-80"
         >
-          <div
-            class="max-w-xl"
-            :style="fillerStyles"
-          ></div>
+          <div class="max-w-xl" :style="fillerStyles"></div>
         </div>
       </Transition>
     </div>
@@ -1519,55 +1360,23 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
     <CheffeloContent />
   </MyModal>
 
-  <MyModal
-    :show="hasFinishLoading && isExperienceModalOpenRef.adtube"
-    :close="() => toggleExperienceModal('adtube')"
-  >
+  <MyModal :show="hasFinishLoading && isExperienceModalOpenRef.adtube" :close="() => toggleExperienceModal('adtube')">
     <AdtubeContent />
   </MyModal>
 
-  <MyModal
-    :show="hasFinishLoading && isExperienceModalOpenRef.webtop"
-    :close="() => toggleExperienceModal('webtop')"
-  >
+  <MyModal :show="hasFinishLoading && isExperienceModalOpenRef.webtop" :close="() => toggleExperienceModal('webtop')">
     <WebtopContent />
   </MyModal>
 
-  <TresCanvas
-    v-bind="gl"
-    id="canvas"
-    ref="canvasRef"
-    class="-z-30"
-    :style="canvasStyle"
-  >
+  <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
     <CustomStatsGl />
     <!-- Camera -->
-    <TresPerspectiveCamera
-      ref="cameraRef"
-      :position="[0, 1, 0]"
-      :near="0.1"
-      :far="80"
-      :fov="70"
-    />
+    <TresPerspectiveCamera ref="cameraRef" :position="[0, 1, 0]" :near="0.1" :far="80" :fov="70" />
 
     <!-- Backdrop -->
-    <TresMesh
-      cast-shadow
-      receive-shadow
-      :scale="[200, 60, 60]"
-      :position="[0, -0.1, -40]"
-    >
-      <Backdrop
-        :floor="1"
-        :segments="20"
-        cast-shadow
-        receive-shadow
-      >
-        <TresMeshStandardMaterial
-          :color="new Color(0xffffff)"
-          :roughness="0.3"
-          :metalness="0.3"
-        />
+    <TresMesh cast-shadow receive-shadow :scale="[200, 60, 60]" :position="[0, -0.1, -40]">
+      <Backdrop :floor="1" :segments="20" cast-shadow receive-shadow>
+        <TresMeshStandardMaterial :color="new Color(0xffffff)" :roughness="0.3" :metalness="0.3" />
       </Backdrop>
     </TresMesh>
 
@@ -1577,24 +1386,11 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
       <CustomDesktop :position="new Vector3(0, 0.15, -1)" />
     </Suspense>
 
-    <TresMesh
-      :ref="deviceScreenRefs.desktop"
-      cast-shadow
-      receive-shadow
-      :position="[0, 1.6, -1.232]"
-    >
+    <TresMesh :ref="deviceScreenRefs.desktop" cast-shadow receive-shadow :position="[0, 1.6, -1.232]">
       <TresPlaneGeometry :args="[3.75, 1.89]" />
-      <TresMeshStandardMaterial
-        :roughness="0.4"
-        :metalness="0.5"
-        :color="new Color(0x888888)"
-      />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
     </TresMesh>
-    <TresMesh
-      cast-shadow
-      receive-shadow
-      :position="[0, 1.6, -1.231]"
-    >
+    <TresMesh cast-shadow receive-shadow :position="[0, 1.6, -1.231]">
       <TresPlaneGeometry :args="[3.75, 1.89]" />
       <TresMeshStandardMaterial
         ref="desktopOverlayRef"
@@ -1608,10 +1404,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
 
     <!-- Mobile -->
     <Suspense>
-      <CustomMobile
-        :position="new Vector3(-0.24, -0.315, 0)"
-        :rotation="new Euler(-Math.PI / 4, 0, 0)"
-      />
+      <CustomMobile :position="new Vector3(-0.24, -0.315, 0)" :rotation="new Euler(-Math.PI / 4, 0, 0)" />
     </Suspense>
 
     <TresMesh
@@ -1620,18 +1413,9 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
       :rotation="new Euler(-Math.PI / 2, 0, 0)"
     >
       <TresPlaneGeometry :args="[0.278, 0.568]" />
-      <TresMeshStandardMaterial
-        :roughness="0.4"
-        :metalness="0.5"
-        :color="new Color(0xaaaaaa)"
-      />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0xaaaaaa)" />
     </TresMesh>
-    <TresMesh
-      cast-shadow
-      receive-shadow
-      :position="[-0.24, 0.019, -0.31]"
-      :rotation="new Euler(-Math.PI / 2, 0, 0)"
-    >
+    <TresMesh cast-shadow receive-shadow :position="[-0.24, 0.019, -0.31]" :rotation="new Euler(-Math.PI / 2, 0, 0)">
       <TresPlaneGeometry :args="[0.278, 0.568]" />
       <TresMeshStandardMaterial
         ref="mobileOverlayRef"
@@ -1645,11 +1429,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
 
     <!-- Tablet -->
     <Suspense>
-      <CustomTablet
-        :position="new Vector3(-2, -0.03, 0)"
-        :rotation="new Euler(0, 0.1, 0)"
-        :scale="8"
-      />
+      <CustomTablet :position="new Vector3(-2, -0.03, 0)" :rotation="new Euler(0, 0.1, 0)" :scale="8" />
     </Suspense>
 
     <TresMesh
@@ -1658,11 +1438,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
       :rotation="new Euler(-Math.PI / 2, 0.0, 0.084)"
     >
       <TresPlaneGeometry :args="[0.933, 1.28]" />
-      <TresMeshStandardMaterial
-        :roughness="0.4"
-        :metalness="0.5"
-        :color="new Color(0x888888)"
-      />
+      <TresMeshStandardMaterial :roughness="0.4" :metalness="0.5" :color="new Color(0x888888)" />
     </TresMesh>
     <TresMesh
       cast-shadow
@@ -1683,19 +1459,12 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
 
     <!-- Keyboard -->
     <Suspense>
-      <CustomKeyboard
-        :position="new Vector3(0, 0.025, 0.5)"
-        scale="0.5"
-      />
+      <CustomKeyboard :position="new Vector3(0, 0.025, 0.5)" scale="0.5" />
     </Suspense>
 
     <!-- Mouse -->
     <Suspense>
-      <CustomMouse
-        :position="mousePositionRef"
-        :scale="4"
-        :rotation="mouseRotationRef"
-      />
+      <CustomMouse :position="mousePositionRef" :scale="4" :rotation="mouseRotationRef" />
     </Suspense>
 
     <!-- Lamp -->
@@ -1718,12 +1487,7 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
       :position="[0, 1, -1.2]"
     />
 
-    <TresMesh
-      ref="spotLightTargetRef"
-      cast-shadow
-      receive-shadow
-      :position="[2.8, 0, -0.34]"
-    />
+    <TresMesh ref="spotLightTargetRef" cast-shadow receive-shadow :position="[2.8, 0, -0.34]" />
 
     <TresSpotLight
       ref="spotLightRef"
@@ -1737,9 +1501,6 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
       :shadow-radius="1"
     />
 
-    <TresDirectionalLight
-      ref="directionalLightRef"
-      :position="[2, 4, 5]"
-    />
+    <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
   </TresCanvas>
 </template>

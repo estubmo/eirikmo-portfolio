@@ -33,7 +33,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
         <h1 class="text-2xl font-bold">Adtube Solutions</h1>
         <h2 class="text-lg font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</h2>
         <h2 class="text-lg font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</h2>
-        <h3 class="text-lg font-light text-zinc-200 break-words wrap mt-2">Full Stack Engineer</h3>
+        <h3 class="text-lg font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h3>
         <h3 class="text-lg font-bold">Contract · Remote</h3>
       </div>
     </template>

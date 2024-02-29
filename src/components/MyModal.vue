@@ -19,10 +19,7 @@ const { show, close } = toRefs(props);
     :content-transition="'vfm-slide-down'"
     :esc-to-close="false"
   >
-    <VueSimplebar
-      data-simplebar-auto-hide="false"
-      class="h-screen"
-    >
+    <VueSimplebar data-simplebar-auto-hide="false" class="h-screen">
       <div class="fixed justify-center inset-x-0 top-2 flex">
         <div class="max-w-screen-3xl w-full">
           <div class="pl-2 lg:pl-5">
@@ -50,9 +47,7 @@ const { show, close } = toRefs(props);
         </div>
       </div>
       <div class="max-w-screen-3xl self-center mx-auto">
-        <div
-          class="ml-4 mr-8 md:mx-12 lg:mx-16 flex flex-col pointer-events-auto items-center justify-start"
-        >
+        <div class="ml-4 mr-8 md:mx-12 lg:mx-16 flex flex-col pointer-events-auto items-center justify-start">
           <slot />
         </div>
       </div>
@@ -60,5 +55,4 @@ const { show, close } = toRefs(props);
   </VueFinalModal>
 </template>
 
-<style>
-</style>
+<style></style>
