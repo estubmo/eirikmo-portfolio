@@ -3,15 +3,7 @@ import { defineNuxtConfig } from "nuxt/config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [
-    "@vueuse/motion/nuxt",
-    "@vueuse/nuxt",
-    "@nuxtjs/tailwindcss",
-    "@tresjs/nuxt",
-    "nuxt-vercel-analytics",
-    "nuxt-security",
-    "@nuxt/devtools",
-  ],
+  modules: ["@vueuse/motion/nuxt", "@vueuse/nuxt", "@nuxtjs/tailwindcss", "@tresjs/nuxt", "@nuxt/devtools"],
   srcDir: "src/",
   ssr: true,
   css: ["@/assets/css/tailwind.css", "vue-final-modal/style.css", "simplebar-vue/dist/simplebar.min.css"],
@@ -24,34 +16,6 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/**": { isr: 60 * 60 },
-  },
-  // Content-Security-Policy: base-uri 'none'; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'self'; img-src 'self' data:; object-src 'none'; script-src-attr 'none'; style-src 'self' https: 'unsafe-inline'; script-src 'self' https: 'unsafe-inline' 'strict-dynamic' 'nonce-{{nonce}}'; upgrade-insecure-requests;
-
-  // @ts-expect-error Object literal may only specify known properties.
-  security: {
-    ssg: {
-      meta: true, // Enables CSP as a meta tag in SSG mode
-      hashScripts: true, // Enables CSP hash support for scripts in SSG mode
-      hashStyles: false, // Disables CSP hash support for styles in SSG mode (recommended)
-    },
-    sri: true,
-    headers: {
-      crossOriginEmbedderPolicy: process.env.NODE_ENV === "development" ? "unsafe-none" : "require-corp",
-      contentSecurityPolicy: {
-        "default-src": ["'self'", "https://vercel.live/"],
-        "script-src": [
-          "'self'",
-          "https:",
-          "'unsafe-inline'",
-          "'strict-dynamic'",
-          "'nonce-{{nonce}}'",
-          "https://vercel.live/",
-        ],
-        "script-src-elem": ["'self'", "https://vercel.live/", "'unsafe-inline'"],
-        "connect-src": ["'self'", "blob:", "https://vercel.live/", "https://vitals.vercel-insights.com/"],
-      },
-    },
-    removeLoggers: false,
   },
   runtimeConfig: {
     public: {
