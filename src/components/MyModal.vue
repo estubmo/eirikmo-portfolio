@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VueSimplebar from "simplebar-vue";
 import { toRefs } from "vue";
 import { VueFinalModal } from "vue-final-modal";
 
@@ -15,6 +16,7 @@ const { show, close } = toRefs(props);
   <VueFinalModal
     v-model="show"
     class="pointer-events-none"
+    :display-directive="'show'"
     :hide-overlay="true"
     :content-transition="'vfm-slide-down'"
     :esc-to-close="false"
@@ -25,7 +27,7 @@ const { show, close } = toRefs(props);
           <div class="pl-2 lg:pl-5">
             <button
               ref="openModalRef"
-              class="font-semibold text-gray-200 pointer-events-auto hover:bg-gray-900/50 focus:bg-gray-900/50 drop-shadow w-10 h-10 transition-all duration-300 rounded-full bg-gray-900/15 justify-center items-center flex rotate-180"
+              class="font-semibold text-gray-200 pointer-events-auto hover:bg-gray-900/50 focus:bg-gray-900/50 drop-shadow size-10 transition-all duration-300 rounded-full bg-gray-900/15 justify-center items-center flex rotate-180"
               @click="() => close()"
             >
               <svg

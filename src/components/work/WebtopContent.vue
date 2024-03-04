@@ -11,10 +11,10 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h1 class="md:text-3xl text-4xl font-bold">Webtop Solutions</h1>
-      <h2 class="text-xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h2>
+      <h2 class="text-2xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h2>
       <h2 class="text-xl italic font-light text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h2>
-      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">System Developer</h2>
-      <h3 class="text-xl font-bold italic text-[#15FF93]">Full-time Employment · Trondheim, Norway</h3>
+      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h2>
+      <h3 class="text-xl font-bold italic">Full-time Employment · Trondheim, Norway</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />
@@ -41,9 +41,9 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
       <div class="space-y-2">
         <p>
-          As a full-time System Developer at Webtop Solutions AS, I had the opportunity to contribute to various aspects
-          of the CRM system development process. My role was diverse and encompassed responsibilities that spanned the
-          entire software development lifecycle. Here's a breakdown of key my responsibilities:
+          As a full-time Full-Stack Developer at Webtop Solutions AS, I had the opportunity to contribute to various
+          aspects of the CRM system development process. My role was diverse and encompassed responsibilities that
+          spanned the entire software development lifecycle. Here's a breakdown of key my responsibilities:
         </p>
         <ul class="space-y-2">
           <li>

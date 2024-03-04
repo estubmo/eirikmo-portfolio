@@ -14,6 +14,6 @@ const { href, name, size } = toRefs(props);
     <div class="p-1">
       <slot :height="size" :width="size" />
     </div>
-    <div class="text-xs text-zinc-200 font-medium group-hover:underline underline-offset-2 text-center">{{ name }}</div>
+    <div class="text-xs text-zinc-200 font-normal group-hover:underline underline-offset-2 text-center">{{ name }}</div>
   </a>
 </template>

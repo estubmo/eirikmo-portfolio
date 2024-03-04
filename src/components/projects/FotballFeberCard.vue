@@ -30,11 +30,13 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
       <img src="/images/projects/fotballfeber/logo.png" alt="FotballFeber Logo" class="select-none w-full" />
     </template>
     <template #default>
-      <div class="text-base leading-7 text-white/90 w-full">
+      <div class="leading-7 text-white/90 w-full">
         <h1 class="text-2xl font-bold">FotballFeber</h1>
-        <h2 class="text-lg font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
-        <h2 class="text-lg font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
-        <h3 class="text-lg font-light text-zinc-200 break-words wrap mt-2">Founder, System Architect and Developer</h3>
+        <h2 class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
+        <h2 class="font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
+        <h3 class="font-light text-zinc-200 break-words wrap mt-2">
+          Founder, System Architect and Full-Stack Developer
+        </h3>
       </div>
     </template>
 

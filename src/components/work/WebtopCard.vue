@@ -28,13 +28,14 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     <template #logo>
       <img src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />
     </template>
+
     <template #default>
-      <div class="text-base leading-7 text-white/90 w-full">
+      <div class="leading-7 text-white/90 w-full">
         <h1 class="text-2xl font-bold">Webtop Solutions</h1>
-        <h2 class="text-lg font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h2>
-        <h2 class="text-lg font-light italic text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h2>
-        <h3 class="text-lg font-light text-zinc-200 break-words wrap mt-2">System Developer</h3>
-        <h3 class="text-lg font-bold">Full-time Employment · Trondheim, Norway</h3>
+        <h2 class="text-xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h2>
+        <h2 class="font-light italic text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h2>
+        <h3 class="font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h3>
+        <h3 class="font-bold italic">Full-time Employment · Trondheim, Norway</h3>
       </div>
     </template>
 

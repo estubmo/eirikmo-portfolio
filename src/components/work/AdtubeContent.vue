@@ -11,10 +11,10 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h1 class="md:text-3xl text-4xl font-bold">Adtube Solutions</h1>
-      <h2 class="text-xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</h2>
+      <h2 class="text-2xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</h2>
       <h2 class="text-xl font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</h2>
       <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h2>
-      <h3 class="text-xl font-bold text-[#15FF93]">Contract · Remote</h3>
+      <h3 class="text-xl font-bold italic">Contract · Remote</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/adtube/logo.png" alt="Adtube Logo" class="select-none w-full max-w-[160px]" />
