@@ -40,6 +40,13 @@ export default defineNuxtConfig({
         "'nonce-{{nonce}}'", // Enables CSP nonce support for scripts in SSR mode, supported by almost any browser (level 2)
         "https://vercel.live/",
       ],
+      "script-src-elem": `'self' https://vercel.live/_next-live/feedback/feedback.js 'unsafe-inline'`,
+      removeLoggers: {
+        external: [],
+        consoleType: ["debug"],
+        include: [/\.[jt]sx?$/, /\.vue\??/],
+        exclude: [/node_modules/, /\.git/],
+      },
     },
   },
   runtimeConfig: {
