@@ -227,7 +227,6 @@ const onUpdateCurrentSegment = (segment: string) => {
       <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <Link rel="manifest" href="/site.webmanifest" />
       <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-      <Link rel="preconnect" href="https://fonts.gstatic.com" />
       <Meta name="msapplication-TileColor" content="#223d4a" />
       <Meta name="theme-color" content="#223d4a" />
       <Title>Eirik Mo - Full-Stack Developer</Title>

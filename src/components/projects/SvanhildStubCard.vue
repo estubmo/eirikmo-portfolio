@@ -27,12 +27,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     :on-mouse-leave="onMouseLeave"
   >
     <template #logo>
-      <NuxtImg
-        src="/images/projects/svanhildstub/logo.png"
-        format="webp"
-        alt="SvanhildStub Logo"
-        class="select-none w-full"
-      />
+      <img src="/images/projects/svanhildstub/logo.png" alt="SvanhildStub Logo" class="select-none w-full" />
     </template>
     <template #default>
       <div class="leading-7 text-white/90 w-full">
