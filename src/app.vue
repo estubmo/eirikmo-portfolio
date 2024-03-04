@@ -7,7 +7,6 @@ import type { ComputedRef, StyleValue } from "vue";
 import { computed, ref, watch } from "vue";
 import { ModalsContainer } from "vue-final-modal";
 import ContactComponent from "./components/ContactComponent.vue";
-import CoolConsoleLog from "./components/CoolConsoleLog.vue";
 import ExpertiseComponent from "./components/ExpertiseComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";
 import HeaderComponent from "./components/HeaderComponent.vue";
@@ -233,10 +232,6 @@ const onUpdateCurrentSegment = (segment: string) => {
     </Head>
 
     <Body class="relative">
-      <client-only>
-        <CoolConsoleLog />
-      </client-only>
-
       <!-- eslint-disable-next-line vue/attribute-hyphenation -->
       <VueSimplebar ref="simpleBarRef" class="h-screen" :onScroll="onScroll">
         <div ref="containerRef" class="flex justify-center">
@@ -457,3 +452,4 @@ const onUpdateCurrentSegment = (segment: string) => {
     </Body>
   </Html>
 </template>
+./components/CoolConsoleLog.ts

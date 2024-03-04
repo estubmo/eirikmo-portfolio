@@ -9,6 +9,7 @@ import CustomMobile from "~/components/CustomMobile.vue";
 import CustomMouse from "~/components/CustomMouse.vue";
 import CustomTablet from "~/components/CustomTablet.vue";
 import FixPixelRatio from "~/components/FixPixelRatio.vue";
+import { coolConsoleLog } from "~/utils/cool-console-log";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
   CineonToneMapping,
@@ -26,7 +27,7 @@ import {
   Vector3,
 } from "three";
 import type { Ref } from "vue";
-import { reactive, ref, toRefs, watch } from "vue";
+import { onMounted, reactive, ref, toRefs, watch } from "vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -109,6 +110,10 @@ const deviceScreenRefs = {
   tablet: ref<Mesh>(),
   mobile: ref<Mesh>(),
 };
+
+onMounted(() => {
+  coolConsoleLog();
+});
 
 const desktopOverlayRef = ref<MeshStandardMaterial>();
 const tabletOverlayRef = ref<MeshStandardMaterial>();
@@ -978,3 +983,4 @@ onLoop(({ delta }) => {
     <TresDirectionalLight ref="directionalLightRef" :position="[2, 4, 5]" />
   </TresCanvas>
 </template>
+~/utils/cool-console-log
