@@ -26,19 +26,20 @@ const line1 = "%c " + stringWithRandomLength() + "%c %c " + stringWithRandomLeng
 const line2 = "%c " + stringWithRandomLength();
 const line3 = "%c " + stringWithRandomLength();
 const line4 = "%c " + stringWithRandomLength() + "%c %c " + stringWithRandomLength();
-console.log(
-  ["", line1, "", line2, "", "%c       Eirik Mo  ", "", line3, "", line4, ""].join("\n"),
-  font + getLineStyle(randomGradient()) + stringWithRandomLength(),
-  font + "background: none;",
-  font + "background: #a1a1aa; border-radius: 0.125rem;",
-  font + getLineStyle(randomGradient()),
-  "color: #a1a1aa; font-size: 20px; font-family: sans-serif;",
-  font + getLineStyle(randomGradient()),
-  font + "background: #a1a1aa; border-radius: 0.125rem;",
-  font + "background: none;",
-  font + getLineStyle(randomGradient()),
-);
-</script>
 
-<!-- eslint-disable-next-line vue/valid-template-root -->
-<template></template>
+const text = ["", line1, "", line2, "", "%c       Eirik Mo  ", "", line3, "", line4, ""].join("\n");
+
+const styles = [
+  `${font}${getLineStyle(randomGradient())}${stringWithRandomLength()}`,
+  `${font}background: none;`,
+  `${font}background: #a1a1aa; border-radius: 0.125rem;`,
+  `${font}${getLineStyle(randomGradient())}`,
+  "color: #a1a1aa; font-size: 20px; font-family: sans-serif;",
+  `${font}${getLineStyle(randomGradient())}`,
+  `${font}background: #a1a1aa; border-radius: 0.125rem;`,
+  `${font}background: none;`,
+  `${font}${getLineStyle(randomGradient())}`,
+];
+
+console.log(text, ...styles);
+</script>

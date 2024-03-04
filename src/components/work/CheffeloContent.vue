@@ -15,10 +15,10 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div class="col-span-2 my-4">
       <h1 class="md:text-3xl text-4xl font-bold">Cheffelo</h1>
       <h2 class="text-sm font-light italic text-zinc-300 break-words wrap">Previously known as GodtlevertGruppen AS</h2>
-      <h2 class="text-xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</h2>
+      <h2 class="text-2xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</h2>
       <h2 class="text-xl font-light italic text-sky-200 break-words wrap">May 2021 - Aug 2022 · 1 yr 4 mos</h2>
-      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Front-end Web Developer</h2>
-      <h3 class="text-xl font-bold italic text-[#15FF93]">Contract · Remote</h3>
+      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Front-End Web Developer</h2>
+      <h3 class="text-xl font-bold italic">Contract · Remote</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <img src="/images/work/cheffelo/cheffelo_logo.svg" alt="Cheffelo Logo" class="select-none w-full" />
@@ -44,7 +44,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
       <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
       <p>
-        During my tenure as a Front-end Web Developer at Cheffelo, I had the privilege of being a key contributor to the
+        During my tenure as a Front-End Web Developer at Cheffelo, I had the privilege of being a key contributor to the
         development of the RetNemt front end. My responsibilities extended beyond RetNemt as I later became an integral
         part of projects for all the brands under the Cheffelo umbrella.
       </p>

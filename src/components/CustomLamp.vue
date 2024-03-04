@@ -41,7 +41,7 @@ const handleLightSwitch = (e: Event) => {
 };
 
 window.addEventListener("mousedown", handleLightSwitch);
-window.addEventListener("touchstart", handleLightSwitch);
+window.addEventListener("touchstart", handleLightSwitch, { passive: true });
 
 onLoop(({ elapsed }) => {
   pointer.x = (mouseX.value / width.value) * 2 - 1;

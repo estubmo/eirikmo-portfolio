@@ -1,11 +1,11 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "jsx": "preserve"
+    "jsx": "react-jsx" // Or any other valid configuration
   },
   "include": [
-    "astro.config.ts",
+    "nuxt.config.ts",
     "reset.d.ts",
     ".eslintrc.cjs",
     ".prettierrc.cjs",

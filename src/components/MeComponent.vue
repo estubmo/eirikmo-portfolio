@@ -1,13 +1,13 @@
 <template>
   <div class="lg:w-1/2 lg:pl-6">
     <div class="flex flex-col max-w-xl gap-2">
-      <h2 v-motion-slide-visible-once-right-custom class="text-4xl font-extrabold mb-4">Who I am</h2>
+      <h2 v-motion-slide-visible-once-right-custom class="text-4xl font-black mb-4">Who I am</h2>
       <div v-motion-slide-visible-once-right-custom class="gap-3 flex">
         <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
         <div class="h-3 w-10 bg-gradient-to-r from-red-300 to-red-400 rounded-sm" />
         <div class="h-3 w-2 bg-gradient-to-r from-green-300 to-green-400 rounded-sm" />
         <div class="h-3 w-8 bg-gradient-to-r from-blue-300 to-blue-400 rounded-sm" />
-        <div v-motion-slide-visible-once-right-custom class="h-3 w-3 bg-zinc-400 rounded-full" />
+        <div v-motion-slide-visible-once-right-custom class="size-3 bg-zinc-400 rounded-full" />
       </div>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         I am a lifelong learner who enjoys exploring new technologies and approaches to web development. I am also an

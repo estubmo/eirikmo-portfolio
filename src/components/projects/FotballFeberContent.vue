@@ -24,10 +24,12 @@ import VitestIcon from "../icons/VitestIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h1 class="md:text-3xl text-4xl font-bold">FotballFeber</h1>
-      <h2 class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
+      <h2 class="text-2xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
       <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Where Norwegian Football Fans Unite</h2>
       <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Founder, System Architect and Developer</h3>
+      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+        Founder, System Architect and Full-Stack Developer
+      </h3>
       <h3 class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">

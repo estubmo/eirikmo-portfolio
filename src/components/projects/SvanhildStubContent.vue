@@ -16,9 +16,11 @@ import VercelIcon from "../icons/VercelIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h1 class="md:text-3xl text-4xl font-bold">Svanhild Stub</h1>
-      <h2 class="text-xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
-      <h2 class="text-xl font-light text-sky-200 break-words wrap">Jan 2024</h2>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Developer and System Administrator</h3>
+      <h2 class="text-2xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
+      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2024</h2>
+      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+        Full-Stack Developer and System Administrator
+      </h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <img

@@ -30,11 +30,11 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
       <img src="/images/projects/svanhildstub/logo.png" alt="SvanhildStub Logo" class="select-none w-full" />
     </template>
     <template #default>
-      <div class="text-base leading-7 text-white/90 w-full">
+      <div class="leading-7 text-white/90 w-full">
         <h1 class="text-2xl font-bold">Svanhild Stub</h1>
-        <h2 class="text-lg font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
-        <h2 class="text-lg font-light italic text-sky-200 break-words wrap">Jan 2024</h2>
-        <h3 class="text-lg font-light text-zinc-200 break-words wrap mt-2">Developer and System Administrator</h3>
+        <h2 class="text-xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
+        <h2 class="font-light italic text-sky-200 break-words wrap">Jan 2024</h2>
+        <h3 class="font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer and System Administrator</h3>
       </div>
     </template>
 
