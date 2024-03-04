@@ -3,7 +3,15 @@ import { defineNuxtConfig } from "nuxt/config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@vueuse/motion/nuxt", "@vueuse/nuxt", "@nuxtjs/tailwindcss", "@tresjs/nuxt", "nuxt-vercel-analytics", "nuxt-security"],
+  modules: [
+    "@vueuse/motion/nuxt",
+    "@vueuse/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@tresjs/nuxt",
+    "nuxt-vercel-analytics",
+    "nuxt-security",
+    "@nuxt/devtools",
+  ],
   srcDir: "src/",
   ssr: true,
   css: ["@/assets/css/tailwind.css", "vue-final-modal/style.css", "simplebar-vue/dist/simplebar.min.css"],
@@ -15,12 +23,16 @@ export default defineNuxtConfig({
     static: true,
   },
   routeRules: {
-    '/**': { isr: 60 * 60 },
+    "/**": { isr: 60 * 60 },
   },
+  // @ts-expect-error Object literal may onle specify known properties
   security: {
+    headers: {
+      crossOriginEmbedderPolicy: process.env.NODE_ENV === "development" ? "unsafe-none" : "require-corp",
+    },
     contentSecurityPolicy: {
       "default-src": `'self' 'https://vercel.live'`,
-    }
+    },
   },
   runtimeConfig: {
     public: {
