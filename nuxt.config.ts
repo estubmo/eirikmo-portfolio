@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     typeCheck: true,
     strict: true,
   },
+  nitro: {
+    static: true,
+  },
+  routeRules: {
+    '/**': { isr: 60 * 60 },
+  },
   runtimeConfig: {
     public: {
       motion: {
