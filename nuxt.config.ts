@@ -25,6 +25,8 @@ export default defineNuxtConfig({
   routeRules: {
     "/**": { isr: 60 * 60 },
   },
+  // Content-Security-Policy: base-uri 'none'; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'self'; img-src 'self' data:; object-src 'none'; script-src-attr 'none'; style-src 'self' https: 'unsafe-inline'; script-src 'self' https: 'unsafe-inline' 'strict-dynamic' 'nonce-{{nonce}}'; upgrade-insecure-requests;
+
   // @ts-expect-error Object literal may only specify known properties.
   security: {
     ssg: {
@@ -36,17 +38,17 @@ export default defineNuxtConfig({
     headers: {
       crossOriginEmbedderPolicy: process.env.NODE_ENV === "development" ? "unsafe-none" : "require-corp",
       contentSecurityPolicy: {
-        "default-src": `'self' https://vercel.live/`,
+        "default-src": ["'self'", "https://vercel.live/"],
         "script-src": [
-          "'self'", // Fallback value, will be ignored by most modern browsers (level 3)
-          "https:", // Fallback value, will be ignored by most modern browsers (level 3)
-          "'unsafe-inline'", // Fallback value, will be ignored by almost any browser (level 2)
-          "'strict-dynamic'", // Strict CSP via 'strict-dynamic', supported by most modern browsers (level 3)
-          "'nonce-{{nonce}}'", // Enables CSP nonce support for scripts in SSR mode, supported by almost any browser (level 2)
+          "'self'",
+          "https:",
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
           "https://vercel.live/",
         ],
-        "script-src-elem": `'self' https://vercel.live/ 'unsafe-inline'`,
-        "connect-src": `'self' https://vercel.live/ https://vitals.vercel-insights.com/`,
+        "script-src-elem": ["'self'", "https://vercel.live/", "'unsafe-inline'"],
+        "connect-src": ["'self'", "blob:", "https://vercel.live/", "https://vitals.vercel-insights.com/"],
       },
     },
     removeLoggers: false,
