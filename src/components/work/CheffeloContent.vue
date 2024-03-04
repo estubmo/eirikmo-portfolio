@@ -21,7 +21,13 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       <h3 class="text-xl font-bold italic">Contract · Remote</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
-      <img src="/images/work/cheffelo/cheffelo_logo.svg" alt="Cheffelo Logo" class="select-none w-full" />
+      <NuxtImg
+        loading="lazy"
+        format="webp"
+        src="/images/work/cheffelo/cheffelo_logo.svg"
+        alt="Cheffelo Logo"
+        class="select-none w-full"
+      />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
       <h3 class="text-lg md:text-xl font-bold mt-4">About Cheffelo</h3>
@@ -34,7 +40,9 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible px-2 sm:px-10 md:px-0 my-6 row-span-2"
     >
-      <img
+      <NuxtImg
+        loading="lazy"
+        format="webp"
         src="/images/work/cheffelo/godtlevert.jpg"
         alt="Godtlevert Dashboard"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
@@ -94,7 +102,9 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible px-2 sm:px-10 md:px-0 my-6"
     >
-      <img
+      <NuxtImg
+        loading="lazy"
+        format="webp"
         src="/images/work/cheffelo/retnemt.jpg"
         alt="Retnemt Menu Item"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
