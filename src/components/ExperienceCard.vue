@@ -29,8 +29,8 @@ const handleTouchEnd = () => {
     @click="onClick"
     @mouseover="onMouseOver"
     @mouseleave="onMouseLeave"
-    @touchstart="handleTouchStart"
-    @touchend="handleTouchEnd"
+    @touchstart.passive="handleTouchStart"
+    @touchend.passive="handleTouchEnd"
   >
     <div
       class="absolute -top-10 left-6 sm:left-10 size-20 transition-all duration-200 flex justify-center items-center rounded-full bg-[#062C3F] border-2 border-gray-200 drop-shadow p-3 z-30"
