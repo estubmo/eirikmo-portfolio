@@ -1,3 +1,4 @@
+<script setup lang="ts">
 const gradients = [
   ["#fde047", "#facc15"],
   ["#d8b4fe", "#c084fc"],
@@ -40,6 +41,5 @@ const styles = [
   `${font}${getLineStyle(randomGradient())}`,
 ];
 
-export const coolConsoleLog = () => {
-  console.log(text, ...styles);
-};
+console.log(text, ...styles);
+</script>

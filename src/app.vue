@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useRouter } from "nuxt/app";
+import { useHead, useRouter } from "nuxt/app";
 import VueSimplebar from "simplebar-vue";
 import "simplebar-vue/dist/simplebar.min.css";
 import CanvasComponent from "~/components/CanvasComponent.vue";
+import CoolConsoleLog from "~/components/CoolConsoleLog.vue";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, ref, watch } from "vue";
 import { ModalsContainer } from "vue-final-modal";
@@ -215,6 +216,15 @@ const onHasFinishedLoading = () => {
 const onUpdateCurrentSegment = (segment: string) => {
   currentSegmentRef.value = segment;
 };
+
+useHead({
+  title: "My App",
+  meta: [{ name: "description", content: "My amazing site." }],
+  bodyAttrs: {
+    class: "test",
+  },
+  script: [{ innerHTML: "console.log('Hello world')" }],
+});
 </script>
 
 <template>
@@ -232,6 +242,10 @@ const onUpdateCurrentSegment = (segment: string) => {
     </Head>
 
     <Body class="relative">
+      <ClientOnly>
+        <CoolConsoleLog />
+      </ClientOnly>
+
       <!-- eslint-disable-next-line vue/attribute-hyphenation -->
       <VueSimplebar ref="simpleBarRef" class="h-screen" :onScroll="onScroll">
         <div ref="containerRef" class="flex justify-center">
@@ -420,7 +434,7 @@ const onUpdateCurrentSegment = (segment: string) => {
 
       <ModalsContainer />
 
-      <client-only>
+      <ClientOnly>
         <CanvasComponent
           :me-offset-top="meRef?.offsetTop || 0"
           :me-offset-height="meRef?.offsetHeight || 0"
@@ -448,7 +462,7 @@ const onUpdateCurrentSegment = (segment: string) => {
           @has-finished-loading="onHasFinishedLoading"
           @update-current-segment="onUpdateCurrentSegment"
         />
-      </client-only>
+      </ClientOnly>
     </Body>
   </Html>
 </template>

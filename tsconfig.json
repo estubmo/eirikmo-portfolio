@@ -1,6 +1,9 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx" // Or any other valid configuration
+  },
   "include": [
     "nuxt.config.ts",
     "reset.d.ts",
