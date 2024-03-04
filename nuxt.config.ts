@@ -31,15 +31,7 @@ export default defineNuxtConfig({
       crossOriginEmbedderPolicy: process.env.NODE_ENV === "development" ? "unsafe-none" : "require-corp",
     },
     contentSecurityPolicy: {
-      "default-src": `'self' 'https://vercel.live'`,
-      "script-src": [
-        "'self'", // Fallback value, will be ignored by most modern browsers (level 3)
-        "https:", // Fallback value, will be ignored by most modern browsers (level 3)
-        "'unsafe-inline'", // Fallback value, will be ignored by almost any browser (level 2)
-        "'strict-dynamic'", // Strict CSP via 'strict-dynamic', supported by most modern browsers (level 3)
-        "'nonce-{{nonce}}'", // Enables CSP nonce support for scripts in SSR mode, supported by almost any browser (level 2)
-        "https://vercel.live'",
-      ],
+      "default-src": `'self' https://vercel.live`,
     },
   },
   runtimeConfig: {
