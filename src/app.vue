@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHead, useRouter } from "nuxt/app";
+import { useRouter } from "nuxt/app";
 import VueSimplebar from "simplebar-vue";
 import "simplebar-vue/dist/simplebar.min.css";
 import CanvasComponent from "~/components/CanvasComponent.vue";
@@ -216,15 +216,6 @@ const onHasFinishedLoading = () => {
 const onUpdateCurrentSegment = (segment: string) => {
   currentSegmentRef.value = segment;
 };
-
-useHead({
-  title: "My App",
-  meta: [{ name: "description", content: "My amazing site." }],
-  bodyAttrs: {
-    class: "test",
-  },
-  script: [{ innerHTML: "console.log('Hello world')" }],
-});
 </script>
 
 <template>
