@@ -230,6 +230,22 @@ const onUpdateCurrentSegment = (segment: string) => {
       <Meta name="msapplication-TileColor" content="#223d4a" />
       <Meta name="theme-color" content="#223d4a" />
       <Title>Eirik Mo - Full-Stack Developer</Title>
+
+      <Meta property="og:title" content="Eirik Mo - Full-Stack Developer" />
+      <Meta
+        property="og:description"
+        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with Nuxt, Vue, TypeScript, Tailwind CSS, TresJS and Three.js"
+      />
+      <Meta property="og:type" content="website" />
+      <Meta property="og:url" content="https://mowebdev.com" />
+      <Meta property="og:image" content="https://mowebdev.com/images/ogImage.jpg" />
+      <Meta property="twitter:title" content="Eirik Mo - Full-Stack Developer" />
+      <Meta
+        property="twitter:description"
+        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with Nuxt, Vue, TypeScript, Tailwind CSS, TresJS and Three.js"
+      />
+      <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.jpg" />
+      <Meta property="twitter:card" content="summary" />
     </Head>
 
     <Body class="relative">

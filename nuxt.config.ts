@@ -3,7 +3,13 @@ import { defineNuxtConfig } from "nuxt/config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@vueuse/motion/nuxt", "@vueuse/nuxt", "@nuxtjs/tailwindcss", "@tresjs/nuxt", "@nuxt/devtools"],
+  modules: [
+    "@vueuse/motion/nuxt",
+    "@vueuse/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@tresjs/nuxt",
+    "@nuxt/devtools"
+  ],
   srcDir: "src/",
   ssr: true,
   css: ["@/assets/css/tailwind.css", "vue-final-modal/style.css", "simplebar-vue/dist/simplebar.min.css"],
