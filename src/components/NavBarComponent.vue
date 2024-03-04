@@ -10,7 +10,7 @@ const { currentSegment } = toRefs(props);
 <template>
   <div class="fixed top-0 right-0 font-light h-screen flex flex-col justify-between select-none z-50 text-sm">
     <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5 items-center">
-      <NuxtLink href="#top">
+      <NuxtLink href="#top" aria-label="Go to top">
         <div
           class="size-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out drop-shadow"
           :class="[currentSegment === 'top' ? 'bg-zinc-100' : 'bg-zinc-400']"
