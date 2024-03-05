@@ -13,7 +13,7 @@ const { height, width } = defineProps({
     />
     <path
       d="M489.222 180.483H335.388L309.571 331.203H203.026L77.2217 480.53C81.2091 483.978 86.2929 485.895 91.5642 485.939H425.459C433.579 486.043 440.552 480.186 441.85 472.17L489.222 180.483Z"
-      fill="url(#paint0_linear_333_567)"
+      :fill="`url(#${uniqueId}_paint0_linear_333_567)`"
     />
     <defs>
       <linearGradient
