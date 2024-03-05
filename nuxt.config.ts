@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/tailwindcss",
     "@tresjs/nuxt",
-    "@nuxt/devtools"
+    "@nuxt/devtools",
+    "@nuxt/image",
   ],
   srcDir: "src/",
   ssr: true,
