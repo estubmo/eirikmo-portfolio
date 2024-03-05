@@ -27,6 +27,7 @@ import MongoDbIcon from "./icons/MongoDbIcon.vue";
 import NextJsIcon from "./icons/NextJsIcon.vue";
 import NodeJsIcon from "./icons/NodeJsIcon.vue";
 import NpmIcon from "./icons/NpmIcon.vue";
+import NuxtIcon from "./icons/NuxtIcon.vue";
 import NxIcon from "./icons/NxIcon.vue";
 import PlanetscaleIcon from "./icons/PlanetscaleIcon.vue";
 import PlaywrightIcon from "./icons/PlaywrightIcon.vue";
@@ -44,6 +45,7 @@ import SupabaseIcon from "./icons/SupabaseIcon.vue";
 import TailwindIcon from "./icons/TailwindIcon.vue";
 import TanstackIcon from "./icons/TanstackIcon.vue";
 import ThreeJsIcon from "./icons/ThreeJsIcon.vue";
+import MyTresJsIcon from "./icons/TresJsIcon.vue";
 import TrpcIcon from "./icons/TrpcIcon.vue";
 import TurbopackIcon from "./icons/TurbopackIcon.vue";
 import TurborepoIcon from "./icons/TurborepoIcon.vue";
@@ -105,6 +107,10 @@ import TechItem from "./TechItem.vue";
         <TechItem>
           <AngularIcon :height="16" :width="16" />
           Angular
+        </TechItem>
+        <TechItem>
+          <NuxtIcon :height="16" :width="16" />
+          Nuxt
         </TechItem>
         <TechItem>
           <VueIcon :height="16" :width="16" />
@@ -295,6 +301,10 @@ import TechItem from "./TechItem.vue";
           Three.js
         </TechItem>
         <TechItem>
+          <MyTresJsIcon :height="16" :width="16" />
+          TresJS
+        </TechItem>
+        <TechItem>
           <TanstackIcon :height="16" :width="16" />
           TanStack Query
         </TechItem>
@@ -323,3 +333,4 @@ import TechItem from "./TechItem.vue";
     </div>
   </div>
 </template>
+./icons/TresJsIcon.vue./icons/MyTresJsIcon.vue./icons/TresJsIcon.vue

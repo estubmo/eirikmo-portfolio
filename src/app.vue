@@ -232,19 +232,17 @@ const onUpdateCurrentSegment = (segment: string) => {
       <Title>Eirik Mo - Full-Stack Developer</Title>
 
       <Meta property="og:title" content="Eirik Mo - Full-Stack Developer" />
-      <Meta
-        property="og:description"
-        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with Nuxt, Vue, TypeScript, Tailwind CSS, TresJS and Three.js"
-      />
+      <Meta property="og:description" content="Remotely building & deploying web apps across the globe." />
       <Meta property="og:type" content="website" />
       <Meta property="og:url" content="https://mowebdev.com" />
-      <Meta property="og:image" content="https://mowebdev.com/images/ogImage.jpg" />
+      <Meta property="og:image" content="https://mowebdev.com/images/ogImage.webp" />
+      <Meta property="og:image:alt" content="Eirik Mo - Full-Stack Developer, Remote Web Development" />
       <Meta property="twitter:title" content="Eirik Mo - Full-Stack Developer" />
       <Meta
         property="twitter:description"
         content="A portfolio website for Full-Stack Developer Eirik Mo - Built with Nuxt, Vue, TypeScript, Tailwind CSS, TresJS and Three.js"
       />
-      <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.jpg" />
+      <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
       <Meta property="twitter:card" content="summary" />
     </Head>
 
