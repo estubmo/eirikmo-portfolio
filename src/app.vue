@@ -159,7 +159,7 @@ watch(
   },
 );
 
-watch(() => router.currentRoute.value.hash, handleHashChange);
+watch(router.currentRoute.value, handleHashChange);
 
 watch(hasFinishedLoading, (hasFinishedLoading) => {
   if (hasFinishedLoading) {

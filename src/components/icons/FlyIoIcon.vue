@@ -1,10 +1,16 @@
-<script setup>
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
 const { height, width } = defineProps({
   height: { type: Number, required: true },
   width: { type: Number, required: true },
 });
 
-const uniqueId = Math.random().toString(36).substring(2, 15);
+const uniqueId = ref("");
+
+onMounted(() => {
+  uniqueId.value = Math.random().toString(36).substring(2, 15);
+});
 </script>
 
 <template>

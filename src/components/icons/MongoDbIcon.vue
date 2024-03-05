@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const { height, width } = defineProps({
   height: { type: Number, required: true },
   width: { type: Number, required: true },

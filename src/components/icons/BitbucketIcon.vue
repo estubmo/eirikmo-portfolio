@@ -1,7 +1,15 @@
-<script setup>
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
 const { height, width } = defineProps({
   height: { type: Number, required: true },
   width: { type: Number, required: true },
+});
+
+const uniqueId = ref("");
+
+onMounted(() => {
+  uniqueId.value = Math.random().toString(36).substring(2, 15);
 });
 </script>
 
@@ -17,7 +25,7 @@ const { height, width } = defineProps({
     />
     <defs>
       <linearGradient
-        id="paint0_linear_333_567"
+        :id="`${uniqueId}_paint0_linear_333_567`"
         x1="524.791"
         y1="222.691"
         x2="347.087"
