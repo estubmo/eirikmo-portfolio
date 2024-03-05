@@ -2,6 +2,12 @@ import { defineNuxtConfig } from "nuxt/config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  $production: {
+    // @ts-expect-error Object literal may only specify known properties.
+    image: {
+      provider: "ipxStatic",
+    },
+  },
   devtools: { enabled: true },
   modules: [
     "@vueuse/motion/nuxt",
