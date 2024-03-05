@@ -27,7 +27,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     :work-in-progress="true"
   >
     <template #logo>
-      <img src="/images/projects/fotballfeber/logo.png" alt="FotballFeber Logo" class="select-none w-full" />
+      <NuxtImg src="/images/projects/fotballfeber/logo.png" alt="FotballFeber Logo" class="select-none w-full" />
     </template>
     <template #default>
       <div class="leading-7 text-white/90 w-full">

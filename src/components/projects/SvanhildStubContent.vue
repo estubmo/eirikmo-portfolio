@@ -23,7 +23,8 @@ import VercelIcon from "../icons/VercelIcon.vue";
       </h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/svanhildstub/logo.png"
         alt="SvanhildStub Logo"
         class="select-none w-16 sm:w-24 md:w-32"
@@ -60,13 +61,15 @@ import VercelIcon from "../icons/VercelIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
     >
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/svanhildstub/screenshot001.webp"
         alt="SvanhildStub Home Page"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
 
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/svanhildstub/screenshot002.webp"
         alt="SvanhildStub Store"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"

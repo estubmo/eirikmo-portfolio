@@ -33,7 +33,8 @@ import VitestIcon from "../icons/VitestIcon.vue";
       <h3 class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/fotballfeber/logo.png"
         alt="FotballFeber Logo"
         class="select-none w-16 sm:w-24 md:w-32"
@@ -48,7 +49,8 @@ import VitestIcon from "../icons/VitestIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
     >
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/fotballfeber/screenshot.jpg"
         alt="FotballFeber Login Screen"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
@@ -88,7 +90,8 @@ import VitestIcon from "../icons/VitestIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
     >
-      <img
+      <NuxtImg
+        loading="lazy"
         src="/images/projects/fotballfeber/screenshot2.jpg"
         alt="FotballFeber News Aggregate"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
