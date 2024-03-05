@@ -237,10 +237,12 @@ const onUpdateCurrentSegment = (segment: string) => {
       <Meta property="og:url" content="https://mowebdev.com" />
       <Meta property="og:image" content="https://mowebdev.com/images/ogImage.webp" />
       <Meta property="og:image:alt" content="Eirik Mo - Full-Stack Developer, Remote Web Development" />
+
       <Meta property="twitter:title" content="Eirik Mo - Full-Stack Developer" />
+      <Meta name="twitter:creator" content="@eirikm0" />
       <Meta
         property="twitter:description"
-        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with Nuxt, Vue, TypeScript, Tailwind CSS, TresJS and Three.js"
+        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
       />
       <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
       <Meta property="twitter:card" content="summary" />
