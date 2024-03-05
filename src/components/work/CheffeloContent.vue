@@ -41,7 +41,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     >
       <NuxtImg
         loading="lazy"
-        src="/images/work/cheffelo/godtlevert.jpg"
+        src="/images/work/cheffelo/godtlevert.webp"
         alt="Godtlevert Dashboard"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
@@ -102,7 +102,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     >
       <NuxtImg
         loading="lazy"
-        src="/images/work/cheffelo/retnemt.jpg"
+        src="/images/work/cheffelo/retnemt.webp"
         alt="Retnemt Menu Item"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
       />

@@ -51,7 +51,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
     >
       <NuxtImg
         loading="lazy"
-        src="/images/projects/fotballfeber/screenshot.jpg"
+        src="/images/projects/fotballfeber/screenshot001.webp"
         alt="FotballFeber Login Screen"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
@@ -92,7 +92,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
     >
       <NuxtImg
         loading="lazy"
-        src="/images/projects/fotballfeber/screenshot2.jpg"
+        src="/images/projects/fotballfeber/screenshot002.webp"
         alt="FotballFeber News Aggregate"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
       />

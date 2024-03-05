@@ -2,6 +2,13 @@
 import { Backdrop, useProgress } from "@tresjs/cientos";
 import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
 import { useMouse, useWindowSize } from "@vueuse/core";
+import CustomDesktop from "~/components/CustomDesktop.vue";
+import CustomKeyboard from "~/components/CustomKeyboard.vue";
+import CustomLamp from "~/components/CustomLamp.vue";
+import CustomMobile from "~/components/CustomMobile.vue";
+import CustomMouse from "~/components/CustomMouse.vue";
+import CustomTablet from "~/components/CustomTablet.vue";
+import FixPixelRatio from "~/components/FixPixelRatio.vue";
 import { damp, damp3, dampC, dampE } from "maath/easing";
 import {
   CineonToneMapping,
@@ -14,19 +21,12 @@ import {
   MeshStandardMaterial,
   PerspectiveCamera,
   RepeatWrapping,
-  SRGBColorSpace,
   SpotLight,
+  SRGBColorSpace,
   Vector3,
 } from "three";
 import type { Ref } from "vue";
 import { reactive, ref, toRefs, watch } from "vue";
-import CustomDesktop from "~/components/CustomDesktop.vue";
-import CustomKeyboard from "~/components/CustomKeyboard.vue";
-import CustomLamp from "~/components/CustomLamp.vue";
-import CustomMobile from "~/components/CustomMobile.vue";
-import CustomMouse from "~/components/CustomMouse.vue";
-import CustomTablet from "~/components/CustomTablet.vue";
-import FixPixelRatio from "~/components/FixPixelRatio.vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -151,7 +151,7 @@ const alpha = await useTexture({
 });
 
 const eirikTexture = await useTexture({
-  map: "/textures/eirik/eirik.jpg",
+  map: "/textures/eirik/eirik.webp",
 });
 
 const fotballfeberTexture = await useTexture({

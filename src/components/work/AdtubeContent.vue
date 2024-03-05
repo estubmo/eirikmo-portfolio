@@ -39,7 +39,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     >
       <NuxtImg
         loading="lazy"
-        src="/images/work/adtube/adtube.png"
+        src="/images/work/adtube/adtube.webp"
         alt="Adtube Marketing"
         class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
       />
