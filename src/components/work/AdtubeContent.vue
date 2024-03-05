@@ -17,9 +17,8 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       <h3 class="text-xl font-bold italic">Contract · Remote</h3>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
-      <NuxtImage
+      <NuxtImg
         loading="lazy"
-        provider="ipxStatic"
         src="/images/work/adtube/logo.png"
         alt="Adtube Logo"
         class="select-none w-full max-w-[160px]"
@@ -38,7 +37,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div
       class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative overflow-visible px-2 sm:px-10 md:px-0 my-6 row-span-2"
     >
-      <NuxtImage
+      <NuxtImg
         loading="lazy"
         src="/images/work/adtube/adtube.png"
         alt="Adtube Marketing"
