@@ -33,6 +33,9 @@ export default defineNuxtConfig({
   routeRules: {
     "/**": { isr: 60 * 60 },
   },
+  site: {
+    url: "https://mowebdev.com",
+  },
   runtimeConfig: {
     public: {
       motion: {
