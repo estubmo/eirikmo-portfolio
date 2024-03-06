@@ -222,11 +222,15 @@ const onUpdateCurrentSegment = (segment: string) => {
   <Html lang="en" class="scroll-smooth bg-[#00040C] font-sans selection:bg-red-400/80 selection:text-zinc-900">
     <Head>
       <Meta charset="UTF-8" />
-      <Meta name="description" content="Eirik Mo - Full-Stack Developer" />
+      <Meta
+        name="description"
+        content="Full-Stack Developer - A Portfolio Website built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
+      />
       <Meta name="viewport" content="width=device-width" interactive-widget="overlays-content" />
       <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <Link rel="manifest" href="/site.webmanifest" />
       <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+      <Link rel="canonical" href="https://mowebdev.com" />
       <Meta name="msapplication-TileColor" content="#223d4a" />
       <Meta name="theme-color" content="#223d4a" />
       <Title>Eirik Mo - Full-Stack Developer</Title>
@@ -242,7 +246,7 @@ const onUpdateCurrentSegment = (segment: string) => {
       <Meta name="twitter:creator" content="@eirikm0" />
       <Meta
         property="twitter:description"
-        content="A portfolio website for Full-Stack Developer Eirik Mo - Built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
+        content="Full-Stack Developer - A Portfolio Website built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
       />
       <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
       <Meta property="twitter:card" content="summary" />

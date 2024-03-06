@@ -17,6 +17,8 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@nuxt/image",
     "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
+    "nuxt-schema-org",
   ],
   srcDir: "src/",
   ssr: true,
