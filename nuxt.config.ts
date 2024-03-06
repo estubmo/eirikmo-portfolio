@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     "/**": { isr: 60 * 60 },
   },
   site: {
+    name: "Eirik Mo - Full-Stack Developer",
     url: "https://mowebdev.com",
   },
   runtimeConfig: {
