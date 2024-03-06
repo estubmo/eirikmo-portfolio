@@ -10,11 +10,11 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
-      <h1 class="md:text-3xl text-4xl font-bold">Adtube Solutions</h1>
-      <h2 class="text-2xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</h2>
-      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</h2>
-      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h2>
-      <h3 class="text-xl font-bold italic">Contract · Remote</h3>
+      <h2 class="md:text-3xl text-4xl font-bold">Adtube Solutions</h2>
+      <h3 class="text-2xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</h3>
+      <h3 class="text-xl font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</h3>
+      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h3>
+      <h4 class="text-xl font-bold italic">Contract · Remote</h4>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg
@@ -25,7 +25,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h4>
       <p>
         Adtube Solutions is a forward-thinking technology company specializing in the development of innovative and
         efficient solutions for advertising products across various digital channels, including social media, online
@@ -46,7 +46,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h4>
       <div class="space-y-2">
         <p c>
           During my time at Adtube Solutions as a remotely contracted Full-Stack Developer, I held a multifaceted role
@@ -72,7 +72,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h4>
       <div class="space-y-4">
         <p>
           Adtube Solutions relied on a well-rounded and cutting-edge technology stack to power its innovative

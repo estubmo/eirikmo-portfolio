@@ -30,14 +30,14 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     </template>
     <template #default>
       <div class="leading-7 text-white/90 w-full">
-        <h1 class="text-2xl font-bold">Cheffelo</h1>
+        <h2 class="text-2xl font-bold">Cheffelo</h2>
         <h2 class="text-sm font-light italic text-zinc-300 break-words wrap">
           Previously known as GodtlevertGruppen AS
         </h2>
-        <h2 class="text-xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</h2>
-        <h2 class="font-light italic text-sky-200 break-words wrap">May 2021 - Aug 2022 · 1 yr 4 mos</h2>
-        <h3 class="font-light text-zinc-200 break-words wrap mt-2">Front-End Web Developer</h3>
-        <h3 class="font-bold italic">Contract · Remote</h3>
+        <h3 class="text-xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</h3>
+        <h3 class="font-light italic text-sky-200 break-words wrap">May 2021 - Aug 2022 · 1 yr 4 mos</h3>
+        <h4 class="font-light text-zinc-200 break-words wrap mt-2">Front-End Web Developer</h4>
+        <h4 class="font-bold italic">Contract · Remote</h4>
       </div>
     </template>
 

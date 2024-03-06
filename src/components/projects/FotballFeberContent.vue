@@ -23,14 +23,14 @@ import VitestIcon from "../icons/VitestIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
-      <h1 class="md:text-3xl text-4xl font-bold">FotballFeber</h1>
-      <h2 class="text-2xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
-      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Where Norwegian Football Fans Unite</h2>
-      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+      <h2 class="md:text-3xl text-4xl font-bold">FotballFeber</h2>
+      <h3 class="text-2xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h3>
+      <h3 class="text-xl font-light italic text-sky-200 break-words wrap">Where Norwegian Football Fans Unite</h3>
+      <h3 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h3>
+      <h4 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
         Founder, System Architect and Full-Stack Developer
-      </h3>
-      <h3 class="text-xl font-bold italic text-[#15FF93]">Work in progress</h3>
+      </h4>
+      <h4 class="text-xl font-bold italic text-[#15FF93]">Work in progress</h4>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg
@@ -58,14 +58,14 @@ import VitestIcon from "../icons/VitestIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">The Vision</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">The Vision</h4>
       <p>
         Inspired by the absence of a unified platform for Norwegian football aficionados, I embarked on a mission to
         bring this community to life. My goal was to create a space where supporters from all Norwegian football clubs
         could come together and share their passion for the sport.
       </p>
 
-      <h3 class="text-lg md:text-xl font-bold mt-4">The Technical Journey</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">The Technical Journey</h4>
       <p>
         Building FotballFeber from the ground up was a fascinating journey. I chose Next.js, React, and TailwindCSS as
         the core technologies. Everything was meticulously organized in a monorepo using Turborepo, and the website is
@@ -76,7 +76,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
       </p>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h4>
       <p>
         To keep the platform abuzz with the latest Norwegian football updates, I developed a method to source articles
         from various Norwegian football news sites, leveraging their public APIs. This involves a Python script for
@@ -98,7 +98,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
       />
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h4>
 
       <p>
         FotballFeber is an ever-evolving project with a comprehensive roadmap. The current focus is on finalizing the
@@ -106,7 +106,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
         and payment service, marking the official launch for public use.
       </p>
 
-      <h3 class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h4>
       <p>
         My commitment to this project extends beyond my love for Norwegian football and online communities. It has
         become a priceless learning experience in entrepreneurship. As a web developer, I've never learned at such a
@@ -115,7 +115,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
         challenges and setbacks, but each one has been a valuable lesson.
       </p>
 
-      <h3 class="text-lg md:text-xl font-bold mt-4">Evolution as a Developer</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">Evolution as a Developer</h4>
       <p>
         I began this project as a regular full-stack web developer. Throughout this project, I've learned how to build
         fully functional systems, from beginning to end. I have improved my understanding of backends, my proficiency in

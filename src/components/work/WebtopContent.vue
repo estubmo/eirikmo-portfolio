@@ -10,17 +10,17 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
-      <h1 class="md:text-3xl text-4xl font-bold">Webtop Solutions</h1>
-      <h2 class="text-2xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h2>
-      <h2 class="text-xl italic font-light text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h2>
-      <h2 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h2>
-      <h3 class="text-xl font-bold italic">Full-time Employment · Trondheim, Norway</h3>
+      <h2 class="md:text-3xl text-4xl font-bold">Webtop Solutions</h2>
+      <h3 class="text-2xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h3>
+      <h3 class="text-xl italic font-light text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h3>
+      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h3>
+      <h4 class="text-xl font-bold italic">Full-time Employment · Trondheim, Norway</h4>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg loading="lazy" src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">About Webtop Solutions AS</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">About Webtop Solutions AS</h4>
       <p>
         Webtop Solutions is AS a company specializing in the development of Customer Relationship Management (CRM)
         systems tailored for the real estate industry. The company's solutions are designed to streamline and optimize
@@ -39,7 +39,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h4>
       <div class="space-y-2">
         <p>
           As a full-time Full-Stack Developer at Webtop Solutions AS, I had the opportunity to contribute to various
@@ -68,7 +68,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h4>
       <div class="space-y-4">
         <p>
           Webtop Solutions AS employed a robust and versatile technology stack to power their CRM system development.

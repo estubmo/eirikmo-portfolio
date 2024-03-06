@@ -31,12 +31,12 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     </template>
     <template #default>
       <div class="leading-7 text-white/90 w-full">
-        <h1 class="text-2xl font-bold">FotballFeber</h1>
-        <h2 class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h2>
-        <h2 class="font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h2>
-        <h3 class="font-light text-zinc-200 break-words wrap mt-2">
+        <h2 class="text-2xl font-bold">FotballFeber</h2>
+        <h3 class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</h3>
+        <h3 class="font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</h3>
+        <h4 class="font-light text-zinc-200 break-words wrap mt-2">
           Founder, System Architect and Full-Stack Developer
-        </h3>
+        </h4>
       </div>
     </template>
 

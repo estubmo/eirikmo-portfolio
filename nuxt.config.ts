@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@tresjs/nuxt",
     "@nuxt/devtools",
     "@nuxt/image",
+    "@nuxtjs/robots",
   ],
   srcDir: "src/",
   ssr: true,

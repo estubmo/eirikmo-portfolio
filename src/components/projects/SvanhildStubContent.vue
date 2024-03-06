@@ -15,12 +15,12 @@ import VercelIcon from "../icons/VercelIcon.vue";
 <template>
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
-      <h1 class="md:text-3xl text-4xl font-bold">Svanhild Stub</h1>
-      <h2 class="text-2xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
-      <h2 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2024</h2>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
+      <h2 class="md:text-3xl text-4xl font-bold">Svanhild Stub</h2>
+      <h3 class="text-2xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h3>
+      <h3 class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2024</h3>
+      <h4 class="text-xl font-light text-zinc-200 break-words wrap mt-2">
         Full-Stack Developer and System Administrator
-      </h3>
+      </h4>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg
@@ -31,14 +31,14 @@ import VercelIcon from "../icons/VercelIcon.vue";
       />
     </div>
     <div class="my-4 col-span-3 md:col-span-2">
-      <h3 class="text-lg md:text-xl font-bold mt-4">About Svanhild Stub</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">About Svanhild Stub</h4>
       <p>
         The Svanhild Stub website is an e-commerce store and gallery for the Norwegian artist Svanhild Stub. The website
         is built with Next.js, React, TypeScript, Framer-Motion and Tailwind CSS. The backend is powered by open source
         Shopify alternative, Medusa.js, Minio S3 file hosting, Meilisearch, Redis and PostgreSQL.
       </p>
 
-      <h3 class="text-lg md:text-xl font-bold mt-4">Development Process</h3>
+      <h4 class="text-lg md:text-xl font-bold mt-4">Development Process</h4>
       <p>
         I spent a lot of time finding the right technology for this project. I wanted to use a modern stack, but I also
         wanted to use a headless e-commerce solution. I ended up using Medusa.js, which is a headless e-commerce

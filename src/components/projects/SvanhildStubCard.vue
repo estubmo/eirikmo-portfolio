@@ -31,10 +31,10 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     </template>
     <template #default>
       <div class="leading-7 text-white/90 w-full">
-        <h1 class="text-2xl font-bold">Svanhild Stub</h1>
-        <h2 class="text-xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h2>
-        <h2 class="font-light italic text-sky-200 break-words wrap">Jan 2024</h2>
-        <h3 class="font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer and System Administrator</h3>
+        <h2 class="text-2xl font-bold">Svanhild Stub</h2>
+        <h3 class="text-xl font-semibold text-[#d4c76c] break-words wrap">E-commerce Store & Gallery</h3>
+        <h3 class="font-light italic text-sky-200 break-words wrap">Jan 2024</h3>
+        <h4 class="font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer and System Administrator</h4>
       </div>
     </template>
 
