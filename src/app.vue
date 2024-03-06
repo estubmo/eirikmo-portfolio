@@ -284,9 +284,9 @@ const onUpdateCurrentSegment = (segment: string) => {
               class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 overflow-x-hidden items-center transition-opacity ease-in-out duration-500"
               :class="{ 'opacity-0': isModalOpenRef, 'opacity-100': !isModalOpenRef }"
             >
-              <section id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
+              <header id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
                 <HeaderComponent />
-              </section>
+              </header>
               <section id="me" ref="meRef" class="min-h-screen container flex items-center justify-end scroll-mt-12">
                 <MeComponent />
               </section>

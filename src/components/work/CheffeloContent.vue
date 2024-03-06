@@ -14,11 +14,11 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h2 class="md:text-3xl text-4xl font-bold">Cheffelo</h2>
-      <h3 class="text-sm font-light italic text-zinc-300 break-words wrap">Previously known as GodtlevertGruppen AS</h3>
-      <h3 class="text-2xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</h3>
-      <h3 class="text-xl font-light italic text-sky-200 break-words wrap">May 2021 - Aug 2022 · 1 yr 4 mos</h3>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Front-End Web Developer</h3>
-      <h4 class="text-xl font-bold italic">Contract · Remote</h4>
+      <p class="text-sm font-light italic text-zinc-300 break-words wrap">Previously known as GodtlevertGruppen AS</p>
+      <p class="text-2xl font-semibold text-[#e56962] break-words wrap">E-commerce Meal Kit Delivery</p>
+      <p class="text-xl font-light italic text-sky-200 break-words wrap">May 2021 - Aug 2022 · 1 yr 4 mos</p>
+      <p class="text-xl font-light text-zinc-200 break-words wrap mt-2">Front-End Web Developer</p>
+      <p class="text-xl font-bold italic">Contract · Remote</p>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg

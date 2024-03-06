@@ -11,10 +11,10 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
   <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
     <div class="col-span-2 my-4">
       <h2 class="md:text-3xl text-4xl font-bold">Webtop Solutions</h2>
-      <h3 class="text-2xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</h3>
-      <h3 class="text-xl italic font-light text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</h3>
-      <h3 class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</h3>
-      <h4 class="text-xl font-bold italic">Full-time Employment · Trondheim, Norway</h4>
+      <p class="text-2xl font-semibold text-red-500 break-words wrap">CRM and Digital Real-Estate Solution</p>
+      <p class="text-xl italic font-light text-sky-200 break-words wrap">Jul 2016 - Dec 2018 · 2 yrs 6 mos</p>
+      <p class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</p>
+      <p class="text-xl font-bold italic">Full-time Employment · Trondheim, Norway</p>
     </div>
     <div class="col-span-1 justify-self-center md:self-end my-4">
       <NuxtImg loading="lazy" src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />

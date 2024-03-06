@@ -1,5 +1,5 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
-	<title>New Project</title>
+	<title>MoWebDev</title>
 	<defs>
 		<linearGradient id="g1" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(152,0,0,52,0,26)">
 			<stop offset="0" stop-color="#fde047"/>
@@ -23,11 +23,11 @@
 		</linearGradient>
 	</defs>
 	<style>
-		.s0 { fill: url(#g1) } 
-		.s1 { fill: url(#g2) } 
-		.s2 { fill: url(#g3) } 
-		.s3 { fill: url(#g4) } 
-		.s4 { fill: url(#g5) } 
+		.s0 { fill: url(#g1) }
+		.s1 { fill: url(#g2) }
+		.s2 { fill: url(#g3) }
+		.s3 { fill: url(#g4) }
+		.s4 { fill: url(#g5) }
 	</style>
 	<path id="Layer 1" class="s0" d="m0 8c0-4.4 3.6-8 8-8h136c4.4 0 8 3.6 8 8v36c0 4.4-3.6 8-8 8h-136c-4.4 0-8-3.6-8-8z"/>
 	<path id="Shape 2" class="s1" d="m186 8c0-4.4 3.6-8 8-8h58c4.4 0 8 3.6 8 8v36c0 4.4-3.6 8-8 8h-58c-4.4 0-8-3.6-8-8z"/>

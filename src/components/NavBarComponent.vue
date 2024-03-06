@@ -9,7 +9,7 @@ const { currentSegment } = toRefs(props);
 </script>
 <template>
   <div class="fixed top-0 right-0 font-light h-screen flex flex-col justify-between select-none z-50 text-sm">
-    <div class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5 items-center">
+    <nav class="flex flex-col space-y-0.5 gap-4 p-3 lg:px-5 items-center">
       <NuxtLink href="#top" aria-label="Go to top">
         <div
           class="size-3 hover:bg-zinc-200 rounded-full transition-colors ease-in-out drop-shadow"
@@ -51,7 +51,7 @@ const { currentSegment } = toRefs(props);
         :class="[currentSegment === 'contact' ? 'text-zinc-100' : 'text-zinc-400']"
         >Contact</NuxtLink
       >
-    </div>
+    </nav>
 
     <div class="hidden md:flex flex-col space-y-6 font-light px-3 lg:px-5 items-center">
       <a

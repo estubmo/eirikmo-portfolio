@@ -10,7 +10,7 @@ type GithubInfo = {
 const { data } = await useFetch<GithubInfo>("https://api.github.com/repos/estubmo/eirikmo-portfolio");
 </script>
 <template>
-  <section id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
+  <footer id="footer" class="my-20 container flex justify-center items-center scroll-mt-12 text-center">
     <div class="flex flex-col p-4 max-w-xl gap-2 text-sm font-mono text-zinc-300">
       <div class="flex justify-center gap-3 items-center">
         <a
@@ -82,5 +82,5 @@ const { data } = await useFetch<GithubInfo>("https://api.github.com/repos/estubm
         <a class="hover:text-zinc-200 underline" href="https://brittanychiang.com/" target="_blank">Brittany Chiang</a>.
       </p>
     </div>
-  </section>
+  </footer>
 </template>

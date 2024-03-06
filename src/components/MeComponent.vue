@@ -29,7 +29,7 @@
 
       <div v-motion-pop-visible-once-custom class="w-fit mt-4">
         <a
-          href="/Eirik Mo - CV.pdf"
+          href="/Eirik_Mo_-_CV.pdf"
           target="_blank"
           class="text-yellow-300 font-medium flex-nowrap border-yellow-300 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-yellow-300 to-yellow-400 hover:text-black transition-all duration-200 ease-in-out items-center"
           download
