@@ -36,6 +36,10 @@ export default defineNuxtConfig({
   },
   nitro: {
     static: true,
+    compressPublicAssets: true,
+    prerender: {
+      crawlLinks: true,
+    },
   },
   routeRules: {
     "/**": { isr: 60 * 60 },
