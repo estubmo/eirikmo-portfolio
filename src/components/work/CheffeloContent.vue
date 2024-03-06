@@ -29,7 +29,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">About Cheffelo</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">About Cheffelo</h3>
       <p>
         Cheffelo is a leading supplier of meal kits in the Nordic region and a leader in Scandinavian food tech. The
         company is the parent organization of several well-established brands, including Godtlevert, Adams Matkasse,
@@ -48,7 +48,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
       <p>
         During my tenure as a Front-End Web Developer at Cheffelo, I had the privilege of being a key contributor to the
         development of the RetNemt front end. My responsibilities extended beyond RetNemt as I later became an integral
@@ -63,7 +63,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </p>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">Main Contributions</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">Main Contributions</h3>
       <ul class="pl-4 list-disc">
         <li>
           Ported legacy front-end RetNemt to a modern stack. Built from scratch with Next.js, React, Redux Toolkit,
@@ -78,7 +78,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </ul>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
         The development stack for these projects was a blend of cutting-edge technologies:
 

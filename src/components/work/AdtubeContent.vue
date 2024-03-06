@@ -25,7 +25,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">About Adtube Solutions</h3>
       <p>
         Adtube Solutions is a forward-thinking technology company specializing in the development of innovative and
         efficient solutions for advertising products across various digital channels, including social media, online
@@ -46,7 +46,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
       <div class="space-y-2">
         <p c>
           During my time at Adtube Solutions as a remotely contracted Full-Stack Developer, I held a multifaceted role
@@ -72,7 +72,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
         <p>
           Adtube Solutions relied on a well-rounded and cutting-edge technology stack to power its innovative

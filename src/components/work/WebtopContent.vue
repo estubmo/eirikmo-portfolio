@@ -20,7 +20,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       <NuxtImg loading="lazy" src="/images/work/webtop/logo.png" alt="Webtop Logo" class="select-none w-full" />
     </div>
     <div class="my-4 col-span-3 md:col-span-2 space-y-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">About Webtop Solutions AS</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">About Webtop Solutions AS</h3>
       <p>
         Webtop Solutions is AS a company specializing in the development of Customer Relationship Management (CRM)
         systems tailored for the real estate industry. The company's solutions are designed to streamline and optimize
@@ -39,7 +39,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     </div>
 
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
       <div class="space-y-2">
         <p>
           As a full-time Full-Stack Developer at Webtop Solutions AS, I had the opportunity to contribute to various
@@ -68,7 +68,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
       </div>
     </div>
     <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">The Tech Stack</h3>
       <div class="space-y-4">
         <p>
           Webtop Solutions AS employed a robust and versatile technology stack to power their CRM system development.

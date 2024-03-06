@@ -31,14 +31,14 @@ import VercelIcon from "../icons/VercelIcon.vue";
       />
     </div>
     <div class="my-4 col-span-3 md:col-span-2">
-      <h4 class="text-lg md:text-xl font-bold mt-4">About Svanhild Stub</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">About Svanhild Stub</h3>
       <p>
         The Svanhild Stub website is an e-commerce store and gallery for the Norwegian artist Svanhild Stub. The website
         is built with Next.js, React, TypeScript, Framer-Motion and Tailwind CSS. The backend is powered by open source
         Shopify alternative, Medusa.js, Minio S3 file hosting, Meilisearch, Redis and PostgreSQL.
       </p>
 
-      <h4 class="text-lg md:text-xl font-bold mt-4">Development Process</h4>
+      <h3 class="text-lg md:text-xl font-bold mt-4">Development Process</h3>
       <p>
         I spent a lot of time finding the right technology for this project. I wanted to use a modern stack, but I also
         wanted to use a headless e-commerce solution. I ended up using Medusa.js, which is a headless e-commerce
