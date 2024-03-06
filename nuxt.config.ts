@@ -16,9 +16,16 @@ export default defineNuxtConfig({
     "@tresjs/nuxt",
     "@nuxt/devtools",
     "@nuxt/image",
-    "@nuxtjs/robots",
     "@nuxtjs/sitemap",
     "nuxt-schema-org",
+    [
+      "@nuxtjs/robots",
+      {
+        UserAgent: "*",
+        Disallow: "",
+        Sitemap: "https://mowebdev.com/sitemap.xml",
+      },
+    ],
   ],
   srcDir: "src/",
   ssr: true,
