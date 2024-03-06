@@ -49,7 +49,7 @@ const { show, close } = toRefs(props);
         </div>
       </div>
       <div class="max-w-screen-3xl self-center mx-auto">
-        <div class="ml-4 mr-8 md:mx-12 lg:mx-16 flex flex-col pointer-events-auto items-center justify-start">
+        <div class="ml-4 mr-8 md:mx-12 lg:mx-16 flex flex-col pointer-events-auto items-center justify-start mb-20">
           <slot />
         </div>
       </div>
