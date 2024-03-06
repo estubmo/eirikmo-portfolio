@@ -226,11 +226,13 @@ const onUpdateCurrentSegment = (segment: string) => {
         name="description"
         content="Full-Stack Developer - A Portfolio Website built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
       />
-      <Meta name="viewport" content="width=device-width" interactive-widget="overlays-content" />
+      <Meta name="viewport" content="width=device-width, initial-scale=1" interactive-widget="overlays-content" />
       <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <Link rel="manifest" href="/site.webmanifest" />
       <Link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       <Link rel="canonical" href="https://mowebdev.com" />
+      <Link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin />
+
       <Meta name="msapplication-TileColor" content="#223d4a" />
       <Meta name="theme-color" content="#223d4a" />
       <Title>Eirik Mo - Full-Stack Developer</Title>

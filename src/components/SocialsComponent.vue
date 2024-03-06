@@ -1,5 +1,5 @@
 <template>
-  <a href="https://github.com/estubmo/" target="_blank" class="hover:text-zinc-200">
+  <a href="https://github.com/estubmo/" aria-label="GitHub Profile" target="_blank" class="hover:text-zinc-200">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -17,7 +17,12 @@
       <path d="M9 18c-4.51 2-5-2-7-2" />
     </svg>
   </a>
-  <a href="https://www.instagram.com/estubmo/" target="_blank" class="hover:text-zinc-200">
+  <a
+    href="https://www.instagram.com/estubmo/"
+    aria-label="Instagram Profile"
+    target="_blank"
+    class="hover:text-zinc-200"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -34,7 +39,7 @@
       <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
     </svg>
   </a>
-  <a href="https://x.com/eirikm0/" target="_blank" class="hover:text-zinc-200">
+  <a href="https://x.com/eirikm0/" aria-label="X.com Profile" target="_blank" class="hover:text-zinc-200">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -51,7 +56,12 @@
       />
     </svg>
   </a>
-  <a href="https://www.linkedin.com/in/eiriksmo/" target="_blank" class="hover:text-zinc-200">
+  <a
+    href="https://www.linkedin.com/in/eiriksmo/"
+    aria-label="LinkedIn Profile"
+    target="_blank"
+    class="hover:text-zinc-200"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -69,7 +79,12 @@
       <circle cx="4" cy="4" r="2" />
     </svg>
   </a>
-  <a href="https://codesandbox.io/u/estubmo" target="_blank" class="hover:text-zinc-200">
+  <a
+    href="https://codesandbox.io/u/estubmo"
+    aria-label="CodeSandbox Profile"
+    target="_blank"
+    class="hover:text-zinc-200"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

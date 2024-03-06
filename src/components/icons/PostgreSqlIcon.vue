@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
+
 const { height, width } = defineProps({
   height: { type: Number, required: true },
   width: { type: Number, required: true },
+});
+
+const uniqueId = ref("");
+
+onMounted(() => {
+  uniqueId.value = Math.random().toString(36).substring(2, 15);
 });
 </script>
 
 <template>
   <svg :width="width" :height="height" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_308_1409)">
-      <g clip-path="url(#clip1_308_1409)">
+    <g :clip-path="`url(#${uniqueId}_clip0_308_1409)`">
+      <g :clip-path="`url(#${uniqueId}_clip1_308_1409)`">
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -42,10 +50,10 @@ const { height, width } = defineProps({
       </g>
     </g>
     <defs>
-      <clipPath id="clip0_308_1409">
+      <clipPath :id="`${uniqueId}_clip0_308_1409`">
         <rect width="485" height="500" fill="white" transform="translate(14 6)" />
       </clipPath>
-      <clipPath id="clip1_308_1409">
+      <clipPath :id="`${uniqueId}_clip1_308_1409`">
         <rect width="484.848" height="500" fill="white" transform="translate(14 6)" />
       </clipPath>
     </defs>
