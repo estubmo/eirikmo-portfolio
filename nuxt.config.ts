@@ -19,6 +19,16 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "nuxt-schema-org",
     [
+      "@nuxtjs/google-fonts",
+
+      {
+        display: "swap",
+        families: {
+          Inter: "200..800",
+        },
+      },
+    ],
+    [
       "@nuxtjs/robots",
       {
         UserAgent: "*",

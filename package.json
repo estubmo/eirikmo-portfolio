@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/estubmo/eirikmo-portfolio.git"
   },
-  "author": "Eirik Mo <eirk@mowebdev.com> (http://www.mowebdev.com/)",
+  "author": "Eirik Mo <eirk@mowebdev.com> (http://mowebdev.com/)",
   "keywords": [
     "nuxt",
     "vue",
@@ -49,6 +49,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@nuxt/devtools": "^1.0.8",
     "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/google-fonts": "^3.1.3",
     "@nuxtjs/sitemap": "^5.1.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@total-typescript/ts-reset": "^0.5.1",
