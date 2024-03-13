@@ -18,6 +18,9 @@
         applications. I have experience with a wide range of technologies.
       </p>
       <p v-motion-slide-visible-once-right-custom class="md:text-lg">
+        I currently operate under my company Mo Web Dev AS.
+      </p>
+      <p v-motion-slide-visible-once-right-custom class="md:text-lg">
         Furthermore, I'm privileged enough to do all of my work remotely. I can effectively communicate and collaborate
         with clients and team members remotely. This allows me to take on projects from anywhere in the world and
         deliver high-quality results.

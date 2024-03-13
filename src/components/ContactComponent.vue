@@ -18,6 +18,7 @@ import SocialsComponent from "./SocialsComponent.vue";
       </svg>
     </div>
     <p v-motion-slide-visible-once-left-custom class="text-lg">I am currently open to interesting remote projects</p>
+    <p v-motion-slide-visible-once-left-custom class="text-lg">I operate under the legal entity of Mo Web Dev AS.</p>
     <div v-motion-slide-visible-once-left-custom>
       <p>Call me:</p>
       <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>
