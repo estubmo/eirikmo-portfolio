@@ -27,19 +27,21 @@ import TechContainer from "./TechContainer.vue";
       your project to life.
     </p>
   </div>
-  <div class="w-full">
-    <h2 v-motion-slide-visible-once-right-custom class="text-2xl font-bold mb-4">Tech</h2>
-    <p v-motion-slide-visible-once-right-custom class="md:text-lg mb-2">
-      These are just some of the technologies I am familiar with.
-    </p>
-    <TechContainer />
-    <p v-motion-slide-visible-once-right-custom class="mt-2 max-w-3xl">
-      <span class="italic">
-        Thank you to those who contributed to any of these technologies, especially the open-source ones. You allow me,
-        and many others, to do what we love.
-      </span>
-      ❤️
-    </p>
+  <div class="w-full flex flex-col">
+    <div class="w-full flex-flex-col shadow-xl rounded-lg backdrop-blur-sm bg-white/5 p-4">
+      <h2 v-motion-slide-visible-once-right-custom class="text-2xl font-bold mb-4">Tech</h2>
+      <p v-motion-slide-visible-once-right-custom class="md:text-lg mb-2">
+        These are just some of the technologies I am familiar with.
+      </p>
+      <TechContainer />
+      <p v-motion-slide-visible-once-right-custom class="mt-2 max-w-3xl">
+        <span class="italic">
+          Thank you to those who contributed to any of these technologies, especially the open-source ones. You allow
+          me, and many others, to do what we love.
+        </span>
+        ❤️
+      </p>
+    </div>
 
     <div v-motion-slide-visible-once-right-custom class="gap-3 flex w-full mt-4">
       <div class="h-3 w-12 bg-gradient-to-r from-purple-400 to-purple-500 rounded-sm" />

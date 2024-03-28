@@ -267,7 +267,12 @@ const onUpdateCurrentSegment = (segment: string) => {
               enter-active-class="delay-[2000ms] duration-[2000ms] ease-in-out opacity-0"
               enter-to-class="opacity-100"
             >
-              <NavBarComponent v-show="hasFinishedLoading" :current-segment="currentSegmentRef" />
+              <NavBarComponent
+                v-show="hasFinishedLoading"
+                :current-segment="currentSegmentRef"
+                :scroll-y="scrollY"
+                :is-modal-open="isModalOpenRef"
+              />
             </Transition>
             <Transition
               enter-active-class="delay-[2000ms] duration-[2000ms] ease-in-out opacity-0"

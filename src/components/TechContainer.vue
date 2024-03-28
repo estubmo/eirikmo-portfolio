@@ -101,6 +101,10 @@ import TechItem from "./TechItem.vue";
           React
         </TechItem>
         <TechItem>
+          <DotNetIcon :height="16" :width="16" />
+          .Net
+        </TechItem>
+        <TechItem>
           <AstroIcon :height="16" :width="16" />
           Astro
         </TechItem>
@@ -258,10 +262,6 @@ import TechItem from "./TechItem.vue";
         <TechItem>
           <VercelIcon :height="16" :width="16" />
           Vercel
-        </TechItem>
-        <TechItem>
-          <DotNetIcon :height="16" :width="16" />
-          .Net
         </TechItem>
         <TechItem>
           <AzureIcon :height="16" :width="16" />

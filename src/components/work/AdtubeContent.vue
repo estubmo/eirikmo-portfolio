@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import CSharpIcon from "~/components/icons/CSharpIcon.vue";
 import BitbucketIcon from "../icons/BitbucketIcon.vue";
 import GraphlQlIcon from "../icons/GraphlQlIcon.vue";
 import MongoDbIcon from "../icons/MongoDbIcon.vue";
-import NodeJsIcon from "../icons/NodeJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 </script>
@@ -12,7 +12,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
     <div class="col-span-2 my-4">
       <h2 class="md:text-3xl text-4xl font-bold">Adtube Solutions</h2>
       <p class="text-2xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</p>
-      <p class="text-xl font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</p>
+      <p class="text-xl font-light italic text-sky-200 break-words wrap">Dec 2019 - Apr 2021 · 1 yr 5 mos</p>
       <p class="text-xl font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</p>
       <p class="text-xl font-bold italic">Contract · Remote</p>
     </div>
@@ -84,8 +84,8 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
             flexibility and scalability made it ideal for handling diverse data requirements.
           </li>
           <li>
-            <strong>Node.js:</strong> The backend of the platform was built on Node.js, which provided a robust and
-            efficient runtime environment for server-side logic.
+            <strong>C#:</strong> The backend of the platform was built in C#, which provided a robust and efficient
+            runtime environment for server-side logic.
           </li>
           <li>
             <strong>GraphQL:</strong> GraphQL served as the query language for APIs, allowing for precise and efficient
@@ -107,11 +107,15 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
           <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
         </a>
 
-        <a href="https://nodejs.org/" target="_blank" class="group flex flex-col items-center w-16">
+        <a
+          href="https://learn.microsoft.com/en-us/dotnet/csharp/"
+          target="_blank"
+          class="group flex flex-col items-center w-16"
+        >
           <div class="p-3 bg-gray-800 rounded-full">
-            <NodeJsIcon :height="32" :width="32" />
+            <CSharpIcon :height="32" :width="32" />
           </div>
-          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Node.js</div>
+          <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">C#</div>
         </a>
 
         <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">

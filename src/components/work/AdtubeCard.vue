@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import CSharpIcon from "~/components/icons/CSharpIcon.vue";
 import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
 import GraphlQlIcon from "../icons/GraphlQlIcon.vue";
 import MongoDbIcon from "../icons/MongoDbIcon.vue";
-import NodeJsIcon from "../icons/NodeJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import TechIcon from "../TechIcon.vue";
@@ -32,7 +32,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
       <div class="leading-7 text-white/90 w-full">
         <h2 class="text-2xl font-bold">Adtube Solutions</h2>
         <p class="text-xl font-semibold text-[#40c0c2] break-words wrap">Digital Advertisement Solution</p>
-        <p class="font-light italic text-sky-200 break-words wrap">May 2020 - Apr 2021 · 1 yr</p>
+        <p class="font-light italic text-sky-200 break-words wrap">Dec 2019 - Apr 2021 · 1 yr 5 mos</p>
         <p class="font-light text-zinc-200 break-words wrap mt-2">Full-Stack Developer</p>
         <p class="font-bold italic">Contract · Remote</p>
       </div>
@@ -51,8 +51,8 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
         <GraphlQlIcon :height="slotProps.height" :width="slotProps.width" />
       </TechIcon>
 
-      <TechIcon v-slot="slotProps" href="https://nodejs.org/" name="Node.js" :size="24">
-        <NodeJsIcon :height="slotProps.height" :width="slotProps.width" />
+      <TechIcon v-slot="slotProps" href="https://learn.microsoft.com/en-us/dotnet/csharp/" name="C#" :size="24">
+        <CSharpIcon :height="slotProps.height" :width="slotProps.width" />
       </TechIcon>
 
       <TechIcon v-slot="slotProps" href="https://www.mongodb.com//" name="MongoDB" :size="24">
