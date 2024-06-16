@@ -5,12 +5,12 @@ import { ref } from "vue";
 const showDebug = ref(false);
 
 window.addEventListener("keydown", function (event) {
-  if (event.ctrlKey && event.altKey && event.key === "d") {
-    showDebug.value = !showDebug.value;
-  }
+    if (event.ctrlKey && event.altKey && event.key === "d") {
+        showDebug.value = !showDebug.value;
+    }
 });
 </script>
 
 <template>
-  <StatsGl v-if="showDebug" />
+    <StatsGl v-if="showDebug" />
 </template>

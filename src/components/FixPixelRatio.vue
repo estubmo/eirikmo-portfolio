@@ -8,8 +8,8 @@ const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const { renderer } = useTresContext();
 function setup() {
-  renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.value.setSize(windowWidth.value, height);
+    renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.value.setSize(windowWidth.value, height);
 }
 setup();
 

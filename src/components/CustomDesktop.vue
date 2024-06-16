@@ -4,7 +4,7 @@ import type { Vector3 } from "three";
 import { toRefs } from "vue";
 
 const props = defineProps<{
-  position: Vector3;
+    position: Vector3;
 }>();
 
 const { position } = toRefs(props);
@@ -13,13 +13,13 @@ const path = "/models/desktop.glb";
 const { scene } = await useGLTF(path, { draco: true });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  if (node.isMesh) node.castShadow = true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (node.isMesh) node.castShadow = true;
 });
 </script>
 
 <template>
-  <TresGroup :position="position" cast-shadow>
-    <primitive :object="scene" cast-shadow />
-  </TresGroup>
+    <TresGroup :position="position" cast-shadow>
+        <primitive :object="scene" cast-shadow />
+    </TresGroup>
 </template>
