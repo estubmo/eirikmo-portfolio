@@ -3,6 +3,7 @@ import CSharpIcon from "~/components/icons/CSharpIcon.vue";
 import BitbucketIcon from "../icons/BitbucketIcon.vue";
 import GraphlQlIcon from "../icons/GraphlQlIcon.vue";
 import MongoDbIcon from "../icons/MongoDbIcon.vue";
+import NextJsIcon from "../icons/NextJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 </script>

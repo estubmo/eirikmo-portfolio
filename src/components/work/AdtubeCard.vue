@@ -4,6 +4,7 @@ import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
 import GraphlQlIcon from "../icons/GraphlQlIcon.vue";
 import MongoDbIcon from "../icons/MongoDbIcon.vue";
+import NextJsIcon from "../icons/NextJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import TechIcon from "../TechIcon.vue";
