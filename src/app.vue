@@ -22,10 +22,24 @@ import AdtubeCard from "./components/work/AdtubeCard.vue";
 import AdtubeContent from "./components/work/AdtubeContent.vue";
 import CheffeloCard from "./components/work/CheffeloCard.vue";
 import CheffeloContent from "./components/work/CheffeloContent.vue";
+import DuckyCard from "./components/work/DuckyCard.vue";
+import DuckyContent from "./components/work/DuckyContent.vue";
+import KnitryCard from "./components/work/KnitryCard.vue";
+import KnitryContent from "./components/work/KnitryContent.vue";
+import SignatureApiCard from "./components/work/SignatureApiCard.vue";
+import SignatureApiContent from "./components/work/SignatureApiContent.vue";
 import WebtopCard from "./components/work/WebtopCard.vue";
 import WebtopContent from "./components/work/WebtopContent.vue";
 
-type ModalSegment = "fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop";
+type ModalSegment =
+    | "fotballfeber"
+    | "svanhildstub"
+    | "ducky"
+    | "knitry"
+    | "signatureapi"
+    | "cheffelo"
+    | "adtube"
+    | "webtop";
 
 const router = useRouter();
 
@@ -45,6 +59,9 @@ const contactRef = ref<HTMLElement>();
 
 const fotballFeberRef = ref<HTMLElement>();
 const svanhildStubRef = ref<HTMLElement>();
+const duckyRef = ref<HTMLElement>();
+const knitryRef = ref<HTMLElement>();
+const signatureApiRef = ref<HTMLElement>();
 const cheffeloRef = ref<HTMLElement>();
 const adtubeRef = ref<HTMLElement>();
 const webtopRef = ref<HTMLElement>();
@@ -58,6 +75,9 @@ const scrollRefs = [
     contactRef,
     fotballFeberRef,
     svanhildStubRef,
+    duckyRef,
+    knitryRef,
+    signatureApiRef,
     cheffeloRef,
     adtubeRef,
     webtopRef,
@@ -68,11 +88,16 @@ const currentSegmentRef = ref<string>("top");
 const simpleBarRef = ref(null);
 const isModalOpenRef = ref(false);
 
-const hoverTargetRef = ref<"fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop" | "">("");
+const hoverTargetRef = ref<
+    "fotballfeber" | "svanhildstub" | "ducky" | "knitry" | "signatureapi" | "cheffelo" | "adtube" | "webtop" | ""
+>("");
 
 const isExperienceModalOpenRef = ref({
     fotballfeber: false,
     svanhildstub: false,
+    ducky: false,
+    knitry: false,
+    signatureapi: false,
     cheffelo: false,
     adtube: false,
     webtop: false,
@@ -97,6 +122,12 @@ const openModalBySegment = (segment: ModalSegment) => {
         isExperienceModalOpenRef.value.fotballfeber = true;
     } else if (segment === "svanhildstub") {
         isExperienceModalOpenRef.value.svanhildstub = true;
+    } else if (segment === "ducky") {
+        isExperienceModalOpenRef.value.ducky = true;
+    } else if (segment === "knitry") {
+        isExperienceModalOpenRef.value.knitry = true;
+    } else if (segment === "signatureapi") {
+        isExperienceModalOpenRef.value.signatureapi = true;
     } else if (segment === "cheffelo") {
         isExperienceModalOpenRef.value.cheffelo = true;
     } else if (segment === "adtube") {
@@ -112,6 +143,9 @@ const handleHashChange = () => {
         isExperienceModalOpenRef.value = {
             fotballfeber: false,
             svanhildstub: false,
+            ducky: false,
+            knitry: false,
+            signatureapi: false,
             cheffelo: false,
             adtube: false,
             webtop: false,
@@ -167,7 +201,18 @@ watch(hasFinishedLoading, (hasFinishedLoading) => {
     }
 });
 
-const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop" | "") => {
+const toggleExperienceModal = (
+    experience:
+        | "fotballfeber"
+        | "svanhildstub"
+        | "ducky"
+        | "knitry"
+        | "signatureapi"
+        | "cheffelo"
+        | "adtube"
+        | "webtop"
+        | "",
+) => {
     switch (experience) {
         case "fotballfeber":
             isExperienceModalOpenRef.value.fotballfeber = !isExperienceModalOpenRef.value.fotballfeber;
@@ -177,6 +222,21 @@ const toggleExperienceModal = (experience: "fotballfeber" | "svanhildstub" | "ch
         case "svanhildstub":
             isExperienceModalOpenRef.value.svanhildstub = !isExperienceModalOpenRef.value.svanhildstub;
             if (isExperienceModalOpenRef.value.svanhildstub) window.history.pushState({}, "", "/#svanhildstub");
+            else window.history.pushState({}, "", "/");
+            break;
+        case "ducky":
+            isExperienceModalOpenRef.value.ducky = !isExperienceModalOpenRef.value.ducky;
+            if (isExperienceModalOpenRef.value.ducky) window.history.pushState({}, "", "/#ducky");
+            else window.history.pushState({}, "", "/");
+            break;
+        case "knitry":
+            isExperienceModalOpenRef.value.knitry = !isExperienceModalOpenRef.value.knitry;
+            if (isExperienceModalOpenRef.value.knitry) window.history.pushState({}, "", "/#knitry");
+            else window.history.pushState({}, "", "/");
+            break;
+        case "signatureapi":
+            isExperienceModalOpenRef.value.signatureapi = !isExperienceModalOpenRef.value.signatureapi;
+            if (isExperienceModalOpenRef.value.signatureapi) window.history.pushState({}, "", "/#signatureapi");
             else window.history.pushState({}, "", "/");
             break;
         case "cheffelo":
@@ -373,6 +433,30 @@ const onUpdateCurrentSegment = (segment: string) => {
                                     <div
                                         class="md:pl-10 md:border-l border-gray-500 mt-4 mb-2 pt-10 md:mt-8 md:mb-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 w-full gap-x-8 gap-y-14"
                                     >
+                                        <div id="ducky" ref="duckyRef" class="flex h-full scroll-mt-12">
+                                            <DuckyCard
+                                                v-motion-fade-visible-once-custom
+                                                :on-click="() => toggleExperienceModal('ducky')"
+                                                :on-mouse-over="() => (hoverTargetRef = 'ducky')"
+                                                :on-mouse-leave="() => (hoverTargetRef = '')"
+                                            />
+                                        </div>
+                                        <div id="knitry" ref="knitryRef" class="flex h-full scroll-mt-12">
+                                            <KnitryCard
+                                                v-motion-fade-visible-once-custom
+                                                :on-click="() => toggleExperienceModal('knitry')"
+                                                :on-mouse-over="() => (hoverTargetRef = 'knitry')"
+                                                :on-mouse-leave="() => (hoverTargetRef = '')"
+                                            />
+                                        </div>
+                                        <div id="signatureapi" ref="signatureApiRef" class="flex h-full scroll-mt-12">
+                                            <SignatureApiCard
+                                                v-motion-fade-visible-once-custom
+                                                :on-click="() => toggleExperienceModal('signatureapi')"
+                                                :on-mouse-over="() => (hoverTargetRef = 'signatureapi')"
+                                                :on-mouse-leave="() => (hoverTargetRef = '')"
+                                            />
+                                        </div>
                                         <div id="cheffelo" ref="cheffeloRef" class="flex h-full scroll-mt-12">
                                             <CheffeloCard
                                                 v-motion-fade-visible-once-custom
@@ -447,6 +531,27 @@ const onUpdateCurrentSegment = (segment: string) => {
                 :close="() => toggleExperienceModal('svanhildstub')"
             >
                 <SvanhildStubContent />
+            </MyModal>
+
+            <MyModal
+                :show="hasFinishedLoading && isExperienceModalOpenRef.ducky"
+                :close="() => toggleExperienceModal('ducky')"
+            >
+                <DuckyContent />
+            </MyModal>
+
+            <MyModal
+                :show="hasFinishedLoading && isExperienceModalOpenRef.knitry"
+                :close="() => toggleExperienceModal('knitry')"
+            >
+                <KnitryContent />
+            </MyModal>
+
+            <MyModal
+                :show="hasFinishedLoading && isExperienceModalOpenRef.signatureapi"
+                :close="() => toggleExperienceModal('signatureapi')"
+            >
+                <SignatureApiContent />
             </MyModal>
 
             <MyModal
