@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Backdrop, useProgress } from "@tresjs/cientos";
-import { TresCanvas, useRenderLoop, useTexture } from "@tresjs/core";
+import { Backdrop } from "@tresjs/cientos";
+import { TresCanvas } from "@tresjs/core";
 import { useMouse, useWindowSize } from "@vueuse/core";
 import CustomDesktop from "~/components/CustomDesktop.vue";
 import CustomKeyboard from "~/components/CustomKeyboard.vue";
@@ -10,23 +10,21 @@ import CustomMouse from "~/components/CustomMouse.vue";
 import CustomTablet from "~/components/CustomTablet.vue";
 import FixPixelRatio from "~/components/FixPixelRatio.vue";
 import { damp, damp3, dampC, dampE } from "maath/easing";
+import type { DirectionalLight, Mesh, PerspectiveCamera, SpotLight, Texture } from "three";
 import {
     CineonToneMapping,
     Color,
-    DirectionalLight,
     Euler,
     MathUtils,
-    Mesh,
     MeshBasicMaterial,
     MeshStandardMaterial,
-    PerspectiveCamera,
     RepeatWrapping,
-    SpotLight,
     SRGBColorSpace,
+    TextureLoader,
     Vector3,
 } from "three";
 import type { Ref } from "vue";
-import { reactive, ref, toRefs, watch } from "vue";
+import { computed, reactive, ref, shallowRef, toRefs, watch } from "vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -47,11 +45,17 @@ const props = defineProps<{
     expertiseOffsetHeight: number;
     fotballFeberOffsetHeight: number;
     svanhildStubOffsetHeight: number;
+    duckyOffsetHeight: number;
+    knitryOffsetHeight: number;
+    signatureApiOffsetHeight: number;
     cheffeloOffsetHeight: number;
     adtubeOffsetHeight: number;
     webtopOffsetHeight: number;
     fotballFeberOffsetTop: number;
     svanhildStubOffsetTop: number;
+    duckyOffsetTop: number;
+    knitryOffsetTop: number;
+    signatureApiOffsetTop: number;
     cheffeloOffsetTop: number;
     adtubeOffsetTop: number;
     webtopOffsetTop: number;
@@ -61,6 +65,9 @@ const props = defineProps<{
     isExperienceModalOpen: {
         fotballfeber: boolean;
         svanhildstub: boolean;
+        ducky: boolean;
+        knitry: boolean;
+        signatureApi: boolean;
         cheffelo: boolean;
         adtube: boolean;
         webtop: boolean;
@@ -79,11 +86,17 @@ const {
     expertiseOffsetHeight,
     fotballFeberOffsetHeight,
     svanhildStubOffsetHeight,
+    duckyOffsetHeight,
+    knitryOffsetHeight,
+    signatureApiOffsetHeight,
     cheffeloOffsetHeight,
     adtubeOffsetHeight,
     webtopOffsetHeight,
     fotballFeberOffsetTop,
     svanhildStubOffsetTop,
+    duckyOffsetTop,
+    knitryOffsetTop,
+    signatureApiOffsetTop,
     cheffeloOffsetTop,
     adtubeOffsetTop,
     webtopOffsetTop,
@@ -118,7 +131,15 @@ const screenTextureOpacityRef = ref(0);
 const screenOverlayOpacityRef = ref(1);
 
 type PageSegment = "top" | "me" | "expertise" | "projects" | "work" | "contact";
-type ModalSegment = "fotballfeber" | "svanhildstub" | "cheffelo" | "adtube" | "webtop";
+type ModalSegment =
+    | "fotballfeber"
+    | "svanhildstub"
+    | "ducky"
+    | "knitry"
+    | "signatureApi"
+    | "cheffelo"
+    | "adtube"
+    | "webtop";
 
 const canvasStyle = reactive({
     display: "block",
@@ -142,55 +163,100 @@ const gl = {
 };
 
 const param = {
-    positionSmoothing: 0.3,
-    lookAtSmoothing: 0.3,
+    positionSmoothing: 0.15,
+    lookAtSmoothing: 0.15,
 };
 
-const alpha = await useTexture({
-    map: "/textures/eirik/alpha.jpg",
+// Load textures using Three.js TextureLoader
+const textureLoader = new TextureLoader();
+const alphaTextureState = shallowRef<Texture | null>(null);
+const eirikTextureState = shallowRef<Texture | null>(null);
+const fotballfeberTextureState = shallowRef<Texture | null>(null);
+const svanhildStubTextureState = shallowRef<Texture | null>(null);
+const duckyTextureState = shallowRef<Texture | null>(null);
+const knitryTextureState = shallowRef<Texture | null>(null);
+const signatureApiTextureState = shallowRef<Texture | null>(null);
+const cheffeloTextureState = shallowRef<Texture | null>(null);
+const adtubeTextureState = shallowRef<Texture | null>(null);
+const webtopTextureState = shallowRef<Texture | null>(null);
+
+const loadingProgress = ref(0);
+const totalTextures = 7;
+let loadedCount = 0;
+
+const onTextureLoaded = () => {
+    loadedCount++;
+    loadingProgress.value = (loadedCount / totalTextures) * 100;
+    if (loadedCount === totalTextures) {
+        emit("hasFinishedLoading");
+    }
+    emit("updateProgress", loadingProgress.value);
+};
+
+// Load all textures
+textureLoader.load("/textures/eirik/alpha.jpg", (texture) => {
+    alphaTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/eirik/eirik.webp", (texture) => {
+    eirikTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/projects/ff-repeat.jpg", (texture) => {
+    fotballfeberTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/projects/ss-repeat.jpg", (texture) => {
+    svanhildStubTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/ducky/ducky-repeat.jpg", (texture) => {
+    duckyTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/knitry/knitry-repeat.jpg", (texture) => {
+    knitryTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/signatureapi/signatureapi-repeat.jpg", (texture) => {
+    signatureApiTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/adtube/adtube-repeat.jpg", (texture) => {
+    adtubeTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/cheffelo/cheffelo-repeat.jpg", (texture) => {
+    cheffeloTextureState.value = texture;
+    onTextureLoaded();
+});
+textureLoader.load("/textures/work/webtop/webtop-repeat.jpg", (texture) => {
+    webtopTextureState.value = texture;
+    onTextureLoaded();
 });
 
-const eirikTexture = await useTexture({
-    map: "/textures/eirik/eirik.webp",
-});
-
-const fotballfeberTexture = await useTexture({
-    map: "/textures/projects/ff-repeat.jpg",
-});
-
-const svanhildStubTexture = await useTexture({
-    map: "/textures/projects/ss-repeat.jpg",
-});
-
-const adtubeTexture = await useTexture({
-    map: "/textures/work/adtube/adtube-repeat.jpg",
-});
-
-const cheffeloTexture = await useTexture({
-    map: "/textures/work/cheffelo/cheffelo-repeat.jpg",
-});
-
-const webtopTexture = await useTexture({
-    map: "/textures/work/webtop/webtop-repeat.jpg",
-});
+// Check if all textures are loaded
+const texturesLoaded = computed(
+    () =>
+        alphaTextureState.value &&
+        eirikTextureState.value &&
+        fotballfeberTextureState.value &&
+        svanhildStubTextureState.value &&
+        duckyTextureState.value &&
+        knitryTextureState.value &&
+        signatureApiTextureState.value &&
+        adtubeTextureState.value &&
+        cheffeloTextureState.value &&
+        webtopTextureState.value,
+);
 
 const standardMaterial = new MeshStandardMaterial({
     color: new Color(0xffffff),
     roughness: 0.4,
     metalness: 0.5,
 });
-const { onLoop } = useRenderLoop();
-const { progress: prog, hasFinishLoading } = await useProgress();
-const emit = defineEmits(["updateProgress", "hasFinishedLoading", "updateCurrentSegment"]);
 
-watch(prog, (val) => {
-    emit("updateProgress", val);
-});
-watch(hasFinishLoading, (val) => {
-    if (val) {
-        emit("hasFinishedLoading");
-    }
-});
+const emit = defineEmits(["updateProgress", "hasFinishedLoading", "updateCurrentSegment"]);
 
 const { width, height } = useWindowSize();
 const { x: mouseX, y: mouseY } = useMouse({
@@ -208,206 +274,356 @@ function getViewPort(): ViewPort {
     } else return "desktop";
 }
 
-const eirikDesktopMaterial = new MeshBasicMaterial({
-    transparent: true,
-    map: eirikTexture.map,
-    alphaMap: alpha.map,
-    aoMap: eirikTexture.map,
-    aoMapIntensity: 0.8,
-});
+// Material refs - will be populated when textures load
+const eirikDesktopMaterial = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const eirikTabletTexture = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const eirikMobileTexture = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const eirikTextureTablet = eirikTexture.map.clone();
-eirikTextureTablet.repeat.set(0.4, 1);
+const fotballfeberMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const fotballfeberMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const fotballfeberMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const eirikTabletTexture = new MeshBasicMaterial({
-    transparent: true,
-    map: eirikTextureTablet,
-    alphaMap: alpha.map,
-    aoMap: eirikTextureTablet,
-    aoMapIntensity: 0.8,
-});
+const svanhildStubMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const svanhildStubMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const svanhildStubMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const eirikTextureMobile = eirikTexture.map.clone();
-eirikTextureMobile.repeat.set(0.15, 0.6);
-eirikTextureMobile.offset.set(0.15, 0.2);
+const duckyMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const duckyMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const duckyMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const eirikMobileTexture = new MeshBasicMaterial({
-    transparent: true,
-    map: eirikTextureMobile,
-    alphaMap: alpha.map,
-    aoMap: eirikTextureMobile,
-    aoMapIntensity: 0.8,
-});
+const knitryMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const knitryMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const knitryMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const fotballfeberTextureDesktop = fotballfeberTexture.map.clone();
-fotballfeberTextureDesktop.repeat.set(6, 3.375);
-fotballfeberTextureDesktop.offset.set(0, 0.1);
-fotballfeberTextureDesktop.wrapS = RepeatWrapping;
-fotballfeberTextureDesktop.wrapT = RepeatWrapping;
+const signatureApiMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const signatureApiMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const signatureApiMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const fotballfeberMaterialDesktop = new MeshBasicMaterial({
-    transparent: true,
-    map: fotballfeberTextureDesktop,
-    aoMap: fotballfeberTextureDesktop,
-    aoMapIntensity: 1,
-});
+const adtubeMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const adtubeMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const adtubeMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const fotballfeberTextureTablet = fotballfeberTexture.map.clone();
-fotballfeberTextureTablet.repeat.set(1, 1.2);
-fotballfeberTextureTablet.offset.set(0, -0.1);
-const fotballfeberMaterialTablet = new MeshBasicMaterial({
-    transparent: true,
-    map: fotballfeberTextureTablet,
-    aoMap: fotballfeberTextureTablet,
-    aoMapIntensity: 1,
-});
+const cheffeloMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const cheffeloMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const cheffeloMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const fotballfeberTextureMobile = fotballfeberTexture.map.clone();
-fotballfeberTextureMobile.repeat.set(0.5, 0.7);
-fotballfeberTextureMobile.offset.set(0, 0.4);
+const webtopMaterialDesktop = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const webtopMaterialTablet = shallowRef(new MeshBasicMaterial({ transparent: true }));
+const webtopMaterialMobile = shallowRef(new MeshBasicMaterial({ transparent: true }));
 
-const fotballfeberMaterialMobile = new MeshBasicMaterial({
-    transparent: true,
-    map: fotballfeberTextureMobile,
-    aoMap: fotballfeberTextureMobile,
-    aoMapIntensity: 1,
-});
+// Create materials when textures are loaded
+watch(
+    texturesLoaded,
+    (loaded) => {
+        if (!loaded) return;
 
-const svanhildStubTextureDesktop = svanhildStubTexture.map.clone();
-svanhildStubTextureDesktop.repeat.set(6, 3.375);
-svanhildStubTextureDesktop.offset.set(0, 0.1);
-svanhildStubTextureDesktop.wrapS = RepeatWrapping;
-svanhildStubTextureDesktop.wrapT = RepeatWrapping;
+        const alphaMap = alphaTextureState.value;
+        const eirikMap = eirikTextureState.value;
+        const fotballfeberMap = fotballfeberTextureState.value;
+        const svanhildStubMap = svanhildStubTextureState.value;
+        const duckyMap = duckyTextureState.value;
+        const knitryMap = knitryTextureState.value;
+        const signatureApiMap = signatureApiTextureState.value;
+        const adtubeMap = adtubeTextureState.value;
+        const cheffeloMap = cheffeloTextureState.value;
+        const webtopMap = webtopTextureState.value;
 
-const svanhildStubMaterialDesktop = new MeshBasicMaterial({
-    transparent: true,
-    map: svanhildStubTextureDesktop,
-    aoMap: svanhildStubTextureDesktop,
-    aoMapIntensity: 1,
-});
+        // Eirik materials
+        eirikDesktopMaterial.value = new MeshBasicMaterial({
+            transparent: true,
+            map: eirikMap,
+            alphaMap: alphaMap,
+            aoMap: eirikMap,
+            aoMapIntensity: 0.8,
+        });
 
-const svanhildStubTextureTablet = svanhildStubTexture.map.clone();
-svanhildStubTextureTablet.repeat.set(1, 1.2);
-svanhildStubTextureTablet.offset.set(0, -0.1);
-const svanhildStubMaterialTablet = new MeshBasicMaterial({
-    transparent: true,
-    map: svanhildStubTextureTablet,
-    aoMap: svanhildStubTextureTablet,
-    aoMapIntensity: 1,
-});
+        const eirikTextureTabletClone = eirikMap!.clone();
+        eirikTextureTabletClone.repeat.set(0.4, 1);
+        eirikTabletTexture.value = new MeshBasicMaterial({
+            transparent: true,
+            map: eirikTextureTabletClone,
+            alphaMap: alphaMap,
+            aoMap: eirikTextureTabletClone,
+            aoMapIntensity: 0.8,
+        });
 
-const svanhildStubTextureMobile = svanhildStubTexture.map.clone();
-svanhildStubTextureMobile.repeat.set(0.5, 0.7);
-svanhildStubTextureMobile.offset.set(0, 0.4);
+        const eirikTextureMobileClone = eirikMap!.clone();
+        eirikTextureMobileClone.repeat.set(0.15, 0.6);
+        eirikTextureMobileClone.offset.set(0.15, 0.2);
+        eirikMobileTexture.value = new MeshBasicMaterial({
+            transparent: true,
+            map: eirikTextureMobileClone,
+            alphaMap: alphaMap,
+            aoMap: eirikTextureMobileClone,
+            aoMapIntensity: 0.8,
+        });
 
-const svanhildStubMaterialMobile = new MeshBasicMaterial({
-    transparent: true,
-    map: svanhildStubTextureMobile,
-    aoMap: svanhildStubTextureMobile,
-    aoMapIntensity: 1,
-});
+        // Ducky material
+        const duckyDesktopClone = duckyMap!.clone();
+        duckyDesktopClone.repeat.set(6, 3.375);
+        duckyDesktopClone.offset.set(0, 0.1);
+        duckyDesktopClone.wrapS = RepeatWrapping;
+        duckyDesktopClone.wrapT = RepeatWrapping;
+        duckyMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: duckyDesktopClone,
+            aoMap: duckyDesktopClone,
+            aoMapIntensity: 1,
+        });
 
-const adtubeTextureDesktop = adtubeTexture.map.clone();
-adtubeTextureDesktop.repeat.set(6, 3.375);
-adtubeTextureDesktop.offset.set(0, 0.1);
-adtubeTextureDesktop.wrapS = RepeatWrapping;
-adtubeTextureDesktop.wrapT = RepeatWrapping;
+        const duckyTabletClone = duckyMap!.clone();
+        duckyTabletClone.repeat.set(1, 1.2);
+        duckyTabletClone.offset.set(0, -0.1);
+        duckyMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: duckyTabletClone,
+            aoMap: duckyTabletClone,
+            aoMapIntensity: 1,
+        });
 
-const adtubeMaterialDesktop = new MeshBasicMaterial({
-    transparent: true,
-    map: adtubeTextureDesktop,
-    aoMap: adtubeTextureDesktop,
-    aoMapIntensity: 1,
-});
+        const duckyMobileClone = duckyMap!.clone();
+        duckyMobileClone.repeat.set(0.5, 0.7);
+        duckyMobileClone.offset.set(0, 0.4);
+        duckyMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: duckyMobileClone,
+            aoMap: duckyMobileClone,
+            aoMapIntensity: 1,
+        });
 
-const adtubeTextureTablet = adtubeTexture.map.clone();
-adtubeTextureTablet.repeat.set(1, 1.2);
-adtubeTextureTablet.offset.set(0, -0.1);
-const adtubeMaterialTablet = new MeshBasicMaterial({
-    transparent: true,
-    map: adtubeTextureTablet,
-    aoMap: adtubeTextureTablet,
-    aoMapIntensity: 1,
-});
+        // Knitry material
+        const knitryDesktopClone = knitryMap!.clone();
+        knitryDesktopClone.repeat.set(6, 3.375);
+        knitryDesktopClone.offset.set(0, 0.1);
+        knitryDesktopClone.wrapS = RepeatWrapping;
+        knitryDesktopClone.wrapT = RepeatWrapping;
+        knitryMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: knitryDesktopClone,
+            aoMap: knitryDesktopClone,
+            aoMapIntensity: 1,
+        });
 
-const adtubeTextureMobile = adtubeTexture.map.clone();
-adtubeTextureMobile.repeat.set(0.5, 0.7);
-adtubeTextureMobile.offset.set(0, 0.4);
+        const knitryTabletClone = knitryMap!.clone();
+        knitryTabletClone.repeat.set(1, 1.2);
+        knitryTabletClone.offset.set(0, -0.1);
+        knitryMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: knitryTabletClone,
+            aoMap: knitryTabletClone,
+            aoMapIntensity: 1,
+        });
 
-const adtubeMaterialMobile = new MeshBasicMaterial({
-    transparent: true,
-    map: adtubeTextureMobile,
-    aoMap: adtubeTextureMobile,
-    aoMapIntensity: 1,
-});
+        const knitryMobileClone = knitryMap!.clone();
+        knitryMobileClone.repeat.set(0.5, 0.7);
+        knitryMobileClone.offset.set(0, 0.4);
+        knitryMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: knitryMobileClone,
+            aoMap: knitryMobileClone,
+            aoMapIntensity: 1,
+        });
 
-const cheffeloTextureDesktop = cheffeloTexture.map.clone();
-cheffeloTextureDesktop.repeat.set(6, 3.375);
-cheffeloTextureDesktop.offset.set(0, 0.1);
-cheffeloTextureDesktop.wrapS = RepeatWrapping;
-cheffeloTextureDesktop.wrapT = RepeatWrapping;
+        // SignatureApi material
+        const signatureApiDesktopClone = signatureApiMap!.clone();
+        signatureApiDesktopClone.repeat.set(6, 3.375);
+        signatureApiDesktopClone.offset.set(0, 0.1);
+        signatureApiDesktopClone.wrapS = RepeatWrapping;
+        signatureApiDesktopClone.wrapT = RepeatWrapping;
+        signatureApiMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: signatureApiDesktopClone,
+            aoMap: signatureApiDesktopClone,
+            aoMapIntensity: 1,
+        });
 
-const cheffeloMaterialDesktop = new MeshBasicMaterial({
-    transparent: true,
-    map: cheffeloTextureDesktop,
-    aoMap: cheffeloTextureDesktop,
-    aoMapIntensity: 1,
-});
+        const signatureApiTabletClone = signatureApiMap!.clone();
+        signatureApiTabletClone.repeat.set(1, 1.2);
+        signatureApiTabletClone.offset.set(0, -0.1);
+        signatureApiMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: signatureApiTabletClone,
+            aoMap: signatureApiTabletClone,
+            aoMapIntensity: 1,
+        });
 
-const cheffeloTextureTablet = cheffeloTexture.map.clone();
-cheffeloTextureTablet.repeat.set(1, 1.2);
-cheffeloTextureTablet.offset.set(0, -0.1);
-const cheffeloMaterialTablet = new MeshBasicMaterial({
-    transparent: true,
-    map: cheffeloTextureTablet,
-    aoMap: cheffeloTextureTablet,
-    aoMapIntensity: 1,
-});
+        const signatureApiMobileClone = fotballfeberMap!.clone();
+        signatureApiMobileClone.repeat.set(0.5, 0.7);
+        signatureApiMobileClone.offset.set(0, 0.4);
+        signatureApiMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: signatureApiMobileClone,
+            aoMap: signatureApiMobileClone,
+            aoMapIntensity: 1,
+        });
 
-const cheffeloTextureMobile = cheffeloTexture.map.clone();
-cheffeloTextureMobile.repeat.set(0.5, 0.7);
-cheffeloTextureMobile.offset.set(0, 0.4);
+        // Fotballfeber materials
+        const fotballfeberDesktopClone = fotballfeberMap!.clone();
+        fotballfeberDesktopClone.repeat.set(6, 3.375);
+        fotballfeberDesktopClone.offset.set(0, 0.1);
+        fotballfeberDesktopClone.wrapS = RepeatWrapping;
+        fotballfeberDesktopClone.wrapT = RepeatWrapping;
+        fotballfeberMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: fotballfeberDesktopClone,
+            aoMap: fotballfeberDesktopClone,
+            aoMapIntensity: 1,
+        });
 
-const cheffeloMaterialMobile = new MeshBasicMaterial({
-    transparent: true,
-    map: cheffeloTextureMobile,
-    aoMap: cheffeloTextureMobile,
-    aoMapIntensity: 1,
-});
+        const fotballfeberTabletClone = fotballfeberMap!.clone();
+        fotballfeberTabletClone.repeat.set(1, 1.2);
+        fotballfeberTabletClone.offset.set(0, -0.1);
+        fotballfeberMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: fotballfeberTabletClone,
+            aoMap: fotballfeberTabletClone,
+            aoMapIntensity: 1,
+        });
 
-const webtopTextureDesktop = webtopTexture.map.clone();
-webtopTextureDesktop.repeat.set(6, 3.375);
-webtopTextureDesktop.offset.set(0, 0.1);
-webtopTextureDesktop.wrapS = RepeatWrapping;
-webtopTextureDesktop.wrapT = RepeatWrapping;
+        const fotballfeberMobileClone = fotballfeberMap!.clone();
+        fotballfeberMobileClone.repeat.set(0.5, 0.7);
+        fotballfeberMobileClone.offset.set(0, 0.4);
+        fotballfeberMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: fotballfeberMobileClone,
+            aoMap: fotballfeberMobileClone,
+            aoMapIntensity: 1,
+        });
 
-const webtopMaterialDesktop = new MeshBasicMaterial({
-    transparent: true,
-    map: webtopTextureDesktop,
-    aoMap: webtopTextureDesktop,
-    aoMapIntensity: 1,
-});
+        // SvanhildStub materials
+        const svanhildStubDesktopClone = svanhildStubMap!.clone();
+        svanhildStubDesktopClone.repeat.set(6, 3.375);
+        svanhildStubDesktopClone.offset.set(0, 0.1);
+        svanhildStubDesktopClone.wrapS = RepeatWrapping;
+        svanhildStubDesktopClone.wrapT = RepeatWrapping;
+        svanhildStubMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: svanhildStubDesktopClone,
+            aoMap: svanhildStubDesktopClone,
+            aoMapIntensity: 1,
+        });
 
-const webtopTextureTablet = webtopTexture.map.clone();
-webtopTextureTablet.repeat.set(1, 1.2);
-webtopTextureTablet.offset.set(0, -0.1);
-const webtopMaterialTablet = new MeshBasicMaterial({
-    transparent: true,
-    map: webtopTextureTablet,
-    aoMap: webtopTextureTablet,
-    aoMapIntensity: 1,
-});
+        const svanhildStubTabletClone = svanhildStubMap!.clone();
+        svanhildStubTabletClone.repeat.set(1, 1.2);
+        svanhildStubTabletClone.offset.set(0, -0.1);
+        svanhildStubMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: svanhildStubTabletClone,
+            aoMap: svanhildStubTabletClone,
+            aoMapIntensity: 1,
+        });
 
-const webtopTextureMobile = webtopTexture.map.clone();
-webtopTextureMobile.repeat.set(0.5, 0.7);
-webtopTextureMobile.offset.set(0, 0.4);
+        const svanhildStubMobileClone = svanhildStubMap!.clone();
+        svanhildStubMobileClone.repeat.set(0.5, 0.7);
+        svanhildStubMobileClone.offset.set(0, 0.4);
+        svanhildStubMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: svanhildStubMobileClone,
+            aoMap: svanhildStubMobileClone,
+            aoMapIntensity: 1,
+        });
 
-const webtopMaterialMobile = new MeshBasicMaterial({
-    transparent: true,
-    map: webtopTextureMobile,
-    aoMap: webtopTextureMobile,
-    aoMapIntensity: 1,
-});
+        // Adtube materials
+        const adtubeDesktopClone = adtubeMap!.clone();
+        adtubeDesktopClone.repeat.set(6, 3.375);
+        adtubeDesktopClone.offset.set(0, 0.1);
+        adtubeDesktopClone.wrapS = RepeatWrapping;
+        adtubeDesktopClone.wrapT = RepeatWrapping;
+        adtubeMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: adtubeDesktopClone,
+            aoMap: adtubeDesktopClone,
+            aoMapIntensity: 1,
+        });
+
+        const adtubeTabletClone = adtubeMap!.clone();
+        adtubeTabletClone.repeat.set(1, 1.2);
+        adtubeTabletClone.offset.set(0, -0.1);
+        adtubeMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: adtubeTabletClone,
+            aoMap: adtubeTabletClone,
+            aoMapIntensity: 1,
+        });
+
+        const adtubeMobileClone = adtubeMap!.clone();
+        adtubeMobileClone.repeat.set(0.5, 0.7);
+        adtubeMobileClone.offset.set(0, 0.4);
+        adtubeMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: adtubeMobileClone,
+            aoMap: adtubeMobileClone,
+            aoMapIntensity: 1,
+        });
+
+        // Cheffelo materials
+        const cheffeloDesktopClone = cheffeloMap!.clone();
+        cheffeloDesktopClone.repeat.set(6, 3.375);
+        cheffeloDesktopClone.offset.set(0, 0.1);
+        cheffeloDesktopClone.wrapS = RepeatWrapping;
+        cheffeloDesktopClone.wrapT = RepeatWrapping;
+        cheffeloMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: cheffeloDesktopClone,
+            aoMap: cheffeloDesktopClone,
+            aoMapIntensity: 1,
+        });
+
+        const cheffeloTabletClone = cheffeloMap!.clone();
+        cheffeloTabletClone.repeat.set(1, 1.2);
+        cheffeloTabletClone.offset.set(0, -0.1);
+        cheffeloMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: cheffeloTabletClone,
+            aoMap: cheffeloTabletClone,
+            aoMapIntensity: 1,
+        });
+
+        const cheffeloMobileClone = cheffeloMap!.clone();
+        cheffeloMobileClone.repeat.set(0.5, 0.7);
+        cheffeloMobileClone.offset.set(0, 0.4);
+        cheffeloMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: cheffeloMobileClone,
+            aoMap: cheffeloMobileClone,
+            aoMapIntensity: 1,
+        });
+
+        // Webtop materials
+        const webtopDesktopClone = webtopMap!.clone();
+        webtopDesktopClone.repeat.set(6, 3.375);
+        webtopDesktopClone.offset.set(0, 0.1);
+        webtopDesktopClone.wrapS = RepeatWrapping;
+        webtopDesktopClone.wrapT = RepeatWrapping;
+        webtopMaterialDesktop.value = new MeshBasicMaterial({
+            transparent: true,
+            map: webtopDesktopClone,
+            aoMap: webtopDesktopClone,
+            aoMapIntensity: 1,
+        });
+
+        const webtopTabletClone = webtopMap!.clone();
+        webtopTabletClone.repeat.set(1, 1.2);
+        webtopTabletClone.offset.set(0, -0.1);
+        webtopMaterialTablet.value = new MeshBasicMaterial({
+            transparent: true,
+            map: webtopTabletClone,
+            aoMap: webtopTabletClone,
+            aoMapIntensity: 1,
+        });
+
+        const webtopMobileClone = webtopMap!.clone();
+        webtopMobileClone.repeat.set(0.5, 0.7);
+        webtopMobileClone.offset.set(0, 0.4);
+        webtopMaterialMobile.value = new MeshBasicMaterial({
+            transparent: true,
+            map: webtopMobileClone,
+            aoMap: webtopMobileClone,
+            aoMapIntensity: 1,
+        });
+    },
+    { immediate: true },
+);
 
 function updateViewPort() {
     const current = getViewPort();
@@ -435,8 +651,6 @@ function updateCamera(delta: number) {
         !topOffsetHeight.value
     )
         return;
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
 
     // Defaults (ScrollY.value = 0 and has not scrolled yet)
     if (!hasScrolled.value && scrollY.value === 0) {
@@ -592,15 +806,46 @@ const setDefaultParams = () => {
     screenOverlayOpacityRef.value = 1;
 };
 
+const setDuckyParams = () => {
+    lightParams.spot.color = 0x00545d;
+
+    screenTextureOpacityRef.value = 1;
+    screenOverlayOpacityRef.value = 0.5;
+    if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+    deviceScreenRefs.desktop.value.material = duckyMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = duckyMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = duckyMaterialMobile.value;
+};
+const setKnitryParams = () => {
+    lightParams.spot.color = 0xceff1a;
+
+    screenTextureOpacityRef.value = 1;
+    screenOverlayOpacityRef.value = 0.5;
+    if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+    deviceScreenRefs.desktop.value.material = knitryMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = knitryMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = knitryMaterialMobile.value;
+};
+const setSignatureApiParams = () => {
+    lightParams.spot.color = 0xffffff;
+
+    screenTextureOpacityRef.value = 1;
+    screenOverlayOpacityRef.value = 0.5;
+    if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
+    deviceScreenRefs.desktop.value.material = signatureApiMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = signatureApiMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = signatureApiMaterialMobile.value;
+};
+
 const setFotballFeberParams = () => {
     lightParams.spot.color = 0x09fbeb;
 
     screenTextureOpacityRef.value = 1;
     screenOverlayOpacityRef.value = 0.5;
     if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
-    deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop;
-    deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet;
-    deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile;
+    deviceScreenRefs.desktop.value.material = fotballfeberMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = fotballfeberMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = fotballfeberMaterialMobile.value;
 };
 
 const setSvanhildStubParams = () => {
@@ -608,9 +853,9 @@ const setSvanhildStubParams = () => {
     screenTextureOpacityRef.value = 1;
     screenOverlayOpacityRef.value = 0.5;
     if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
-    deviceScreenRefs.desktop.value.material = svanhildStubMaterialDesktop;
-    deviceScreenRefs.tablet.value.material = svanhildStubMaterialTablet;
-    deviceScreenRefs.mobile.value.material = svanhildStubMaterialMobile;
+    deviceScreenRefs.desktop.value.material = svanhildStubMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = svanhildStubMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = svanhildStubMaterialMobile.value;
 };
 
 const setCheffeloParams = () => {
@@ -618,9 +863,9 @@ const setCheffeloParams = () => {
     screenTextureOpacityRef.value = 1;
     screenOverlayOpacityRef.value = 0.5;
     if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
-    deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop;
-    deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet;
-    deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile;
+    deviceScreenRefs.desktop.value.material = cheffeloMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = cheffeloMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = cheffeloMaterialMobile.value;
 };
 
 const setAdtubeParams = () => {
@@ -628,9 +873,9 @@ const setAdtubeParams = () => {
     screenTextureOpacityRef.value = 1;
     screenOverlayOpacityRef.value = 0.5;
     if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
-    deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop;
-    deviceScreenRefs.tablet.value.material = adtubeMaterialTablet;
-    deviceScreenRefs.mobile.value.material = adtubeMaterialMobile;
+    deviceScreenRefs.desktop.value.material = adtubeMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = adtubeMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = adtubeMaterialMobile.value;
 };
 
 const setWebtopParams = () => {
@@ -638,9 +883,9 @@ const setWebtopParams = () => {
     screenTextureOpacityRef.value = 1;
     screenOverlayOpacityRef.value = 0.5;
     if (!deviceScreenRefs.desktop.value || !deviceScreenRefs.tablet.value || !deviceScreenRefs.mobile.value) return;
-    deviceScreenRefs.desktop.value.material = webtopMaterialDesktop;
-    deviceScreenRefs.tablet.value.material = webtopMaterialTablet;
-    deviceScreenRefs.mobile.value.material = webtopMaterialMobile;
+    deviceScreenRefs.desktop.value.material = webtopMaterialDesktop.value;
+    deviceScreenRefs.tablet.value.material = webtopMaterialTablet.value;
+    deviceScreenRefs.mobile.value.material = webtopMaterialMobile.value;
 };
 function updateObjects(delta: number) {
     if (
@@ -651,6 +896,9 @@ function updateObjects(delta: number) {
         !meOffsetHeight.value ||
         !topOffsetHeight.value ||
         !expertiseOffsetHeight.value ||
+        !duckyOffsetHeight.value ||
+        !knitryOffsetHeight.value ||
+        !signatureApiOffsetHeight.value ||
         !fotballFeberOffsetHeight.value ||
         !svanhildStubOffsetHeight.value ||
         !cheffeloOffsetHeight.value ||
@@ -686,16 +934,16 @@ function updateObjects(delta: number) {
         directionalLightRef.value.color = new Color(0x7dd3fc);
 
         // Default screen texture opacity
-        eirikDesktopMaterial.opacity = 0;
+        eirikDesktopMaterial.value.opacity = 0;
         desktopOverlayRef.value.opacity = 1;
     } else {
         // Mouse Position
-        damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.1, delta);
-        damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.1, delta);
+        damp(mouseParams, "x", (mouseX.value / width.value - 0.5) / 4, 0.05, delta);
+        damp(mouseParams, "z", (mouseY.value / height.value - 0.5) / 4, 0.05, delta);
         mousePositionRef.value = new Vector3(mouseParams.x + 2, mousePositionRef.value.y, mouseParams.z + 0.5);
 
         // Mouse Rotation
-        damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.1, delta);
+        damp(mouseParams, "rotation", (Math.PI + (mouseX.value / width.value - 0.5) / 2) * -1, 0.05, delta);
         mouseRotationRef.value = new Euler(0, mouseParams.rotation, 0);
 
         // Sections
@@ -713,6 +961,21 @@ function updateObjects(delta: number) {
         const projectSvanhildStub = {
             start: svanhildStubOffsetTop.value - topOffsetHeight.value / 2,
             end: svanhildStubOffsetTop.value + svanhildStubOffsetHeight.value / 2,
+        };
+
+        const workDucky = {
+            start: duckyOffsetTop.value - topOffsetHeight.value / 2,
+            end: duckyOffsetTop.value + duckyOffsetHeight.value / 2,
+        };
+
+        const workKnitry = {
+            start: knitryOffsetTop.value - topOffsetHeight.value / 2,
+            end: knitryOffsetTop.value + knitryOffsetHeight.value / 2,
+        };
+
+        const workSignatureApi = {
+            start: signatureApiOffsetTop.value - topOffsetHeight.value / 2,
+            end: signatureApiOffsetTop.value + signatureApiOffsetHeight.value / 2,
         };
 
         const workCheffelo = {
@@ -742,29 +1005,34 @@ function updateObjects(delta: number) {
 
             if (currentViewPort.value === "desktop") {
                 lightParams.rectArea.intensity = 0.05;
-                deviceScreenRefs.desktop.value.material = eirikDesktopMaterial;
+                deviceScreenRefs.desktop.value.material = eirikDesktopMaterial.value;
                 deviceScreenRefs.tablet.value.material = standardMaterial;
                 deviceScreenRefs.mobile.value.material = standardMaterial;
             } else if (currentViewPort.value === "tablet") {
                 lightParams.rectArea.intensity = 0.01;
                 deviceScreenRefs.desktop.value.material = standardMaterial;
-                deviceScreenRefs.tablet.value.material = eirikTabletTexture;
+                deviceScreenRefs.tablet.value.material = eirikTabletTexture.value;
                 deviceScreenRefs.mobile.value.material = standardMaterial;
             } else if (currentViewPort.value === "mobile") {
                 lightParams.rectArea.intensity = 0.01;
                 deviceScreenRefs.desktop.value.material = standardMaterial;
                 deviceScreenRefs.tablet.value.material = standardMaterial;
-                deviceScreenRefs.mobile.value.material = eirikMobileTexture;
+                deviceScreenRefs.mobile.value.material = eirikMobileTexture.value;
             }
         } else {
             // Hover and modal events
-
             if (hoverTarget.value === "" && !isModalOpen.value && currentViewPort.value === "desktop") {
                 setDefaultParams();
             } else if (hoverTarget.value === "fotballfeber" || isExperienceModalOpen.value.fotballfeber) {
                 setFotballFeberParams();
             } else if (hoverTarget.value === "svanhildstub" || isExperienceModalOpen.value.svanhildstub) {
                 setSvanhildStubParams();
+            } else if (hoverTarget.value === "ducky" || isExperienceModalOpen.value.ducky) {
+                setDuckyParams();
+            } else if (hoverTarget.value === "knitry" || isExperienceModalOpen.value.knitry) {
+                setKnitryParams();
+            } else if (hoverTarget.value === "signatureApi" || isExperienceModalOpen.value.signatureApi) {
+                setSignatureApiParams();
             } else if (hoverTarget.value === "cheffelo" || isExperienceModalOpen.value.cheffelo) {
                 setCheffeloParams();
             } else if (hoverTarget.value === "adtube" || isExperienceModalOpen.value.adtube) {
@@ -783,6 +1051,24 @@ function updateObjects(delta: number) {
                 scrollY.value < projectSvanhildStub.end
             ) {
                 setSvanhildStubParams();
+            } else if (
+                currentViewPort.value !== "desktop" &&
+                scrollY.value > workDucky.start &&
+                scrollY.value < workDucky.end
+            ) {
+                setDuckyParams();
+            } else if (
+                currentViewPort.value !== "desktop" &&
+                scrollY.value > workKnitry.start &&
+                scrollY.value < workKnitry.end
+            ) {
+                setKnitryParams();
+            } else if (
+                currentViewPort.value !== "desktop" &&
+                scrollY.value > workSignatureApi.start &&
+                scrollY.value < workSignatureApi.end
+            ) {
+                setSignatureApiParams();
             } else if (
                 currentViewPort.value !== "desktop" &&
                 scrollY.value > workCheffelo.start &&
@@ -809,26 +1095,27 @@ function updateObjects(delta: number) {
         // Damping values
         const normalizedLightInterval = normalize(scrollY.value, 0, expertiseOffsetTop.value);
 
-        damp(spotLightRef.value, "intensity", normalizedLightInterval * 2, 0.2, delta);
+        damp(spotLightRef.value, "intensity", normalizedLightInterval * 2, 0.1, delta);
         const directionalLightIntesity = lightParams.directional.intensity
             ? lightParams.directional.intensity
             : normalizedLightInterval / 12 + 0.05;
-        damp(directionalLightRef.value, "intensity", directionalLightIntesity, 0.2, delta);
 
-        dampC(directionalLightRef.value.color, new Color(lightParams.directional.color), 0.5, delta);
-        dampC(spotLightRef.value.color, new Color(lightParams.spot.color), 0.5, delta);
-        damp(rectAreaLightIntensity, "value", lightParams.rectArea.intensity, 0.2, delta);
+        damp(directionalLightRef.value, "intensity", directionalLightIntesity, 0.1, delta);
 
-        damp(eirikDesktopMaterial, "opacity", screenTextureOpacityRef.value, 0.2, delta);
-        damp(eirikTabletTexture, "opacity", screenTextureOpacityRef.value, 0.2, delta);
-        damp(eirikMobileTexture, "opacity", screenTextureOpacityRef.value, 0.2, delta);
-        damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
-        damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
-        damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.2, delta);
+        dampC(directionalLightRef.value.color, new Color(lightParams.directional.color), 0.25, delta);
+        dampC(spotLightRef.value.color, new Color(lightParams.spot.color), 0.25, delta);
+        damp(rectAreaLightIntensity, "value", lightParams.rectArea.intensity, 0.1, delta);
+
+        damp(eirikDesktopMaterial.value, "opacity", screenTextureOpacityRef.value, 0.1, delta);
+        damp(eirikTabletTexture.value, "opacity", screenTextureOpacityRef.value, 0.1, delta);
+        damp(eirikMobileTexture.value, "opacity", screenTextureOpacityRef.value, 0.1, delta);
+        damp(desktopOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.1, delta);
+        damp(tabletOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.1, delta);
+        damp(mobileOverlayRef.value, "opacity", screenOverlayOpacityRef.value, 0.1, delta);
     }
 }
 
-onLoop(({ delta }) => {
+function onLoop({ delta }: { delta: number }) {
     if (spotLightRef.value && spotLightTargetRef.value) {
         spotLightRef.value.target = spotLightTargetRef.value;
     }
@@ -839,11 +1126,11 @@ onLoop(({ delta }) => {
 
     updateCamera(delta);
     updateObjects(delta);
-});
+}
 </script>
 
 <template>
-    <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle">
+    <TresCanvas v-bind="gl" id="canvas" ref="canvasRef" class="-z-30" :style="canvasStyle" @loop="onLoop">
         <CustomStatsGl />
 
         <!-- Camera -->
@@ -941,7 +1228,7 @@ onLoop(({ delta }) => {
 
         <!-- Keyboard -->
         <Suspense>
-            <CustomKeyboard :position="new Vector3(0, 0.025, 0.5)" scale="0.5" />
+            <CustomKeyboard :position="new Vector3(0, 0.025, 0.5)" :scale="0.5" />
         </Suspense>
 
         <!-- Mouse -->

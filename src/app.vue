@@ -89,7 +89,7 @@ const simpleBarRef = ref(null);
 const isModalOpenRef = ref(false);
 
 const hoverTargetRef = ref<
-    "fotballfeber" | "svanhildstub" | "ducky" | "knitry" | "signatureapi" | "cheffelo" | "adtube" | "webtop" | ""
+    "fotballfeber" | "svanhildstub" | "ducky" | "knitry" | "signatureApi" | "cheffelo" | "adtube" | "webtop" | ""
 >("");
 
 const isExperienceModalOpenRef = ref({
@@ -97,7 +97,7 @@ const isExperienceModalOpenRef = ref({
     svanhildstub: false,
     ducky: false,
     knitry: false,
-    signatureapi: false,
+    signatureApi: false,
     cheffelo: false,
     adtube: false,
     webtop: false,
@@ -127,7 +127,7 @@ const openModalBySegment = (segment: ModalSegment) => {
     } else if (segment === "knitry") {
         isExperienceModalOpenRef.value.knitry = true;
     } else if (segment === "signatureapi") {
-        isExperienceModalOpenRef.value.signatureapi = true;
+        isExperienceModalOpenRef.value.signatureApi = true;
     } else if (segment === "cheffelo") {
         isExperienceModalOpenRef.value.cheffelo = true;
     } else if (segment === "adtube") {
@@ -145,7 +145,7 @@ const handleHashChange = () => {
             svanhildstub: false,
             ducky: false,
             knitry: false,
-            signatureapi: false,
+            signatureApi: false,
             cheffelo: false,
             adtube: false,
             webtop: false,
@@ -207,7 +207,7 @@ const toggleExperienceModal = (
         | "svanhildstub"
         | "ducky"
         | "knitry"
-        | "signatureapi"
+        | "signatureApi"
         | "cheffelo"
         | "adtube"
         | "webtop"
@@ -234,9 +234,9 @@ const toggleExperienceModal = (
             if (isExperienceModalOpenRef.value.knitry) window.history.pushState({}, "", "/#knitry");
             else window.history.pushState({}, "", "/");
             break;
-        case "signatureapi":
-            isExperienceModalOpenRef.value.signatureapi = !isExperienceModalOpenRef.value.signatureapi;
-            if (isExperienceModalOpenRef.value.signatureapi) window.history.pushState({}, "", "/#signatureapi");
+        case "signatureApi":
+            isExperienceModalOpenRef.value.signatureApi = !isExperienceModalOpenRef.value.signatureApi;
+            if (isExperienceModalOpenRef.value.signatureApi) window.history.pushState({}, "", "/#signatureapi");
             else window.history.pushState({}, "", "/");
             break;
         case "cheffelo":
@@ -351,7 +351,7 @@ const onUpdateCurrentSegment = (segment: string) => {
                             class="flex flex-col pl-4 pr-8 md:px-12 lg:px-16 overflow-x-hidden items-center transition-opacity ease-in-out duration-500"
                             :class="{ 'opacity-0': isModalOpenRef, 'opacity-100': !isModalOpenRef }"
                         >
-                            <header id="top" ref="topRef" class="min-h-[100lvh] h-[100lvh] container flex items-center">
+                            <header id="top" ref="topRef" class="min-h-lvh h-lvh container flex items-center">
                                 <HeaderComponent />
                             </header>
                             <section
@@ -452,8 +452,8 @@ const onUpdateCurrentSegment = (segment: string) => {
                                         <div id="signatureapi" ref="signatureApiRef" class="flex h-full scroll-mt-12">
                                             <SignatureApiCard
                                                 v-motion-fade-visible-once-custom
-                                                :on-click="() => toggleExperienceModal('signatureapi')"
-                                                :on-mouse-over="() => (hoverTargetRef = 'signatureapi')"
+                                                :on-click="() => toggleExperienceModal('signatureApi')"
+                                                :on-mouse-over="() => (hoverTargetRef = 'signatureApi')"
                                                 :on-mouse-leave="() => (hoverTargetRef = '')"
                                             />
                                         </div>
@@ -548,8 +548,8 @@ const onUpdateCurrentSegment = (segment: string) => {
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.signatureapi"
-                :close="() => toggleExperienceModal('signatureapi')"
+                :show="hasFinishedLoading && isExperienceModalOpenRef.signatureApi"
+                :close="() => toggleExperienceModal('signatureApi')"
             >
                 <SignatureApiContent />
             </MyModal>
@@ -587,12 +587,18 @@ const onUpdateCurrentSegment = (segment: string) => {
                     :expertise-offset-height="expertiseRef?.offsetHeight || 0"
                     :fotball-feber-offset-height="fotballFeberRef?.offsetHeight || 0"
                     :svanhild-stub-offset-height="svanhildStubRef?.offsetHeight || 0"
+                    :ducky-offset-height="duckyRef?.offsetHeight || 0"
+                    :knitry-offset-height="knitryRef?.offsetHeight || 0"
+                    :signature-api-offset-height="signatureApiRef?.offsetHeight || 0"
                     :cheffelo-offset-height="cheffeloRef?.offsetHeight || 0"
                     :adtube-offset-height="adtubeRef?.offsetHeight || 0"
                     :webtop-offset-height="webtopRef?.offsetHeight || 0"
                     :fotball-feber-offset-top="fotballFeberRef?.offsetTop || 0"
                     :svanhild-stub-offset-top="svanhildStubRef?.offsetTop || 0"
                     :cheffelo-offset-top="cheffeloRef?.offsetTop || 0"
+                    :ducky-offset-top="duckyRef?.offsetTop || 0"
+                    :knitry-offset-top="knitryRef?.offsetTop || 0"
+                    :signature-api-offset-top="signatureApiRef?.offsetTop || 0"
                     :adtube-offset-top="adtubeRef?.offsetTop || 0"
                     :webtop-offset-top="webtopRef?.offsetTop || 0"
                     :hover-target="hoverTargetRef"
@@ -609,4 +615,3 @@ const onUpdateCurrentSegment = (segment: string) => {
         </Body>
     </Html>
 </template>
-./components/CoolConsoleLog.ts

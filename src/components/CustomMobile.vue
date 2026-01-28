@@ -11,10 +11,10 @@ const props = defineProps<{
 const { position, rotation } = toRefs(props);
 const path = "/models/mobile.glb";
 
-const { scene } = await useGLTF(path, { draco: true });
+const { state } = await useGLTF(path, { draco: true });
+const scene = state.value!.scene;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (node.isMesh) node.castShadow = true;
 });
 </script>

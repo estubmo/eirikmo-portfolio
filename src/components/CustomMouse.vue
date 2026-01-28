@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useGLTF } from "@tresjs/cientos";
-import { Vector3, type Euler } from "three";
+import type { Euler, Vector3 } from "three";
 import { toRefs } from "vue";
 
 const props = defineProps<{
@@ -15,10 +15,10 @@ const { position, rotation, scale } = toRefs(props);
 // });
 const path = "/models/mouse.glb";
 
-const { scene } = await useGLTF(path, { draco: true });
+const { state } = await useGLTF(path, { draco: true });
+const scene = state.value!.scene;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (node.isMesh) node.castShadow = true;
 });
 </script>

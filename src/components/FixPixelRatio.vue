@@ -6,10 +6,12 @@ const { height } = defineProps<{ height: number }>();
 
 const { width: windowWidth, height: windowHeight } = useWindowSize();
 
-const { renderer } = useTresContext();
+const ctx = useTresContext();
 function setup() {
-    renderer.value.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.value.setSize(windowWidth.value, height);
+    if (ctx.renderer.instance) {
+        ctx.renderer.instance.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        ctx.renderer.instance.setSize(windowWidth.value, height);
+    }
 }
 setup();
 

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useGLTF } from "@tresjs/cientos";
-import { useRenderLoop, useTresContext } from "@tresjs/core";
+import { useLoop, useTresContext } from "@tresjs/core";
 import { useMouse, useWindowSize } from "@vueuse/core";
-import { Mesh, SpotLight, Vector2, Vector3, type Euler } from "three";
+import type { Euler, Mesh, SpotLight } from "three";
+import { Raycaster, Vector2, Vector3 } from "three";
 import { ref, toRefs } from "vue";
 
 const props = defineProps<{
@@ -24,11 +25,13 @@ const { x: mouseX, y: mouseY } = useMouse({
 });
 const { width, height } = useWindowSize();
 
-const { camera, raycaster } = useTresContext();
+const ctx = useTresContext();
+const raycaster = new Raycaster();
 const path = "/models/lamp.glb";
 
-const { onLoop } = useRenderLoop();
-const { scene } = await useGLTF(path, { draco: true });
+const { onBeforeRender } = useLoop();
+const { state } = await useGLTF(path, { draco: true });
+const scene = state.value!.scene;
 
 const handleLightSwitch = (e: Event) => {
     if (isIntersecting.value) {
@@ -43,12 +46,13 @@ const handleLightSwitch = (e: Event) => {
 window.addEventListener("mousedown", handleLightSwitch);
 window.addEventListener("touchstart", handleLightSwitch, { passive: true });
 
-onLoop(({ elapsed }) => {
+onBeforeRender(({ elapsed }: { elapsed: number }) => {
     pointer.x = (mouseX.value / width.value) * 2 - 1;
     pointer.y = -(mouseY.value / height.value) * 2 + 1;
-    if (camera.value && lightSwitch.value) {
-        raycaster.value.setFromCamera(pointer, camera.value);
-        const intersects = raycaster.value.intersectObjects([lightSwitch.value]);
+    const activeCamera = ctx.camera.activeCamera.value;
+    if (activeCamera && lightSwitch.value) {
+        raycaster.setFromCamera(pointer, activeCamera);
+        const intersects = raycaster.intersectObjects([lightSwitch.value]);
         if (intersects.length > 0) {
             isIntersecting.value = true;
 
@@ -64,7 +68,6 @@ onLoop(({ elapsed }) => {
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 scene.traverse((node: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (node.isMesh) node.castShadow = true;
 });
 </script>

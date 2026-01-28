@@ -1,20 +1,20 @@
 <script setup lang="ts">
-const gradients = [
+const gradients: [string, string][] = [
     ["#fde047", "#facc15"],
     ["#d8b4fe", "#c084fc"],
     ["#fca5a5", "#f87171"],
     ["#86efac", "#4ade80"],
     ["#93c5fd", "#60a5fa"],
 ];
-const randomGradient = function () {
-    return gradients[Math.floor(Math.random() * gradients.length)];
+const randomGradient = function (): [string, string] {
+    return gradients[Math.floor(Math.random() * gradients.length)]!;
 };
 
 const font = "font-size: 12px; ";
-const getGradient = function (n: string[]) {
+const getGradient = function (n: [string, string]) {
     return "linear-gradient(90deg, ".concat(n[0], " 0%, ").concat(n[1], " 100%)");
 };
-const getLineStyle = function (n: string[]) {
+const getLineStyle = function (n: [string, string]) {
     return "background: ".concat(getGradient(n), "; border-radius: 0.125rem;");
 };
 
