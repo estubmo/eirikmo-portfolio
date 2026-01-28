@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import NextJsIcon from "../icons/NextJsIcon.vue";
+import PrismaIcon from "../icons/PrismaIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
+import StorybookIcon from "../icons/StorybookIcon.vue";
+import TailwindIcon from "../icons/TailwindIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
+import VitestIcon from "../icons/VitestIcon.vue";
 </script>
 
 <template>
@@ -26,10 +31,20 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
             <p>
-                As a Senior Software Developer at Ducky, I contributed to the development and maintenance of the
-                platform's web applications, working with the team to deliver features that help users track and reduce
-                their carbon footprint.
+                In my role as a senior developer, I was instrumental in guiding the technical growth of the team,
+                focusing on elevating engineering standards through hands-on development and strategic input.
             </p>
+            <ul class="pl-4 list-disc">
+                <li>
+                    Influenced service architecture and drove improvements to deployment pipelines and system
+                    reliability.
+                </li>
+                <li>
+                    Played a key role in refining workflows and developer experience to achieve more efficient and
+                    predictable delivery cycles.
+                </li>
+                <li>Actively collaborated with colleagues, improving code quality and overall team velocity.</li>
+            </ul>
         </div>
 
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
@@ -42,11 +57,46 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
                 </a>
 
+                <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <NextJsIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
+                </a>
+
                 <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
                     <div class="p-3 bg-gray-800 rounded-full">
                         <ReactIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
+                </a>
+
+                <a href="https://tailwindcss.com/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <TailwindIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Tailwind CSS</div>
+                </a>
+
+                <a href="https://www.prisma.io/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <PrismaIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Prisma</div>
+                </a>
+
+                <a href="https://storybook.js.org/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <StorybookIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Storybook</div>
+                </a>
+
+                <a href="https://vitest.dev/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <VitestIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vitest</div>
                 </a>
             </div>
         </div>

@@ -6,6 +6,7 @@ import MedusaIcon from "../icons/MedusaIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import NodeJsIcon from "../icons/NodeJsIcon.vue";
 import PostgreSqlIcon from "../icons/PostgreSqlIcon.vue";
+import StripeIcon from "../icons/StripeIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import TechIcon from "../TechIcon.vue";
 
@@ -68,6 +69,10 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
 
             <TechIcon v-slot="slotProps" href="https://www.docker.com/" name="Docker" :size="24">
                 <DockerIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://stripe.com/" name="Stripe" :size="24">
+                <StripeIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
         </template>
     </ExperienceCard>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
+import NextJsIcon from "../icons/NextJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
+import ZustandIcon from "../icons/ZustandIcon.vue";
 import TechIcon from "../TechIcon.vue";
 
 const props = defineProps<{
@@ -46,8 +48,16 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
                 <TypeScriptIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
 
+            <TechIcon v-slot="slotProps" href="https://nextjs.org/" name="Next.js" :size="24">
+                <NextJsIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
             <TechIcon v-slot="slotProps" href="https://react.dev/" name="React" :size="24">
                 <ReactIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://zustand-demo.pmnd.rs/" name="Zustand" :size="24">
+                <ZustandIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
         </template>
     </ExperienceCard>

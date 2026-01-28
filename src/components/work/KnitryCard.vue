@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
+import MuiIcon from "../icons/MuiIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
+import StripeIcon from "../icons/StripeIcon.vue";
+import TanstackIcon from "../icons/TanstackIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import TechIcon from "../TechIcon.vue";
 
@@ -43,6 +46,18 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
 
             <TechIcon v-slot="slotProps" href="https://react.dev/" name="React" :size="24">
                 <ReactIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://tanstack.com/query" name="TanStack Query" :size="24">
+                <TanstackIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://mui.com/" name="MUI" :size="24">
+                <MuiIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://stripe.com/" name="Stripe" :size="24">
+                <StripeIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
         </template>
     </ExperienceCard>

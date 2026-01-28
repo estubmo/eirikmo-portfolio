@@ -7,6 +7,7 @@ import NodeJsIcon from "../icons/NodeJsIcon.vue";
 import PostgreSqlIcon from "../icons/PostgreSqlIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import RedisIcon from "../icons/RedisIcon.vue";
+import StripeIcon from "../icons/StripeIcon.vue";
 import TailwindIcon from "../icons/TailwindIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import VercelIcon from "../icons/VercelIcon.vue";
@@ -180,6 +181,13 @@ import VercelIcon from "../icons/VercelIcon.vue";
                         <GitHubIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GitHub</div>
+                </a>
+
+                <a href="https://stripe.com/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <StripeIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Stripe</div>
                 </a>
             </div>
         </div>

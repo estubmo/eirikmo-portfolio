@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import NextJsIcon from "../icons/NextJsIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
+import ZustandIcon from "../icons/ZustandIcon.vue";
 </script>
 
 <template>
@@ -22,14 +24,24 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
         </div>
         <div class="my-4 col-span-3 md:col-span-2 space-y-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">About Signature API</h3>
-            <p>Signature API is a software development company specializing in API solutions.</p>
+            <p>
+                Signature API is a software company providing digital signature ceremony solutions, enabling businesses
+                to handle document signing workflows securely and efficiently.
+            </p>
         </div>
 
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
             <p>
-                As a Senior Frontend Developer at Signature API, I contributed to the development of the company's web
-                interfaces and user-facing applications.
+                I conducted a comprehensive review of Signature API's signature ceremony system, identifying and
+                prioritizing a series of critical issues. After careful categorization and time estimation, I focused on
+                resolving the highest-impact problems.
+            </p>
+            <p>
+                This involved a substantial codebase overhaul, strictly adhering to SOLID principles, Next.js and React
+                best practices, and Zustand for state management. As a result, system performance increased
+                significantly, and the client expressed exceptional satisfaction with the work, process, and
+                communication.
             </p>
         </div>
 
@@ -43,11 +55,25 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">TypeScript</div>
                 </a>
 
+                <a href="https://nextjs.org/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <NextJsIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Next.js</div>
+                </a>
+
                 <a href="https://react.dev/" target="_blank" class="group flex flex-col items-center w-16">
                     <div class="p-3 bg-gray-800 rounded-full">
                         <ReactIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">React</div>
+                </a>
+
+                <a href="https://zustand-demo.pmnd.rs/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <ZustandIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Zustand</div>
                 </a>
             </div>
         </div>
