@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "@nuxt/image": "^2.0.0",
-        "@nuxtjs/robots": "^5.6.7",
+        "@nuxtjs/robots": "^5.7.0",
         "@tresjs/cientos": "^5.2.5",
         "@tresjs/nuxt": "^5.1.7",
         "@vueuse/nuxt": "^14.1.0",
@@ -42,15 +42,14 @@
         "simplebar-vue": "^2.4.2",
         "three": "0.182.0",
         "vue": "^3.5.27",
-        "vue-final-modal": "^4.5.5",
-        "vue-router": "^4.6.4"
+        "vue-final-modal": "^4.5.5"
     },
     "devDependencies": {
         "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
         "@nuxt/devtools": "^3.1.1",
         "@nuxt/eslint-config": "^1.13.0",
         "@nuxtjs/google-fonts": "^3.2.0",
-        "@nuxtjs/sitemap": "^7.5.2",
+        "@nuxtjs/sitemap": "^7.6.0",
         "@nuxtjs/tailwindcss": "^6.14.0",
         "@total-typescript/ts-reset": "^0.6.1",
         "@types/three": "0.182.0",
@@ -67,6 +66,7 @@
         "postcss": "^8.5.6",
         "prettier": "^3.8.1",
         "prettier-plugin-tailwindcss": "^0.7.2",
+        "sharp": "^0.34.5",
         "typescript": "5.9.3",
         "vue-tsc": "3.2.4"
     }

@@ -2,12 +2,7 @@ import { defineNuxtConfig } from "nuxt/config";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    $production: {
-        // @ts-expect-error Object literal may only specify known properties.
-        image: {
-            provider: "ipxStatic",
-        },
-    },
+    compatibilityDate: "2026-01-30",
     devtools: { enabled: true },
     modules: [
         "@vueuse/motion/nuxt",
@@ -46,14 +41,6 @@ export default defineNuxtConfig({
     typescript: {
         typeCheck: false, // Disabled: vite-plugin-checker not yet compatible with vue-tsc 3.x
         strict: true,
-    },
-    nitro: {
-        static: true,
-        compressPublicAssets: true,
-        prerender: {
-            crawlLinks: true,
-            failOnError: false,
-        },
     },
     routeRules: {
         "/**": { isr: 60 * 60 },
