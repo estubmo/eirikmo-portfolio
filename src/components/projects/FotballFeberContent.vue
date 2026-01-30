@@ -30,7 +30,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <p class="text-xl font-light text-zinc-200 break-words wrap mt-2">
                 Founder, System Architect and Full-Stack Developer
             </p>
-            <p class="text-xl font-bold italic text-[#15FF93]">Work in progress</p>
+            <p class="text-xl font-bold italic text-[#15FF93]">Active Development</p>
         </div>
         <div class="col-span-1 justify-self-center md:self-end my-4">
             <NuxtImg

@@ -43,7 +43,7 @@ const handleTouchEnd = () => {
                 <div
                     class="absolute rotate-45 bg-green-600 text-xs text-center text-gray-200 font-semibold py-1 right-[-35px] top-[32px] w-[170px]"
                 >
-                    Work in Progress
+                    Active Development
                 </div>
             </div>
 
