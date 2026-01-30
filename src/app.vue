@@ -284,7 +284,11 @@ const onUpdateCurrentSegment = (segment: string) => {
             <Meta charset="UTF-8" />
             <Meta
                 name="description"
-                content="Full-Stack Developer - A Portfolio Website built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
+                content="Eirik Mo - Senior Full-Stack Developer & DevOps Engineer available for remote work. 9+ years experience with React, Next.js, Node.js, TypeScript. Building scalable web applications for startups and enterprises."
+            />
+            <Meta
+                name="keywords"
+                content="Senior Full-Stack Developer, Remote Developer, React Developer, Next.js Developer, TypeScript, Node.js, DevOps Engineer, Web Developer for Hire, Freelance Developer, Norway"
             />
             <Meta name="viewport" content="width=device-width, initial-scale=1" interactive-widget="overlays-content" />
             <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -295,20 +299,23 @@ const onUpdateCurrentSegment = (segment: string) => {
 
             <Meta name="msapplication-TileColor" content="#223d4a" />
             <Meta name="theme-color" content="#223d4a" />
-            <Title>Eirik Mo - Full-Stack Developer</Title>
+            <Title>Eirik Mo - Senior Full-Stack Developer | Available for Remote Work</Title>
 
-            <Meta property="og:title" content="Eirik Mo - Full-Stack Developer" />
-            <Meta property="og:description" content="Remotely building & deploying web apps across the globe." />
+            <Meta property="og:title" content="Eirik Mo - Senior Full-Stack Developer | Open to Remote Work" />
+            <Meta
+                property="og:description"
+                content="Senior Full-Stack Developer & DevOps Engineer with 9+ years experience. Specializing in React, Next.js, TypeScript, and Node.js. Available for remote opportunities."
+            />
             <Meta property="og:type" content="website" />
             <Meta property="og:url" content="https://mowebdev.com" />
             <Meta property="og:image" content="https://mowebdev.com/images/ogImage.webp" />
-            <Meta property="og:image:alt" content="Eirik Mo - Full-Stack Developer, Remote Web Development" />
+            <Meta property="og:image:alt" content="Eirik Mo - Senior Full-Stack Developer, Remote Web Development" />
 
-            <Meta property="twitter:title" content="Eirik Mo - Full-Stack Developer" />
+            <Meta property="twitter:title" content="Eirik Mo - Senior Full-Stack Developer | Open to Remote Work" />
             <Meta name="twitter:creator" content="@eirikm0" />
             <Meta
                 property="twitter:description"
-                content="Full-Stack Developer - A Portfolio Website built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js"
+                content="Senior Full-Stack Developer & DevOps Engineer with 9+ years experience. Specializing in React, Next.js, TypeScript, and Node.js. Available for remote opportunities."
             />
             <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
             <Meta property="twitter:card" content="summary" />
