@@ -1,6 +1,6 @@
 {
     "name": "eirikmo-portfolio",
-    "description": "A portfolio website for Full-Stack Developer Eirik Mo - Built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js",
+    "description": "A portfolio website for Senior Full-Stack Developer Eirik Mo - Built with TresJS, Nuxt, Vue, TypeScript, Tailwind CSS and Three.js",
     "version": "1.0.0",
     "private": true,
     "type": "module",
