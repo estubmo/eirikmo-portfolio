@@ -1,6 +1,6 @@
 <template>
     <div class="lg:w-1/2 lg:pl-6">
-        <div class="flex flex-col max-w-xl gap-2">
+        <div class="flex flex-col max-w-xl gap-2 backdrop-blur-sm bg-gray-600/5 p-6 rounded-lg">
             <h2 v-motion-slide-visible-once-right-custom class="text-4xl font-black mb-4">Who I am</h2>
             <div v-motion-slide-visible-once-right-custom class="gap-3 flex">
                 <div class="h-3 w-8 bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-sm" />
@@ -30,6 +30,21 @@
                 I also like to contribute to Open Source projects, fixing bugs or adding features when there's something
                 I need that is missing.
             </p>
+
+            <div v-motion-slide-visible-once-right-custom class="mt-6 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:gap-8 gap-4">
+                    <div>
+                        <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-1">Education</h3>
+                        <p class="text-zinc-200">Bachelor's Degree in IT</p>
+                        <p class="text-zinc-400 text-sm">NTNU, 2013 - 2016</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-1">Languages</h3>
+                        <p class="text-zinc-200">Norwegian (Native)</p>
+                        <p class="text-zinc-200">English (Fluent)</p>
+                    </div>
+                </div>
+            </div>
 
             <div v-motion-pop-visible-once-custom class="w-fit mt-4">
                 <a
