@@ -3,7 +3,7 @@ import TechContainer from "./TechContainer.vue";
 </script>
 
 <template>
-    <div class="flex flex-col w-full max-w-3xl gap-2">
+    <div class="flex flex-col w-full max-w-3xl gap-2 backdrop-blur-sm bg-gray-600/5 p-6 rounded-lg">
         <a v-motion-slide-visible-once-left-custom href="#expertise">
             <h2 class="text-4xl font-extrabold mb-4">Expertise</h2>
         </a>
@@ -28,7 +28,7 @@ import TechContainer from "./TechContainer.vue";
         </p>
     </div>
     <div class="w-full flex flex-col">
-        <div class="w-full flex-flex-col shadow-xl rounded-lg backdrop-blur-sm bg-white/5 p-4">
+        <div class="w-full flex-flex-col shadow-xl rounded-lg backdrop-blur-sm bg-gray-600/5 p-6">
             <h2 v-motion-slide-visible-once-right-custom class="text-2xl font-bold mb-4">Tech</h2>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg mb-2">
                 These are just some of the technologies I am familiar with.
