@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
+import GcpIcon from "../icons/GcpIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import PrismaIcon from "../icons/PrismaIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
@@ -58,6 +59,10 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
 
             <TechIcon v-slot="slotProps" href="https://www.prisma.io/" name="Prisma" :size="24">
                 <PrismaIcon :height="slotProps.height" :width="slotProps.width" />
+            </TechIcon>
+
+            <TechIcon v-slot="slotProps" href="https://cloud.google.com/" name="Google Cloud Platform" :size="24">
+                <GcpIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
         </template>
     </ExperienceCard>

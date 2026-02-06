@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import GcpIcon from "../icons/GcpIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import PrismaIcon from "../icons/PrismaIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
@@ -31,19 +32,22 @@ import VitestIcon from "../icons/VitestIcon.vue";
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">My Role and Responsibilities</h3>
             <p>
-                In my role as a senior developer, I was instrumental in guiding the technical growth of the team,
-                focusing on elevating engineering standards through hands-on development and strategic input.
+                In my role as a senior developer, I was instrumental in guiding the technical growth of the team. I
+                focus on elevating our engineering standards through hands-on development and strategic input.
             </p>
             <ul class="pl-4 list-disc">
                 <li>
-                    Influenced service architecture and drove improvements to deployment pipelines and system
-                    reliability.
+                    Technical Leadership: Influence service architecture and drive improvements to our deployment
+                    pipelines and system reliability.
                 </li>
                 <li>
-                    Played a key role in refining workflows and developer experience to achieve more efficient and
-                    predictable delivery cycles.
+                    Process Improvement: Played a key role in refining our workflows and developer experience to achieve
+                    more efficient and predictable delivery cycles. predictable delivery cycles.
                 </li>
-                <li>Actively collaborated with colleagues, improving code quality and overall team velocity.</li>
+                <li>
+                    Team Growth: Actively collaborated with colleagues, improving code quality and overall team
+                    velocity. environmental impact through data-driven insights and engaging tools.
+                </li>
             </ul>
         </div>
 
@@ -97,6 +101,13 @@ import VitestIcon from "../icons/VitestIcon.vue";
                         <VitestIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vitest</div>
+                </a>
+
+                <a href="https://cloud.google.com/" target="_blank" class="group flex flex-col items-center w-16">
+                    <div class="p-3 bg-gray-800 rounded-full">
+                        <GcpIcon :height="32" :width="32" />
+                    </div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">GCP</div>
                 </a>
             </div>
         </div>

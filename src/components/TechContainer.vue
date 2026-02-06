@@ -15,6 +15,7 @@ import EslintIcon from "./icons/EslintIcon.vue";
 import ExcalidrawIcon from "./icons/ExcalidrawIcon.vue";
 import FigmaIcon from "./icons/FigmaIcon.vue";
 import FlyIoIcon from "./icons/FlyIoIcon.vue";
+import GcpIcon from "./icons/GcpIcon.vue";
 import GitHubIcon from "./icons/GitHubIcon.vue";
 import GitIcon from "./icons/GitIcon.vue";
 import GraphlQlIcon from "./icons/GraphlQlIcon.vue";
@@ -259,6 +260,10 @@ import TechItem from "./TechItem.vue";
         <div>
             <span v-motion-fade-visible-once-custom class="whitespace-nowrap font-bold text-gray-200">Platforms</span>
             <ul v-motion-fade-visible-once-custom class="flex flex-wrap gap-2 mt-2">
+                <TechItem>
+                    <GcpIcon :height="16" :width="16" />
+                    Google Cloud Platform
+                </TechItem>
                 <TechItem>
                     <VercelIcon :height="16" :width="16" />
                     Vercel
