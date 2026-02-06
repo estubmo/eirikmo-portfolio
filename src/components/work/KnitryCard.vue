@@ -26,7 +26,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
         :on-mouse-leave="onMouseLeave"
     >
         <template #logo>
-            <NuxtImg src="/images/work/knitry/logo.svg" loading="lazy" alt="Knitry Logo" class="select-none w-full" />
+            <NuxtImg src="/images/work/knitry/logo.png" loading="lazy" alt="Knitry Logo" class="select-none w-full" />
         </template>
 
         <template #default>

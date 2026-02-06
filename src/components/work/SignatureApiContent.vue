@@ -17,7 +17,7 @@ import ZustandIcon from "../icons/ZustandIcon.vue";
         <div class="col-span-1 justify-self-center md:self-end my-4">
             <NuxtImg
                 loading="lazy"
-                src="/images/work/signatureapi/logo.svg"
+                src="/images/work/signatureapi/logo.png"
                 alt="Signature API Logo"
                 class="select-none w-full"
             />

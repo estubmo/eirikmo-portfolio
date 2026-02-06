@@ -18,7 +18,7 @@ import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
             <p class="text-xl font-bold italic">Contract · Remote</p>
         </div>
         <div class="col-span-1 justify-self-center md:self-end my-4">
-            <NuxtImg loading="lazy" src="/images/work/knitry/logo.svg" alt="Knitry Logo" class="select-none w-full" />
+            <NuxtImg loading="lazy" src="/images/work/knitry/logo.png" alt="Knitry Logo" class="select-none w-full" />
         </div>
         <div class="my-4 col-span-3 md:col-span-2 space-y-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">About Knitry</h3>

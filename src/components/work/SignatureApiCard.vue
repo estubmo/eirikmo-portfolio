@@ -26,7 +26,7 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
     >
         <template #logo>
             <NuxtImg
-                src="/images/work/signatureapi/logo.svg"
+                src="/images/work/signatureapi/logo.png"
                 loading="lazy"
                 alt="Signature API Logo"
                 class="select-none w-full"
