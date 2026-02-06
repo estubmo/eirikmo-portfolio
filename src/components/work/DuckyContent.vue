@@ -41,6 +41,10 @@ import VitestIcon from "../icons/VitestIcon.vue";
                     pipelines and system reliability.
                 </li>
                 <li>
+                    Cloud Infrastructure: Leveraged Google Cloud Platform (GCP) to architect scalable back-end
+                    solutions, optimizing resource allocation and ensuring high availability for core services.
+                </li>
+                <li>
                     Process Improvement: Played a key role in refining our workflows and developer experience to achieve
                     more efficient and predictable delivery cycles. predictable delivery cycles.
                 </li>
