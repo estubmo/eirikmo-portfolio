@@ -284,11 +284,11 @@ const onUpdateCurrentSegment = (segment: string) => {
             <Meta charset="UTF-8" />
             <Meta
                 name="description"
-                content="Eirik Mo - Senior Full-Stack Developer & DevOps Engineer available for remote work. 9+ years experience with React, Next.js, Node.js, TypeScript. Building scalable web applications for startups and enterprises."
+                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) available for remote contract work. 9+ years with React, Next.js, Node.js, TypeScript, GCP. Ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com."
             />
             <Meta
                 name="keywords"
-                content="Senior Full-Stack Developer, Remote Developer, React Developer, Next.js Developer, TypeScript, Node.js, DevOps Engineer, Web Developer for Hire, Freelance Developer, Norway"
+                content="Senior Full-Stack Engineer, AI-augmented Developer, AI Engineer, React Developer, Next.js Developer, TypeScript, Node.js, GCP, DevOps Engineer, Remote Developer, Contract Engineer, Freelance Developer, Norway"
             />
             <Meta name="viewport" content="width=device-width, initial-scale=1" interactive-widget="overlays-content" />
             <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -299,23 +299,32 @@ const onUpdateCurrentSegment = (segment: string) => {
 
             <Meta name="msapplication-TileColor" content="#223d4a" />
             <Meta name="theme-color" content="#223d4a" />
-            <Title>Eirik Mo - Senior Full-Stack Developer | Available for Remote Work</Title>
+            <Title>Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract</Title>
 
-            <Meta property="og:title" content="Eirik Mo - Senior Full-Stack Developer | Open to Remote Work" />
+            <Meta
+                property="og:title"
+                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract"
+            />
             <Meta
                 property="og:description"
-                content="Senior Full-Stack Developer & DevOps Engineer with 9+ years experience. Specializing in React, Next.js, TypeScript, and Node.js. Available for remote opportunities."
+                content="Senior full-stack engineer (React, Next.js, TypeScript, Node, GCP) who ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com. Open to remote contract work, CET."
             />
             <Meta property="og:type" content="website" />
             <Meta property="og:url" content="https://mowebdev.com" />
             <Meta property="og:image" content="https://mowebdev.com/images/ogImage.webp" />
-            <Meta property="og:image:alt" content="Eirik Mo - Senior Full-Stack Developer, Remote Web Development" />
+            <Meta
+                property="og:image:alt"
+                content="Eirik Mo - Senior Full-Stack Engineer, AI-augmented remote development"
+            />
 
-            <Meta property="twitter:title" content="Eirik Mo - Senior Full-Stack Developer | Open to Remote Work" />
+            <Meta
+                property="twitter:title"
+                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract"
+            />
             <Meta name="twitter:creator" content="@eirikm0" />
             <Meta
                 property="twitter:description"
-                content="Senior Full-Stack Developer & DevOps Engineer with 9+ years experience. Specializing in React, Next.js, TypeScript, and Node.js. Available for remote opportunities."
+                content="Senior full-stack engineer (React, Next.js, TypeScript, Node, GCP) who ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com. Open to remote contract work, CET."
             />
             <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
             <Meta property="twitter:card" content="summary" />

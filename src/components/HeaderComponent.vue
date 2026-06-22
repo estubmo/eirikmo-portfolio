@@ -35,9 +35,12 @@
                     <div class="size-3 bg-zinc-400 rounded-sm" />
                     <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
                 </div>
-                <h1 class="font-mono text-zinc-200 font-light text-xl">&lt; Senior Full-Stack Developer /></h1>
+                <h1 class="font-mono text-zinc-200 font-light text-xl">
+                    &lt; Senior Full-Stack Engineer · AI-augmented />
+                </h1>
                 <p class="text-zinc-400 text-lg max-w-md">
-                    9+ years building & deploying scalable web applications for startups and enterprises worldwide.
+                    9+ years shipping for startups and scale-ups. I now build and operate entire systems solo, at
+                    team-scale velocity, by orchestrating AI coding agents inside a disciplined engineering process.
                 </p>
                 <NuxtLink
                     href="#contact"
@@ -45,11 +48,11 @@
                 >
                     <span class="relative flex size-2">
                         <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                            class="animate-ping absolute inline-flex size-full rounded-full bg-green-400 opacity-75"
                         ></span>
                         <span class="relative inline-flex rounded-full size-2 bg-green-500"></span>
                     </span>
-                    <span class="text-green-400 text-sm font-medium">Open to remote opportunities</span>
+                    <span class="text-green-400 text-sm font-medium">Open to remote contract work (CET)</span>
                 </NuxtLink>
             </div>
             <div class="space-y-4">
