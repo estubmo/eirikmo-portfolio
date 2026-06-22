@@ -23,28 +23,28 @@ import VitestIcon from "../icons/VitestIcon.vue";
 <template>
     <div class="grid grid-cols-3 gap-x-8 lg:gap-x-12 text-zinc-200 my-12">
         <div class="col-span-2 my-4">
-            <h2 class="md:text-3xl text-4xl font-bold">FotballFeber</h2>
+            <h2 class="md:text-3xl text-4xl font-bold">Fotballfeber</h2>
             <p class="text-2xl font-semibold text-[#55E9B5] break-words wrap">Online Community</p>
             <p class="text-xl font-light italic text-sky-200 break-words wrap">Where Norwegian Football Fans Unite</p>
-            <p class="text-xl font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</p>
+            <p class="text-xl font-light italic text-sky-200 break-words wrap">Dec 2022 - Current</p>
             <p class="text-xl font-light text-zinc-200 break-words wrap mt-2">
                 Founder, System Architect and Full-Stack Developer
             </p>
-            <p class="text-xl font-bold italic text-[#15FF93]">Active Development</p>
+            <p class="text-xl font-bold italic text-[#15FF93]">Live · In Active Development</p>
         </div>
         <div class="col-span-1 justify-self-center md:self-end my-4">
             <NuxtImg
                 loading="lazy"
                 src="/images/projects/fotballfeber/logo.png"
-                alt="FotballFeber Logo"
+                alt="Fotballfeber Logo"
                 class="select-none w-16 sm:w-24 md:w-32"
             />
         </div>
         <p class="my-4 col-span-3 md:col-span-2">
-            FotballFeber is an upcoming vibrant online community dedicated to Norwegian football enthusiasts. Here, fans
-            can engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical
-            strategies, explore player development, analyze statistics, delve into fan culture, and dive into the rich
-            history of Norwegian football.
+            Fotballfeber is a live online community for Norwegian football fans, built and operated solo. Here, fans can
+            engage in discussions on the latest news, matches, transfers, and rumors, delve into tactical strategies,
+            explore player development, analyze statistics, delve into fan culture, and dive into the rich history of
+            Norwegian football.
         </p>
         <div
             class="flex flex-col col-span-3 md:col-span-1 items-center gap-4 relative row-span-2 px-2 sm:px-10 md:px-0 my-6"
@@ -52,9 +52,10 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <NuxtImg
                 loading="lazy"
                 src="/images/projects/fotballfeber/screenshot001.webp"
-                alt="FotballFeber Login Screen"
+                alt="Fotballfeber homepage"
                 class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[125%] lg:max-w-[125%] md:floating md:hover:floating-hover shadow-xl z-20"
             />
+            <p class="text-sm italic text-zinc-400 text-center">The Fotballfeber homepage</p>
         </div>
 
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
@@ -67,7 +68,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
 
             <h3 class="text-lg md:text-xl font-bold mt-4">The Technical Journey</h3>
             <p>
-                Building FotballFeber from the ground up was a fascinating journey. I chose Next.js, React, and
+                Building Fotballfeber from the ground up was a fascinating journey. I chose Next.js, React, and
                 TailwindCSS as the core technologies. Everything was meticulously organized in a monorepo using
                 Turborepo, and the website is seamlessly hosted on Vercel. For state management and data fetching, I
                 adopted Jotai and Tanstack Query. The UI is adorned with shadcn/ui, Radix UI, and Lucide icons, ensuring
@@ -95,17 +96,22 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <NuxtImg
                 loading="lazy"
                 src="/images/projects/fotballfeber/screenshot002.webp"
-                alt="FotballFeber News Aggregate"
+                alt="Fotballfeber — Gjett Spilleren, a daily guess-the-player game"
                 class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
             />
+            <p class="text-sm italic text-zinc-400 text-center">
+                Gjett Spilleren — one of three interactive VM 2026 games
+            </p>
         </div>
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">The Road Ahead</h3>
 
             <p>
-                FotballFeber is an ever-evolving project with a comprehensive roadmap. The current focus is on
-                finalizing the onboarding process and introducing a crucial discussion forum. The next milestone is
-                implementing a subscription and payment service, marking the official launch for public use.
+                Fotballfeber is live and under continuous development, shipped solo across 78+ engineering phases.
+                Current focus: deepening the community (forum, predictions, live match data) and the subscription tier.
+                The whole product is built and operated by one engineer orchestrating AI coding agents inside a
+                disciplined process: specs, ADRs, and architecture fitness functions that hold a solo-run codebase to
+                team-grade quality.
             </p>
 
             <h3 class="text-lg md:text-xl font-bold mt-4">Beyond Passion</h3>
@@ -128,7 +134,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
             </p>
             <p>
                 This project has not only created a community but has also been a transformative experience in personal
-                and professional growth. FotballFeber is the embodiment of my passion for Norwegian football and the
+                and professional growth. Fotballfeber is the embodiment of my passion for Norwegian football and the
                 ever-evolving world of web development.
             </p>
 
@@ -138,7 +144,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
                     target="_blank"
                     class="text-green-400 font-medium flex-nowrap border-green-400 border-2 rounded-md px-4 py-2 space-x-4 flex hover:bg-gradient-to-r from-green-400 to-green-500 hover:text-black transition-all duration-200 ease-in-out items-center"
                 >
-                    <span>FotballFeber</span>
+                    <span>Fotballfeber</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

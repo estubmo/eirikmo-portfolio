@@ -15,8 +15,10 @@
                 my free time.
             </p>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-                I'm a proficient Full-Stack Developer and DevOps Engineer, who knows how to build and deploy scalable
-                web applications. I have experience with a wide range of technologies.
+                I'm a senior full-stack engineer who ships and operates production software solo, at the output of a
+                small team and the quality bar of a senior one, by orchestrating AI coding agents inside a disciplined
+                process: specs, ADRs, architecture fitness functions, and CI-enforced quality. My live proof is
+                Fotballfeber.
             </p>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
                 I currently operate under my company Mo Web Dev AS.

@@ -24,21 +24,21 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
         :on-click="onClick"
         :on-mouse-over="onMouseOver"
         :on-mouse-leave="onMouseLeave"
-        :work-in-progress="true"
+        :work-in-progress="false"
     >
         <template #logo>
             <NuxtImg
                 src="/images/projects/fotballfeber/logo.png"
                 loading="lazy"
-                alt="FotballFeber Logo"
+                alt="Fotballfeber Logo"
                 class="select-none w-full"
             />
         </template>
         <template #default>
             <div class="leading-7 text-white/90 w-full">
-                <h2 class="text-2xl font-bold">FotballFeber</h2>
-                <p class="text-xl font-semibold text-[#55E9B5] break-words wrap">Online Community</p>
-                <p class="font-light italic text-sky-200 break-words wrap">Jan 2023 - Current</p>
+                <h2 class="text-2xl font-bold">Fotballfeber</h2>
+                <p class="text-xl font-semibold text-[#55E9B5] break-words wrap">Live · Online Community</p>
+                <p class="font-light italic text-sky-200 break-words wrap">Dec 2022 - Current</p>
                 <p class="font-light text-zinc-200 break-words wrap mt-2">
                     Founder, System Architect and Full-Stack Developer
                 </p>
