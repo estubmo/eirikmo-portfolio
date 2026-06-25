@@ -85,7 +85,7 @@ watch(
                     >Contact</NuxtLink
                 >
                 <a
-                    href="https://storage.mowebdev.com/main/Eirik_Mo_CV.pdf"
+                    href="/Eirik_Mo_CV.pdf"
                     target="_blank"
                     class="text-white-300 font-sm flex-nowrap border-zinc-100 hover:border-[#00040C] border rounded-md px-2 py-1 space-x-2 flex hover:bg-zinc-100 hover:text-[#00040C] transition-all duration-200 ease-in-out items-center"
                     download

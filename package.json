@@ -24,6 +24,7 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
+        "cv": "./cv/build.sh",
         "postinstall": "nuxt prepare",
         "update-deps": "bunx npm-check-updates --root --format group -i",
         "lint": "bun eslint \"src/**/*.{js,jsx,ts,tsx,md,vue}\"",
