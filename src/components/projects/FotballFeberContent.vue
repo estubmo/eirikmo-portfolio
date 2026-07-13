@@ -5,11 +5,11 @@ import FlyIoIcon from "../icons/FlyIoIcon.vue";
 import GitHubIcon from "../icons/GitHubIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import NodeJsIcon from "../icons/NodeJsIcon.vue";
-import PlanetscaleIcon from "../icons/PlanetscaleIcon.vue";
 import PlaywrightIcon from "../icons/PlaywrightIcon.vue";
+import PostgreSqlIcon from "../icons/PostgreSqlIcon.vue";
 import ReactIcon from "../icons/ReactIcon.vue";
 import RedisIcon from "../icons/RedisIcon.vue";
-import SqlIcon from "../icons/SqlIcon.vue";
+import SupabaseIcon from "../icons/SupabaseIcon.vue";
 import TailwindIcon from "../icons/TailwindIcon.vue";
 import TanstackIcon from "../icons/TanstackIcon.vue";
 import TrpcIcon from "../icons/TrpcIcon.vue";
@@ -80,14 +80,13 @@ import VitestIcon from "../icons/VitestIcon.vue";
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
             <p>
-                To keep the platform abuzz with the latest Norwegian football updates, I developed a method to source
-                articles from various Norwegian football news sites, leveraging their public APIs. This involves a
-                Python script for monitoring updates on the news sites. The articles go through a meticulous processing
-                pipeline with the aid of Upstash Redis, a NodeJS server, and an additional Redis database. An exposed
-                GUI, powered by Fastify, keeps things transparent, and it's all hosted on Railway. The articles find
-                their permanent home in a MySQL database hosted on Planetscale, and they are rapidly indexed in a
-                high-performance Meilisearch instance on Fly.io. This setup ensures seamless search and filtering for
-                users, offering an exceptional browsing experience.
+                To keep the platform abuzz with the latest Norwegian football updates, I built a pipeline that sources
+                articles from various Norwegian football news sites, leveraging their public APIs. A set of
+                Node.js/TypeScript crawler services monitor the news sites and run each article through a processing
+                pipeline built on Trigger.dev for background jobs and Upstash Redis. The articles find their permanent
+                home in a PostgreSQL database on Supabase, and they are rapidly indexed in a high-performance
+                Meilisearch instance. This setup ensures seamless search and filtering for users, offering an
+                exceptional browsing experience.
             </p>
         </div>
         <div
@@ -200,18 +199,18 @@ import VitestIcon from "../icons/VitestIcon.vue";
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Drizzle ORM</div>
                 </a>
 
-                <a href="https://www.mysql.com/" target="_blank" class="group flex flex-col items-center w-16">
+                <a href="https://www.postgresql.org/" target="_blank" class="group flex flex-col items-center w-16">
                     <div class="p-3 bg-gray-800 rounded-full">
-                        <SqlIcon :height="32" :width="32" />
+                        <PostgreSqlIcon :height="32" :width="32" />
                     </div>
-                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">MySQL</div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">PostgreSQL</div>
                 </a>
 
-                <a href="https://planetscale.com/" target="_blank" class="group flex flex-col items-center w-16">
+                <a href="https://supabase.com/" target="_blank" class="group flex flex-col items-center w-16">
                     <div class="p-3 bg-gray-800 rounded-full">
-                        <PlanetscaleIcon :height="32" :width="32" />
+                        <SupabaseIcon :height="32" :width="32" />
                     </div>
-                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Planetscale</div>
+                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Supabase</div>
                 </a>
 
                 <a href="https://turbo.build/repo" target="_blank" class="group flex flex-col items-center w-16">
