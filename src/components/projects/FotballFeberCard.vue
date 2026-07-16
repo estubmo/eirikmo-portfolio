@@ -3,7 +3,7 @@ import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import NodeJsIcon from "../icons/NodeJsIcon.vue";
-import SqlIcon from "../icons/SqlIcon.vue";
+import PostgreSqlIcon from "../icons/PostgreSqlIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
 import VercelIcon from "../icons/VercelIcon.vue";
 import TechIcon from "../TechIcon.vue";
@@ -54,8 +54,8 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
                 <NextJsIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
 
-            <TechIcon v-slot="slotProps" href="https://www.mysql.com/" name="MySQL" :size="24">
-                <SqlIcon :height="slotProps.height" :width="slotProps.width" />
+            <TechIcon v-slot="slotProps" href="https://www.postgresql.org/" name="PostgreSQL" :size="24">
+                <PostgreSqlIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
 
             <TechIcon v-slot="slotProps" href="https://nodejs.org/" name="Node.js" :size="24">
