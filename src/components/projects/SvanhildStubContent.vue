@@ -10,7 +10,6 @@ import RedisIcon from "../icons/RedisIcon.vue";
 import StripeIcon from "../icons/StripeIcon.vue";
 import TailwindIcon from "../icons/TailwindIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
-import VercelIcon from "../icons/VercelIcon.vue";
 </script>
 
 <template>
@@ -167,13 +166,6 @@ import VercelIcon from "../icons/VercelIcon.vue";
                         <DockerIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Docker</div>
-                </a>
-
-                <a href="https://vercel.com/" target="_blank" class="group flex flex-col items-center w-16">
-                    <div class="p-3 bg-gray-800 rounded-full">
-                        <VercelIcon :height="32" :width="32" />
-                    </div>
-                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vercel</div>
                 </a>
 
                 <a href="https://github.com/" target="_blank" class="flex flex-col items-center">

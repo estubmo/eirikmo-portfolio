@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import DockerIcon from "../icons/DockerIcon.vue";
 import DrizzleIcon from "../icons/DrizzleIcon.vue";
-import FlyIoIcon from "../icons/FlyIoIcon.vue";
 import GitHubIcon from "../icons/GitHubIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import NodeJsIcon from "../icons/NodeJsIcon.vue";
@@ -16,7 +15,6 @@ import TrpcIcon from "../icons/TrpcIcon.vue";
 import TurbopackIcon from "../icons/TurbopackIcon.vue";
 import TurborepoIcon from "../icons/TurborepoIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
-import VercelIcon from "../icons/VercelIcon.vue";
 import VitestIcon from "../icons/VitestIcon.vue";
 </script>
 
@@ -70,11 +68,12 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <p>
                 Building Fotballfeber from the ground up was a fascinating journey. I chose Next.js, React, and
                 TailwindCSS as the core technologies. Everything was meticulously organized in a monorepo using
-                Turborepo, and the website is seamlessly hosted on Vercel. For state management and data fetching, I
-                adopted Jotai and Tanstack Query. The UI is adorned with shadcn/ui, Radix UI, and Lucide icons, ensuring
-                a sleek and user-friendly experience. Wireframing involved low-fidelity designs created in Excalidraw
-                and high-fidelity wireframes crafted in Figma. Flowcharts and diagrams were illustrated using
-                Excalidraw.
+                Turborepo. The entire platform runs on infrastructure I operate myself: a Hetzner server managed with
+                Coolify, where every service is containerised with Docker and routed through Traefik. For state
+                management and data fetching, I adopted Jotai and Tanstack Query. The UI is adorned with shadcn/ui,
+                Radix UI, and Lucide icons, ensuring a sleek and user-friendly experience. Wireframing involved
+                low-fidelity designs created in Excalidraw and high-fidelity wireframes crafted in Figma. Flowcharts and
+                diagrams were illustrated using Excalidraw.
             </p>
         </div>
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
@@ -83,10 +82,10 @@ import VitestIcon from "../icons/VitestIcon.vue";
                 To keep the platform abuzz with the latest Norwegian football updates, I built a pipeline that sources
                 articles from various Norwegian football news sites, leveraging their public APIs. A set of
                 Node.js/TypeScript crawler services monitor the news sites and run each article through a processing
-                pipeline built on Trigger.dev for background jobs and Upstash Redis. The articles find their permanent
-                home in a PostgreSQL database on Supabase, and they are rapidly indexed in a high-performance
-                Meilisearch instance. This setup ensures seamless search and filtering for users, offering an
-                exceptional browsing experience.
+                pipeline built on Trigger.dev for background jobs and Redis. The articles find their permanent home in a
+                PostgreSQL database on Supabase, and they are rapidly indexed in a high-performance Meilisearch
+                instance. This setup ensures seamless search and filtering for users, offering an exceptional browsing
+                experience.
             </p>
         </div>
         <div
@@ -95,11 +94,11 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <NuxtImg
                 loading="lazy"
                 src="/images/projects/fotballfeber/screenshot002.webp"
-                alt="Fotballfeber — Gjett Spilleren, a daily guess-the-player game"
+                alt="Fotballfeber Gjett Spilleren, a daily guess-the-player game"
                 class="select-none w-full md:w-[150%] md:max-w-[150%] lg:w-[135%] lg:max-w-[135%] md:floating md:hover:floating-hover shadow-xl z-20"
             />
             <p class="text-sm italic text-zinc-400 text-center">
-                Gjett Spilleren — one of three interactive VM 2026 games
+                Gjett Spilleren, one of three interactive VM 2026 games
             </p>
         </div>
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
@@ -274,20 +273,6 @@ import VitestIcon from "../icons/VitestIcon.vue";
                         <PlaywrightIcon :height="32" :width="32" />
                     </div>
                     <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Playwright</div>
-                </a>
-
-                <a href="https://vercel.com/" target="_blank" class="group flex flex-col items-center w-16">
-                    <div class="p-3 bg-gray-800 rounded-full">
-                        <VercelIcon :height="32" :width="32" />
-                    </div>
-                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Vercel</div>
-                </a>
-
-                <a href="https://fly.io/" target="_blank" class="group flex flex-col items-center w-16">
-                    <div class="p-3 bg-gray-800 rounded-full">
-                        <FlyIoIcon :height="32" :width="32" />
-                    </div>
-                    <div class="text-xs text-zinc-200 font-medium group-hover:underline text-center">Fly.io</div>
                 </a>
 
                 <a href="https://github.com/" target="_blank" class="flex flex-col items-center">

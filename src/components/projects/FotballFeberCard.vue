@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
 import ExperienceCard from "../ExperienceCard.vue";
+import DockerIcon from "../icons/DockerIcon.vue";
 import NextJsIcon from "../icons/NextJsIcon.vue";
 import NodeJsIcon from "../icons/NodeJsIcon.vue";
 import PostgreSqlIcon from "../icons/PostgreSqlIcon.vue";
 import TypeScriptIcon from "../icons/TypeScriptIcon.vue";
-import VercelIcon from "../icons/VercelIcon.vue";
 import TechIcon from "../TechIcon.vue";
 
 const props = defineProps<{
@@ -62,8 +62,8 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
                 <NodeJsIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
 
-            <TechIcon v-slot="slotProps" href="https://vercel.com/" name="Vercel" :size="24">
-                <VercelIcon :height="slotProps.height" :width="slotProps.width" />
+            <TechIcon v-slot="slotProps" href="https://www.docker.com/" name="Docker" :size="24">
+                <DockerIcon :height="slotProps.height" :width="slotProps.width" />
             </TechIcon>
         </template>
     </ExperienceCard>
