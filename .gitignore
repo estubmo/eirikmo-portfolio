@@ -26,3 +26,6 @@ logs
 # Claude
 CLAUDE.md
 .gstack/
+
+# Serena
+.serena/

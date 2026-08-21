@@ -30,11 +30,14 @@ import SocialsComponent from "./SocialsComponent.vue";
             </svg>
         </div>
         <p v-motion-slide-visible-once-left-custom class="text-lg">
-            I am currently open to interesting remote projects
+            I am currently open to interesting remote projects, and available immediately.
         </p>
-        <p v-motion-slide-visible-once-left-custom class="text-lg">
-            I operate under the legal entity of Mo Web Dev AS.
-        </p>
+        <ul v-motion-slide-visible-once-left-custom class="text-zinc-300 space-y-1 mt-2">
+            <li>100% remote, based in Czechia on CET, the same working day as your team.</li>
+            <li>Happy to come on site for a week or two of onboarding or a workshop.</li>
+            <li>Norwegian citizen, resident in the EU. No visa or sponsorship needed.</li>
+            <li>B2B invoicing through my own company, Mo Web Dev AS. No agency margin.</li>
+        </ul>
         <div v-motion-slide-visible-once-left-custom>
             <p>Call me:</p>
             <a class="hover:underline font-mono" href="tel:+4797602278">+47 976 02 278</a>

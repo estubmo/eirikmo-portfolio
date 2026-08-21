@@ -284,6 +284,9 @@ import TechItem from "./TechItem.vue";
                     <FlyIoIcon :height="16" :width="16" />
                     Fly.io
                 </TechItem>
+                <TechItem>Coolify</TechItem>
+                <TechItem>Hetzner</TechItem>
+                <TechItem>Traefik</TechItem>
             </ul>
         </div>
         <div>
