@@ -39,7 +39,7 @@
                     &lt; Senior Full-Stack Engineer · AI-augmented />
                 </h1>
                 <p class="text-zinc-400 text-lg max-w-md">
-                    9+ years shipping for startups and scale-ups. I now build and operate entire systems solo, at
+                    10 years shipping for startups and scale-ups. I now build and operate entire systems solo, at
                     team-scale velocity, by orchestrating AI coding agents inside a disciplined engineering process.
                 </p>
                 <NuxtLink
