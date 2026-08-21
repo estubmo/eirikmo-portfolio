@@ -10,27 +10,23 @@
                 <div v-motion-slide-visible-once-right-custom class="size-3 bg-zinc-400 rounded-full" />
             </div>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-                I am a lifelong learner who enjoys exploring new technologies and approaches to web development. I am
-                also an avid traveler and language learner, and I enjoy lifting weights and hiking up sunny mountains in
-                my free time.
-            </p>
-            <p v-motion-slide-visible-once-right-custom class="md:text-lg">
                 I'm a senior full-stack engineer who ships and operates production software solo, at the output of a
                 small team and the quality bar of a senior one, by orchestrating AI coding agents inside a disciplined
-                process: specs, ADRs, architecture fitness functions, and CI-enforced quality. My live proof is
-                Fotballfeber.
+                process: specs, ADRs, architecture fitness functions, and CI-enforced quality.
             </p>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-                I currently operate under my company Mo Web Dev AS.
+                My live proof is Fotballfeber — a platform for Norwegian football fans I've built and operated alone
+                since 2022, and run in production ever since: 1168 merged pull requests, 4200+ commits, one developer.
             </p>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-                Furthermore, I'm privileged enough to do all of my work remotely. I can effectively communicate and
-                collaborate with clients and team members remotely. This allows me to take on projects from anywhere in
-                the world and deliver high-quality results.
+                I work through my own company, Mo Web Dev AS, fully remote and on CET. You get a senior engineer who
+                takes ownership of a defined delivery — no agency markup, no onboarding time.
+                <span class="text-yellow-300 font-medium">I'm currently available for new projects.</span>
             </p>
             <p v-motion-slide-visible-once-right-custom class="md:text-lg">
-                I also like to contribute to Open Source projects, fixing bugs or adding features when there's something
-                I need that is missing.
+                I am a lifelong learner who enjoys exploring new technologies and approaches to web development. I am
+                also an avid traveler and language learner, and I enjoy lifting weights and hiking up sunny mountains in
+                my free time. I contribute to open source when I need something that isn't there yet.
             </p>
 
             <div v-motion-slide-visible-once-right-custom class="mt-6 space-y-4">
