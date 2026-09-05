@@ -2,10 +2,10 @@
 import { useRouter } from "nuxt/app";
 import VueSimplebar from "simplebar-vue";
 import "simplebar-vue/dist/simplebar.min.css";
-import CanvasComponent from "~/components/CanvasComponent.vue";
+import CanvasBoundary from "~/components/CanvasBoundary.vue";
 import CoolConsoleLog from "~/components/CoolConsoleLog.vue";
 import type { ComputedRef, StyleValue } from "vue";
-import { computed, ref, watch } from "vue";
+import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { ModalsContainer } from "vue-final-modal";
 import ContactComponent from "./components/ContactComponent.vue";
 import ExpertiseComponent from "./components/ExpertiseComponent.vue";
@@ -40,6 +40,11 @@ type ModalSegment =
     | "cheffelo"
     | "adtube"
     | "webtop";
+
+// Loaded on demand so three.js, TresJS and the 1200-line scene stay out of the
+// entry chunk. A static import would still ship all of it to visitors whose
+// browser refuses WebGL, which is the case this fallback exists for.
+const CanvasComponent = defineAsyncComponent(() => import("~/components/CanvasComponent.vue"));
 
 const router = useRouter();
 
@@ -271,6 +276,60 @@ const onUpdateProgress = (prog: number) => {
 
 const onHasFinishedLoading = () => {
     hasFinishedLoading.value = true;
+};
+
+// Browsers with aggressive fingerprinting protection (Brave shields, Tor) and
+// machines with GPU acceleration off return null from getContext("webgl2").
+// three.js dropped its WebGL1 fallback in r163, so WebGLRenderer throws
+// "Error creating WebGL context." while TresCanvas mounts. Nuxt still has
+// handleVueError installed as app.config.errorHandler through the initial mount
+// (it removes it on app:suspense:resolve), so the throw becomes payload.error and
+// the whole site is replaced by the default 500 page.
+//
+// The 3D scene is decorative, so probe for the capability and drop the scene
+// rather than the site.
+const isWebGLSupported = ref(false);
+let hasReportedCanvasFailure = false;
+
+const disableCanvas = () => {
+    isWebGLSupported.value = false;
+    progress.value = 100;
+    hasFinishedLoading.value = true;
+};
+
+const supportsWebGL2 = () => {
+    if (typeof WebGL2RenderingContext === "undefined") return false;
+
+    try {
+        const context = document.createElement("canvas").getContext("webgl2");
+        if (!context) return false;
+
+        // A page gets a small number of WebGL contexts. Hand the probe's back
+        // straight away instead of waiting for the detached canvas to be collected,
+        // so it never competes with the one TresCanvas is about to ask for.
+        context.getExtension("WEBGL_lose_context")?.loseContext();
+        return true;
+    } catch {
+        // Some hardened browsers raise instead of returning null.
+        return false;
+    }
+};
+
+onMounted(() => {
+    if (supportsWebGL2()) isWebGLSupported.value = true;
+    else disableCanvas();
+});
+
+// The probe asks for a bare webgl2 context; three.js asks for one with specific
+// attributes and can still be refused after the probe passes. CanvasBoundary
+// catches that, and anything thrown while the scene tears itself down afterwards.
+const onCanvasFailed = (error: unknown) => {
+    if (!hasReportedCanvasFailure) {
+        hasReportedCanvasFailure = true;
+        console.warn("3D scene disabled:", error);
+    }
+
+    disableCanvas();
 };
 
 const onUpdateCurrentSegment = (segment: string) => {
@@ -594,39 +653,42 @@ const onUpdateCurrentSegment = (segment: string) => {
             <ModalsContainer />
 
             <ClientOnly>
-                <CanvasComponent
-                    :me-offset-top="meRef?.offsetTop || 0"
-                    :me-offset-height="meRef?.offsetHeight || 0"
-                    :expertise-offset-top="expertiseRef?.offsetTop || 0"
-                    :projects-offset-top="projectsRef?.offsetTop || 0"
-                    :top-offset-height="topRef?.offsetHeight || 0"
-                    :expertise-offset-height="expertiseRef?.offsetHeight || 0"
-                    :fotball-feber-offset-height="fotballFeberRef?.offsetHeight || 0"
-                    :svanhild-stub-offset-height="svanhildStubRef?.offsetHeight || 0"
-                    :ducky-offset-height="duckyRef?.offsetHeight || 0"
-                    :knitry-offset-height="knitryRef?.offsetHeight || 0"
-                    :signature-api-offset-height="signatureApiRef?.offsetHeight || 0"
-                    :cheffelo-offset-height="cheffeloRef?.offsetHeight || 0"
-                    :adtube-offset-height="adtubeRef?.offsetHeight || 0"
-                    :webtop-offset-height="webtopRef?.offsetHeight || 0"
-                    :fotball-feber-offset-top="fotballFeberRef?.offsetTop || 0"
-                    :svanhild-stub-offset-top="svanhildStubRef?.offsetTop || 0"
-                    :cheffelo-offset-top="cheffeloRef?.offsetTop || 0"
-                    :ducky-offset-top="duckyRef?.offsetTop || 0"
-                    :knitry-offset-top="knitryRef?.offsetTop || 0"
-                    :signature-api-offset-top="signatureApiRef?.offsetTop || 0"
-                    :adtube-offset-top="adtubeRef?.offsetTop || 0"
-                    :webtop-offset-top="webtopRef?.offsetTop || 0"
-                    :hover-target="hoverTargetRef"
-                    :is-modal-open="isModalOpenRef"
-                    :scroll-y="scrollY"
-                    :is-experience-modal-open="isExperienceModalOpenRef"
-                    :scroll-refs="scrollRefs"
-                    :current-segment="currentSegmentRef"
-                    @update-progress="onUpdateProgress"
-                    @has-finished-loading="onHasFinishedLoading"
-                    @update-current-segment="onUpdateCurrentSegment"
-                />
+                <CanvasBoundary @failed="onCanvasFailed">
+                    <CanvasComponent
+                        v-if="isWebGLSupported"
+                        :me-offset-top="meRef?.offsetTop || 0"
+                        :me-offset-height="meRef?.offsetHeight || 0"
+                        :expertise-offset-top="expertiseRef?.offsetTop || 0"
+                        :projects-offset-top="projectsRef?.offsetTop || 0"
+                        :top-offset-height="topRef?.offsetHeight || 0"
+                        :expertise-offset-height="expertiseRef?.offsetHeight || 0"
+                        :fotball-feber-offset-height="fotballFeberRef?.offsetHeight || 0"
+                        :svanhild-stub-offset-height="svanhildStubRef?.offsetHeight || 0"
+                        :ducky-offset-height="duckyRef?.offsetHeight || 0"
+                        :knitry-offset-height="knitryRef?.offsetHeight || 0"
+                        :signature-api-offset-height="signatureApiRef?.offsetHeight || 0"
+                        :cheffelo-offset-height="cheffeloRef?.offsetHeight || 0"
+                        :adtube-offset-height="adtubeRef?.offsetHeight || 0"
+                        :webtop-offset-height="webtopRef?.offsetHeight || 0"
+                        :fotball-feber-offset-top="fotballFeberRef?.offsetTop || 0"
+                        :svanhild-stub-offset-top="svanhildStubRef?.offsetTop || 0"
+                        :cheffelo-offset-top="cheffeloRef?.offsetTop || 0"
+                        :ducky-offset-top="duckyRef?.offsetTop || 0"
+                        :knitry-offset-top="knitryRef?.offsetTop || 0"
+                        :signature-api-offset-top="signatureApiRef?.offsetTop || 0"
+                        :adtube-offset-top="adtubeRef?.offsetTop || 0"
+                        :webtop-offset-top="webtopRef?.offsetTop || 0"
+                        :hover-target="hoverTargetRef"
+                        :is-modal-open="isModalOpenRef"
+                        :scroll-y="scrollY"
+                        :is-experience-modal-open="isExperienceModalOpenRef"
+                        :scroll-refs="scrollRefs"
+                        :current-segment="currentSegmentRef"
+                        @update-progress="onUpdateProgress"
+                        @has-finished-loading="onHasFinishedLoading"
+                        @update-current-segment="onUpdateCurrentSegment"
+                    />
+                </CanvasBoundary>
             </ClientOnly>
         </Body>
     </Html>
