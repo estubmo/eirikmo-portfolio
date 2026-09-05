@@ -1,8 +1,12 @@
 # Testing
 
-100% test coverage is the key to great vibe coding. Tests let you move fast, trust
-your instincts, and ship with confidence. Without them, vibe coding is just yolo
-coding. With them, it's a superpower.
+Tests let you move fast, trust your instincts, and ship with confidence. Without
+them, vibe coding is just yolo coding.
+
+The policy here is end-to-end only, and one regression test per bug fix, verified
+to fail without the fix. There is no coverage tooling and no coverage number to
+hit, because the failures this site actually suffers are browser runtime failures
+that a percentage would not have caught.
 
 ## Framework
 
@@ -41,27 +45,49 @@ whole site with a 500 page.
 
 ```
 tests/e2e/
-  smoke.spec.ts           hero, nav, no error page
-  webgl-fallback.spec.ts  the site still works with WebGL blocked
+  helpers.ts                   shared locators, hydration barrier, fault injection
+  smoke.spec.ts                hero, nav, and the scene mounting when WebGL works
+  webgl-fallback.spec.ts       the site still works with WebGL blocked
+  webgl-error-boundary.spec.ts the probe passes but context creation still fails
 ```
+
+`webgl-fallback.spec.ts` runs in `chromium-no-webgl`; the other two run in
+`chromium`.
 
 ## Conventions
 
 - One `describe` per behaviour, not per file.
 - Prefer role-based locators (`getByRole`, `getByText`) over CSS selectors.
 - Assert what the visitor sees, not implementation details.
-- Anything that depends on hydration must `await page.waitForLoadState("networkidle")`
-  first. Nuxt renders valid SSR markup and only swaps in the error page after the
-  client throws, so an assertion made too early passes with the bug still present.
+- Anything that depends on hydration must go through `expectSiteUsable()` from
+  `helpers.ts`, which waits on the nav (v-show'd on `hasFinishedLoading`, so only
+  client code can reveal it). Do not use `waitForLoadState("networkidle")`:
+  Playwright discourages it, and this page keeps fetching models, textures and
+  fonts long enough for it to resolve before hydration has thrown. Nuxt serves
+  valid SSR markup and only swaps in the error page afterwards, so an assertion
+  made too early passes with the bug fully present.
+- A negative assertion alone proves nothing. `not.toContainText(...)` is
+  auto-retrying, so it passes on its first poll, before hydration. Always anchor it
+  behind a positive assertion that can only hold post-hydration.
+- `toBeVisible()` ignores z-index occlusion. Asserting that content exists says
+  nothing about the full-screen loading overlay stacked on top of it, so assert the
+  overlay is hidden too. `expectSiteUsable()` does both.
 - When you assert a fallback path, assert that the fallback condition really holds
-  (`expect(hasWebGL2).toBe(false)`). Otherwise a broken test flag makes the test
-  pass without exercising anything.
+  (`expect(hasWebGL2).toBe(false)`, `expect(probeSucceeds).toBe(true)`). Otherwise a
+  broken test flag makes the test pass without exercising anything.
+- Every negative assertion needs a positive counterpart somewhere. `toHaveCount(0)`
+  on `canvas#canvas` is vacuously true if the selector stops matching, which is why
+  `smoke.spec.ts` asserts the scene does mount when WebGL works.
 
 ## Writing a regression test
 
 Every bug fix gets a test that fails without the fix. Verify both directions:
 
 ```bash
+# reuseExistingServer means a server already on :3123 is reused, stale build and
+# all. Skip this kill and the revert step silently tests the fixed build.
+kill $(ss -lptn 'sport = :3123' | grep -oP 'pid=\K[0-9]+' | sort -u)
+
 git stash push -- <fixed-file>   # revert the fix
 bun run test                     # must fail
 git stash pop                    # restore

@@ -9,7 +9,10 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
     workers: process.env.CI ? 1 : undefined,
-    reporter: process.env.CI ? "github" : "list",
+    // The github reporter writes no files. Without the html reporter, the CI
+    // artifact upload has nothing to collect and a failing run leaves nothing to
+    // debug from.
+    reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
     use: {
         baseURL,
         trace: "on-first-retry",
@@ -36,7 +39,12 @@ export default defineConfig({
         command: "bun run build && node .output/server/index.mjs",
         url: baseURL,
         env: { PORT: String(PORT) },
+        // Reuses whatever is already serving on this port, which keeps local
+        // iteration fast. It also means a stale server serves a stale build:
+        // stop it before verifying that a test fails without its fix. See
+        // TESTING.md.
         reuseExistingServer: !process.env.CI,
-        timeout: 300_000,
+        // A cold `nuxt build` of a three.js app on a shared CI runner is slow.
+        timeout: 600_000,
     },
 });
