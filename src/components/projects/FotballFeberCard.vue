@@ -42,6 +42,11 @@ const { onClick, onMouseOver, onMouseLeave } = toRefs(props);
                 <p class="font-light text-zinc-200 break-words wrap mt-2">
                     Founder, System Architect and Full-Stack Developer
                 </p>
+                <!-- Visible without opening the modal: this is the evidence that
+                     separates the profile from every other React contractor. -->
+                <p class="font-light text-sky-200/80 break-words wrap mt-1 text-sm">
+                    Self-hosted platform · 104 containers · prod and non-prod on Hetzner
+                </p>
             </div>
         </template>
 

@@ -50,3 +50,25 @@ test("the nav appears without waiting for the scene", async ({ page }) => {
 
     expect(readableAfter, `nav took ${readableAfter}ms to appear`).toBeLessThan(3_000);
 });
+
+test("the platform evidence is in the page without opening a modal", async ({ browser }) => {
+    // Server-rendered and visible on the card, because a skimming visitor will not
+    // click into a project to find the thing that differentiates the profile.
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+
+    await page.goto("/");
+
+    // On the card, visible while skimming. "104 containers" alone also matches the
+    // modal paragraph, which is display:none until opened.
+    await expect(page.getByText("Self-hosted platform")).toBeVisible();
+
+    // In the modal, server-rendered so crawlers and answer engines read it even
+    // though a visitor has to click for it. Located by text rather than by role:
+    // the modal container is aria-hidden until opened, so it is not in the
+    // accessibility tree even while its markup is in the response.
+    await expect(page.locator("h3", { hasText: "Running It In Production" })).toBeAttached();
+    await expect(page.getByText("two Hetzner hosts")).toBeAttached();
+
+    await context.close();
+});
