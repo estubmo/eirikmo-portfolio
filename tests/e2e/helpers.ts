@@ -65,3 +65,26 @@ export async function failWebGL2(page: Page, mode: Webgl2Failure) {
         } as typeof HTMLCanvasElement.prototype.getContext;
     }, mode);
 }
+
+/**
+ * The page scrolls inside a Simplebar container, not the window, so
+ * `window.scrollTo` and `mouse.wheel` do not move it.
+ *
+ * There is more than one `.simplebar-content-wrapper` on the page (the modals
+ * bring their own), and the first in document order is a collapsed one, so pick
+ * the instance that actually scrolls rather than the first match.
+ */
+export async function scrollTo(page: Page, offset: number) {
+    await page.evaluate((top) => {
+        const scroller = [...document.querySelectorAll(".simplebar-content-wrapper")].find(
+            (element) => element.scrollHeight > element.clientHeight,
+        );
+
+        scroller?.scrollTo({ top, behavior: "instant" });
+    }, offset);
+}
+
+/** A nav link is active when it carries text-zinc-100 rather than text-zinc-400. */
+export function activeNavLink(page: Page, name: string) {
+    return page.locator(`nav a.text-zinc-100`, { hasText: name });
+}

@@ -28,7 +28,7 @@ export default defineConfig({
             // acceleration off, return null from getContext("webgl2").
             // --disable-3d-apis reproduces that exactly.
             name: "chromium-no-webgl",
-            testMatch: /webgl-fallback\.spec\.ts/,
+            testMatch: /(webgl-fallback|navigation)\.spec\.ts/,
             use: {
                 ...devices["Desktop Chrome"],
                 launchOptions: { args: ["--disable-3d-apis"] },

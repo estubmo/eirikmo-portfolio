@@ -4,6 +4,7 @@ import VueSimplebar from "simplebar-vue";
 import "simplebar-vue/dist/simplebar.min.css";
 import CanvasBoundary from "~/components/CanvasBoundary.vue";
 import CoolConsoleLog from "~/components/CoolConsoleLog.vue";
+import { useCurrentSegment } from "~/composables/useCurrentSegment";
 import type { ComputedRef, StyleValue } from "vue";
 import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { ModalsContainer } from "vue-final-modal";
@@ -89,6 +90,17 @@ const scrollRefs = [
 ];
 
 const currentSegmentRef = ref<string>("top");
+
+// Derived from scroll position rather than emitted by the 3D scene, so the nav
+// highlight keeps working when the canvas is not mounted. Clicking a nav link
+// still writes currentSegmentRef directly; this watch takes over again as soon as
+// the visitor scrolls.
+const headerHeight = computed(() => topRef.value?.offsetHeight ?? 0);
+const scrolledSegment = useCurrentSegment(scrollY, scrollRefs, headerHeight);
+
+watch(scrolledSegment, (segment) => {
+    if (segment) currentSegmentRef.value = segment;
+});
 
 const simpleBarRef = ref(null);
 const isModalOpenRef = ref(false);
@@ -323,6 +335,22 @@ onMounted(() => {
 // The probe asks for a bare webgl2 context; three.js asks for one with specific
 // attributes and can still be refused after the probe passes. CanvasBoundary
 // catches that, and anything thrown while the scene tears itself down afterwards.
+// The reveal sequence is paced for the 3D scene fading in behind it. With no
+// canvas there is nothing to wait for, and the overlay is the same colour as the
+// page underneath, so the stock delays just show a black screen for ~2s and read
+// as a hang.
+const revealClasses = computed(() =>
+    isWebGLSupported.value
+        ? {
+              overlayLeave: "opacity-0 transition-opacity duration-1000 delay-1000",
+              chromeEnter: "delay-[2000ms] duration-[2000ms] ease-in-out opacity-0",
+          }
+        : {
+              overlayLeave: "opacity-0 transition-opacity duration-200",
+              chromeEnter: "duration-300 ease-in-out opacity-0",
+          },
+);
+
 const onCanvasFailed = (error: unknown) => {
     if (!hasReportedCanvasFailure) {
         hasReportedCanvasFailure = true;
@@ -330,10 +358,6 @@ const onCanvasFailed = (error: unknown) => {
     }
 
     disableCanvas();
-};
-
-const onUpdateCurrentSegment = (segment: string) => {
-    currentSegmentRef.value = segment;
 };
 </script>
 
@@ -398,10 +422,7 @@ const onUpdateCurrentSegment = (segment: string) => {
             <VueSimplebar ref="simpleBarRef" class="h-screen" :onScroll="onScroll">
                 <div ref="containerRef" class="flex justify-center">
                     <div class="w-full px-2 text-zinc-200 max-w-screen-3xl">
-                        <Transition
-                            enter-active-class="delay-[2000ms] duration-[2000ms] ease-in-out opacity-0"
-                            enter-to-class="opacity-100"
-                        >
+                        <Transition :enter-active-class="revealClasses.chromeEnter" enter-to-class="opacity-100">
                             <NavBarComponent
                                 v-show="hasFinishedLoading"
                                 :current-segment="currentSegmentRef"
@@ -409,10 +430,7 @@ const onUpdateCurrentSegment = (segment: string) => {
                                 :is-modal-open="isModalOpenRef"
                             />
                         </Transition>
-                        <Transition
-                            enter-active-class="delay-[2000ms] duration-[2000ms] ease-in-out opacity-0"
-                            enter-to-class="opacity-100"
-                        >
+                        <Transition :enter-active-class="revealClasses.chromeEnter" enter-to-class="opacity-100">
                             <div
                                 v-show="hasFinishedLoading"
                                 class="hidden md:flex flex-col fixed bottom-0 left-0 space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
@@ -582,7 +600,7 @@ const onUpdateCurrentSegment = (segment: string) => {
                     <Transition
                         name="fade-overlay"
                         enter-active-class="opacity-1 transition-opacity duration-1000"
-                        leave-active-class="opacity-0 transition-opacity duration-1000 delay-1000"
+                        :leave-active-class="revealClasses.overlayLeave"
                     >
                         <div
                             v-show="!hasFinishedLoading"
@@ -682,11 +700,8 @@ const onUpdateCurrentSegment = (segment: string) => {
                         :is-modal-open="isModalOpenRef"
                         :scroll-y="scrollY"
                         :is-experience-modal-open="isExperienceModalOpenRef"
-                        :scroll-refs="scrollRefs"
-                        :current-segment="currentSegmentRef"
                         @update-progress="onUpdateProgress"
                         @has-finished-loading="onHasFinishedLoading"
-                        @update-current-segment="onUpdateCurrentSegment"
                     />
                 </CanvasBoundary>
             </ClientOnly>
