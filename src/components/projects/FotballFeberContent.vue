@@ -79,7 +79,7 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <p>
                 Fotballfeber is not a demo. It has been live since 2022, and I am the one who gets paged when it breaks.
                 It runs on hardware I rent and operate myself: two Hetzner hosts with production and non-production
-                separated, and 104 containers in production.
+                separated, and 104 containers in production, for €65.60 a month.
             </p>
             <p>
                 Almost every service is self-hosted rather than bought. Supabase, Trigger.dev, Meilisearch, Novu, Flipt

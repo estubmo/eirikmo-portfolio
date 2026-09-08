@@ -69,6 +69,7 @@ test("the platform evidence is in the page without opening a modal", async ({ br
     // accessibility tree even while its markup is in the response.
     await expect(page.locator("h3", { hasText: "Running It In Production" })).toBeAttached();
     await expect(page.getByText("two Hetzner hosts")).toBeAttached();
+    await expect(page.getByText("€65.60 a month")).toBeAttached();
 
     await context.close();
 });
