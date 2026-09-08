@@ -6,7 +6,9 @@ test("renders the hero and navigation", async ({ page }) => {
 
     await expectSiteUsable(page);
     await expect(navLink(page, "Expertise")).toBeVisible();
-    await expect(page.getByText("Open to remote contract work")).toBeVisible();
+    await expect(page.getByText("Available now")).toBeVisible();
+    await expect(page.getByText("From 90 EUR/h")).toBeVisible();
+    await expect(page.getByText("B2B via Mo Web Dev AS")).toBeVisible();
 });
 
 test("mounts the 3D scene when WebGL is available", async ({ page }) => {

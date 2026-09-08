@@ -35,12 +35,12 @@
                     <div class="size-3 bg-zinc-400 rounded-sm" />
                     <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
                 </div>
-                <h1 class="font-mono text-zinc-200 font-light text-xl">
-                    &lt; Senior Full-Stack Engineer · AI-augmented />
+                <h1 class="font-mono text-zinc-200 font-light text-lg lg:text-xl text-balance">
+                    &lt; Senior Full-Stack Engineer · React · Next.js · TypeScript · Node.js />
                 </h1>
                 <p class="text-zinc-400 text-lg max-w-md">
-                    10 years shipping for startups and scale-ups. I now build and operate entire systems solo, at
-                    team-scale velocity, by orchestrating AI coding agents inside a disciplined engineering process.
+                    10 years shipping for startups and scale-ups. I build and operate the whole thing: application,
+                    infrastructure, deploys, on-call.
                 </p>
                 <NuxtLink
                     href="#contact"
@@ -52,8 +52,19 @@
                         ></span>
                         <span class="relative inline-flex rounded-full size-2 bg-green-500"></span>
                     </span>
-                    <span class="text-green-400 text-sm font-medium">Open to remote contract work (CET)</span>
+                    <span class="text-green-400 text-sm font-medium">Available now · Remote, CET</span>
                 </NuxtLink>
+                <!-- Separator sits before each item rather than between them, so a wrapped
+                     line never ends on a dangling dot. -->
+                <ul class="flex flex-wrap items-center gap-y-1 font-mono text-sm text-zinc-400">
+                    <li
+                        v-for="fact in ['From 90 EUR/h', 'B2B via Mo Web Dev AS']"
+                        :key="fact"
+                        class="before:mx-3 before:text-zinc-600 before:content-['·'] first:before:hidden"
+                    >
+                        {{ fact }}
+                    </li>
+                </ul>
             </div>
             <div class="space-y-4">
                 <div class="gap-3 flex">

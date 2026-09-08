@@ -23,7 +23,7 @@ import {
     TextureLoader,
     Vector3,
 } from "three";
-import { computed, onUnmounted, reactive, ref, shallowRef, toRefs, watch } from "vue";
+import { computed, reactive, ref, shallowRef, toRefs, watch } from "vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -151,8 +151,6 @@ const param = {
     lookAtSmoothing: 0.15,
 };
 
-const emit = defineEmits(["updateProgress", "hasFinishedLoading"]);
-
 // Load textures using Three.js TextureLoader
 const textureLoader = new TextureLoader();
 const alphaTextureState = shallowRef<Texture | null>(null);
@@ -166,11 +164,8 @@ const cheffeloTextureState = shallowRef<Texture | null>(null);
 const adtubeTextureState = shallowRef<Texture | null>(null);
 const webtopTextureState = shallowRef<Texture | null>(null);
 
-const loadingProgress = ref(0);
-
-// One entry per texture. The count used to be hardcoded at 7 against 10 loads, so
-// hasFinishedLoading fired three textures early and loadingProgress ran to 142%,
-// which drove the loading bar's width negative.
+// One entry per texture, so the settled count cannot drift from reality the way a
+// hardcoded total did.
 const textureSources: Array<{ state: typeof alphaTextureState; url: string }> = [
     { state: alphaTextureState, url: "/textures/eirik/alpha.jpg" },
     { state: eirikTextureState, url: "/textures/eirik/eirik.webp" },
@@ -184,29 +179,12 @@ const textureSources: Array<{ state: typeof alphaTextureState; url: string }> = 
     { state: webtopTextureState, url: "/textures/work/webtop/webtop-repeat.jpg" },
 ];
 
-// The site is hidden behind a full-screen overlay until this fires, so it has to
-// fire exactly once no matter how the loads turn out.
-let hasFinishedLoading = false;
-let loadingWatchdog: ReturnType<typeof setTimeout> | undefined;
+// Counts loads and failures alike, so one missing texture costs one surface
+// rather than wedging the whole scene.
 const settledTextures = ref(0);
-
-const finishLoading = () => {
-    if (hasFinishedLoading) return;
-    hasFinishedLoading = true;
-    clearTimeout(loadingWatchdog);
-    loadingWatchdog = undefined;
-
-    loadingProgress.value = 100;
-    emit("updateProgress", 100);
-    emit("hasFinishedLoading");
-};
 
 const onTextureSettled = () => {
     settledTextures.value++;
-    loadingProgress.value = (settledTextures.value / textureSources.length) * 100;
-    emit("updateProgress", loadingProgress.value);
-
-    if (settledTextures.value === textureSources.length) finishLoading();
 };
 
 for (const { state, url } of textureSources) {
@@ -218,28 +196,14 @@ for (const { state, url } of textureSources) {
         },
         undefined,
         () => {
-            // A 404 or a CDN failure must not hold the whole site hostage. The
-            // affected surface falls back to its material colour.
+            // A 404 or a CDN failure must not wedge the scene. The affected
+            // surface falls back to its material colour.
             console.warn(`Texture failed to load, continuing without it: ${url}`);
             onTextureSettled();
         },
     );
 }
 
-// three.js reports errors but never reports a request that simply hangs, so a
-// stalled texture would leave the overlay up forever. Reveal the site regardless.
-const LOADING_TIMEOUT_MS = 10_000;
-
-loadingWatchdog = setTimeout(() => {
-    console.warn(
-        `Textures still loading after ${LOADING_TIMEOUT_MS}ms (${settledTextures.value}/${textureSources.length}); showing the site anyway.`,
-    );
-    finishLoading();
-}, LOADING_TIMEOUT_MS);
-
-onUnmounted(() => clearTimeout(loadingWatchdog));
-
-// Check if all textures are loaded
 // True once every texture has settled, loaded or failed. Keying this on all ten
 // refs being non-null would wedge the scene permanently on a single 404.
 const texturesLoaded = computed(() => settledTextures.value === textureSources.length);

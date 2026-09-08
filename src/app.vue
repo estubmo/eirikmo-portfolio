@@ -5,7 +5,6 @@ import "simplebar-vue/dist/simplebar.min.css";
 import CanvasBoundary from "~/components/CanvasBoundary.vue";
 import CoolConsoleLog from "~/components/CoolConsoleLog.vue";
 import { useCurrentSegment } from "~/composables/useCurrentSegment";
-import type { ComputedRef, StyleValue } from "vue";
 import { computed, defineAsyncComponent, onMounted, ref, watch } from "vue";
 import { ModalsContainer } from "vue-final-modal";
 import ContactComponent from "./components/ContactComponent.vue";
@@ -52,8 +51,7 @@ const router = useRouter();
 const containerRef = ref<HTMLElement>();
 
 const scrollY = ref(0);
-const progress = ref(0);
-const hasFinishedLoading = ref(false);
+const isAppReady = ref(false);
 
 // Scroll Refs
 const topRef = ref<HTMLElement>();
@@ -120,20 +118,6 @@ const isExperienceModalOpenRef = ref({
     webtop: false,
 });
 
-const fillerStyles: ComputedRef<StyleValue> = computed(() => {
-    return {
-        height: "14px",
-        minWidth: "14px",
-        width: `${100 - progress.value}%`,
-        paddingLeft: "2px",
-        paddingRight: "2px",
-        backgroundColor: "#e8e8e8",
-        transition: "width 500ms ease-in-out",
-        borderRadius: "inherit",
-        textAlign: "right",
-    };
-});
-
 const openModalBySegment = (segment: ModalSegment) => {
     if (segment === "fotballfeber") {
         isExperienceModalOpenRef.value.fotballfeber = true;
@@ -189,7 +173,7 @@ const onFirstLoad = () => {
         scrollRefs.forEach((ref) => {
             if (ref.value?.id === segment) {
                 currentSegmentRef.value = segment;
-                if (hasFinishedLoading.value) {
+                if (isAppReady.value) {
                     setTimeout(() => {
                         ref.value?.scrollIntoView({ behavior: "smooth" });
                         openModalBySegment(segment as ModalSegment);
@@ -212,8 +196,8 @@ watch(
 
 watch(router.currentRoute.value, handleHashChange);
 
-watch(hasFinishedLoading, (hasFinishedLoading) => {
-    if (hasFinishedLoading) {
+watch(isAppReady, (isAppReady) => {
+    if (isAppReady) {
         onFirstLoad();
     }
 });
@@ -282,12 +266,8 @@ const onScroll = (event: Event & { target: { scrollTop: number } }) => {
     scrollY.value = event.target?.scrollTop;
 };
 
-const onUpdateProgress = (prog: number) => {
-    progress.value = prog;
-};
-
 const onHasFinishedLoading = () => {
-    hasFinishedLoading.value = true;
+    isAppReady.value = true;
 };
 
 // Browsers with aggressive fingerprinting protection (Brave shields, Tor) and
@@ -305,8 +285,6 @@ let hasReportedCanvasFailure = false;
 
 const disableCanvas = () => {
     isWebGLSupported.value = false;
-    progress.value = 100;
-    hasFinishedLoading.value = true;
 };
 
 const supportsWebGL2 = () => {
@@ -328,6 +306,10 @@ const supportsWebGL2 = () => {
 };
 
 onMounted(() => {
+    // Nothing is gated on the 3D scene any more, so the site is usable the moment
+    // the client mounts. The scene fades in behind it whenever it is ready.
+    isAppReady.value = true;
+
     if (supportsWebGL2()) isWebGLSupported.value = true;
     else disableCanvas();
 });
@@ -335,22 +317,6 @@ onMounted(() => {
 // The probe asks for a bare webgl2 context; three.js asks for one with specific
 // attributes and can still be refused after the probe passes. CanvasBoundary
 // catches that, and anything thrown while the scene tears itself down afterwards.
-// The reveal sequence is paced for the 3D scene fading in behind it. With no
-// canvas there is nothing to wait for, and the overlay is the same colour as the
-// page underneath, so the stock delays just show a black screen for ~2s and read
-// as a hang.
-const revealClasses = computed(() =>
-    isWebGLSupported.value
-        ? {
-              overlayLeave: "opacity-0 transition-opacity duration-1000 delay-1000",
-              chromeEnter: "delay-[2000ms] duration-[2000ms] ease-in-out opacity-0",
-          }
-        : {
-              overlayLeave: "opacity-0 transition-opacity duration-200",
-              chromeEnter: "duration-300 ease-in-out opacity-0",
-          },
-);
-
 const onCanvasFailed = (error: unknown) => {
     if (!hasReportedCanvasFailure) {
         hasReportedCanvasFailure = true;
@@ -367,11 +333,11 @@ const onCanvasFailed = (error: unknown) => {
             <Meta charset="UTF-8" />
             <Meta
                 name="description"
-                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) available for remote contract work. 9+ years with React, Next.js, Node.js, TypeScript, GCP. Ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com."
+                content="Senior full-stack engineer, 10 years. React, Next.js, TypeScript, Node.js. Builds and operates production systems end to end, application through infrastructure. Available now for remote contract work, CET, from 90 EUR/h. B2B via Mo Web Dev AS."
             />
             <Meta
                 name="keywords"
-                content="Senior Full-Stack Engineer, AI-augmented Developer, AI Engineer, React Developer, Next.js Developer, TypeScript, Node.js, GCP, DevOps Engineer, Remote Developer, Contract Engineer, Freelance Developer, Norway"
+                content="Senior Full-Stack Engineer, React Developer, Next.js Developer, TypeScript, Node.js, Platform Engineering, Self-Hosted Infrastructure, Docker, Remote Developer, Contract Engineer, Freelance Developer, Norway, CET"
             />
             <Meta name="viewport" content="width=device-width, initial-scale=1" interactive-widget="overlays-content" />
             <Link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -382,32 +348,32 @@ const onCanvasFailed = (error: unknown) => {
 
             <Meta name="msapplication-TileColor" content="#223d4a" />
             <Meta name="theme-color" content="#223d4a" />
-            <Title>Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract</Title>
+            <Title>Eirik Mo · Senior Full-Stack Engineer · React, Next.js, TypeScript, Node.js</Title>
 
             <Meta
                 property="og:title"
-                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract"
+                content="Eirik Mo · Senior Full-Stack Engineer · React, Next.js, TypeScript, Node.js"
             />
             <Meta
                 property="og:description"
-                content="Senior full-stack engineer (React, Next.js, TypeScript, Node, GCP) who ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com. Open to remote contract work, CET."
+                content="Senior full-stack engineer, 10 years. React, Next.js, TypeScript, Node.js. Builds and operates production systems end to end. Available now, remote, CET, from 90 EUR/h."
             />
             <Meta property="og:type" content="website" />
             <Meta property="og:url" content="https://mowebdev.com" />
             <Meta property="og:image" content="https://mowebdev.com/images/ogImage.webp" />
             <Meta
                 property="og:image:alt"
-                content="Eirik Mo - Senior Full-Stack Engineer, AI-augmented remote development"
+                content="Eirik Mo, senior full-stack engineer, available for remote contract work"
             />
 
             <Meta
                 property="twitter:title"
-                content="Eirik Mo - Senior Full-Stack Engineer (AI-augmented) | Open to Remote Contract"
+                content="Eirik Mo · Senior Full-Stack Engineer · React, Next.js, TypeScript, Node.js"
             />
             <Meta name="twitter:creator" content="@eirikm0" />
             <Meta
                 property="twitter:description"
-                content="Senior full-stack engineer (React, Next.js, TypeScript, Node, GCP) who ships production software solo at team-scale velocity using disciplined AI-agent orchestration. Live proof: Fotballfeber.com. Open to remote contract work, CET."
+                content="Senior full-stack engineer, 10 years. React, Next.js, TypeScript, Node.js. Builds and operates production systems end to end. Available now, remote, CET, from 90 EUR/h."
             />
             <Meta property="twitter:image" content="https://mowebdev.com/images/ogImage.webp" />
             <Meta property="twitter:card" content="summary" />
@@ -422,17 +388,23 @@ const onCanvasFailed = (error: unknown) => {
             <VueSimplebar ref="simpleBarRef" class="h-screen" :onScroll="onScroll">
                 <div ref="containerRef" class="flex justify-center">
                     <div class="w-full px-2 text-zinc-200 max-w-screen-3xl">
-                        <Transition :enter-active-class="revealClasses.chromeEnter" enter-to-class="opacity-100">
+                        <Transition
+                            enter-active-class="duration-500 ease-in-out opacity-0"
+                            enter-to-class="opacity-100"
+                        >
                             <NavBarComponent
-                                v-show="hasFinishedLoading"
+                                v-show="isAppReady"
                                 :current-segment="currentSegmentRef"
                                 :scroll-y="scrollY"
                                 :is-modal-open="isModalOpenRef"
                             />
                         </Transition>
-                        <Transition :enter-active-class="revealClasses.chromeEnter" enter-to-class="opacity-100">
+                        <Transition
+                            enter-active-class="duration-500 ease-in-out opacity-0"
+                            enter-to-class="opacity-100"
+                        >
                             <div
-                                v-show="hasFinishedLoading"
+                                v-show="isAppReady"
                                 class="hidden md:flex flex-col fixed bottom-0 left-0 space-y-6 font-light px-3 lg:px-5 text-zinc-400 z-50"
                             >
                                 <SocialsComponent />
@@ -596,73 +568,57 @@ const onCanvasFailed = (error: unknown) => {
                             <FooterComponent />
                         </main>
                     </div>
-
-                    <Transition
-                        name="fade-overlay"
-                        enter-active-class="opacity-1 transition-opacity duration-1000"
-                        :leave-active-class="revealClasses.overlayLeave"
-                    >
-                        <div
-                            v-show="!hasFinishedLoading"
-                            class="fixed bg-[#00040C] inset-0 size-full text-center flex flex-col justify-center items-center z-[80]"
-                        >
-                            <div class="max-w-xl" :style="fillerStyles"></div>
-                        </div>
-                    </Transition>
                 </div>
             </VueSimplebar>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.fotballfeber"
+                :show="isAppReady && isExperienceModalOpenRef.fotballfeber"
                 :close="() => toggleExperienceModal('fotballfeber')"
             >
                 <FotballFeberContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.svanhildstub"
+                :show="isAppReady && isExperienceModalOpenRef.svanhildstub"
                 :close="() => toggleExperienceModal('svanhildstub')"
             >
                 <SvanhildStubContent />
             </MyModal>
 
-            <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.ducky"
-                :close="() => toggleExperienceModal('ducky')"
-            >
+            <MyModal :show="isAppReady && isExperienceModalOpenRef.ducky" :close="() => toggleExperienceModal('ducky')">
                 <DuckyContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.knitry"
+                :show="isAppReady && isExperienceModalOpenRef.knitry"
                 :close="() => toggleExperienceModal('knitry')"
             >
                 <KnitryContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.signatureApi"
+                :show="isAppReady && isExperienceModalOpenRef.signatureApi"
                 :close="() => toggleExperienceModal('signatureApi')"
             >
                 <SignatureApiContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.cheffelo"
+                :show="isAppReady && isExperienceModalOpenRef.cheffelo"
                 :close="() => toggleExperienceModal('cheffelo')"
             >
                 <CheffeloContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.adtube"
+                :show="isAppReady && isExperienceModalOpenRef.adtube"
                 :close="() => toggleExperienceModal('adtube')"
             >
                 <AdtubeContent />
             </MyModal>
 
             <MyModal
-                :show="hasFinishedLoading && isExperienceModalOpenRef.webtop"
+                :show="isAppReady && isExperienceModalOpenRef.webtop"
                 :close="() => toggleExperienceModal('webtop')"
             >
                 <WebtopContent />
@@ -700,7 +656,6 @@ const onCanvasFailed = (error: unknown) => {
                         :is-modal-open="isModalOpenRef"
                         :scroll-y="scrollY"
                         :is-experience-modal-open="isExperienceModalOpenRef"
-                        @update-progress="onUpdateProgress"
                         @has-finished-loading="onHasFinishedLoading"
                     />
                 </CanvasBoundary>
