@@ -35,9 +35,10 @@
                     <div class="size-3 bg-zinc-400 rounded-sm" />
                     <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
                 </div>
-                <h1 class="font-mono text-zinc-200 font-light text-lg lg:text-xl text-balance">
-                    &lt; Senior Full-Stack Engineer · React · Next.js · TypeScript · Node.js />
-                </h1>
+                <h1 class="font-mono text-zinc-200 font-light text-xl">&lt; Senior Full-Stack Engineer /&gt;</h1>
+                <!-- Subordinate to the role, but still in the first screen: recruiters
+                     scan for stack keywords before anything else. -->
+                <p class="font-mono text-sm tracking-wide text-sky-200/70">React · Next.js · TypeScript · Node.js</p>
                 <p class="text-zinc-400 text-lg max-w-md">
                     10 years shipping for startups and scale-ups. I build and operate the whole thing: application,
                     infrastructure, deploys, on-call.
@@ -56,11 +57,16 @@
                 </NuxtLink>
                 <!-- Separator sits before each item rather than between them, so a wrapped
                      line never ends on a dangling dot. -->
-                <ul class="flex flex-wrap items-center gap-y-1 font-mono text-sm text-zinc-400">
+                <!-- Stacked on narrow, inline on wider. The separator sits before each item so a
+                     wrapped line never ends on a dangling dot, and it is dropped entirely when
+                     the items are already on their own lines. -->
+                <ul
+                    class="flex flex-col gap-y-0.5 font-mono text-sm text-zinc-400 sm:flex-row sm:flex-wrap sm:items-center"
+                >
                     <li
                         v-for="fact in ['From 90 EUR/h', 'B2B via Mo Web Dev AS']"
                         :key="fact"
-                        class="before:mx-3 before:text-zinc-600 before:content-['·'] first:before:hidden"
+                        class="sm:before:mx-3 sm:before:text-zinc-600 sm:before:content-['·'] sm:first:before:hidden"
                     >
                         {{ fact }}
                     </li>

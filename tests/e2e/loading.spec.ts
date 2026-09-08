@@ -15,6 +15,7 @@ test("the hero is readable with JavaScript disabled", async ({ browser }) => {
 
     await expect(nameHeading(page)).toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Senior Full-Stack Engineer");
+    await expect(page.getByText("React · Next.js · TypeScript · Node.js")).toBeVisible();
     await expect(page.getByText("Available now")).toBeVisible();
     await expect(page.getByText("From 90 EUR/h")).toBeVisible();
 
