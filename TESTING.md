@@ -49,10 +49,13 @@ tests/e2e/
   smoke.spec.ts                hero, nav, and the scene mounting when WebGL works
   webgl-fallback.spec.ts       the site still works with WebGL blocked
   webgl-error-boundary.spec.ts the probe passes but context creation still fails
+  loading.spec.ts              failed and hung textures still reveal the site
+  navigation.spec.ts           the nav highlight follows the visitor on scroll
 ```
 
-`webgl-fallback.spec.ts` runs in `chromium-no-webgl`; the other two run in
-`chromium`.
+`webgl-fallback.spec.ts` runs only in `chromium-no-webgl`. `navigation.spec.ts`
+runs in both, because the nav highlight is exactly what used to break without a
+canvas. Everything else runs in `chromium`.
 
 ## Conventions
 
@@ -75,6 +78,15 @@ tests/e2e/
 - When you assert a fallback path, assert that the fallback condition really holds
   (`expect(hasWebGL2).toBe(false)`, `expect(probeSucceeds).toBe(true)`). Otherwise a
   broken test flag makes the test pass without exercising anything.
+- To observe a value that changes faster than you can poll, record it with a
+  `MutationObserver` installed via `addInitScript` and read it back at the end.
+  Polling either raced past the interesting values or blew the test timeout. Note
+  that `document.documentElement` can still be null that early; observe `document`.
+- Playwright runs route handlers one at a time, so per-route delays accumulate.
+  Ten routes at 100ms is 4.5s of wall clock, not 100ms.
+- The page scrolls inside Simplebar, not the window, and there is more than one
+  `.simplebar-content-wrapper`. Use `scrollTo()` from `helpers.ts`, which picks the
+  instance that actually scrolls.
 - Every negative assertion needs a positive counterpart somewhere. `toHaveCount(0)`
   on `canvas#canvas` is vacuously true if the selector stops matching, which is why
   `smoke.spec.ts` asserts the scene does mount when WebGL works.
@@ -87,12 +99,23 @@ Every bug fix gets a test that fails without the fix. Verify both directions:
 # reuseExistingServer means a server already on :3123 is reused, stale build and
 # all. Skip this kill and the revert step silently tests the fixed build.
 kill $(ss -lptn 'sport = :3123' | grep -oP 'pid=\K[0-9]+' | sort -u)
+rm -rf .output
 
-git stash push -- <fixed-file>   # revert the fix
-bun run test                     # must fail
-git stash pop                    # restore
-bun run test                     # must pass
+cp src/some/file.vue /tmp/fixed          # keep the fix
+git show HEAD:src/some/file.vue > src/some/file.vue
+bun run test                             # must fail
+cp /tmp/fixed src/some/file.vue          # restore
+bun run test                             # must pass
 ```
+
+Copy the file aside rather than using `git stash`: stash refuses to run when other
+files in the tree are intent-to-add (`git add -N`), and it fails loudly enough to
+be missed in a long test log.
+
+Prefer reverting one behaviour at a time over reverting a whole file. Reverting a
+file wholesale can change an unrelated prop contract and make the run fail for the
+wrong reason, which proves nothing. Each of the three fixes in `loading.spec.ts`
+and `navigation.spec.ts` was verified by mutating exactly one line or block.
 
 Never import secrets or credentials into a test file.
 

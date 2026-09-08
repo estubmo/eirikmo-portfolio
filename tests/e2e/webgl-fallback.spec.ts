@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { expectSiteUsable, scene } from "./helpers";
+import { expectSiteUsable, loadingOverlay, scene } from "./helpers";
 
 // Regression test for the Brave 500 page.
 //
@@ -31,6 +31,20 @@ test.describe("WebGL unavailable", () => {
         // expectSiteUsable asserts the overlay is gone, not merely that content
         // exists underneath it.
         await expectSiteUsable(page);
+    });
+
+    test("reveals the site promptly instead of holding a black screen", async ({ page }) => {
+        // The stock reveal is paced for the 3D scene fading in behind the overlay:
+        // the overlay leaves on delay-1000 duration-1000 and the nav enters on a
+        // 2000ms delay. With no canvas there is nothing to wait for, and the
+        // overlay is the same colour as the page, so those delays just showed a
+        // black screen for ~2s and read as a hang.
+        const startedAt = Date.now();
+        await page.goto("/");
+        await expect(loadingOverlay(page)).toBeHidden({ timeout: 20_000 });
+        const revealedAfter = Date.now() - startedAt;
+
+        expect(revealedAfter, `overlay took ${revealedAfter}ms to clear`).toBeLessThan(1500);
     });
 
     test("does not mount the 3D scene", async ({ page }) => {
