@@ -23,7 +23,7 @@ import {
     TextureLoader,
     Vector3,
 } from "three";
-import { computed, reactive, ref, shallowRef, toRefs, watch } from "vue";
+import { computed, onUnmounted, reactive, ref, shallowRef, toRefs, watch } from "vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -125,7 +125,13 @@ const mobileOverlayRef = ref<MeshStandardMaterial>();
 const screenTextureOpacityRef = ref(0);
 const screenOverlayOpacityRef = ref(1);
 
+// The first frames the renderer produces are blown out: lights and exposure are
+// damped toward their targets in onLoop, so frame zero is a near-white wash that
+// settles within a few hundred milliseconds. The loading overlay used to hide
+// this. Fade the canvas in from the page's own background instead of showing it.
 const canvasStyle = reactive({
+    opacity: 0,
+    transition: "opacity 600ms ease-out",
     display: "block",
     top: "0px",
     bottom: "0px",
@@ -1057,7 +1063,36 @@ function updateObjects(delta: number) {
     }
 }
 
+// Damping runs on wall clock, not on frame count, so the scene reaches its resting
+// exposure a fixed time after rendering starts however fast the device is. Waiting
+// for one frame is enough to know rendering has started; accumulating deltas made
+// the reveal hostage to frame rate, which stalled it under load.
+const REVEAL_DELAY_MS = 500;
+const MOUNT_FALLBACK_MS = 3000;
+let revealTimer: ReturnType<typeof setTimeout> | undefined;
+
+const revealScene = () => {
+    canvasStyle.opacity = 1;
+};
+
+const scheduleReveal = (delay: number) => {
+    clearTimeout(revealTimer);
+    revealTimer = setTimeout(revealScene, delay);
+};
+
+// If the render loop never starts, nothing is on screen to protect, but the canvas
+// must not be left permanently transparent either.
+scheduleReveal(MOUNT_FALLBACK_MS);
+onUnmounted(() => clearTimeout(revealTimer));
+
+let hasRenderedFrame = false;
+
 function onLoop({ delta }: { delta: number }) {
+    if (!hasRenderedFrame) {
+        hasRenderedFrame = true;
+        scheduleReveal(REVEAL_DELAY_MS);
+    }
+
     if (spotLightRef.value && spotLightTargetRef.value) {
         spotLightRef.value.target = spotLightTargetRef.value;
     }
