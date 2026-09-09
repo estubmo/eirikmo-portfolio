@@ -23,7 +23,7 @@ import {
     TextureLoader,
     Vector3,
 } from "three";
-import { computed, reactive, ref, shallowRef, toRefs, watch } from "vue";
+import { computed, onUnmounted, reactive, ref, shallowRef, toRefs, watch } from "vue";
 import { device } from "../constants/deviceVectors";
 import { normalize } from "../utils/normalize";
 import CustomStatsGl from "./CustomStatsGl.vue";
@@ -1063,14 +1063,34 @@ function updateObjects(delta: number) {
     }
 }
 
-// Damping needs a few frames to bring the scene down to its resting exposure.
-let framesRendered = 0;
-const FRAMES_BEFORE_REVEAL = 10;
+// Damping runs on wall clock, not on frame count, so the scene reaches its resting
+// exposure a fixed time after rendering starts however fast the device is. Waiting
+// for one frame is enough to know rendering has started; accumulating deltas made
+// the reveal hostage to frame rate, which stalled it under load.
+const REVEAL_DELAY_MS = 500;
+const MOUNT_FALLBACK_MS = 3000;
+let revealTimer: ReturnType<typeof setTimeout> | undefined;
+
+const revealScene = () => {
+    canvasStyle.opacity = 1;
+};
+
+const scheduleReveal = (delay: number) => {
+    clearTimeout(revealTimer);
+    revealTimer = setTimeout(revealScene, delay);
+};
+
+// If the render loop never starts, nothing is on screen to protect, but the canvas
+// must not be left permanently transparent either.
+scheduleReveal(MOUNT_FALLBACK_MS);
+onUnmounted(() => clearTimeout(revealTimer));
+
+let hasRenderedFrame = false;
 
 function onLoop({ delta }: { delta: number }) {
-    if (framesRendered <= FRAMES_BEFORE_REVEAL) {
-        framesRendered++;
-        if (framesRendered > FRAMES_BEFORE_REVEAL) canvasStyle.opacity = 1;
+    if (!hasRenderedFrame) {
+        hasRenderedFrame = true;
+        scheduleReveal(REVEAL_DELAY_MS);
     }
 
     if (spotLightRef.value && spotLightTargetRef.value) {
