@@ -68,14 +68,28 @@ import VitestIcon from "../icons/VitestIcon.vue";
             <p>
                 Building Fotballfeber from the ground up was a fascinating journey. I chose Next.js, React, and
                 TailwindCSS as the core technologies. Everything was meticulously organized in a monorepo using
-                Turborepo. The entire platform runs on infrastructure I operate myself: a Hetzner server managed with
-                Coolify, where every service is containerised with Docker and routed through Traefik. For state
-                management and data fetching, I adopted Jotai and Tanstack Query. The UI is adorned with shadcn/ui,
-                Radix UI, and Lucide icons, ensuring a sleek and user-friendly experience. Wireframing involved
-                low-fidelity designs created in Excalidraw and high-fidelity wireframes crafted in Figma. Flowcharts and
-                diagrams were illustrated using Excalidraw.
+                Turborepo. For state management and data fetching, I adopted Jotai and Tanstack Query. The UI is adorned
+                with shadcn/ui, Radix UI, and Lucide icons, ensuring a sleek and user-friendly experience. Wireframing
+                involved low-fidelity designs created in Excalidraw and high-fidelity wireframes crafted in Figma.
+                Flowcharts and diagrams were illustrated using Excalidraw.
             </p>
         </div>
+        <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
+            <h3 class="text-lg md:text-xl font-bold mt-4">Running It In Production</h3>
+            <p>
+                Fotballfeber is not a demo. It has been live since 2022, and I am the one who gets paged when it breaks.
+                It runs on hardware I rent and operate myself: two Hetzner hosts with production and non-production
+                separated, and 104 containers in production, for €65.60 a month.
+            </p>
+            <p>
+                Almost every service is self-hosted rather than bought. Supabase, Trigger.dev, Meilisearch, Novu, Flipt
+                and Infisical all run on my own infrastructure, managed through Coolify, containerised with Docker and
+                routed through Traefik. Only transactional email and product analytics are managed services. Monitoring
+                is defined as code and audited for drift, and the infrastructure lives in git, so the platform is
+                reproducible rather than hand-tuned.
+            </p>
+        </div>
+
         <div class="flex flex-col col-span-3 md:col-span-2 gap-2">
             <h3 class="text-lg md:text-xl font-bold mt-4">News Aggregation Magic</h3>
             <p>

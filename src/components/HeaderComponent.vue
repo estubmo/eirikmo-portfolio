@@ -35,12 +35,13 @@
                     <div class="size-3 bg-zinc-400 rounded-sm" />
                     <div class="h-3 w-12 bg-zinc-400 rounded-sm" />
                 </div>
-                <h1 class="font-mono text-zinc-200 font-light text-xl">
-                    &lt; Senior Full-Stack Engineer · AI-augmented />
-                </h1>
+                <h1 class="font-mono text-zinc-200 font-light text-xl">&lt; Senior Full-Stack Engineer /&gt;</h1>
+                <!-- Subordinate to the role, but still in the first screen: recruiters
+                     scan for stack keywords before anything else. -->
+                <p class="font-mono text-sm tracking-wide text-sky-200/70">React · Next.js · TypeScript · Node.js</p>
                 <p class="text-zinc-400 text-lg max-w-md">
-                    10 years shipping for startups and scale-ups. I now build and operate entire systems solo, at
-                    team-scale velocity, by orchestrating AI coding agents inside a disciplined engineering process.
+                    10 years shipping for startups and scale-ups. I build and operate the whole thing: application,
+                    infrastructure, deploys, on-call.
                 </p>
                 <NuxtLink
                     href="#contact"
@@ -52,8 +53,24 @@
                         ></span>
                         <span class="relative inline-flex rounded-full size-2 bg-green-500"></span>
                     </span>
-                    <span class="text-green-400 text-sm font-medium">Open to remote contract work (CET)</span>
+                    <span class="text-green-400 text-sm font-medium">Available now · Remote, CET</span>
                 </NuxtLink>
+                <!-- Separator sits before each item rather than between them, so a wrapped
+                     line never ends on a dangling dot. -->
+                <!-- Stacked on narrow, inline on wider. The separator sits before each item so a
+                     wrapped line never ends on a dangling dot, and it is dropped entirely when
+                     the items are already on their own lines. -->
+                <ul
+                    class="flex flex-col gap-y-0.5 font-mono text-sm text-zinc-400 sm:flex-row sm:flex-wrap sm:items-center"
+                >
+                    <li
+                        v-for="fact in ['From 90 EUR/h', 'B2B via Mo Web Dev AS']"
+                        :key="fact"
+                        class="sm:before:mx-3 sm:before:text-zinc-600 sm:before:content-['·'] sm:first:before:hidden"
+                    >
+                        {{ fact }}
+                    </li>
+                </ul>
             </div>
             <div class="space-y-4">
                 <div class="gap-3 flex">

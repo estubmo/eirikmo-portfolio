@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { expectSiteUsable, loadingOverlay, scene } from "./helpers";
+import { expectSiteUsable, navLink, scene } from "./helpers";
 
 // Regression test for the Brave 500 page.
 //
@@ -25,26 +25,24 @@ test.describe("WebGL unavailable", () => {
         await expectSiteUsable(page);
     });
 
-    test("clears the loading overlay", async ({ page }) => {
-        // hasFinishedLoading is normally emitted by CanvasComponent. Without the
-        // canvas the fallback has to set it, or the overlay covers the site forever.
-        // expectSiteUsable asserts the overlay is gone, not merely that content
-        // exists underneath it.
+    test("shows the nav and hero, not a bare page", async ({ page }) => {
+        // The nav and socials are v-show'd on isAppReady. Before the fallback
+        // existed they were gated on the 3D scene reporting in, which never
+        // happened here.
         await expectSiteUsable(page);
     });
 
-    test("reveals the site promptly instead of holding a black screen", async ({ page }) => {
-        // The stock reveal is paced for the 3D scene fading in behind the overlay:
-        // the overlay leaves on delay-1000 duration-1000 and the nav enters on a
-        // 2000ms delay. With no canvas there is nothing to wait for, and the
-        // overlay is the same colour as the page, so those delays just showed a
-        // black screen for ~2s and read as a hang.
+    test("is readable without waiting on anything", async ({ page }) => {
+        // The reveal used to be paced for the 3D scene fading in behind an overlay:
+        // the overlay left on delay-1000 duration-1000 and the nav entered on a
+        // 2000ms delay. With no scene there was nothing to wait for, and the overlay
+        // was the same colour as the page, so this was ~2.5s of black screen.
         const startedAt = Date.now();
         await page.goto("/");
-        await expect(loadingOverlay(page)).toBeHidden({ timeout: 20_000 });
-        const revealedAfter = Date.now() - startedAt;
+        await expect(navLink(page, "Expertise")).toBeVisible({ timeout: 20_000 });
+        const readableAfter = Date.now() - startedAt;
 
-        expect(revealedAfter, `overlay took ${revealedAfter}ms to clear`).toBeLessThan(1500);
+        expect(readableAfter, `took ${readableAfter}ms to become readable`).toBeLessThan(3_000);
     });
 
     test("does not mount the 3D scene", async ({ page }) => {

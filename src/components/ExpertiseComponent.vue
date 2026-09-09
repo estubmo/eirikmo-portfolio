@@ -16,15 +16,24 @@ import TechContainer from "./TechContainer.vue";
             Are you in need of a pragmatic enthusiast to drive your project forward?
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
-            Fluent in the languages of engineering and aesthetics, I'm uniquely equipped to chart a course for a
-            practical product that prioritizes the customer's experience. My forte is full-stack development and devops
-            engineering, and I'm committed to choosing the most fitting tools for each project, whether it's a robust
-            framework or the latest web innovations.
+            I work with AI agents daily, which by now is unremarkable. What decides whether that helps is the ground it
+            runs on.
+            <a
+                href="https://dora.dev/"
+                target="_blank"
+                rel="noopener"
+                class="underline decoration-sky-200/40 underline-offset-4 hover:decoration-sky-200"
+                >DORA's 2025 research</a
+            >
+            found that where platform quality is high, AI adoption has a strong positive effect on performance, and
+            where platform quality is low, the effect is negligible.
         </p>
         <p v-motion-slide-visible-once-left-custom class="md:text-lg">
-            I understand that the key lies not only in impressive interfaces and blazing performance but also in
-            striking a harmonious balance between sustainable implementation and user-centric functionality. Let's
-            collaborate to bring your project to life.
+            So the time goes into the parts that decide it: a spec before the code, infrastructure in git, changes that
+            land with the tests that cover them, and monitoring defined as code. The speed is downstream of that, not a
+            substitute for it. It is also why I operate my own platform rather than only writing code for someone
+            else's. If you need one person who can take a product from an empty repo to something that stays up, that is
+            the work I do.
         </p>
     </div>
     <div class="w-full flex flex-col">
