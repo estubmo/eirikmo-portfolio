@@ -71,5 +71,9 @@ test("the platform evidence is in the page without opening a modal", async ({ br
     await expect(page.getByText("two Hetzner hosts")).toBeAttached();
     await expect(page.getByText("€65.60 a month")).toBeAttached();
 
+    // The method claim and its source, server-rendered like the rest.
+    await expect(page.getByText("where platform quality is high")).toBeAttached();
+    await expect(page.getByRole("link", { name: "DORA's 2025 research" })).toHaveAttribute("href", "https://dora.dev/");
+
     await context.close();
 });
