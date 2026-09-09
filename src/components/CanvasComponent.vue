@@ -125,7 +125,13 @@ const mobileOverlayRef = ref<MeshStandardMaterial>();
 const screenTextureOpacityRef = ref(0);
 const screenOverlayOpacityRef = ref(1);
 
+// The first frames the renderer produces are blown out: lights and exposure are
+// damped toward their targets in onLoop, so frame zero is a near-white wash that
+// settles within a few hundred milliseconds. The loading overlay used to hide
+// this. Fade the canvas in from the page's own background instead of showing it.
 const canvasStyle = reactive({
+    opacity: 0,
+    transition: "opacity 600ms ease-out",
     display: "block",
     top: "0px",
     bottom: "0px",
@@ -1057,7 +1063,16 @@ function updateObjects(delta: number) {
     }
 }
 
+// Damping needs a few frames to bring the scene down to its resting exposure.
+let framesRendered = 0;
+const FRAMES_BEFORE_REVEAL = 10;
+
 function onLoop({ delta }: { delta: number }) {
+    if (framesRendered <= FRAMES_BEFORE_REVEAL) {
+        framesRendered++;
+        if (framesRendered > FRAMES_BEFORE_REVEAL) canvasStyle.opacity = 1;
+    }
+
     if (spotLightRef.value && spotLightTargetRef.value) {
         spotLightRef.value.target = spotLightTargetRef.value;
     }

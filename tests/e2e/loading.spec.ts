@@ -77,3 +77,39 @@ test("the platform evidence is in the page without opening a modal", async ({ br
 
     await context.close();
 });
+
+test("the 3D scene fades in rather than flashing white", async ({ page }) => {
+    // The renderer's first frames are blown out: lights and exposure damp toward
+    // their targets in onLoop, so frame zero is a near-white wash. It used to be
+    // hidden by the loading overlay. Measured before the fix, the viewport hit 190
+    // of 255 around 600ms against a settled value of 23.
+    //
+    // Sampling brightness cannot test this. The flash lasts a few hundred
+    // milliseconds and a screenshot round trip costs about as long, so the window
+    // is missed and the test passes with the bug present. Record the canvas's
+    // opacity at the instant it enters the DOM instead.
+    await page.addInitScript(() => {
+        const observer = new MutationObserver(() => {
+            const canvas = document.querySelector("canvas#canvas");
+            if (!canvas) return;
+
+            (window as unknown as { __canvasOpacityOnInsert: string }).__canvasOpacityOnInsert =
+                getComputedStyle(canvas).opacity;
+            observer.disconnect();
+        });
+
+        observer.observe(document, { childList: true, subtree: true });
+    });
+
+    await page.goto("/");
+    await expect(page.locator("canvas#canvas")).toHaveCount(1);
+
+    const opacityOnInsert = await page.evaluate(
+        () => (window as unknown as { __canvasOpacityOnInsert?: string }).__canvasOpacityOnInsert,
+    );
+
+    expect(opacityOnInsert, "canvas must enter the DOM transparent, then fade in").toBe("0");
+
+    // And it must actually become visible, or the scene would never show at all.
+    await expect(page.locator("canvas#canvas")).toHaveCSS("opacity", "1");
+});
